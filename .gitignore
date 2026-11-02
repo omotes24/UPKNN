@@ -1,0 +1,25 @@
+# data, checkpoints, run outputs and third-party code are not part of the repository
+data/npy/
+data/raw/
+data/external/
+ckpt/
+ext/
+runs/*
+!runs/ok/
+runs/ok/*
+!runs/ok/sets_*.json
+logs/
+__pycache__/
+*.pyc
+paper/*.aux
+paper/*.log
+paper/*.out
+paper/*.bbl
+paper/*.blg
+paper/build*.log
+paper/named.sty
+analysis/final/data*/
+analysis/final/*/res/
+analysis/final/eu_stage/
+analysis/eu_build/inputs_full/
+tools/anon_terms.txt

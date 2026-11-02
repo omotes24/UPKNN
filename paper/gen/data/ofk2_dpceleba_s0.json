@@ -1,0 +1,156 @@
+{
+ "tag": "dpceleba",
+ "seed": 0,
+ "content": {
+  "space": "L012",
+  "R": 5,
+  "d": 25.121606826782227,
+  "sel": 99.9209590909091
+ },
+ "rows": {
+  "content L012 P5 d=25.1": {
+   "sel": 99.9209590909091,
+   "fresh": {
+    "cifar10_test": 99.9792,
+    "cifar100_test": 99.97319999999999,
+    "svhn_test": 99.99985,
+    "textures": 99.813,
+    "tin_val": 99.98075,
+    "lsun_fix": 99.98845,
+    "imagenet_fix": 99.9112,
+    "imagenet32_val": 99.96835,
+    "places365_val": 99.95945
+   },
+   "nat": 99.95260555555556,
+   "vflip": 99.3621
+  },
+  "pose gq.lin": {
+   "sel": 99.97042386363637,
+   "fresh": {
+    "cifar10_test": 100.0,
+    "cifar100_test": 100.0,
+    "svhn_test": 100.0,
+    "textures": 99.93435000000001,
+    "tin_val": 99.9999,
+    "lsun_fix": 100.0,
+    "imagenet_fix": 99.9919,
+    "imagenet32_val": 99.9999,
+    "places365_val": 100.0
+   },
+   "nat": 99.99178333333333,
+   "vflip": 100.0
+  },
+  "pose gq.mlp": {
+   "sel": 99.98630454545454,
+   "fresh": {
+    "cifar10_test": 100.0,
+    "cifar100_test": 100.0,
+    "svhn_test": 100.0,
+    "textures": 99.9924,
+    "tin_val": 100.0,
+    "lsun_fix": 100.0,
+    "imagenet_fix": 99.9974,
+    "imagenet32_val": 100.0,
+    "places365_val": 100.0
+   },
+   "nat": 99.99886666666666,
+   "vflip": 100.0
+  },
+  "pose g.lin": {
+   "sel": 99.97667954545456,
+   "fresh": {
+    "cifar10_test": 100.0,
+    "cifar100_test": 99.9985,
+    "svhn_test": 100.0,
+    "textures": 99.9811,
+    "tin_val": 99.9996,
+    "lsun_fix": 99.9999,
+    "imagenet_fix": 99.9996,
+    "imagenet32_val": 99.9995,
+    "places365_val": 99.99980000000001
+   },
+   "nat": 99.99755555555556,
+   "vflip": 100.0
+  },
+  "pose g.mlp": {
+   "sel": 99.97444772727273,
+   "fresh": {
+    "cifar10_test": 100.0,
+    "cifar100_test": 100.0,
+    "svhn_test": 100.0,
+    "textures": 99.9944,
+    "tin_val": 100.0,
+    "lsun_fix": 100.0,
+    "imagenet_fix": 99.99980000000001,
+    "imagenet32_val": 100.0,
+    "places365_val": 100.0
+   },
+   "nat": 99.99935555555555,
+   "vflip": 100.0
+  },
+  "content+pose gq.lin": {
+   "sel": 99.94802045454547,
+   "fresh": {
+    "cifar10_test": 99.9997,
+    "cifar100_test": 99.99940000000001,
+    "svhn_test": 100.0,
+    "textures": 99.9552,
+    "tin_val": 99.99980000000001,
+    "lsun_fix": 99.9999,
+    "imagenet_fix": 99.9992,
+    "imagenet32_val": 99.9982,
+    "places365_val": 99.9928
+   },
+   "nat": 99.99380000000001,
+   "vflip": 100.0
+  },
+  "content+pose gq.mlp": {
+   "sel": 99.94827727272728,
+   "fresh": {
+    "cifar10_test": 99.9993,
+    "cifar100_test": 99.9979,
+    "svhn_test": 100.0,
+    "textures": 99.9474,
+    "tin_val": 99.99940000000001,
+    "lsun_fix": 99.9999,
+    "imagenet_fix": 99.9843,
+    "imagenet32_val": 99.9872,
+    "places365_val": 99.9928
+   },
+   "nat": 99.9898,
+   "vflip": 100.0
+  },
+  "content+pose g.lin": {
+   "sel": 99.94994772727274,
+   "fresh": {
+    "cifar10_test": 99.9997,
+    "cifar100_test": 99.9989,
+    "svhn_test": 100.0,
+    "textures": 99.97540000000001,
+    "tin_val": 99.9997,
+    "lsun_fix": 99.9997,
+    "imagenet_fix": 99.9936,
+    "imagenet32_val": 99.9971,
+    "places365_val": 99.9936
+   },
+   "nat": 99.9953,
+   "vflip": 100.0
+  },
+  "content+pose g.mlp": {
+   "sel": 99.94852045454546,
+   "fresh": {
+    "cifar10_test": 99.99900000000001,
+    "cifar100_test": 99.9991,
+    "svhn_test": 100.0,
+    "textures": 99.94659999999999,
+    "tin_val": 99.9993,
+    "lsun_fix": 99.9999,
+    "imagenet_fix": 99.9863,
+    "imagenet32_val": 99.9938,
+    "places365_val": 99.9968
+   },
+   "nat": 99.99119999999999,
+   "vflip": 99.9999
+  }
+ }
+}

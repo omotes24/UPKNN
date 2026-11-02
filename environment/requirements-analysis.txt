@@ -1,0 +1,6 @@
+# CPU side (analysis/, paper/gen/): Python 3.13; the paper needs pdfLaTeX + BibTeX (TeX Live 2023).
+numpy
+scipy
+scikit-learn
+matplotlib
+pillow

@@ -1,0 +1,100 @@
+{
+ "ours": {
+  "nat": 99.92219375,
+  "vflip": 99.55325,
+  "pairs": {
+   "g32_mnist_test": 99.95855,
+   "g32_kmnist_test": 99.940175,
+   "g32_omniglot_eval": 99.83645,
+   "g32_notmnist": 99.9536
+  },
+  "sel": 99.98098428803098
+ },
+ "content only": {
+  "nat": 99.862465625,
+  "vflip": 96.52081249999999,
+  "pairs": {
+   "g32_mnist_test": 99.9452625,
+   "g32_kmnist_test": 99.8379125,
+   "g32_omniglot_eval": 99.698375,
+   "g32_notmnist": 99.9683125
+  },
+  "sel": 99.96962439840972
+ },
+ "orientation only": {
+  "nat": 99.68121875,
+  "vflip": 99.95032499999999,
+  "pairs": {
+   "g32_mnist_test": 99.78485,
+   "g32_kmnist_test": 99.783525,
+   "g32_omniglot_eval": 99.91109999999999,
+   "g32_notmnist": 99.24539999999999
+  },
+  "sel": 99.76788293576061
+ },
+ "no temperature": {
+  "nat": 99.92285000000001,
+  "vflip": 99.54765,
+  "pairs": {
+   "g32_mnist_test": 99.959375,
+   "g32_kmnist_test": 99.940725,
+   "g32_omniglot_eval": 99.8365,
+   "g32_notmnist": 99.9548
+  },
+  "sel": 99.98170113779032
+ },
+ "orbit bank": {
+  "nat": 99.7956875,
+  "vflip": 97.9699,
+  "pairs": {
+   "g32_mnist_test": 99.93645,
+   "g32_kmnist_test": 99.603625,
+   "g32_omniglot_eval": 99.681825,
+   "g32_notmnist": 99.96085000000001
+  },
+  "sel": 99.89674748639884
+ },
+ "head with rotated noise": {
+  "nat": 99.9165,
+  "vflip": 98.3487,
+  "pairs": {
+   "g32_mnist_test": 99.970775,
+   "g32_kmnist_test": 99.916675,
+   "g32_omniglot_eval": 99.8036,
+   "g32_notmnist": 99.97494999999999
+  },
+  "sel": 99.98407360587989
+ },
+ "four views (rotated-noise test views)": {
+  "nat": 99.91346875,
+  "vflip": 99.63250000000001,
+  "pairs": {
+   "g32_mnist_test": 99.9512,
+   "g32_kmnist_test": 99.93192499999999,
+   "g32_omniglot_eval": 99.81425,
+   "g32_notmnist": 99.9565
+  },
+  "sel": 99.98523338302992
+ },
+ "Fisher instead of sum": {
+  "nat": 99.9555375,
+  "vflip": 99.7938,
+  "pairs": {
+   "g32_mnist_test": 99.9741125,
+   "g32_kmnist_test": 99.96365,
+   "g32_omniglot_eval": 99.93735000000001,
+   "g32_notmnist": 99.94703750000001
+  },
+  "sel": 99.99032369219503
+ },
+ "_meta": {
+  "d": 14.350443840026855,
+  "d_orbit": 14.819111824035645,
+  "R": 1,
+  "R_orbit": 4,
+  "T": 0.9725193977355957,
+  "d_orbit_half": Infinity,
+  "d_upright_single": 13.404420852661133,
+  "version": 2
+ }
+}

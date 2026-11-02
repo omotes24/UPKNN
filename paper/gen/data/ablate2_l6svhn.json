@@ -1,0 +1,140 @@
+{
+ "ours": {
+  "nat": 99.42978888888891,
+  "vflip": 63.6142,
+  "pairs": {
+   "cifar10_test": 99.3772,
+   "cifar100_test": 99.2604,
+   "celeba_test": 98.6662,
+   "textures": 99.5197,
+   "tin_val": 99.29860000000001,
+   "lsun_fix": 99.68820000000001,
+   "imagenet_fix": 99.6717,
+   "imagenet32_val": 99.735,
+   "places365_val": 99.6511
+  },
+  "sel": 99.5811065947781
+ },
+ "content only": {
+  "nat": 99.14925555555556,
+  "vflip": 55.67959999999999,
+  "pairs": {
+   "cifar10_test": 99.02744999999999,
+   "cifar100_test": 98.9229,
+   "celeba_test": 97.8243,
+   "textures": 99.5168,
+   "tin_val": 99.0247,
+   "lsun_fix": 99.52535,
+   "imagenet_fix": 99.46334999999999,
+   "imagenet32_val": 99.57195,
+   "places365_val": 99.4665
+  },
+  "sel": 99.34695227272728
+ },
+ "orientation only": {
+  "nat": 95.75142222222223,
+  "vflip": 77.9362,
+  "pairs": {
+   "cifar10_test": 95.9804,
+   "cifar100_test": 94.8611,
+   "celeba_test": 94.2676,
+   "textures": 93.3897,
+   "tin_val": 95.1548,
+   "lsun_fix": 97.0121,
+   "imagenet_fix": 97.0005,
+   "imagenet32_val": 97.4412,
+   "places365_val": 96.6554
+  },
+  "sel": 94.71226626104539
+ },
+ "no temperature": {
+  "nat": 99.33381111111112,
+  "vflip": 64.8178,
+  "pairs": {
+   "cifar10_test": 99.2851,
+   "cifar100_test": 99.1419,
+   "celeba_test": 98.49900000000001,
+   "textures": 99.3956,
+   "tin_val": 99.1832,
+   "lsun_fix": 99.62729999999999,
+   "imagenet_fix": 99.612,
+   "imagenet32_val": 99.6816,
+   "places365_val": 99.5786
+  },
+  "sel": 99.48371837526834
+ },
+ "orbit bank": {
+  "nat": 99.3875,
+  "vflip": 60.6622,
+  "pairs": {
+   "cifar10_test": 99.2475,
+   "cifar100_test": 99.2278,
+   "celeba_test": 98.5951,
+   "textures": 99.5089,
+   "tin_val": 99.2159,
+   "lsun_fix": 99.6417,
+   "imagenet_fix": 99.6201,
+   "imagenet32_val": 99.7807,
+   "places365_val": 99.6498
+  },
+  "sel": 99.52718636363637
+ },
+ "head with rotated noise": {
+  "nat": 99.51409444444444,
+  "vflip": 56.206100000000006,
+  "pairs": {
+   "cifar10_test": 99.4492,
+   "cifar100_test": 99.3519,
+   "celeba_test": 98.953,
+   "textures": 99.5919,
+   "tin_val": 99.35845,
+   "lsun_fix": 99.7533,
+   "imagenet_fix": 99.71029999999999,
+   "imagenet32_val": 99.7592,
+   "places365_val": 99.6996
+  },
+  "sel": 99.58308181818182
+ },
+ "four views (rotated-noise test views)": {
+  "nat": 99.13386666666666,
+  "vflip": 63.031800000000004,
+  "pairs": {
+   "cifar10_test": 99.1384,
+   "cifar100_test": 98.9555,
+   "celeba_test": 97.7277,
+   "textures": 99.4176,
+   "tin_val": 99.05669999999999,
+   "lsun_fix": 99.5043,
+   "imagenet_fix": 99.4618,
+   "imagenet32_val": 99.5214,
+   "places365_val": 99.4214
+  },
+  "sel": 99.48324068568718
+ },
+ "Fisher instead of sum": {
+  "nat": 99.36908888888888,
+  "vflip": 72.8188,
+  "pairs": {
+   "cifar10_test": 99.31205,
+   "cifar100_test": 99.15905000000001,
+   "celeba_test": 98.63545,
+   "textures": 99.3978,
+   "tin_val": 99.2043,
+   "lsun_fix": 99.6562,
+   "imagenet_fix": 99.62695000000001,
+   "imagenet32_val": 99.71244999999999,
+   "places365_val": 99.61755
+  },
+  "sel": 99.50439107882781
+ },
+ "_meta": {
+  "d": 22.755237579345703,
+  "d_orbit": 24.436054229736328,
+  "R": 5,
+  "R_orbit": 20,
+  "T": 1.4265820980072021,
+  "d_orbit_half": 24.63094711303711,
+  "d_upright_single": 22.583633422851562,
+  "version": 2
+ }
+}

@@ -1,0 +1,6 @@
+python code/ct_extract.py --tag edmc10 --gpu {gpu} --ks 0 --out runs/ct_fresh > logs/eu/fresh_ct_edmc10.log 2>&1
+python code/ct_extract.py --tag l6svhn --gpu {gpu} --ks 0 --out runs/ct_fresh > logs/eu/fresh_ct_l6svhn.log 2>&1
+python code/ct_extract.py --tag dpceleba --gpu {gpu} --ks 0 --out runs/ct_fresh > logs/eu/fresh_ct_dpceleba.log 2>&1
+DG_FP16=0 python code/ct_extract.py --tag edmc100 --gpu {gpu} --ks 0 --out runs/ct_fresh > logs/eu/fresh_ct_edmc100.log 2>&1
+python code/ct_extract.py --tag in64 --gpu {gpu} --ks 0 --out runs/ct_fresh > logs/eu/fresh_ct_in64.log 2>&1
+python code/ct_extract.py --tag fmnist --gpu {gpu} --ks 0 --out runs/ct_fresh > logs/eu/fresh_ct_fmnist.log 2>&1

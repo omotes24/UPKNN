@@ -1,0 +1,138 @@
+%%%% supp.tex -- supplementary material of the IJCAI-27 submission (anonymous): Upright kNN
+%   tables written by gen/mk_supp.py from the same evaluation files as the paper (gen/data/); build with build_supp.sh
+\documentclass[10pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{times}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{booktabs}
+\usepackage[table]{xcolor}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{float}
+\usepackage[hidelinks,bookmarks=false]{hyperref}
+\usepackage[small]{caption}
+\usepackage{named}
+\makeatletter\newcommand{\inputrows}[1]{\@@input #1 }\makeatother   % primitive \input inside tabular (a rule may follow)
+\newcommand{\veps}{\boldsymbol{\varepsilon}}
+\newcommand{\Rot}[1]{\mathbf{R}_{#1}}
+\renewcommand{\thetable}{S\arabic{table}}
+\renewcommand{\thesection}{S\arabic{section}}
+\title{Supplementary Material\\[2pt]\large Upright kNN: Completing Nearest-Neighbour Density on Diffusion Features with the Missing Orientation Factor for Out-of-Distribution Detection}
+\author{Anonymous Submission}
+\date{}
+\begin{document}
+\maketitle
+
+\section{Protocol and Data}
+\label{s:protocol}
+\textbf{Splits.} For every ID dataset the images are split into three disjoint parts. (i) \emph{Selection data}: ID development images and OOD datasets that are never used for evaluation (for the five 32$\times$32 ID datasets: STL-10, GTSRB, Flowers-102, EuroSAT, MNIST in RGB, Oxford-IIIT Pets, Caltech-101, Food-101, FGVC-Aircraft, Imagenette and Rendered SST-2; for ImageNet-64 the same without Imagenette; for FashionMNIST: EMNIST letters, Kuzushiji-49, Semeion and greyscale CIFAR-10, SVHN and GTSRB). (ii) \emph{Development evaluation images}: 1{,}000 per set (2{,}000 for FashionMNIST). (iii) \emph{Final evaluation images}: 500 per set. The configuration of Upright kNN (block set and $R$ of the kNN term) was chosen on (i) among 20 candidates (half-resolution block or the mean of the three blocks; $R$ among ten values from 1 to 1000) by the mean AUROC of the term alone; the head (inputs, linear vs.\ MLP, temperature) was chosen on held-out bank images only. The method was developed on (ii), a written protocol was frozen, and (iii) was evaluated once. All tables of the paper are on (iii) except the development ablations (Table~\ref{tab:ablate}) and the mirror test (Table~\ref{tab:mirror}).
+
+\textbf{OOD sets.} For the 32$\times$32 ID datasets: the other natural datasets among CIFAR-10/100, SVHN and CelebA, plus Textures (DTD), Tiny-ImageNet (validation images resized to 32$\times$32), LSUN and ImageNet (the resized versions distributed with CSI), ImageNet32 (downsampled validation images) and Places365 (validation images). For ImageNet-64: the OpenOOD v1.5 sets (SSB-hard, NINCO, iNaturalist, Textures, OpenImage-O) plus Places365 and CelebA. For FashionMNIST: MNIST, KMNIST, Omniglot and notMNIST embedded in 32$\times$32. Every ID dataset is also paired with its own images flipped upside down and, except ImageNet-64, with uniform-noise and constant images, giving 63 pairs.
+
+\textbf{Bank and noise.} The bank is 50{,}000 ID training images (10{,}000 for ImageNet-64, 10 per class). The noise image $\veps$ of $\sigma_1\veps$ is one fixed draw per noise seed, shared by all images; the results are averaged over three seeds.
+
+\section{Models and Configuration}
+\begin{table}[H]\centering\footnotesize\setlength{\tabcolsep}{3.5pt}
+\begin{tabular}{@{}lllp{2.6cm}cccc>{\raggedright\arraybackslash}p{3.1cm}@{}}\toprule
+ID & Res. & Model & Source & $d$ & $R$ & $T$ & Head acc.\,(\%) & tuned kNN configuration\\\midrule
+\inputrows{supp_models.tex}
+\bottomrule
+\end{tabular}
+\caption{ID datasets, diffusion models and the configuration of Upright kNN (noise seed 0). All weights except FashionMNIST are public and unchanged. $d$: Levina--Bickel intrinsic dimension of the bank features (20 neighbours, 3{,}000 bank points); $R$: neighbour rank chosen on the selection data; $T$: temperature of the head; head accuracy: rotation accuracy on the 5{,}000 held-out bank images. The last column gives the configuration of the tuned kNN baseline (chosen on the selection data among 80).}
+\label{tab:models}
+\end{table}
+
+\section{Comparison Methods}
+All likelihood- and statistic-based methods use the same diffusion models. NLL, IC and TT use the probability-flow ODE with 64 Heun steps (128 forward and 128 backward evaluations). MSMA$^{*}$ is the Mahalanobis distance of the vector of score norms at 20 noise levels, fitted on ID development images. DiffPath and GEPC follow the official code and EigenScore the paper's procedure. CFS follows the official code (hook policy: up to four encoder and four decoder candidates in structural order, the one with the largest variance on 32 ID training images selected in each region; channel mean and standard deviation; diagonal-Gaussian and standardised 10-NN heads fitted on the bank). At the paper's default noise level (logSNR 5) our port reproduces the paper's CIFAR-10 numbers on the four shared pairs within 0.5 points; the official configuration (logSNR 7) is better on the development images and is used throughout. The rotation classifier is a ResNet-18 trained from scratch for 30 epochs on the ID training images; its score is the sum of the log-probabilities of the correct angle over the four rotated inputs. CPU times use a randomly initialised CIFAR-10 network (the cost does not depend on the weights) on an Intel Xeon (2.1\,GHz, 2 threads).
+
+\section{All Pairs}
+{\small\setlength{\tabcolsep}{5pt}
+\begin{longtable}{@{}llcrlccc@{}}
+\caption{AUROC (\%) of every pair (final evaluation; Upright kNN, tuned kNN and CFS averaged over three seeds). Best prior: the best of the 11 prior methods on that pair (chosen after the fact). Difference: Upright kNN minus that method; \textbf{bold} = win, \textit{italic} = loss, plain = tie (bootstrap rule of the paper).}\label{tab:pairs}\\\toprule
+ID & OOD & Ours & \multicolumn{2}{c}{best prior} & diff. & tuned kNN & diff.\\\midrule\endfirsthead
+\toprule ID & OOD & Ours & \multicolumn{2}{c}{best prior} & diff. & tuned kNN & diff.\\\midrule\endhead
+\inputrows{supp_pairs.tex}
+\end{longtable}}
+
+\section{FPR95}
+\begin{table}[H]\centering\small\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}lcccccc|c|c@{}}\toprule
+Method & CIFAR-10 & SVHN & CelebA & CIFAR-100 & ImageNet-64 & FMNIST & Mean & Flip\\\midrule
+\inputrows{supp_fpr.tex}
+\bottomrule
+\end{tabular}
+\caption{FPR at 95\% TPR (\%, lower is better; final evaluation), mean over the natural OOD sets of each ID dataset, their mean, and the mean over the upside-down sets.}
+\label{tab:fpr}
+\end{table}
+
+\section{Ablations}
+\begin{table}[H]\centering\footnotesize\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}lcccccc|c|c|c@{}}\toprule
+Variant & CIFAR-10 & SVHN & CelebA & CIFAR-100 & ImageNet-64 & FMNIST & Mean & Flip & Selection\\\midrule
+\inputrows{supp_ablate.tex}
+\bottomrule
+\end{tabular}
+\caption{Development evaluation images, noise seed 0: mean AUROC over the natural OOD sets, the upside-down mean, and the mean on the selection data. No variant raises the selection-data mean, so within this table the frozen configuration would also be chosen on the selection data alone. $^{*}$Approximation from stored features whose noise was rotated with the image.}
+\label{tab:ablate}
+\end{table}
+
+\section{Mirror Test}
+\begin{table}[H]\centering\small\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}lccccccccccccc@{}}\toprule
+ & \multicolumn{4}{c}{vertical $M$ by depth} & & \multicolumn{4}{c}{horizontal $M$ (control)} & \multicolumn{2}{c}{kNN term of ours} & & \\\cmidrule(lr){2-5}\cmidrule(lr){7-10}\cmidrule(lr){11-12}
+ID & 1 & 1/2 & 1/4 & 1/8 & & 1 & 1/2 & 1/4 & 1/8 & vert. & horiz. & $\rho$ & $\rho_{\mathrm H}$\\\midrule
+\inputrows{supp_mirror.tex}
+\bottomrule
+\end{tabular}
+\caption{Mirror test $M$ (\%, development images, seed 0, $\sigma_1$) of the kNN term ($R=1$) of the last decoder block at each depth (resolution ratio; --: no such level), with the horizontal flip as control; the kNN term of Upright kNN (three blocks, frozen $R$); and the Spearman correlation over all blocks (number in parentheses) between the vertical $M$ and the natural-OOD AUROC of the block ($\rho$), and the same for the horizontal $M$ ($\rho_{\mathrm H}$).}
+\label{tab:mirror}
+\end{table}
+
+\section{ImageNet-1K at 64$\times$64 by Set}
+\begin{table}[H]\centering\small\setlength{\tabcolsep}{3.5pt}
+\begin{tabular}{@{}lcccccccc|cc|c@{}}\toprule
+Method & SSB-hard & NINCO & iNat & Textures & OI-O & V2 & C & R & FPR near & FPR far & W/T/L\\\midrule
+\inputrows{supp_in64.tex}
+\bottomrule
+\end{tabular}
+\caption{OpenOOD v1.5 ImageNet-1K, 64$\times$64, EDM2-XS (AUROC and mean FPR95, \%; 1{,}000 common images per set). W/T/L of Upright kNN over the five OOD sets.}
+\label{tab:in64}
+\end{table}
+\begin{table}[H]\centering\small
+\begin{tabular}{@{}lccccc@{}}\toprule
+Method & 1 & 2 & 3 & 4 & 5\\\midrule
+\inputrows{supp_in64c.tex}
+\bottomrule
+\end{tabular}
+\caption{AUROC (\%) of ImageNet val against ImageNet-C by corruption severity (64$\times$64, full sets, three seeds). Density-based scores flag corrupted images more as the severity grows.}
+\label{tab:in64c}
+\end{table}
+
+\section{ImageNet at 256$\times$256 without Resolution Control}
+\begin{table}[H]\centering\small
+\begin{tabular}{@{}lcccccc@{}}\toprule
+Method & SSB-hard & NINCO & iNat & Textures & OI-O & Flip\\\midrule
+\inputrows{supp_in256.tex}
+\bottomrule
+\end{tabular}
+\caption{ADM 256$\times$256 with each set's images cropped from their stored resolution (500 common images per set). SSB-hard is stored at 224 pixels (short side, all 200 sampled images) and is upsampled, whereas ImageNet validation has a median short side of 375 pixels (3\% below 256); ImageNet-C is also stored at 224 pixels. Every feature-based detector separates SSB-hard far better than at 64$\times$64, a resolution shortcut; the paper therefore reports this setting without SSB-hard and ImageNet-C.}
+\label{tab:in256}
+\end{table}
+
+\section{EuroSAT}
+\begin{table}[H]\centering\small\setlength{\tabcolsep}{3.2pt}
+\begin{tabular}{@{}lcccccccccc|c|cc@{}}\toprule
+Method & C10 & C100 & SVHN & CelebA & Tex. & TIN & LSUN & IN & IN32 & P365 & Mean & Flip & Rot.\,90\\\midrule
+\inputrows{supp_eurosat.tex}
+\bottomrule
+\end{tabular}
+\caption{EuroSAT as ID (U-Net trained on EuroSAT, $R=5$ fixed in advance, three seeds): AUROC (\%) against ten natural OOD sets (500 images each), and of ID images against their vertical flips and 90$^\circ$ rotations.}
+\label{tab:eurosat}
+\end{table}
+
+\section{Compute and Reproducibility}
+All features were extracted on NVIDIA RTX 2080 Ti GPUs (11\,GB). Offline cost of Upright kNN: one pass of the denoiser over the four rotations of the bank (about 7 minutes for 50{,}000 CIFAR-10 images on one GPU) and about 10\,s of head training. Test cost: one denoiser pass, inner products with the bank, and the pooled grid statistics and MLP (about 2\,ms on a CPU). All analysis scripts read per-image scores and write every number and table of the paper and of this supplement; the code, the protocol documents and the per-image scores will be released with the camera-ready version.
+
+\bibliographystyle{named}
+\bibliography{refs}
+\end{document}

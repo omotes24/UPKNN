@@ -1,0 +1,111 @@
+{
+ "tag": "fmnist",
+ "seed": 0,
+ "content": {
+  "space": "L012",
+  "R": 1,
+  "d": 14.350443840026855,
+  "sel": 99.96962439840972
+ },
+ "rows": {
+  "content L012 P1 d=14.4": {
+   "sel": 99.96962439840972,
+   "fresh": {
+    "g32_mnist_test": 99.9452625,
+    "g32_kmnist_test": 99.8379125,
+    "g32_omniglot_eval": 99.698375,
+    "g32_notmnist": 99.9683125
+   },
+   "nat": 99.862465625,
+   "vflip": 96.52081249999999
+  },
+  "pose gq.lin": {
+   "sel": 99.71786274586735,
+   "fresh": {
+    "g32_mnist_test": 99.9215,
+    "g32_kmnist_test": 99.74714999999999,
+    "g32_omniglot_eval": 99.905525,
+    "g32_notmnist": 98.906575
+   },
+   "nat": 99.62018749999999,
+   "vflip": 99.9509
+  },
+  "pose gq.mlp": {
+   "sel": 99.76788293576061,
+   "fresh": {
+    "g32_mnist_test": 99.78485,
+    "g32_kmnist_test": 99.783525,
+    "g32_omniglot_eval": 99.91109999999999,
+    "g32_notmnist": 99.24539999999999
+   },
+   "nat": 99.68121875,
+   "vflip": 99.95032499999999
+  },
+  "pose g.lin": {
+   "sel": 99.6502450094162,
+   "fresh": {
+    "g32_mnist_test": 99.85065,
+    "g32_kmnist_test": 99.70405,
+    "g32_omniglot_eval": 99.88045,
+    "g32_notmnist": 99.0854
+   },
+   "nat": 99.6301375,
+   "vflip": 99.7101
+  },
+  "pose g.mlp": {
+   "sel": 99.82755075329567,
+   "fresh": {
+    "g32_mnist_test": 99.79055,
+    "g32_kmnist_test": 99.89635,
+    "g32_omniglot_eval": 99.8999,
+    "g32_notmnist": 99.73465
+   },
+   "nat": 99.83036249999999,
+   "vflip": 99.928725
+  },
+  "content+pose gq.lin": {
+   "sel": 99.98144680110902,
+   "fresh": {
+    "g32_mnist_test": 99.988725,
+    "g32_kmnist_test": 99.965375,
+    "g32_omniglot_eval": 99.84507500000001,
+    "g32_notmnist": 99.96667500000001
+   },
+   "nat": 99.9414625,
+   "vflip": 99.49145
+  },
+  "content+pose gq.mlp": {
+   "sel": 99.98098428803098,
+   "fresh": {
+    "g32_mnist_test": 99.95855,
+    "g32_kmnist_test": 99.940175,
+    "g32_omniglot_eval": 99.83645,
+    "g32_notmnist": 99.9536
+   },
+   "nat": 99.92219375,
+   "vflip": 99.55325
+  },
+  "content+pose g.lin": {
+   "sel": 99.97263558798913,
+   "fresh": {
+    "g32_mnist_test": 99.971125,
+    "g32_kmnist_test": 99.915975,
+    "g32_omniglot_eval": 99.855025,
+    "g32_notmnist": 99.89710000000001
+   },
+   "nat": 99.90980625,
+   "vflip": 99.12275000000001
+  },
+  "content+pose g.mlp": {
+   "sel": 99.98847271395688,
+   "fresh": {
+    "g32_mnist_test": 99.95922499999999,
+    "g32_kmnist_test": 99.962175,
+    "g32_omniglot_eval": 99.83755,
+    "g32_notmnist": 99.96185
+   },
+   "nat": 99.93020000000001,
+   "vflip": 99.4456
+  }
+ }
+}

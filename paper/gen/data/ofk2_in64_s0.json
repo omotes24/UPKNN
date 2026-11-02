@@ -1,0 +1,138 @@
+{
+ "tag": "in64",
+ "seed": 0,
+ "content": {
+  "space": "L012",
+  "R": 1000,
+  "d": 20.15317153930664,
+  "sel": 75.43568666666667
+ },
+ "rows": {
+  "content L012 P1000 d=20.2": {
+   "sel": 75.43568666666667,
+   "fresh": {
+    "in64_ssb_hard": 70.44709999999999,
+    "in64_ninco": 68.68695,
+    "in64_inaturalist": 67.07325,
+    "in64_textures": 91.95375,
+    "in64_openimage_o": 70.77175,
+    "in64_places365": 83.33275,
+    "in64_celeba_test": 94.08555
+   },
+   "nat": 78.05015714285715,
+   "vflip": 50.21790000000001
+  },
+  "pose gq.lin": {
+   "sel": 67.64788,
+   "fresh": {
+    "in64_ssb_hard": 58.3076,
+    "in64_ninco": 69.9991,
+    "in64_inaturalist": 73.8502,
+    "in64_textures": 86.9881,
+    "in64_openimage_o": 70.85860000000001,
+    "in64_places365": 76.18700000000001,
+    "in64_celeba_test": 97.3032
+   },
+   "nat": 76.2134,
+   "vflip": 93.4243
+  },
+  "pose gq.mlp": {
+   "sel": 67.11452,
+   "fresh": {
+    "in64_ssb_hard": 58.943,
+    "in64_ninco": 70.8675,
+    "in64_inaturalist": 74.4371,
+    "in64_textures": 87.46340000000001,
+    "in64_openimage_o": 72.2145,
+    "in64_places365": 81.219,
+    "in64_celeba_test": 95.3755
+   },
+   "nat": 77.21714285714286,
+   "vflip": 95.1493
+  },
+  "pose g.lin": {
+   "sel": 66.82508,
+   "fresh": {
+    "in64_ssb_hard": 57.39919999999999,
+    "in64_ninco": 70.8288,
+    "in64_inaturalist": 74.9028,
+    "in64_textures": 89.0504,
+    "in64_openimage_o": 68.6511,
+    "in64_places365": 86.3162,
+    "in64_celeba_test": 94.6926
+   },
+   "nat": 77.40587142857143,
+   "vflip": 87.5188
+  },
+  "pose g.mlp": {
+   "sel": 65.74115333333334,
+   "fresh": {
+    "in64_ssb_hard": 60.15279999999999,
+    "in64_ninco": 69.5863,
+    "in64_inaturalist": 72.21809999999999,
+    "in64_textures": 86.7812,
+    "in64_openimage_o": 70.9727,
+    "in64_places365": 81.8285,
+    "in64_celeba_test": 92.5762
+   },
+   "nat": 76.30225714285714,
+   "vflip": 93.2385
+  },
+  "content+pose gq.lin": {
+   "sel": 75.25324666666668,
+   "fresh": {
+    "in64_ssb_hard": 69.8133,
+    "in64_ninco": 71.8509,
+    "in64_inaturalist": 71.05,
+    "in64_textures": 94.2124,
+    "in64_openimage_o": 73.4323,
+    "in64_places365": 84.0564,
+    "in64_celeba_test": 98.0144
+   },
+   "nat": 80.3471,
+   "vflip": 75.72240000000001
+  },
+  "content+pose gq.mlp": {
+   "sel": 75.44946000000002,
+   "fresh": {
+    "in64_ssb_hard": 69.83279999999999,
+    "in64_ninco": 71.5074,
+    "in64_inaturalist": 70.81349999999999,
+    "in64_textures": 94.13810000000001,
+    "in64_openimage_o": 73.6132,
+    "in64_places365": 85.1268,
+    "in64_celeba_test": 97.1194
+   },
+   "nat": 80.30731428571428,
+   "vflip": 80.12939999999999
+  },
+  "content+pose g.lin": {
+   "sel": 74.65894,
+   "fresh": {
+    "in64_ssb_hard": 69.6018,
+    "in64_ninco": 72.0356,
+    "in64_inaturalist": 71.5943,
+    "in64_textures": 94.90769999999999,
+    "in64_openimage_o": 72.56139999999999,
+    "in64_places365": 87.93560000000001,
+    "in64_celeba_test": 96.9261
+   },
+   "nat": 80.79464285714286,
+   "vflip": 65.9107
+  },
+  "content+pose g.mlp": {
+   "sel": 75.13538666666668,
+   "fresh": {
+    "in64_ssb_hard": 70.01469999999999,
+    "in64_ninco": 71.5267,
+    "in64_inaturalist": 70.7205,
+    "in64_textures": 94.3536,
+    "in64_openimage_o": 73.5073,
+    "in64_places365": 85.5083,
+    "in64_celeba_test": 96.2965
+   },
+   "nat": 80.27537142857143,
+   "vflip": 75.78620000000001
+  }
+ }
+}

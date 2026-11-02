@@ -1,0 +1,124 @@
+{
+ "ours": {
+  "nat": 80.30731428571428,
+  "vflip": 80.12939999999999,
+  "pairs": {
+   "in64_ssb_hard": 69.83279999999999,
+   "in64_ninco": 71.5074,
+   "in64_inaturalist": 70.81349999999999,
+   "in64_textures": 94.13810000000001,
+   "in64_openimage_o": 73.6132,
+   "in64_places365": 85.1268,
+   "in64_celeba_test": 97.1194
+  },
+  "sel": 75.44946000000002
+ },
+ "content only": {
+  "nat": 78.05015714285715,
+  "vflip": 50.21790000000001,
+  "pairs": {
+   "in64_ssb_hard": 70.44709999999999,
+   "in64_ninco": 68.68695,
+   "in64_inaturalist": 67.07325,
+   "in64_textures": 91.95375,
+   "in64_openimage_o": 70.77175,
+   "in64_places365": 83.33275,
+   "in64_celeba_test": 94.08555
+  },
+  "sel": 75.43568666666667
+ },
+ "orientation only": {
+  "nat": 77.21714285714286,
+  "vflip": 95.1493,
+  "pairs": {
+   "in64_ssb_hard": 58.943,
+   "in64_ninco": 70.8675,
+   "in64_inaturalist": 74.4371,
+   "in64_textures": 87.46340000000001,
+   "in64_openimage_o": 72.2145,
+   "in64_places365": 81.219,
+   "in64_celeba_test": 95.3755
+  },
+  "sel": 67.11452
+ },
+ "no temperature": {
+  "nat": 80.32119999999999,
+  "vflip": 82.6354,
+  "pairs": {
+   "in64_ssb_hard": 69.7463,
+   "in64_ninco": 71.5884,
+   "in64_inaturalist": 70.8545,
+   "in64_textures": 94.1936,
+   "in64_openimage_o": 73.68010000000001,
+   "in64_places365": 84.8787,
+   "in64_celeba_test": 97.30680000000001
+  },
+  "sel": 75.40303333333333
+ },
+ "orbit bank": {
+  "nat": 80.45572857142857,
+  "vflip": 90.3673,
+  "pairs": {
+   "in64_ssb_hard": 68.5818,
+   "in64_ninco": 72.1358,
+   "in64_inaturalist": 71.70339999999999,
+   "in64_textures": 94.0115,
+   "in64_openimage_o": 74.03229999999999,
+   "in64_places365": 84.6144,
+   "in64_celeba_test": 98.1109
+  },
+  "sel": 75.32252666666668
+ },
+ "head with rotated noise": {
+  "nat": 80.06090000000002,
+  "vflip": 71.9016,
+  "pairs": {
+   "in64_ssb_hard": 70.1611,
+   "in64_ninco": 70.58670000000001,
+   "in64_inaturalist": 70.8909,
+   "in64_textures": 93.7886,
+   "in64_openimage_o": 73.083,
+   "in64_places365": 85.25540000000001,
+   "in64_celeba_test": 96.6606
+  },
+  "sel": 75.56403333333333
+ },
+ "four views (rotated-noise test views)": {
+  "nat": 78.9855,
+  "vflip": 84.3571,
+  "pairs": {
+   "in64_ssb_hard": 69.2825,
+   "in64_ninco": 70.1081,
+   "in64_inaturalist": 69.3729,
+   "in64_textures": 93.29610000000001,
+   "in64_openimage_o": 72.3767,
+   "in64_places365": 82.5924,
+   "in64_celeba_test": 95.8698
+  },
+  "sel": 75.28241333333332
+ },
+ "Fisher instead of sum": {
+  "nat": 80.59259285714286,
+  "vflip": 91.48174999999999,
+  "pairs": {
+   "in64_ssb_hard": 67.0039,
+   "in64_ninco": 73.0763,
+   "in64_inaturalist": 73.36970000000001,
+   "in64_textures": 93.99674999999999,
+   "in64_openimage_o": 74.46199999999999,
+   "in64_places365": 84.55015,
+   "in64_celeba_test": 97.68934999999999
+  },
+  "sel": 73.63157333333334
+ },
+ "_meta": {
+  "d": 20.15317153930664,
+  "d_orbit": 8.483470916748047,
+  "R": 1000,
+  "R_orbit": 4000,
+  "T": 1.1778703927993774,
+  "d_orbit_half": 8.491689682006836,
+  "d_upright_single": 20.136884689331055,
+  "version": 2
+ }
+}
