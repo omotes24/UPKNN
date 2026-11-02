@@ -24,8 +24,10 @@ LICENCE = ('MIT License\n\nCopyright (c) 2026 Anonymous Authors\n\nPermission is
            'LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT '
            'HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN '
            'CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.\n')
-NOTE = ('Technical appendix of the submission "Upright kNN" (anonymous).\n\n'
-        '- supplementary.pdf: the supplementary material (protocol details, all pairs, FPR95, ablations, mirror test, ImageNet tables, EuroSAT).\n'
+NOTE = ('Technical appendix of the submission "Neighbours and Orientation: Two Notions of In-Distribution Conformity in Frozen Diffusion\n'
+        'Features" (anonymous; the detector is called Upright kNN).\n\n'
+        '- supplementary.pdf: the supplementary material (protocol details, comparison methods, robustness of the two-notions analysis,\n'
+        '  all pairs, FPR95, ablations, mirror test, ImageNet tables, fusions, CSI, EuroSAT).\n'
         '- README.md and the folders: code (GPU side, exactly as run), protocols (each written before its evaluation; FREEZE_UKNN.md5 with the\n'
         '  checksums recorded before the final evaluation, verified by tools/check_freeze.py), benchmark definitions (runs/ok, eu/runs/jobs),\n'
         '  analysis scripts and the result files of the paper (paper/gen/data).\n'

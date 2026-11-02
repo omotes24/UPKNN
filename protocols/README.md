@@ -13,3 +13,4 @@ Each protocol was written, and copied unchanged here, before the evaluation it g
 | [`PROTOCOL_HIRES.md`](PROTOCOL_HIRES.md), [`PROTOCOL_HIRES_DIT.md`](PROTOCOL_HIRES_DIT.md) | resolution-controlled ImageNet at 256×256 (ADM), 512×512 (EDM2-XS) and 256×256 (DiT-XL/2) |
 | [`PROTOCOL_E4.md`](PROTOCOL_E4.md) | chest X-rays, histology and generators trained with rotations |
 | [`PROTOCOL_E5.md`](PROTOCOL_E5.md) | bank size on ImageNet-64 (an analysis after the frozen evaluation) |
+| [`PROTOCOL_CSI.md`](PROTOCOL_CSI.md) | CSI (official code, 1,000 epochs) as a comparison method on the five 32×32 ID datasets |

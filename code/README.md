@@ -20,7 +20,7 @@ The image lists are `runs/ok/sets_<tier>.json` (`[name, data array, indices, tra
 | models, hooks, denoiser API | `dgcore.py` (data, model loading, transforms), `ct_extract_defs.py` (`SPEC`: model and bank of every tier; hook groups: the last decoder block at full, 1/2 and 1/4 resolution), `admwrap.py` (ADM 256), `ditwrap.py` (DiT-XL/2 as an unconditional denoiser), `hfwrap.py`, `dgnet.py` (our U-Net) | — |
 | features of the sets | `ok_extract.py` (pooled statistics of the three blocks at $\sigma_1$: channel mean / std over the image and over a 2×2 grid; shared noise image per seed), `ok_extract_v0.py` (view 0 only) | `runs/ok/s<seed>/<tier>/k0/<set>__L{0,1,2}.npy` |
 | features of the rotated bank | `kx_extract_rot.py` (the four rotations of the bank images; **the noise is not rotated**), `assemble_rotb.py` | `runs/kx/rotb/s<seed>/<tier>/k0/bank__L*.npy` |
-| orientation head | `kx_rothead2.py` (MLP D–512–4 on standardised gq features of the rotated bank views; 5,000 bank images held out; temperature by held-out NLL), `kx_rothead2_lm.py` (same, bank mean / std in chunks), `kx_applyhead.py` (apply a trained head to new sets) | `runs/kx/rothead/s<seed>/<tier>_k0_gqR/` |
+| orientation head | `kx_rothead2.py` (MLP D–512–4 on standardised gq features of the rotated bank views; 5,000 bank images held out; temperature by held-out NLL), `kx_rothead2_lm.py` (same, bank mean / std in chunks), `kx_rothead2_lm2.py` (same, held-out logits in chunks too, for DiT-XL/2), `kx_applyhead.py` (apply a trained head to new sets) | `runs/kx/rothead/s<seed>/<tier>_k0_gqR/` |
 | score | `kx_export.py` (frozen), `kx_export_x.py` (further tiers): $s=-d\log r_R+\log q_\phi(\mathbf R_0\mid\mathbf x)$, $d$ by Levina–Bickel on 3,000 bank points | `runs/kx/export/<tier>_s<seed>_<split>.npz` (`score`, `content`, `pose`, `idx` per set) |
 | the final evaluation | `run_final2_uknn.sh` (frozen; [`../protocols/PROTOCOL_UKNN.md`](../protocols/PROTOCOL_UKNN.md)) | |
 
@@ -49,10 +49,12 @@ evaluation of the score; choice of block set and $R$), `kx_rothead.py` / `kx_rot
 |---|---|
 | OpenOOD v1.5 ImageNet-1K at 64×64 | `prep_ood1k.py`, `run_ood1k_main.sh`, `mk_ood1k_bl.py`, `run_ood1k_bl.sh`, `mk_rotcls_idx.py` (`vl_*.py`: a detector of the development phase that is not reported) |
 | ImageNet 256×256 with ADM (uncontrolled) | `prep_hr.py`, `prep_hr_cs.py`, `mk_sets_in256.py`, `run_in256.py`, `run_in256.sh`, `run_in256_g3.sh`, `run_adm.py` |
-| resolution-controlled ImageNet (ADM 256, EDM2-XS 512, DiT-XL/2 256) | `prep_c224.py`, `mk_sets_hires.py`, `enc_e512.py`, `enc_dit.py`, `run_hires.py`, `hires_seed.sh`, `hires_cfs.sh`, `mk_q_hires.py`, `patch_hires.py`, `mk_q_6id.py` |
+| resolution-controlled ImageNet (ADM 256, EDM2-XS 512, DiT-XL/2 256) | `prep_c224.py`, `mk_sets_hires.py`, `enc_e512.py`, `enc_dit.py`, `run_hires.py`, `hires_seed.sh`, `hires_cfs.sh`, `mk_q_hires.py`, `patch_hires.py`, `mk_q_6id.py`; DiT-XL/2 after the extraction: `hires_post_dit.sh`, `insert_dit.py` |
 | EuroSAT (no canonical orientation) | `prep_eurosat.py`, `mk_sets_eurosat.py`, `run_e3.py`, `run_e3.sh`, `run_e3s.sh` |
 | chest X-rays, histology, generators trained with rotations | `prep_newid.py`, `mk_sets_e4.py`, `run_e4.py`, `e4_resume.py`, `e4_tier.sh`, `eu/experiments/train.py` |
 | bank size on ImageNet-64 | `mk_e5.py`, `run_e5.py`, `e5_export.py`, `e5_tier.sh` |
+| CSI, comparison method (official code, `PROTOCOL_CSI.md`) | `csi_run.py` (wrapper: our arrays, torchlars / diffdist / tensorboardX stand-ins, resume), `insert_csi.py`, `move_csi.py` (job list) |
+| two notions of ID conformity (post-hoc analysis, Section 5) | `two_subspace.py` (development images, seed 0), `two_subspace2.py` + `run_ts2.sh` (final and development images, seeds 0–2, fitting variants) |
 
 ## Data preparation
 

@@ -21,6 +21,9 @@ until [ -f logs/hires/PREP_DONE ]; do sleep 60; done; DG_FP16=0 python code/run_
 until [ -f logs/hires/PREP_DONE ]; do sleep 60; done; DG_FP16=0 python code/run_adm.py code/baselines.py --gpu {gpu} --method diffpath --model adm:256 --bs 4 --data hc_imagenet_test --n 3000 --complement --cap 500 --pre vflip --out runs/base2/diffpath_in256c/hc_imagenet_test__vflip.npz > logs/hires/diffpath_hc_imagenet_test__vflip.log 2>&1
 until [ -f logs/hires/PREP_DONE ]; do sleep 60; done; DG_FP16=0 python code/run_adm.py code/baselines.py --gpu {gpu} --method diffpath --model adm:256 --bs 4 --data hc_ssb_hard --n 0 --complement --cap 500 --out runs/base2/diffpath_in256c/hc_ssb_hard.npz > logs/hires/diffpath_hc_ssb_hard.log 2>&1
 until [ -f logs/hires/PREP_DONE ]; do sleep 60; done; DG_FP16=0 python code/run_adm.py code/baselines.py --gpu {gpu} --method diffpath --model adm:256 --bs 4 --data hc_ninco --n 0 --complement --cap 500 --out runs/base2/diffpath_in256c/hc_ninco.npz > logs/hires/diffpath_hc_ninco.log 2>&1
+bash code/hires_post_dit.sh {gpu} 0 > logs/hires/post_dit256_0.log 2>&1
+bash code/hires_post_dit.sh {gpu} 1 > logs/hires/post_dit256_1.log 2>&1
+bash code/hires_post_dit.sh {gpu} 2 > logs/hires/post_dit256_2.log 2>&1
 until [ -f logs/hires/PREP_DONE ]; do sleep 60; done; DG_FP16=0 python code/run_adm.py code/baselines.py --gpu {gpu} --method diffpath --model adm:256 --bs 4 --data hc_inaturalist --n 0 --complement --cap 500 --out runs/base2/diffpath_in256c/hc_inaturalist.npz > logs/hires/diffpath_hc_inaturalist.log 2>&1
 until [ -f logs/hires/PREP_DONE ]; do sleep 60; done; DG_FP16=0 python code/run_adm.py code/baselines.py --gpu {gpu} --method diffpath --model adm:256 --bs 4 --data hc_textures --n 0 --complement --cap 500 --out runs/base2/diffpath_in256c/hc_textures.npz > logs/hires/diffpath_hc_textures.log 2>&1
 until [ -f logs/hires/PREP_DONE ]; do sleep 60; done; DG_FP16=0 python code/run_adm.py code/baselines.py --gpu {gpu} --method diffpath --model adm:256 --bs 4 --data hc_openimage_o --n 0 --complement --cap 500 --out runs/base2/diffpath_in256c/hc_openimage_o.npz > logs/hires/diffpath_hc_openimage_o.log 2>&1
@@ -59,6 +62,11 @@ bash code/e4_tier.sh c10r50 {gpu}
 bash code/e5_tier.sh in64h50 {gpu}
 bash code/e5_tier.sh in64h25 {gpu}
 bash code/e5_tier.sh in64h10 {gpu}
+python code/csi_run.py train edmc10 {gpu} && python code/csi_run.py score edmc10 {gpu} final2-
+python code/csi_run.py train edmc100 {gpu} && python code/csi_run.py score edmc100 {gpu} final2-
+python code/csi_run.py train l6svhn {gpu} && python code/csi_run.py score l6svhn {gpu} final2-
+python code/csi_run.py train dpceleba {gpu} && python code/csi_run.py score dpceleba {gpu} final2-
+python code/csi_run.py train fmnist {gpu} && python code/csi_run.py score fmnist {gpu} final2-
 SR_ROOT=$HOME/upknn python eu/experiments/graham.py --gpu {gpu} --model edm:edm-cifar10-32x32-uncond-vp.pkl --tag edmc10_f2 --sets cifar10_test:eu/runs/jobs/f2_idx/edmc10__cifar10_test.json --bs 64 > logs/hires/graham_edmc10_cifar10_test.log 2>&1
 SR_ROOT=$HOME/upknn python eu/experiments/graham.py --gpu {gpu} --model edm:edm-cifar10-32x32-uncond-vp.pkl --tag edmc10_f2 --sets cifar100_test:eu/runs/jobs/f2_idx/edmc10__cifar100_test.json --bs 64 > logs/hires/graham_edmc10_cifar100_test.log 2>&1
 SR_ROOT=$HOME/upknn python eu/experiments/graham.py --gpu {gpu} --model edm:edm-cifar10-32x32-uncond-vp.pkl --tag edmc10_f2 --sets svhn_test:eu/runs/jobs/f2_idx/edmc10__svhn_test.json --bs 64 > logs/hires/graham_edmc10_svhn_test.log 2>&1

@@ -1,0 +1,122 @@
+{
+ "knn_only": [
+  [
+   "in64_ssb_hard",
+   "in64_ssb_hard",
+   28310,
+   0.002,
+   0.39
+  ],
+  [
+   "in64_ninco",
+   "in64_ninco",
+   3404,
+   0.046,
+   0.732
+  ],
+  [
+   "in64_inaturalist",
+   "in64_inaturalist",
+   4888,
+   0.048,
+   0.384
+  ],
+  [
+   "in64_textures",
+   "in64_textures",
+   1806,
+   0.028,
+   0.666
+  ],
+  [
+   "in64_openimage_o",
+   "in64_openimage_o",
+   5847,
+   0.046,
+   0.584
+  ],
+  [
+   "in64_places365",
+   "in64_places365",
+   9523,
+   0.048,
+   0.504
+  ]
+ ],
+ "orient_only": [
+  [
+   "in64_ssb_hard",
+   "in64_ssb_hard",
+   36256,
+   0.798,
+   0.046
+  ],
+  [
+   "in64_ninco",
+   "in64_ninco",
+   4503,
+   0.984,
+   0.004
+  ],
+  [
+   "in64_inaturalist",
+   "in64_inaturalist",
+   1937,
+   0.76,
+   0.0
+  ],
+  [
+   "in64_textures",
+   "in64_textures",
+   3906,
+   0.648,
+   0.006
+  ],
+  [
+   "in64_openimage_o",
+   "in64_openimage_o",
+   11931,
+   0.858,
+   0.018
+  ],
+  [
+   "in64_places365",
+   "in64_places365",
+   3271,
+   0.372,
+   0.04
+  ]
+ ],
+ "counts": {
+  "in64_ssb_hard": [
+   67,
+   23,
+   500
+  ],
+  "in64_ninco": [
+   43,
+   69,
+   500
+  ],
+  "in64_inaturalist": [
+   7,
+   78,
+   500
+  ],
+  "in64_textures": [
+   135,
+   99,
+   500
+  ],
+  "in64_openimage_o": [
+   30,
+   68,
+   500
+  ],
+  "in64_places365": [
+   28,
+   60,
+   500
+  ]
+ }
+}

@@ -33,6 +33,12 @@ def ids_mean(Jx, r): return float(np.mean([Jx['ids'][t]['rows'][r]['mean'] for t
 def vf_of(Jx, t, r=None): p = Jx['pairs'][t][VF[t]]; return p['ours'] if r is None else p['rows'][r]['auroc']
 def wtl(Jx, r): v = Jx['rows'][r]; return f"{v['wins']}/{v['ties']}/{v['losses']}"
 def pair(t, o, r=None): p = J['pairs'][t][o]; return p['ours'] if r is None else p['rows'][r]['auroc']
+def is_nat(o): return not o.endswith('__vflip') and 'synth' not in o
+NATP = [(t, o) for t in TAGS for o in J['pairs'][t] if is_nat(o)]
+def wtl_nat_v(r):
+    v = [J['pairs'][t][o]['rows'][r]['verdict'] for t, o in NATP if r in J['pairs'][t][o]['rows']]
+    return v.count('win'), v.count('tie'), v.count('loss')
+def wtl_nat(r): return '{}/{}/{}'.format(*wtl_nat_v(r))
 M = {}
 M['nPairs'] = str(sum(len(P) for P in J['pairs'].values()))
 M['oursMean'] = f1(J['mean_ours']); M['tunedMean'] = f1(ids_mean(J, 'kNN tuned')); M['ctMean'] = f1(ids_mean(J, 'kNN (CT)'))
@@ -42,7 +48,19 @@ bestP = max(PRIOR, key=lambda m: ids_mean(J, m)); assert bestP == 'CFS-kNN'; M['
 M['priorGap'] = f1(J['mean_ours'] - ids_mean(J, bestP))
 M['priorWinMin'] = str(min(J['rows'][m]['wins'] for m in PRIOR)); M['priorWinMax'] = str(max(J['rows'][m]['wins'] for m in PRIOR))
 M['priorLossMax'] = str(max(J['rows'][m]['losses'] for m in PRIOR)); M['nPrior'] = str(len(PRIOR))
+ROWS_ALL0 = ['kNN tuned', 'kNN (CT)'] + PRIOR
 M['wtlTuned'] = wtl(J, 'kNN tuned'); M['wtlCfsKnn'] = wtl(J, 'CFS-kNN'); M['wtlRot'] = wtl(J, 'RotCls4')
+M['nNatPairsMain'] = str(len(NATP))
+M['priorWinMinNat'] = str(min(wtl_nat_v(m)[0] for m in PRIOR)); M['priorWinMaxNat'] = str(max(wtl_nat_v(m)[0] for m in PRIOR))
+M['priorLossMaxNat'] = str(max(wtl_nat_v(m)[2] for m in PRIOR))
+M['wtlTunedNat'] = wtl_nat('kNN tuned'); M['wtlKnnTNat'] = wtl_nat('Ours content'); M['wtlPoseNat'] = wtl_nat('Ours pose')
+M['winKnnTNat'] = str(wtl_nat_v('Ours content')[0]); M['lossKnnTNat'] = str(wtl_nat_v('Ours content')[2])
+M['gainKnnTNat'] = f1(np.mean([J['pairs'][t][o]['rows']['Ours content']['diff'] for t, o in NATP]))
+M['knnTCten'] = f1(J['ids']['edmc10']['rows']['Ours content']['mean']); M['knnTIN'] = f1(J['ids']['in64']['rows']['Ours content']['mean'])
+M['knnTMean'] = f1(ids_mean(J, 'Ours content'))
+lostN = [(t, o) for t, o in NATP if any(J['pairs'][t][o]['rows'][r]['verdict'] == 'loss' for r in ROWS_ALL0 if r in J['pairs'][t][o]['rows'])]
+assert sorted(lostN) == sorted([('l6svhn', 'celeba_test'), ('in64', 'in64_inaturalist'), ('edmc100', 'cifar10_test')]), lostN
+M['nLostNat'] = str(len(lostN)); M['nNoLossNat'] = str(len(NATP) - len(lostN))
 ROWS_ALL = ['kNN tuned', 'kNN (CT)'] + PRIOR
 lost = [(t, o) for t, P in J['pairs'].items() for o, p in P.items() if any(p['rows'][r]['verdict'] == 'loss' for r in ROWS_ALL if r in p['rows'])]
 M['nNoLoss'] = str(int(M['nPairs']) - len(lost)); M['nLost'] = str(len(lost))
@@ -158,12 +176,14 @@ L = ['% written by gen/mk_ijcai.py']
 for r in rows:
     if r == 'kNN (CT)': L.append('\\midrule\\multicolumn{12}{@{}l}{\\emph{kNN rule~\\cite{sun2022knn} on our diffusion features}}\\\\')
     lab = LABEL[r]                                            # citations are in Section 4 (the named style is too wide for the table)
-    L.append(lab + ' & ' + ' & '.join(cell(v, m) for v, m in zip(cols[r], mk[r])) + f" & {wtl(J, r)} & {PASSES[r]} & {fsec(SECROW[r])}\\\\")
+    L.append(lab + ' & ' + ' & '.join(cell(v, m) for v, m in zip(cols[r], mk[r])) + f" & {wtl_nat(r)} & {PASSES[r]} & {fsec(SECROW[r])}\\\\")
+    if r == 'RotCls4' and not os.path.exists(f'{HERE}/data/csi_ana.json'):   # CSI (PROTOCOL_CSI.md): row filled when its runs finish
+        L.append('CSI & \\multicolumn{11}{l}{\\pending{1{,}000-epoch training on the five 32$\\times$32 ID datasets still running}}\\\\')
 L.append('\\midrule')
 L.append('\\textbf{Upright kNN (ours)} & ' + ' & '.join(cell(v, m) for v, m in zip(cols['ours'], mk['ours'])) + f" & -- & 1 & {fsec(SECROW['ours'])}\\\\")
 for key, lab in (('Ours content', '\\quad kNN term only'), ('Ours pose', '\\quad orientation term only')):
     vals = [J['ids'][t]['rows'][key]['mean'] for t in TAGS] + [ids_mean(J, key), float(np.mean([vf_of(J, t, key) for t in TAGS]))]
-    L.append(f'{lab} & ' + ' & '.join(f1(v) for v in vals) + f" & {wtl(J, key)} & 1 & --\\\\")
+    L.append(f'{lab} & ' + ' & '.join(f1(v) for v in vals) + f" & {wtl_nat(key)} & 1 & --\\\\")
 open(f'{OUT}/tab_main.tex', 'w').write('\n'.join(L) + '\n')
 
 

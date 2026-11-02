@@ -1,0 +1,249 @@
+{
+ "tag": "dpceleba",
+ "seed": 2,
+ "split": "fresh",
+ "R": 5,
+ "N": 50000,
+ "id": "fresh-celeba_test",
+ "vflip": "fresh-celeba_test__vflip",
+ "ood": [
+  "fresh-cifar10_test",
+  "fresh-cifar100_test",
+  "fresh-svhn_test",
+  "fresh-textures",
+  "fresh-tin_val",
+  "fresh-lsun_fix",
+  "fresh-imagenet_fix",
+  "fresh-imagenet32_val",
+  "fresh-places365_val"
+ ],
+ "ratio_rot90": {
+  "median": 2.024158000946045,
+  "q25": 1.7286219596862793,
+  "q75": 2.3573195934295654,
+  "frac_below_1": 0.0035000001080334187
+ },
+ "ratio_rot180": {
+  "median": 1.7079235315322876,
+  "q25": 1.4549784660339355,
+  "q75": 1.9900619983673096,
+  "frac_below_1": 0.013749999925494194
+ },
+ "subspace": {
+  "n4000_r1e-3": {
+   "D": 6400,
+   "between_over_total": 0.18347618124233012,
+   "lda": {
+    "1": 0.00046934251667385624,
+    "2": 0.000684598410340607,
+    "3": 0.0008223123625267778
+   },
+   "pca": {
+    "1": 0.15868485671249224,
+    "2": 0.2274308352467167,
+    "3": 0.27168817836606207
+   },
+   "random": {
+    "1": {
+     "mean": 0.00013742264536837249,
+     "min": 9.330445946861502e-05,
+     "max": 0.00023119493568583553,
+     "expected": 0.00015625
+    },
+    "2": {
+     "mean": 0.0003073645850008355,
+     "min": 0.00021406010534216692,
+     "max": 0.0004845136501605763,
+     "expected": 0.0003125
+    },
+    "3": {
+     "mean": 0.0004769432306163782,
+     "min": 0.0003400140079600503,
+     "max": 0.0006993199529342493,
+     "expected": 0.00046875
+    }
+   }
+  }
+ },
+ "knn_projection": {
+  "n4000_r1e-3": {
+   "lda1_euc": {
+    "celeba_test__vflip": 100.0,
+    "cifar10_test": 100.0,
+    "cifar100_test": 100.0,
+    "svhn_test": 100.0,
+    "textures": 99.9993,
+    "tin_val": 100.0,
+    "lsun_fix": 100.0,
+    "imagenet_fix": 100.0,
+    "imagenet32_val": 100.0,
+    "places365_val": 100.0
+   },
+   "lda2_euc": {
+    "celeba_test__vflip": 100.0,
+    "cifar10_test": 99.9999,
+    "cifar100_test": 99.9999,
+    "svhn_test": 100.0,
+    "textures": 99.9979,
+    "tin_val": 99.9999,
+    "lsun_fix": 100.0,
+    "imagenet_fix": 100.0,
+    "imagenet32_val": 100.0,
+    "places365_val": 100.0
+   },
+   "lda3_euc": {
+    "celeba_test__vflip": 100.0,
+    "cifar10_test": 100.0,
+    "cifar100_test": 100.0,
+    "svhn_test": 100.0,
+    "textures": 99.9997,
+    "tin_val": 100.0,
+    "lsun_fix": 100.0,
+    "imagenet_fix": 100.0,
+    "imagenet32_val": 100.0,
+    "places365_val": 100.0
+   },
+   "lda3_cos": {
+    "celeba_test__vflip": 100.0,
+    "cifar10_test": 100.0,
+    "cifar100_test": 99.9751,
+    "svhn_test": 99.99860000000001,
+    "textures": 99.9757,
+    "tin_val": 99.95570000000001,
+    "lsun_fix": 99.9993,
+    "imagenet_fix": 100.0,
+    "imagenet32_val": 99.9999,
+    "places365_val": 100.0
+   },
+   "pca3_euc": {
+    "celeba_test__vflip": 99.8454,
+    "cifar10_test": 99.99940000000001,
+    "cifar100_test": 99.9977,
+    "svhn_test": 99.99980000000001,
+    "textures": 99.99860000000001,
+    "tin_val": 99.9977,
+    "lsun_fix": 100.0,
+    "imagenet_fix": 99.9993,
+    "imagenet32_val": 99.99980000000001,
+    "places365_val": 99.9993
+   },
+   "pca3_cos": {
+    "celeba_test__vflip": 99.62725,
+    "cifar10_test": 99.99470000000001,
+    "cifar100_test": 99.98700000000001,
+    "svhn_test": 99.99980000000001,
+    "textures": 99.9843,
+    "tin_val": 99.9956,
+    "lsun_fix": 99.9858,
+    "imagenet_fix": 99.9814,
+    "imagenet32_val": 99.9606,
+    "places365_val": 99.9879
+   },
+   "rand3_euc": {
+    "celeba_test__vflip": {
+     "mean": 61.882180000000005,
+     "min": 38.175399999999996,
+     "max": 78.45824999999999
+    },
+    "cifar10_test": {
+     "mean": 75.43665500000002,
+     "min": 56.15665,
+     "max": 95.0826
+    },
+    "cifar100_test": {
+     "mean": 76.378145,
+     "min": 58.11335,
+     "max": 94.9875
+    },
+    "svhn_test": {
+     "mean": 80.58066749999999,
+     "min": 47.63035,
+     "max": 98.98780000000001
+    },
+    "textures": {
+     "mean": 83.36807000000002,
+     "min": 69.60385,
+     "max": 95.57365
+    },
+    "tin_val": {
+     "mean": 79.3332675,
+     "min": 53.942449999999994,
+     "max": 95.3105
+    },
+    "lsun_fix": {
+     "mean": 73.96797,
+     "min": 59.3485,
+     "max": 94.81349999999999
+    },
+    "imagenet_fix": {
+     "mean": 76.63807,
+     "min": 65.5017,
+     "max": 94.3469
+    },
+    "imagenet32_val": {
+     "mean": 80.7784875,
+     "min": 67.1463,
+     "max": 96.1036
+    },
+    "places365_val": {
+     "mean": 75.04929249999999,
+     "min": 60.01505,
+     "max": 94.681
+    }
+   },
+   "rand3_cos": {
+    "celeba_test__vflip": {
+     "mean": 77.0505875,
+     "min": 57.252250000000004,
+     "max": 91.1876
+    },
+    "cifar10_test": {
+     "mean": 80.08327,
+     "min": 58.91985,
+     "max": 96.31944999999999
+    },
+    "cifar100_test": {
+     "mean": 78.693645,
+     "min": 59.6378,
+     "max": 96.20915
+    },
+    "svhn_test": {
+     "mean": 82.78888250000001,
+     "min": 44.6008,
+     "max": 98.9053
+    },
+    "textures": {
+     "mean": 76.33491000000001,
+     "min": 50.25615,
+     "max": 94.584
+    },
+    "tin_val": {
+     "mean": 81.9705575,
+     "min": 55.8944,
+     "max": 96.5115
+    },
+    "lsun_fix": {
+     "mean": 77.01186249999999,
+     "min": 42.953,
+     "max": 96.83365
+    },
+    "imagenet_fix": {
+     "mean": 76.10020999999998,
+     "min": 51.590250000000005,
+     "max": 95.40895
+    },
+    "imagenet32_val": {
+     "mean": 74.49331249999999,
+     "min": 42.9543,
+     "max": 95.94395
+    },
+    "places365_val": {
+     "mean": 77.4331275,
+     "min": 45.445,
+     "max": 96.2966
+    }
+   }
+  }
+ },
+ "seconds": 57.82858657836914
+}

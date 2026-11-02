@@ -6,8 +6,8 @@ due with the full paper).
 
 | file | upload as | contents | built by |
 |---|---|---|---|
-| `upknn_main.pdf` | paper | anonymous paper with line numbers, 7 pages + references (9 pages) | `bash paper/build.sh` (copy of `paper/main.pdf`) |
-| `upknn_technical_appendix.zip` | Technical Appendix | `supplementary.pdf` and the anonymised code, protocols, benchmark definitions, analysis scripts and result files (4.3 MB) | `python tools/make_submission_zip.py` |
+| `upknn_main.pdf` | paper | anonymous paper with line numbers, at most 7 pages + references (now 8 pages; rows of runs in progress are marked in grey) | `bash paper/build.sh` (copy of `paper/main.pdf`) |
+| `upknn_technical_appendix.zip` | Technical Appendix | `supplementary.pdf` and the anonymised code, protocols, benchmark definitions, analysis scripts and result files (4.5 MB) | `python tools/make_submission_zip.py` |
 | `upknn_supplementary.pdf` | (inside the ZIP) | the supplementary material alone, for reading | `bash paper/build_supp.sh` (copy of `paper/supp.pdf`) |
 
 `make_submission_zip.py` removes the licence holder, renames an earlier public detector of the same code base, and fails if

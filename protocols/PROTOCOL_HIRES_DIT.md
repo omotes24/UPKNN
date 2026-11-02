@@ -7,3 +7,9 @@
   d by Levina-Bickel, MLP head on gq features of the four rotated bank views (rotation of the pixels before encoding; noise added to the
   latents, never rotated), temperature by held-out NLL), seeds 0-2.  kNN (basic) on L1 (block 21).  CFS is not defined for a transformer
   (its hook policy needs encoder and decoder blocks) and is not run.
+
+## Implementation note (added 2026-11-02, before any result)
+The three seed jobs of dit256 stopped after the feature extraction: the rotation head (code/kx_rothead2.py) ran out of memory on an
+11-GB GPU when computing the logits of the 5,000 held-out bank images at once (34,560-dim gq features).  The remaining steps (head,
+export, kNN baseline) are run by code/hires_post_dit.sh with code/kx_rothead2_lm2.py, which computes the bank mean / std and the
+held-out logits in chunks; same images, same training, same values up to float rounding.  No dit256 score existed before this change.

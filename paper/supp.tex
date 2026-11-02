@@ -1,4 +1,4 @@
-%%%% supp.tex -- supplementary material of the IJCAI-27 submission (anonymous): Upright kNN
+%%%% supp.tex -- supplementary material of the IJCAI-27 submission (anonymous): two notions of ID conformity (Upright kNN)
 %   tables written by gen/mk_supp.py from the same evaluation files as the paper (gen/data/); build with build_supp.sh
 \documentclass[10pt]{article}
 \usepackage[margin=1in]{geometry}
@@ -14,10 +14,14 @@
 \usepackage{named}
 \makeatletter\newcommand{\inputrows}[1]{\@@input #1 }\makeatother   % primitive \input inside tabular (a rule may follow)
 \newcommand{\veps}{\boldsymbol{\varepsilon}}
+\newcommand{\pending}[1]{\textcolor{gray}{[#1]}}   % results still running
+\definecolor{firstblue}{RGB}{189,215,238}
+\makeatletter\@namedef{r@eq:score}{{2}{}{}{}{}}\makeatother   % Eq. (2) of the paper (the score), referred to by tab_fusion.tex
+\input{numbers_two}
 \newcommand{\Rot}[1]{\mathbf{R}_{#1}}
 \renewcommand{\thetable}{S\arabic{table}}
 \renewcommand{\thesection}{S\arabic{section}}
-\title{Supplementary Material\\[2pt]\large Upright kNN: Completing Nearest-Neighbour Density on Diffusion Features with the Missing Orientation Factor for Out-of-Distribution Detection}
+\title{Supplementary Material\\[2pt]\large Neighbours and Orientation: Two Notions of In-Distribution Conformity in Frozen Diffusion Features}
 \author{Anonymous Submission}
 \date{}
 \begin{document}
@@ -43,7 +47,44 @@ ID & Res. & Model & Source & $d$ & $R$ & $T$ & Head acc.\,(\%) & tuned kNN confi
 \end{table}
 
 \section{Comparison Methods}
-All likelihood- and statistic-based methods use the same diffusion models. NLL, IC and TT use the probability-flow ODE with 64 Heun steps (128 forward and 128 backward evaluations). MSMA$^{*}$ is the Mahalanobis distance of the vector of score norms at 20 noise levels, fitted on ID development images. DiffPath and GEPC follow the official code and EigenScore the paper's procedure. CFS follows the official code (hook policy: up to four encoder and four decoder candidates in structural order, the one with the largest variance on 32 ID training images selected in each region; channel mean and standard deviation; diagonal-Gaussian and standardised 10-NN heads fitted on the bank). At the paper's default noise level (logSNR 5) our port reproduces the paper's CIFAR-10 numbers on the four shared pairs within 0.5 points; the official configuration (logSNR 7) is better on the development images and is used throughout. The rotation classifier is a ResNet-18 trained from scratch for 30 epochs on the ID training images; its score is the sum of the log-probabilities of the correct angle over the four rotated inputs. CPU times use a randomly initialised CIFAR-10 network (the cost does not depend on the weights) on an Intel Xeon (2.1\,GHz, 2 threads).
+All likelihood- and statistic-based methods use the same diffusion models. NLL, IC and TT use the probability-flow ODE with 64 Heun steps (128 forward and 128 backward evaluations). MSMA$^{*}$ is the Mahalanobis distance of the vector of score norms at 20 noise levels, fitted on ID development images. DiffPath and GEPC follow the official code and EigenScore the paper's procedure. CFS follows the official code (hook policy: up to four encoder and four decoder candidates in structural order, the one with the largest variance on 32 ID training images selected in each region; channel mean and standard deviation; diagonal-Gaussian and standardised 10-NN heads fitted on the bank). At the paper's default noise level (logSNR 5) our port reproduces the paper's CIFAR-10 numbers on the four shared pairs within 0.5 points; the official configuration (logSNR 7) is better on the development images and is used throughout. The rotation classifier is a ResNet-18 trained from scratch for 30 epochs on the ID training images; its score is the sum of the log-probabilities of the correct angle over the four rotated inputs. CSI is described in Section~\ref{s:csi}. CPU times use a randomly initialised CIFAR-10 network (the cost does not depend on the weights) on an Intel Xeon (2.1\,GHz, 2 threads).
+
+\section{Two Notions: Details and Robustness}
+\label{s:two}
+\textbf{Analysis.} All quantities of Table~1 of the paper are computed from the stored features of the frozen method (no change to it). \emph{Geometry}: in the space of the kNN term (unit-length channel mean and standard deviation of the three blocks), the distance between each of 4{,}000 random bank images and its own half turn, divided by its distance to its $R$-th nearest other bank image ($R$ of the frozen protocol); median. \emph{Discriminant and principal directions}: in the head's input space (whole-image and $2\times2$ grid statistics of the three blocks, standardised on the fitting images), a linear discriminant analysis (LDA) of the four rotations of the bank images (within-class scatter regularised by a ridge $\lambda$), the top principal directions of all rotated views, and 20 draws of random orthonormal directions; we report the variance carried by three directions relative to three random directions. \emph{Projected kNN}: the 10th-nearest-neighbour distance (Euclidean; cosine as a variant) to 10{,}000 bank images in the projection onto those directions, as a score for ID test images against upside-down ID images and against every natural OOD set. Table~1 uses the fit of the first analysis we ran (4{,}000 bank images, $\lambda=10^{-3}$) on the final evaluation images, averaged over the three noise seeds; the largest standard deviation over seeds of a frame-3 natural-OOD mean is \sdLdaNatMax{} points.
+
+\begin{table}[H]\centering\footnotesize\setlength{\tabcolsep}{2.6pt}
+\begin{tabular}{@{}l|ccc|ccc|ccc|ccc|cccc@{}}\toprule
+ & \multicolumn{12}{c|}{LDA fit (final evaluation images, seed 0): var.\ frame / frame-3 flip / frame-3 natural} & \multicolumn{4}{c}{development images (seeds 0--2)}\\
+ & \multicolumn{3}{c|}{4k, $\lambda=10^{-3}$} & \multicolumn{3}{c|}{4k, $\lambda=10^{-1}$} & \multicolumn{3}{c|}{10k, $\lambda=10^{-3}$} & \multicolumn{3}{c|}{10k, $\lambda=10^{-1}$} & $\|\Delta_{180}\|/r_R$ & fr.-3 flip & fr.-3 nat. & PC-3 nat.\\\midrule
+\inputrows{supp_two.tex}
+\bottomrule
+\end{tabular}
+\caption{Robustness of the two-notions analysis. Left: the LDA fitted on 4{,}000 or 10{,}000 bank images with ridge $10^{-3}$ or $10^{-1}$: variance of the three discriminant directions relative to three random directions, and AUROC (\%) of the frame-3 kNN on upside-down ID images and on natural OOD sets (mean). Right: the same analysis on the development evaluation images.}
+\label{tab:two}
+\end{table}
+
+\textbf{Natural OOD sets in the projections.} The paper uses the projected kNN rules only for upside-down images. On natural OOD sets the result depends on the distance (Table~\ref{tab:twonat}): with the cosine distance, used in our first (development) analysis, the three discriminant directions beat the top three principal directions on all six ID datasets; with the Euclidean distance they do so on four, and on ImageNet-64 they are at the level of random directions. Either way they do not exceed the orientation term, which reads the frame information out better than a distance in a linear projection does.
+
+\begin{table}[H]\centering\small\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}l|cc|cc|cc|cc@{}}\toprule
+ & \multicolumn{2}{c|}{frame-3} & \multicolumn{2}{c|}{PC-3} & \multicolumn{2}{c|}{random 3} & kNN & orient.\\
+ID dataset & Eucl. & cos. & Eucl. & cos. & Eucl. & cos. & term & term\\\midrule
+\inputrows{supp_two_nat.tex}
+\bottomrule
+\end{tabular}
+\caption{Mean AUROC (\%) over the natural OOD sets of kNN rules restricted to three directions (final evaluation images, seeds 0--2, fit of Table~1 of the paper; random: mean of 20 draws), with the two terms of Upright kNN for reference.}
+\label{tab:twonat}
+\end{table}
+
+{\small\setlength{\tabcolsep}{5pt}
+\begin{longtable}{@{}llccccccc@{}}
+\caption{The two terms per pair (final evaluation images, three seeds): AUROC (\%) of the kNN term, the orientation term and their sum (Upright kNN); fraction (\%) of the OOD images flagged by the kNN term only, by the orientation term only and by both, at the thresholds that keep 95\% of the ID images; Spearman correlation $\rho$ of the two terms on the OOD images.}\label{tab:twosets}\\\toprule
+ID & OOD & kNN term & orient.\ term & sum & kNN only & orient.\ only & both & $\rho$\\\midrule\endfirsthead
+\toprule ID & OOD & kNN term & orient.\ term & sum & kNN only & orient.\ only & both & $\rho$\\\midrule\endhead
+\inputrows{supp_two_sets.tex}
+\bottomrule
+\end{longtable}}
 
 \section{All Pairs}
 {\small\setlength{\tabcolsep}{5pt}
@@ -118,6 +159,22 @@ Method & SSB-hard & NINCO & iNat & Textures & OI-O & Flip\\\midrule
 \caption{ADM 256$\times$256 with each set's images cropped from their stored resolution (500 common images per set). SSB-hard is stored at 224 pixels (short side, all 200 sampled images) and is upsampled, whereas ImageNet validation has a median short side of 375 pixels (3\% below 256); ImageNet-C is also stored at 224 pixels. Every feature-based detector separates SSB-hard far better than at 64$\times$64, a resolution shortcut; the paper therefore reports this setting without SSB-hard and ImageNet-C.}
 \label{tab:in256}
 \end{table}
+
+\section{Fusions}
+\label{s:fusion}
+\begin{table}[H]\centering\small\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}lccc@{}}\toprule
+Score & Mean & Flip & W/T/L of ours\\\midrule
+\inputrows{tab_fusion.tex}
+\bottomrule
+\end{tabular}
+\caption{Principled sum vs.\ naive fusions (final evaluation, AUROC, \%; Mean and Flip as in Table~2 of the paper). $z$-sum: sum of $z$-scores; Fisher: sum of log empirical ID $p$-values; both normalise each score with additional ID images (the development split), which Upright kNN does not need. W/T/L over the natural-OOD pairs. This comparison was added after the frozen evaluation and reuses its images.}
+\label{tab:fusion}
+\end{table}
+
+\section{CSI}
+\label{s:csi}
+CSI~\cite{tack2020csi} is run with the official code (commit 60742b6, unmodified) in the unlabeled multi-class setting of its repository: ResNet-18, simclr\_CSI with rotations as shifting transformations, 1{,}000 epochs, LARS with learning rate 0.1, 10 warm-up epochs, cosine schedule, weight decay $10^{-6}$, temperature 0.5, on one GPU with a batch of 128 images (the official total batch of 512 rotated images). The training images are the bank images of each 32$\times$32 ID dataset, i.e.\ the images of the kNN bank and of the rotation head of Upright kNN. The score is the official CSI score with the repository's evaluation flags (10 augmented samples, crop scale 0.54). A thin wrapper feeds our arrays and replaces two packages that do not build with our PyTorch version (a re-implementation of the LARS optimizer of torchlars 0.1.2 and a stub of the multi-GPU gather, which a single-GPU run does not call). The protocol was written before training. \pending{Results, training cost and the reproduction check against the published CIFAR-10 $\rightarrow$ CIFAR-100 AUROC (89.3\%) will be added when the runs finish.}
 
 \section{EuroSAT}
 \begin{table}[H]\centering\small\setlength{\tabcolsep}{3.2pt}

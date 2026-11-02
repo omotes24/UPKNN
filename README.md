@@ -1,18 +1,25 @@
-# Upright kNN
+# Neighbours and Orientation (Upright kNN)
 
-**Completing nearest-neighbour density on diffusion features with the missing orientation factor for out-of-distribution
-detection.** Code, protocols, result files and LaTeX source of the IJCAI-27 submission
-([`paper/main.pdf`](paper/main.pdf), supplementary material [`paper/supp.pdf`](paper/supp.pdf)).
+**Two notions of in-distribution conformity in frozen diffusion features, for out-of-distribution detection.** Code, protocols,
+result files and LaTeX source of the IJCAI-27 submission ([`paper/main.pdf`](paper/main.pdf), supplementary material
+[`paper/supp.pdf`](paper/supp.pdf)).
 
-Let $\bar p(\mathbf x)=\frac14\sum_{\mathbf G}p(\mathbf G\mathbf x)$ be the density averaged over the four rotations by multiples
-of 90°. Under the mixture of rotated in-distribution (ID) images, the posterior that $\mathbf x$ is upright is
-$P(\mathrm{up}\mid\mathbf x)=p(\mathbf x)/\{4\bar p(\mathbf x)\}$, so for every image
+One pass of a pretrained diffusion denoiser gives channel statistics of its decoder blocks. A $k$-nearest-neighbour (kNN) rule on
+them measures *neighbourhood conformity*: closeness to training images along the dominant directions of the features. A small
+head trained to predict the rotation of in-distribution (ID) images measures *frame conformity*: whether an image carries the
+canonical frame of the ID data. The paper shows that the two are different notions: rotations move the features along directions
+that carry at most about 1% of their variance, so a nearest-neighbour distance barely sees them, while the head reads them out;
+both detect semantic novelty, but they are weakly correlated per image and flag different OOD images (unusual appearance vs.
+unusual viewpoint or composition).
+
+They correspond to the two factors of an exact identity. Let $\bar p(\mathbf x)=\frac14\sum_{\mathbf G}p(\mathbf G\mathbf x)$ be
+the density averaged over the four rotations by multiples of 90°; under the mixture of rotated ID images the posterior that
+$\mathbf x$ is upright is $P(\mathrm{up}\mid\mathbf x)=p(\mathbf x)/\{4\bar p(\mathbf x)\}$, so for every image
 
 $$\log p(\mathbf x)=\log\bar p(\mathbf x)+\log P(\mathrm{up}\mid\mathbf x)+\log 4 .$$
 
-Channel statistics of a diffusion denoiser hardly change under rotation, so a kNN density on them estimates mainly the first
-term. Upright kNN adds the missing second term, estimated by a small MLP trained on the features of rotated bank images, with
-weights fixed by the decomposition:
+**Upright kNN** adds the two, with the exchange rate fixed by the identity (the identity motivates the form and the weight of the
+score; the score is not used as an estimate of $\log p$):
 
 $$s(\mathbf x)=-d\log r_R(\mathbf x)+\log q_\phi(\mathbf R_0\mid\mathbf x),$$
 
@@ -23,7 +30,7 @@ rotation head. One network evaluation per image, no labels, no OOD data, no tune
 ## Results (final evaluation, evaluated once after the protocol was frozen)
 
 Six ID datasets with public (or our) diffusion models, 63 ID–OOD pairs, 500 images per set, three noise seeds
-([`paper/gen/data/ours_vs_all_final2.json`](paper/gen/data/ours_vs_all_final2.json)). Mean AUROC (%) over the natural OOD sets:
+([`paper/gen/data/ours_vs_all_final2.json`](paper/gen/data/ours_vs_all_final2.json)). Mean AUROC (%) over the natural OOD sets (the target; upside-down ID images are a probe of frame sensitivity):
 
 | | CIFAR-10 | SVHN | CelebA | CIFAR-100 | ImageNet-64 | FashionMNIST | mean | upside-down |
 |---|---|---|---|---|---|---|---|---|
@@ -32,15 +39,16 @@ Six ID datasets with public (or our) diffusion models, 63 ID–OOD pairs, 500 im
 | kNN on our features, tuned per ID | 93.7 | 99.4 | 100.0 | 85.4 | 77.0 | 99.9 | 92.6 | 72.7 |
 
 Against each of the 11 prior methods (NLL, IC with PNG / JPEG 2000, typicality test, MSMA\*, DiffPath, GEPC, EigenScore, CFS
-with its diagonal and kNN heads, a rotation classifier) Upright kNN wins 41–62 of the 63 pairs (bootstrap, 95% interval and at
-least 0.05 points). On OpenOOD v1.5 ImageNet-1K at 64×64 it reaches 70.2 / 79.0 near- / far-OOD AUROC against 60.7 / 75.0 for
+with its diagonal and kNN heads, a rotation classifier) Upright kNN wins 35–47 of the 47 natural pairs and loses at most 2
+(bootstrap, 95% interval and at least 0.05 points); it improves on its own kNN term on 28 natural pairs and loses 1. On OpenOOD v1.5 ImageNet-1K at 64×64 it reaches 70.2 / 79.0 near- / far-OOD AUROC against 60.7 / 75.0 for
 the best prior method. Full tables: [`paper/main.pdf`](paper/main.pdf), [`paper/supp.pdf`](paper/supp.pdf).
 
-**Status (2026-11-02).** Runs still in progress and not yet in the paper: ImageNet at 256×256 (ADM, pixels), 512×512
-(EDM2-XS, latents) and 256×256 (DiT-XL/2, latents) with every image passed through the same 224-px bottleneck
-([`protocols/PROTOCOL_HIRES.md`](protocols/PROTOCOL_HIRES.md), [`PROTOCOL_HIRES_DIT.md`](protocols/PROTOCOL_HIRES_DIT.md));
-three further comparison methods (reconstruction, LMD, likelihood + LID) on the six ID datasets; chest X-rays, histology and
-generators trained with rotations ([`PROTOCOL_E4.md`](protocols/PROTOCOL_E4.md)); bank size on ImageNet-64
+**Status (2026-11-02).** Runs still in progress and not yet in the paper: CSI (official code, 1,000 epochs) on the five 32×32 ID
+datasets ([`protocols/PROTOCOL_CSI.md`](protocols/PROTOCOL_CSI.md)); ImageNet at 256×256 (ADM, pixels), 512×512 (EDM2-XS, latents)
+and 256×256 (DiT-XL/2, latents) with every image passed through the same 224-px bottleneck
+([`protocols/PROTOCOL_HIRES.md`](protocols/PROTOCOL_HIRES.md), [`PROTOCOL_HIRES_DIT.md`](protocols/PROTOCOL_HIRES_DIT.md)); three
+further comparison methods (reconstruction, LMD, likelihood + LID) on the six ID datasets; chest X-rays, histology and generators
+trained with rotations ([`PROTOCOL_E4.md`](protocols/PROTOCOL_E4.md)); bank size on ImageNet-64
 ([`PROTOCOL_E5.md`](protocols/PROTOCOL_E5.md)). Every protocol was written before its results were seen. The per-image scores
 will be published as a release asset once these runs are finished.
 
