@@ -14,11 +14,12 @@ inputs (`final/data_kx/`, `final/data_ok/`, `final/data/`, `final/eu_stage/`, `e
 | `ood1k_ana.json` | `final/ood1k/ana/ood1k_ana.py` | OpenOOD v1.5 ImageNet-1K at 64×64 (near, far, csID, full spectrum) |
 | `in256_ana.json` | `final/in256/ana/in256_ana.py` | ImageNet at 256×256 with ADM, without resolution control |
 | `e3_ana.json` | `final/e3/ana/e3_ana.py` | EuroSAT |
-| `two_notions.json` | `final/ana_two/two_notions.py` | the two terms per image (final evaluation, seeds 0–2): Spearman correlation, AUROC of each term and of the sum, OOD images flagged by one term only or by both at 95% TPR (Tables 1 and S3) |
-| `two_subspace2/<tier>_s<seed>_<split>.json` | GPU side: `code/two_subspace2.py` (`code/run_ts2.sh`) | geometry of the two notions: rotation displacement vs neighbour distance, discriminant / principal / random directions, kNN restricted to them (Table 1, Table S2) |
+| `two_notions.json` | `final/ana_two/two_notions.py` | the two terms per image (final evaluation, seeds 0–2): Spearman correlation, AUROC of each term and of the sum, OOD images flagged by one term only or by both at 95% TPR (Table 1 and the supplement) |
+| `two_subspace2/<tier>_s<seed>_<split>.json` | GPU side: `code/two_subspace2.py` (`code/run_ts2.sh`) | geometry of the two notions: rotation displacement vs neighbour distance, discriminant / principal / random directions, kNN restricted to them (Table 1 and the supplement) |
 | `qual_sel.json`, `qual_ims.npz` | `final/ana_two/qual/select_qual.py` (fixed rule), the images fetched from the arrays | Figure 3 |
 | (pending) | `final/csi/ana/csi_ana.py` | CSI against Upright kNN with the bootstrap of `ours_vs_all.py` (written before the scores; `PROTOCOL_CSI.md`) |
-| (pending) | `final/hires/ana/hires_ana.py`, `final/e4/ana/e4_ana.py`, `final/e5/ana/e5_ana.py` | resolution-controlled ImageNet; chest X-rays, histology and rotation-trained generators; bank size (written before the results) |
+| `hires_ana.json`, `hires_diag.json` | `final/hires/ana/hires_ana.py`; GPU side `code/hires_diag.py` | resolution-controlled ImageNet (ADM 256, EDM2-XS 512, DiT-XL/2 256; Table 4 and the supplement); post-hoc diagnostics (pixel statistics of the bottlenecked images, collapse of DiT's pooled statistics) |
+| (pending) | `final/e4/ana/e4_ana.py`, `final/e5/ana/e5_ana.py` | chest X-rays, histology and rotation-trained generators; bank size (written before the results) |
 | `bench_cpu_session*.jsonl` | `eu/experiments/bench_cpu2.py` (GPU server, CPU timing), `final/ana/bench_ana.py` | seconds per image on a CPU |
 | `ablate2_<tier>.json`, `ofk2_<tier>_s0.json`, `fig1_examples.*`, `dR_s0.json`, `terms_final2_s0.npz` | GPU side: `code/kx_ablate2.py`, `code/kx_ofk2.py`, `code/fig1_examples.py`; `d`, `R`, `T` and the two terms of the seed-0 exports of `code/kx_export.py` | ablations, development evaluation, Figure 1, Figure 2 |
 

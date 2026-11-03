@@ -41,16 +41,17 @@ Six ID datasets with public (or our) diffusion models, 63 ID–OOD pairs, 500 im
 Against each of the 11 prior methods (NLL, IC with PNG / JPEG 2000, typicality test, MSMA\*, DiffPath, GEPC, EigenScore, CFS
 with its diagonal and kNN heads, a rotation classifier) Upright kNN wins 35–47 of the 47 natural pairs and loses at most 2
 (bootstrap, 95% interval and at least 0.05 points); it improves on its own kNN term on 28 natural pairs and loses 1. On OpenOOD v1.5 ImageNet-1K at 64×64 it reaches 70.2 / 79.0 near- / far-OOD AUROC against 60.7 / 75.0 for
-the best prior method. Full tables: [`paper/main.pdf`](paper/main.pdf), [`paper/supp.pdf`](paper/supp.pdf).
+the best prior method. With every image passed through the same 224-px bottleneck, it reaches 83.7 / 76.4 with ADM at 256×256 (best
+prior method 69.4 / 76.4) and 64.7 / 74.5 with EDM2-XS at 512×512 (CFS 61.2 / 72.7); with DiT-XL/2 at 256×256 (58.3 / 71.8) its kNN term
+suffers from a collapse of the pooled statistics (one input-independent channel dominates each block). Full tables: [`paper/main.pdf`](paper/main.pdf), [`paper/supp.pdf`](paper/supp.pdf).
 
-**Status (2026-11-02).** Runs still in progress and not yet in the paper: CSI (official code, 1,000 epochs) on the five 32×32 ID
-datasets ([`protocols/PROTOCOL_CSI.md`](protocols/PROTOCOL_CSI.md)); ImageNet at 256×256 (ADM, pixels), 512×512 (EDM2-XS, latents)
-and 256×256 (DiT-XL/2, latents) with every image passed through the same 224-px bottleneck
-([`protocols/PROTOCOL_HIRES.md`](protocols/PROTOCOL_HIRES.md), [`PROTOCOL_HIRES_DIT.md`](protocols/PROTOCOL_HIRES_DIT.md)); three
-further comparison methods (reconstruction, LMD, likelihood + LID) on the six ID datasets; chest X-rays, histology and generators
-trained with rotations ([`PROTOCOL_E4.md`](protocols/PROTOCOL_E4.md)); bank size on ImageNet-64
-([`PROTOCOL_E5.md`](protocols/PROTOCOL_E5.md)). Every protocol was written before its results were seen. The per-image scores
-will be published as a release asset once these runs are finished.
+**Status (2026-11-03).** Runs still in progress and not yet in the paper: CSI (official code, 1,000 epochs) on the five 32×32 ID
+datasets ([`protocols/PROTOCOL_CSI.md`](protocols/PROTOCOL_CSI.md)); three further comparison methods (reconstruction, LMD,
+likelihood + LID) on the six ID datasets; chest X-rays, histology and generators trained with rotations
+([`PROTOCOL_E4.md`](protocols/PROTOCOL_E4.md)); bank size on ImageNet-64 ([`PROTOCOL_E5.md`](protocols/PROTOCOL_E5.md)). The
+resolution-controlled ImageNet runs ([`PROTOCOL_HIRES.md`](protocols/PROTOCOL_HIRES.md),
+[`PROTOCOL_HIRES_DIT.md`](protocols/PROTOCOL_HIRES_DIT.md)) are finished and in the paper. Every protocol was written before its results
+were seen. The per-image scores will be published as a release asset once these runs are finished.
 
 ## Layout
 

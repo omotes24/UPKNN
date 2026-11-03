@@ -1,0 +1,136 @@
+{
+ "feat": {
+  "in256c": {
+   "L0_top_channel_share_median": 0.20013351245987088,
+   "L0_argmax_channel_mode_frac": 0.88,
+   "L1_top_channel_share_median": 0.03616368305299233,
+   "L1_argmax_channel_mode_frac": 0.6005,
+   "L2_top_channel_share_median": 0.027054540731196074,
+   "L2_argmax_channel_mode_frac": 0.329,
+   "pair_cos_quantiles_1_50_99": [
+    0.5930986331872939,
+    0.8436100680644363,
+    0.9686026881910588
+   ],
+   "frac_pairs_cos_ge_0.9999": 0.0
+  },
+  "e512": {
+   "L0_top_channel_share_median": 0.05413247394813618,
+   "L0_argmax_channel_mode_frac": 0.6535,
+   "L1_top_channel_share_median": 0.12865722500524884,
+   "L1_argmax_channel_mode_frac": 0.5745,
+   "L2_top_channel_share_median": 0.21152424929941765,
+   "L2_argmax_channel_mode_frac": 0.9975,
+   "pair_cos_quantiles_1_50_99": [
+    0.5616433612695554,
+    0.8714237417363624,
+    0.958880155369434
+   ],
+   "frac_pairs_cos_ge_0.9999": 0.0
+  },
+  "dit256": {
+   "L0_top_channel_share_median": 0.6966162655228478,
+   "L0_argmax_channel_mode_frac": 0.995,
+   "L1_top_channel_share_median": 0.7186092784372491,
+   "L1_argmax_channel_mode_frac": 1.0,
+   "L2_top_channel_share_median": 0.940271543851771,
+   "L2_argmax_channel_mode_frac": 1.0,
+   "pair_cos_quantiles_1_50_99": [
+    0.9285912437981768,
+    0.9951906303289899,
+    0.9987715841321868
+   ],
+   "frac_pairs_cos_ge_0.9999": 0.0
+  }
+ },
+ "pix": {
+  "ssb_hard": {
+   "hf_auroc": 56.681000000000004,
+   "hf_dir": "ID higher",
+   "blk_auroc": 55.4906,
+   "blk_dir": "OOD higher",
+   "hf_med": [
+    20.142568243919595,
+    17.74741971701431
+   ],
+   "n": 1000
+  },
+  "ninco": {
+   "hf_auroc": 56.8792,
+   "hf_dir": "ID higher",
+   "blk_auroc": 50.408199999999994,
+   "blk_dir": "OOD higher",
+   "hf_med": [
+    20.142568243919595,
+    16.77740916592268
+   ],
+   "n": 1000
+  },
+  "inaturalist": {
+   "hf_auroc": 62.908500000000004,
+   "hf_dir": "OOD higher",
+   "blk_auroc": 50.246100000000006,
+   "blk_dir": "OOD higher",
+   "hf_med": [
+    20.142568243919595,
+    28.314020101182265
+   ],
+   "n": 1000
+  },
+  "textures": {
+   "hf_auroc": 57.03659999999999,
+   "hf_dir": "OOD higher",
+   "blk_auroc": 51.31679999999999,
+   "blk_dir": "ID higher",
+   "hf_med": [
+    20.142568243919595,
+    23.889768146524908
+   ],
+   "n": 1000
+  },
+  "openimage_o": {
+   "hf_auroc": 61.307100000000005,
+   "hf_dir": "ID higher",
+   "blk_auroc": 50.820299999999996,
+   "blk_dir": "OOD higher",
+   "hf_med": [
+    20.142568243919595,
+    15.461299136974814
+   ],
+   "n": 1000
+  },
+  "imagenet_v2": {
+   "hf_auroc": 52.187,
+   "hf_dir": "ID higher",
+   "blk_auroc": 50.231899999999996,
+   "blk_dir": "ID higher",
+   "hf_med": [
+    20.142568243919595,
+    19.321838730622517
+   ],
+   "n": 1000
+  },
+  "imagenet_c": {
+   "hf_auroc": 63.490899999999996,
+   "hf_dir": "ID higher",
+   "blk_auroc": 74.9571,
+   "blk_dir": "OOD higher",
+   "hf_med": [
+    20.142568243919595,
+    10.93148215783351
+   ],
+   "n": 1000
+  },
+  "imagenet_r": {
+   "hf_auroc": 52.331649999999996,
+   "hf_dir": "ID higher",
+   "blk_auroc": 54.59339999999999,
+   "blk_dir": "OOD higher",
+   "hf_med": [
+    20.142568243919595,
+    18.84289356924492
+   ],
+   "n": 1000
+  }
+ }
+}

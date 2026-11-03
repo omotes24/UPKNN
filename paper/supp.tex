@@ -18,6 +18,7 @@
 \definecolor{firstblue}{RGB}{189,215,238}
 \makeatletter\@namedef{r@eq:score}{{2}{}{}{}{}}\makeatother   % Eq. (2) of the paper (the score), referred to by tab_fusion.tex
 \input{numbers_two}
+\input{numbers_hires}
 \newcommand{\Rot}[1]{\mathbf{R}_{#1}}
 \renewcommand{\thetable}{S\arabic{table}}
 \renewcommand{\thesection}{S\arabic{section}}
@@ -149,6 +150,19 @@ Method & 1 & 2 & 3 & 4 & 5\\\midrule
 \label{tab:in64c}
 \end{table}
 
+\section{ImageNet at Higher Resolution with Resolution Control}
+\label{s:hires}
+Every image (ID and OOD) is first resized so that its short side is 224 pixels and centre-cropped to 224$\times$224, then resized to the model's resolution, so that no set can be told apart by the resolution at which it is stored (protocols \texttt{PROTOCOL\_HIRES.md} and \texttt{PROTOCOL\_HIRES\_DIT.md}, written before the runs). The ImageNet-64 configuration of Upright kNN is used unchanged ($R=1{,}000$ of a bank of 10 training images per class, $\sigma_1$, three blocks, the head and its training); for the latent models the noise is added to the latents and the bank images are rotated in pixel space before encoding. DiT-XL/2 has no decoder resolutions; its blocks 28, 21 and 14 (depth 4/4, 3/4, 2/4) take the place of the three decoder blocks. CFS is not defined for a transformer; MSMA$^{*}$, DiffPath and GEPC are run in pixel space only (ADM). \textbf{Diagnostics (post hoc).} Simple pixel statistics of the bottlenecked 224-pixel images, the mean absolute Laplacian (high-frequency energy) and the excess absolute difference across 8-pixel column boundaries (JPEG blockiness), separate ImageNet from SSB-hard with at most \hPixSsb\% AUROC and from any OOD set with at most \hPixMax\% (either direction). In the space of the kNN term of DiT-XL/2, the largest channel of each block carries \hDitTopShareMin--\hDitTopShareMax\% of the squared norm of the pooled statistics (median over bank images; the same channel for nearly every image), and two random bank images have a median cosine similarity of \hDitCosMed{} (\hUnetCosMin--\hUnetCosMax{} for ADM and EDM2-XS); a quarter of the bank points therefore have degenerate neighbourhoods in the estimate of $d$, which skips them.
+\begin{table}[H]\centering\small\setlength{\tabcolsep}{3.4pt}
+\begin{tabular}{@{}lccccc|c|ccc|c@{}}\toprule
+Method & SSB-hard & NINCO & iNat & Tex. & OI-O & Flip & V2 & C & R & W/T/L\\
+\inputrows{supp_hires.tex}
+\bottomrule
+\end{tabular}
+\caption{Resolution-controlled ImageNet by set (AUROC, \%; common images of all rows of a model; three noise seeds for Upright kNN, the kNN rules and CFS). W/T/L of Upright kNN over the five OOD sets (bootstrap rule of the paper).}
+\label{tab:hires}
+\end{table}
+
 \section{ImageNet at 256$\times$256 without Resolution Control}
 \begin{table}[H]\centering\small
 \begin{tabular}{@{}lcccccc@{}}\toprule
@@ -156,7 +170,7 @@ Method & SSB-hard & NINCO & iNat & Textures & OI-O & Flip\\\midrule
 \inputrows{supp_in256.tex}
 \bottomrule
 \end{tabular}
-\caption{ADM 256$\times$256 with each set's images cropped from their stored resolution (500 common images per set). SSB-hard is stored at 224 pixels (short side, all 200 sampled images) and is upsampled, whereas ImageNet validation has a median short side of 375 pixels (3\% below 256); ImageNet-C is also stored at 224 pixels. Every feature-based detector separates SSB-hard far better than at 64$\times$64, a resolution shortcut; the paper therefore reports this setting without SSB-hard and ImageNet-C.}
+\caption{ADM 256$\times$256 with each set's images cropped from their stored resolution (500 common images per set). SSB-hard is stored at 224 pixels (short side, all 200 sampled images) and is upsampled, whereas ImageNet validation has a median short side of 375 pixels (3\% below 256); ImageNet-C is also stored at 224 pixels. Every feature-based detector separates SSB-hard far better than at 64$\times$64, a resolution shortcut; the paper therefore reports the resolution-controlled setting of Section~\ref{s:hires}, in which every image passes through the same 224-pixel bottleneck.}
 \label{tab:in256}
 \end{table}
 
