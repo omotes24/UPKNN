@@ -25,6 +25,7 @@ inputs (`final/data_kx/`, `final/data_ok/`, `final/data/`, `final/eu_stage/`, `e
 | `e5b_ana.json` | `final/e5b/ana/e5b_ana.py` (`final/e5/ana/e5_ana.py` for the superseded E5 runs) | bank size on ImageNet-64 |
 | `two_controls/`, `two_controls2/` | GPU side: `code/two_controls.py`, `code/two_controls2.py` | controls of the two-notions analysis (`PROTOCOL_E6.md`, `PROTOCOL_E8.md`), read directly by `paper/gen/mk_two.py` and `mk_supp.py` |
 | `e7_ana.json` | `final/e7/ana/e7_ana.py` | ADM 256×256 with the same final resampling for every set against the resolution-controlled tier (`PROTOCOL_HIRES2.md`) |
+| `e9_ana.json` | `final/e9/ana/e9_ana.py`; GPU side `code/e9_space.py` | the frame term added to CFS (kNN), the basic kNN rule and a Gaussian log-density of CFS's descriptors, with $d$ estimated in each detector's own space, and $z$-sum fusions with every comparison method (`PROTOCOL_E9.md`) |
 | `bench_cpu_session*.jsonl` | `eu/experiments/bench_cpu2.py` (GPU server, CPU timing), `final/ana/bench_ana.py` | seconds per image on a CPU |
 | `ablate2_<tier>.json`, `ofk2_<tier>_s0.json`, `fig1_examples.*`, `dR_s0.json`, `terms_final2_s0.npz` | GPU side: `code/kx_ablate2.py`, `code/kx_ofk2.py`, `code/fig1_examples.py`; `d`, `R`, `T` and the two terms of the seed-0 exports of `code/kx_export.py` | ablations, development evaluation, Figure 1, Figure S2 |
 

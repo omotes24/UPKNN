@@ -188,4 +188,50 @@ if E5B:
     with open(f'{OUT}/numbers_e5b.tex', 'w') as fo:
         fo.write('% written by gen/mk_supp.py\n')
         for k, v in MX.items(): fo.write(f'\\newcommand{{\\{k}}}{{{v}}}\n')
-print('E4 / sweep / controls tables written', bool(TC), 'E5B', bool(E5B))
+# ---- the frame term as a plug-in (PROTOCOL_E9.md): gen/data/e9_ana.json (analysis/final/e9/ana/e9_ana.py), when the runs have finished
+E9 = json.load(open(f'{D}/e9_ana.json')) if os.path.exists(f'{D}/e9_ana.json') else None
+if E9:
+    LAB9 = {'CFS (kNN)': 'CFS (kNN)', 'Upright CFS (kNN)': '\\quad + frame term (Bayes weight)', 'CFS (kNN) + frame (z)': '\\quad + frame term ($z$-sum)',
+            'kNN (basic)': 'kNN (basic)', 'Upright kNN (basic)': '\\quad + frame term (Bayes weight)', 'kNN (basic) + frame (z)': '\\quad + frame term ($z$-sum)',
+            'CFS (diag)': 'CFS (diag.)', 'CFS (diag, Gaussian)': 'CFS (diag.) as a Gaussian log-density', 'Upright CFS (diag)': '\\quad + frame term (unit weight)', 'CFS (diag) + frame (z)': '\\quad + frame term ($z$-sum)',
+            'kNN term': 'kNN term of Upright kNN', 'Ours': '\\quad + frame term (Bayes weight; Upright kNN)',
+            'NLL': 'NLL', 'IC-png': 'IC (PNG)', 'IC-j2k': 'IC (JPEG2K)', 'TT': 'TT', 'MSMA*': 'MSMA$^{*}$', 'DiffPath': 'DiffPath', 'GEPC': 'GEPC', 'EigenScore': 'EigenScore', 'RotCls4': 'Rotation pred.'}
+    ORDER = [('kNN term', 'Ours', None), ('kNN (basic)', 'Upright kNN (basic)', 'kNN (basic) + frame (z)'), ('CFS (kNN)', 'Upright CFS (kNN)', 'CFS (kNN) + frame (z)'),
+             ('CFS (diag)', None, 'CFS (diag) + frame (z)'), ('CFS (diag, Gaussian)', 'Upright CFS (diag)', None)] + [(m, None, f'{m} + frame (z)') for m in ('NLL', 'IC-png', 'IC-j2k', 'TT', 'MSMA*', 'DiffPath', 'GEPC', 'EigenScore', 'RotCls4')]
+    def wtl9(up, base):
+        k = f'{up} vs {base}'
+        if k not in E9['wtl_nat']: return '--'
+        w = E9['wtl_nat'][k]; b = E9['big_nat'][k]; return f"{w['win']}/{w['tie']}/{w['loss']} ({b['win1']}/{b['loss1']})"
+    L = []
+    for base, up, fz in ORDER:
+        for r in (base, up, fz):
+            if r is None or r not in E9['mean']: continue
+            cells = [f1(E9['ids'][t][r]) if r in E9['ids'][t] else '--' for t in TAGS] + [f1(E9['mean'][r]), f1(E9['vflip_mean'][r]), '--' if r == base else wtl9(r, base)]
+            L.append((LAB9[r] if r == base or r in ('Ours', 'Upright CFS (kNN)', 'Upright kNN (basic)', 'Upright CFS (diag)') else '\\quad + frame term ($z$-sum)') + ' & ' + ' & '.join(cells) + '\\\\')
+        L.append('\\addlinespace[1pt]')
+    open(f'{OUT}/supp_e9.tex', 'w').write('% written by gen/mk_supp.py (PROTOCOL_E9.md)\n' + '\n'.join(L) + '\n')
+    MX = {}
+    def gain(up, base): return E9['mean'][up] - E9['mean'][base]
+    MX.update({'eNineCfsKnn': f1(E9['mean']['CFS (kNN)']), 'eNineUpCfsKnn': f1(E9['mean']['Upright CFS (kNN)']), 'eNineGainCfsKnn': f1(gain('Upright CFS (kNN)', 'CFS (kNN)')),
+               'eNineCfsKnnWtl': wtl9('Upright CFS (kNN)', 'CFS (kNN)').split(' ')[0], 'eNineCfsKnnBigWin': str(E9['big_nat']['Upright CFS (kNN) vs CFS (kNN)']['win1']),
+               'eNineCfsKnnLoss': str(E9['wtl_nat']['Upright CFS (kNN) vs CFS (kNN)']['loss']),
+               'eNineKnnB': f1(E9['mean']['kNN (basic)']), 'eNineUpKnnB': f1(E9['mean']['Upright kNN (basic)']), 'eNineGainKnnB': f1(gain('Upright kNN (basic)', 'kNN (basic)')),
+               'eNineKnnBWtl': wtl9('Upright kNN (basic)', 'kNN (basic)').split(' ')[0], 'eNineKnnBLoss': str(E9['wtl_nat']['Upright kNN (basic) vs kNN (basic)']['loss']),
+               'eNineCfsDiag': f1(E9['mean']['CFS (diag)']), 'eNineCfsDiagG': f1(E9['mean']['CFS (diag, Gaussian)']), 'eNineUpCfsDiag': f1(E9['mean']['Upright CFS (diag)']), 'eNineGainCfsDiag': f"{gain('Upright CFS (diag)', 'CFS (diag, Gaussian)'):+.1f}",
+               'eNineCfsDiagWtl': wtl9('Upright CFS (diag)', 'CFS (diag, Gaussian)').split(' ')[0],
+               'eNineGainKnnT': f1(gain('Ours', 'kNN term')), 'eNineUpCfsKnnVf': f1(E9['vflip_mean']['Upright CFS (kNN)']), 'eNineCfsKnnVf': f1(E9['vflip_mean']['CFS (kNN)']),
+               'eNineZCfsKnn': f1(E9['mean']['CFS (kNN) + frame (z)']), 'eNineZKnnB': f1(E9['mean']['kNN (basic) + frame (z)']),
+               'eNineDcfsMin': f'{min(v["d_cfs"] for t in E9["space"] for v in E9["space"][t].values()):.0f}', 'eNineDcfsMax': f'{max(v["d_cfs"] for t in E9["space"] for v in E9["space"][t].values()):.0f}',
+               'eNineDlMin': f'{min(v["d_l1"] for t in E9["space"] for v in E9["space"][t].values()):.0f}', 'eNineDlMax': f'{max(v["d_l1"] for t in E9["space"] for v in E9["space"][t].values()):.0f}'})
+    zg = {m: gain(f'{m} + frame (z)', m) for m in ('NLL', 'IC-png', 'IC-j2k', 'TT', 'MSMA*', 'DiffPath', 'GEPC', 'EigenScore', 'RotCls4', 'CFS (diag)', 'CFS (kNN)', 'kNN (basic)') if f'{m} + frame (z)' in E9['mean']}
+    MX['eNineZgainMin'] = f'{min(zg.values()):+.1f}'; MX['eNineZgainMax'] = f'{max(zg.values()):+.1f}'; MX['eNineZnImproved'] = str(sum(v > 0 for v in zg.values())); MX['eNineZn'] = str(len(zg))
+    MX['eNineZworst'] = min(zg, key=zg.get); MX['eNineZbest'] = max(zg, key=zg.get)
+    above = [m for m in zg if E9['mean'][f'{m} + frame (z)'] > E9['mean']['Orientation term']]
+    MX['eNineZabove'] = ', '.join(LAB9[m] for m in above); MX['eNineZnAbove'] = str(len(above)); MX['eNineOrient'] = f1(E9['mean']['Orientation term'])
+    MX['eNineZCfsDiag'] = f1(E9['mean']['CFS (diag) + frame (z)']); MX['eNineZNll'] = f1(E9['mean']['NLL + frame (z)']); MX['eNineNll'] = f1(E9['mean']['NLL'])
+    MX['eNineUpKnnBVf'] = f1(E9['vflip_mean']['Upright kNN (basic)']); MX['eNineKnnBVf'] = f1(E9['vflip_mean']['kNN (basic)'])
+    assert all(not any(ch.isdigit() for ch in k) for k in MX)
+    with open(f'{OUT}/numbers_e9.tex', 'w') as fo:
+        fo.write('% written by gen/mk_supp.py\n')
+        for k, v in MX.items(): fo.write(f'\\newcommand{{\\{k}}}{{{v}}}\n')
+print('E4 / sweep / controls tables written', bool(TC), 'E5B', bool(E5B), 'E9', bool(E9))

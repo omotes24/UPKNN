@@ -18,3 +18,4 @@ Each protocol was written, and copied unchanged here, before the evaluation it g
 | [`PROTOCOL_E6.md`](PROTOCOL_E6.md) | controls of the two-notions analysis: kNN in the full head space, the estimator-free mean-3 subspace, the head on $\mathbf g$ only, a head on pixel statistics, the sensitivity of $d$ |
 | [`PROTOCOL_HIRES2.md`](PROTOCOL_HIRES2.md) | ImageNet at 256×256 (ADM) with the same final resampling for every set (every image through 112 px) |
 | [`PROTOCOL_E8.md`](PROTOCOL_E8.md) | further controls: the shape of the head's posterior by decision region, the displacement ratio at fixed neighbour ranks, a whitened (Mahalanobis) kNN |
+| [`PROTOCOL_E9.md`](PROTOCOL_E9.md) | the frame term as a plug-in to other neighbourhood detectors (CFS kNN, the basic kNN rule, a Gaussian log-density of CFS's descriptors) with the parameter-free weight, and $z$-sum fusions with every comparison method (post hoc, expectations written in advance) |

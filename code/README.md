@@ -57,6 +57,7 @@ evaluation of the score; choice of block set and $R$), `kx_rothead.py` / `kx_rot
 | CSI, comparison method (official code, `PROTOCOL_CSI.md`) | `csi_run.py` (wrapper: our arrays, torchlars / diffdist / tensorboardX stand-ins, resume), `insert_csi.py`, `move_csi.py` (job list) |
 | two notions of ID conformity (post-hoc analysis, Section 5) | `two_subspace.py` (development images, seed 0), `two_subspace2.py` + `run_ts2.sh` (final and development images, seeds 0–2, fitting variants) |
 | controls of the two-notions analysis (`PROTOCOL_E6.md`, `PROTOCOL_E8.md`) | `two_controls.py`, `insert_e6.py`; `two_controls2.py`, `insert_e8.py` |
+| the frame term as a plug-in to other neighbourhood detectors (`PROTOCOL_E9.md`) | `e9_space.py` (intrinsic dimension of the CFS descriptor space and of the basic kNN space, per-set neighbour distances and Gaussian log-densities), `insert_e9.py` |
 
 ## Data preparation
 

@@ -63,6 +63,11 @@ read-out of the same statistics recovers the frame (controls [`PROTOCOL_E6.md`](
 aerial tiles, which have no canonical up, it misleads ([`PROTOCOL_E4.md`](protocols/PROTOCOL_E4.md),
 [`PROTOCOL_E3.md`](protocols/PROTOCOL_E3.md)).
 
+**The frame term as a plug-in.** Added with the same parameter-free weight to other neighbourhood detectors, the frame term lifts
+CFS (kNN) from 85.5% to 88.6% and the basic kNN rule from 87.7% to 89.8% mean AUROC over the 47 natural pairs, and leaves a
+Gaussian log-density of CFS's descriptors unchanged (80.5% to 80.7%); a $z$-sum with each of 12 comparison methods helps every one
+of them, but exceeds the frame term alone (89.9%) only for the two neighbourhood detectors ([`PROTOCOL_E9.md`](protocols/PROTOCOL_E9.md)).
+
 **Status (2026-11-06).** All experiments of the paper are finished and in the paper except two comparison rows that are still
 being computed on the GPU server and are marked as pending in `main.pdf`: LMD on CelebA, CIFAR-100, ImageNet-64 and
 FashionMNIST, and likelihood + LID (Kamkari et al.) on all six ID datasets. Every protocol was written before its results were

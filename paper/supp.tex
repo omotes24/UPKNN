@@ -26,6 +26,7 @@
 \input{numbers_two}
 \input{numbers_hires}
 \input{numbers_e5b}
+\input{numbers_e9}
 \renewcommand{\thetable}{S\arabic{table}}
 \renewcommand{\thefigure}{S\arabic{figure}}
 \renewcommand{\thesection}{S\arabic{section}}
@@ -292,6 +293,17 @@ Score & Mean & Flip & W/T/L of ours\\\midrule
 \end{tabular}
 \caption{Principled sum vs.\ naive fusions (final evaluation, AUROC, \%; Mean and Flip as in Table~2 of the paper). $z$-sum: sum of $z$-scores; Fisher: sum of log empirical ID $p$-values; both normalise each score with additional ID images (the development split), which Upright kNN does not need. W/T/L over the natural-OOD pairs. This comparison was added after the frozen evaluation and reuses its images.}
 \label{tab:fusion}
+\end{table}
+
+\textbf{The frame term as a plug-in (post hoc, \texttt{PROTOCOL\_E9.md}, expectations written before the result).} If the frame is a second notion of ID conformity, the orientation term should improve other neighbourhood detectors too, with the same parameter-free weight: the kNN log-density $-d\log r$ of that detector's own space, with $d$ the Levina--Bickel estimate in that space (20 neighbours of 3{,}000 bank points), plus $\log q_\phi(\Rot{0}\mid\mathbf{x})$ of the paper's frozen head. Table~\ref{tab:plugin} applies this to CFS with its kNN head ($r$: its mean distance to the 10 nearest bank descriptors in its standardised space, $d=$ \eNineDcfsMin--\eNineDcfsMax) and to the basic kNN of the paper ($r$: the chordal distance of the 10th neighbour in its half-resolution block, $d=$ \eNineDlMin--\eNineDlMax), and, as a control for the scale argument of Section~3.3, to the diagonal head of CFS read as a Gaussian log-density of all its descriptor dimensions (which ranks as the official slot-mean score except on SVHN, whose two slots have 1{,}024 and 256 dimensions). It also reports a $z$-sum (scales fitted on the ID images of the development split, as above) of the orientation term with every comparison method of Table~2 that was run on those images. Findings: with the parameter-free weight the frame term lifts CFS (kNN) from \eNineCfsKnn\% to \eNineUpCfsKnn\% (W/T/L \eNineCfsKnnWtl{} over the 47 natural pairs; \eNineCfsKnnBigWin{} wins of at least one point) and the basic kNN from \eNineKnnB\% to \eNineUpKnnB\% (\eNineKnnBWtl), more than the \eNineGainKnnT{} points it adds to the paper's stronger kNN term, and it leaves the Gaussian log-density of CFS (diag.) unchanged (\eNineCfsDiagG\% to \eNineUpCfsDiag\%: its values spread over hundreds of nats across ID images, the frame factor over one). The fitted $z$-sum adds \eNineZgainMin{} to \eNineZgainMax{} points to every one of the \eNineZn{} comparison methods, but a fusion exceeds the orientation term alone (\eNineOrient\%) only for the two neighbourhood detectors (\eNineZabove: \eNineZKnnB\% and \eNineZCfsKnn\%); for the likelihood and statistic detectors the fused score is carried by the frame term (NLL \eNineNll\% to \eNineZNll\%, below \eNineOrient\%). The frame term is thus complementary to neighbourhood conformity in particular, as Section~5 argues, and not only to our features.
+\begin{table}[H]\centering\footnotesize\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}lcccccc|c|c|c@{}}\toprule
+Score & CIFAR-10 & SVHN & CelebA & CIFAR-100 & ImageNet-64 & FMNIST & Mean & Flip & W/T/L vs base\\\midrule
+\inputrows{supp_e9.tex}
+\bottomrule
+\end{tabular}
+\caption{The frame term added to other detectors (final evaluation, AUROC, \%, mean over the natural OOD sets of each ID dataset; Flip: upside-down ID images; three noise seeds for Upright kNN, CFS, the basic kNN and the frame term, one for the other rows). Bayes weight: $-d\log r+\log q_\phi(\Rot{0}\mid\mathbf{x})$ with $d$ estimated in the detector's own space; unit weight: the Gaussian log-density plus $\log q_\phi$; $z$-sum: scales from the ID images of the development split. W/T/L: the row against its base over the 47 natural pairs (bootstrap rule of the paper), in parentheses wins/losses of at least one point.}
+\label{tab:plugin}
 \end{table}
 
 \section{CSI}
