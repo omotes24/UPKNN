@@ -7,7 +7,7 @@
 #   usage: python code/kx_export.py <tag> <gpu> <seed> <prefixes, e.g. fresh- or final2->     -> runs/kx/export/<tag>_s<seed>_<prefix>.npz
 import os, sys, json, numpy as np, torch
 ROOT = os.path.expanduser('~/upknn')
-CH = {'edmc10': ('L012', 2), 'l6svhn': ('L012', 5), 'dpceleba': ('L012', 5), 'edmc100': ('L012', 5), 'in64': ('L012', 1000), 'fmnist': ('L012', 1), 'in256': ('L012', 1000), 'eurosat': ('L012', 5), 'in256c': ('L012', 1000), 'e512': ('L012', 1000), 'dit256': ('L012', 1000), 'chest': ('L012', 5), 'path': ('L012', 5), 'c10n4': ('L012', 5), 'c10x4': ('L012', 5), 'c10r25': ('L012', 5), 'c10r50': ('L012', 5), 'c10r100': ('L012', 5)}
+CH = {'edmc10': ('L012', 2), 'l6svhn': ('L012', 5), 'dpceleba': ('L012', 5), 'edmc100': ('L012', 5), 'in64': ('L012', 1000), 'fmnist': ('L012', 1), 'in256': ('L012', 1000), 'eurosat': ('L012', 5), 'in256c': ('L012', 1000), 'in256d': ('L012', 1000), 'e512': ('L012', 1000), 'dit256': ('L012', 1000), 'chest': ('L012', 5), 'path': ('L012', 5), 'c10n4': ('L012', 5), 'c10x4': ('L012', 5), 'c10r25': ('L012', 5), 'c10r50': ('L012', 5), 'c10r100': ('L012', 5)}
 HS = {'L1': [1], 'L012': [0, 1, 2]}
 tag, gpu, seed, prefix = sys.argv[1], int(sys.argv[2]), int(sys.argv[3]), sys.argv[4]
 dev = torch.device(f'cuda:{gpu}')

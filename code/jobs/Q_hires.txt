@@ -52,6 +52,11 @@ until [ -f logs/hires/PREP_DONE ]; do sleep 60; done; DG_FP16=0 python code/run_
 until [ -f logs/hires/PREP_DONE ]; do sleep 60; done; DG_FP16=0 python code/run_adm.py code/baselines.py --gpu {gpu} --method gepc --model adm:256 --bs 2 --data hc_imagenet_v2 --n 0 --complement --cap 500 --out runs/base2/gepc_in256c/hc_imagenet_v2.npz > logs/hires/gepc_hc_imagenet_v2.log 2>&1
 until [ -f logs/hires/PREP_DONE ]; do sleep 60; done; DG_FP16=0 python code/run_adm.py code/baselines.py --gpu {gpu} --method gepc --model adm:256 --bs 2 --data hc_imagenet_c --n 0 --complement --cap 500 --out runs/base2/gepc_in256c/hc_imagenet_c.npz > logs/hires/gepc_hc_imagenet_c.log 2>&1
 until [ -f logs/hires/PREP_DONE ]; do sleep 60; done; DG_FP16=0 python code/run_adm.py code/baselines.py --gpu {gpu} --method gepc --model adm:256 --bs 2 --data hc_imagenet_r --n 0 --complement --cap 500 --out runs/base2/gepc_in256c/hc_imagenet_r.npz > logs/hires/gepc_hc_imagenet_r.log 2>&1
+python code/csi_run.py train edmc10 {gpu} && python code/csi_run.py score edmc10 {gpu} final2-
+python code/csi_run.py train edmc100 {gpu} && python code/csi_run.py score edmc100 {gpu} final2-
+python code/csi_run.py train l6svhn {gpu} && python code/csi_run.py score l6svhn {gpu} final2-
+python code/csi_run.py train dpceleba {gpu} && python code/csi_run.py score dpceleba {gpu} final2-
+python code/csi_run.py train fmnist {gpu} && python code/csi_run.py score fmnist {gpu} final2-
 bash code/e4_tier.sh chest {gpu}
 bash code/e4_tier.sh path {gpu}
 bash code/e4_tier.sh c10r100 {gpu}
@@ -62,11 +67,6 @@ bash code/e4_tier.sh c10r50 {gpu}
 bash code/e5_tier.sh in64h50 {gpu}
 bash code/e5_tier.sh in64h25 {gpu}
 bash code/e5_tier.sh in64h10 {gpu}
-python code/csi_run.py train edmc10 {gpu} && python code/csi_run.py score edmc10 {gpu} final2-
-python code/csi_run.py train edmc100 {gpu} && python code/csi_run.py score edmc100 {gpu} final2-
-python code/csi_run.py train l6svhn {gpu} && python code/csi_run.py score l6svhn {gpu} final2-
-python code/csi_run.py train dpceleba {gpu} && python code/csi_run.py score dpceleba {gpu} final2-
-python code/csi_run.py train fmnist {gpu} && python code/csi_run.py score fmnist {gpu} final2-
 SR_ROOT=$HOME/upknn python eu/experiments/graham.py --gpu {gpu} --model edm:edm-cifar10-32x32-uncond-vp.pkl --tag edmc10_f2 --sets cifar10_test:eu/runs/jobs/f2_idx/edmc10__cifar10_test.json --bs 64 > logs/hires/graham_edmc10_cifar10_test.log 2>&1
 SR_ROOT=$HOME/upknn python eu/experiments/graham.py --gpu {gpu} --model edm:edm-cifar10-32x32-uncond-vp.pkl --tag edmc10_f2 --sets cifar100_test:eu/runs/jobs/f2_idx/edmc10__cifar100_test.json --bs 64 > logs/hires/graham_edmc10_cifar100_test.log 2>&1
 SR_ROOT=$HOME/upknn python eu/experiments/graham.py --gpu {gpu} --model edm:edm-cifar10-32x32-uncond-vp.pkl --tag edmc10_f2 --sets svhn_test:eu/runs/jobs/f2_idx/edmc10__svhn_test.json --bs 64 > logs/hires/graham_edmc10_svhn_test.log 2>&1
@@ -166,6 +166,31 @@ SR_ROOT=$HOME/upknn python eu/experiments/lmd.py --gpu {gpu} --model iddpm:diffp
 SR_ROOT=$HOME/upknn python eu/experiments/lmd.py --gpu {gpu} --model iddpm:diffpath_celeba32.pt --tag dpceleba_f2 --sets cifar10_test:eu/runs/jobs/f2_idx/dpceleba__cifar10_test.json --bs 50 > logs/hires/lmd_dpceleba_cifar10_test.log 2>&1
 SR_ROOT=$HOME/upknn python eu/experiments/lmd.py --gpu {gpu} --model iddpm:diffpath_celeba32.pt --tag dpceleba_f2 --sets cifar100_test:eu/runs/jobs/f2_idx/dpceleba__cifar100_test.json --bs 50 > logs/hires/lmd_dpceleba_cifar100_test.log 2>&1
 SR_ROOT=$HOME/upknn python eu/experiments/lmd.py --gpu {gpu} --model iddpm:diffpath_celeba32.pt --tag dpceleba_f2 --sets svhn_test:eu/runs/jobs/f2_idx/dpceleba__svhn_test.json --bs 50 > logs/hires/lmd_dpceleba_svhn_test.log 2>&1
+python code/two_controls.py in64 {gpu} > logs/e6/two_controls_in64.log 2>&1
+python code/two_controls.py edmc10 {gpu} > logs/e6/two_controls_edmc10.log 2>&1
+python code/two_controls.py edmc100 {gpu} > logs/e6/two_controls_edmc100.log 2>&1
+python code/two_controls.py l6svhn {gpu} > logs/e6/two_controls_l6svhn.log 2>&1
+python code/two_controls.py dpceleba {gpu} > logs/e6/two_controls_dpceleba.log 2>&1
+python code/two_controls.py fmnist {gpu} > logs/e6/two_controls_fmnist.log 2>&1
+bash code/e5b_tier.sh in64b50 {gpu}
+bash code/e5b_tier.sh in64b25 {gpu}
+python code/prep_c112.py > logs/hires2/prep.log 2>&1 && python code/mk_sets_hires2.py >> logs/hires2/prep.log 2>&1 && touch logs/hires2/PREP_DONE
+bash code/hires2_seed.sh {gpu} 0 > logs/hires2/seed_0.log 2>&1
+bash code/hires2_seed.sh {gpu} 1 > logs/hires2/seed_1.log 2>&1
+bash code/hires2_seed.sh {gpu} 2 > logs/hires2/seed_2.log 2>&1
+bash code/hires2_cfs.sh {gpu} 0 > logs/hires2/cfs_0.log 2>&1
+bash code/hires2_cfs.sh {gpu} 1 > logs/hires2/cfs_1.log 2>&1
+bash code/hires2_fix.sh {gpu} 1 > logs/hires2/fixjob_1.log 2>&1
+bash code/hires2_fix.sh {gpu} 2 > logs/hires2/fixjob_2.log 2>&1
+bash code/hires2_cfs.sh {gpu} 2 > logs/hires2/cfs_2.log 2>&1
+python code/two_controls2.py in64 {gpu} > logs/e6/two_controls2_in64.log 2>&1
+python code/two_controls2.py edmc10 {gpu} > logs/e6/two_controls2_edmc10.log 2>&1
+python code/two_controls2.py edmc100 {gpu} > logs/e6/two_controls2_edmc100.log 2>&1
+python code/two_controls2.py l6svhn {gpu} > logs/e6/two_controls2_l6svhn.log 2>&1
+python code/two_controls2.py dpceleba {gpu} > logs/e6/two_controls2_dpceleba.log 2>&1
+python code/two_controls2.py fmnist {gpu} > logs/e6/two_controls2_fmnist.log 2>&1
+bash code/hires2_fix.sh {gpu} 0 > logs/hires2/fixjob_0.log 2>&1
+bash code/e5b_tier.sh in64b25 {gpu}
 SR_ROOT=$HOME/upknn python eu/experiments/lmd.py --gpu {gpu} --model iddpm:diffpath_celeba32.pt --tag dpceleba_f2 --sets textures:eu/runs/jobs/f2_idx/dpceleba__textures.json --bs 50 > logs/hires/lmd_dpceleba_textures.log 2>&1
 SR_ROOT=$HOME/upknn python eu/experiments/lmd.py --gpu {gpu} --model iddpm:diffpath_celeba32.pt --tag dpceleba_f2 --sets tin_val:eu/runs/jobs/f2_idx/dpceleba__tin_val.json --bs 50 > logs/hires/lmd_dpceleba_tin_val.log 2>&1
 SR_ROOT=$HOME/upknn python eu/experiments/lmd.py --gpu {gpu} --model iddpm:diffpath_celeba32.pt --tag dpceleba_f2 --sets lsun_fix:eu/runs/jobs/f2_idx/dpceleba__lsun_fix.json --bs 50 > logs/hires/lmd_dpceleba_lsun_fix.log 2>&1

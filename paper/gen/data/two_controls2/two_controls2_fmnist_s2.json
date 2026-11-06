@@ -1,0 +1,231 @@
+{
+ "tag": "fmnist",
+ "seed": 2,
+ "split": "final2",
+ "R": 1,
+ "id": "final2-g32_fmnist_test",
+ "vflip": "final2-g32_fmnist_test__vflip",
+ "ood": [
+  "final2-g32_mnist_test",
+  "final2-g32_kmnist_test",
+  "final2-g32_omniglot_eval",
+  "final2-g32_notmnist"
+ ],
+ "F_posterior": {
+  "id": {
+   "n": 500,
+   "entropy": 0.004922509013176468,
+   "flat": 0.0,
+   "wrong_peak": 0.0,
+   "up_peak": 1.0,
+   "mean_pup": 0.9985435298378104,
+   "argmax_hist": [
+    1.0,
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  "vflip": {
+   "n": 500,
+   "entropy": 0.10328183240328426,
+   "flat": 0.006,
+   "wrong_peak": 0.98,
+   "up_peak": 0.014,
+   "mean_pup": 0.02420363432032679,
+   "argmax_hist": [
+    0.016,
+    0.19,
+    0.786,
+    0.008
+   ]
+  },
+  "ood_all": {
+   "n": 2000,
+   "entropy": 0.4314960921247178,
+   "flat": 0.059,
+   "wrong_peak": 0.853,
+   "up_peak": 0.088,
+   "mean_pup": 0.1083658700408612,
+   "argmax_hist": [
+    0.0945,
+    0.3145,
+    0.362,
+    0.229
+   ]
+  },
+  "ood_regions": {
+   "orient_only": {
+    "n": 7,
+    "entropy": 0.4330970349666323,
+    "flat": 0.0,
+    "wrong_peak": 0.42857142857142855,
+    "up_peak": 0.5714285714285714,
+    "mean_pup": 0.6377654997039339,
+    "argmax_hist": [
+     0.5714285714285714,
+     0.0,
+     0.42857142857142855,
+     0.0
+    ]
+   },
+   "knn_only": {
+    "n": 27,
+    "entropy": 0.0010304507773244275,
+    "flat": 0.0,
+    "wrong_peak": 0.0,
+    "up_peak": 1.0,
+    "mean_pup": 0.9998943507400399,
+    "argmax_hist": [
+     1.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   "both": {
+    "n": 1966,
+    "entropy": 0.43740217845049917,
+    "flat": 0.06002034587995931,
+    "wrong_peak": 0.8662258392675484,
+    "up_peak": 0.07375381485249237,
+    "mean_pup": 0.09423714858281475,
+    "argmax_hist": [
+     0.08036622583926754,
+     0.3199389623601221,
+     0.36673448626653105,
+     0.23296032553407936
+    ]
+   },
+   "neither": {
+    "n": 0
+   }
+  },
+  "per_set": {
+   "final2-g32_mnist_test": {
+    "all": {
+     "n": 500,
+     "entropy": 0.5530017377198172,
+     "flat": 0.092,
+     "wrong_peak": 0.816,
+     "up_peak": 0.092,
+     "mean_pup": 0.11648126339298301,
+     "argmax_hist": [
+      0.104,
+      0.584,
+      0.132,
+      0.18
+     ]
+    },
+    "orient_only": {
+     "n": 0
+    }
+   },
+   "final2-g32_kmnist_test": {
+    "all": {
+     "n": 500,
+     "entropy": 0.4689950297716614,
+     "flat": 0.058,
+     "wrong_peak": 0.866,
+     "up_peak": 0.076,
+     "mean_pup": 0.10671537100951753,
+     "argmax_hist": [
+      0.084,
+      0.222,
+      0.406,
+      0.288
+     ]
+    },
+    "orient_only": {
+     "n": 0
+    }
+   },
+   "final2-g32_omniglot_eval": {
+    "all": {
+     "n": 500,
+     "entropy": 0.3994882072946633,
+     "flat": 0.052,
+     "wrong_peak": 0.912,
+     "up_peak": 0.036,
+     "mean_pup": 0.04684610333139476,
+     "argmax_hist": [
+      0.04,
+      0.296,
+      0.428,
+      0.236
+     ]
+    },
+    "orient_only": {
+     "n": 7,
+     "entropy": 0.4330970349666323,
+     "flat": 0.0,
+     "wrong_peak": 0.42857142857142855,
+     "up_peak": 0.5714285714285714,
+     "mean_pup": 0.6377654997039339,
+     "argmax_hist": [
+      0.5714285714285714,
+      0.0,
+      0.42857142857142855,
+      0.0
+     ]
+    }
+   },
+   "final2-g32_notmnist": {
+    "all": {
+     "n": 500,
+     "entropy": 0.3044993937127291,
+     "flat": 0.034,
+     "wrong_peak": 0.818,
+     "up_peak": 0.148,
+     "mean_pup": 0.16342074242954954,
+     "argmax_hist": [
+      0.15,
+      0.156,
+      0.482,
+      0.212
+     ]
+    },
+    "orient_only": {
+     "n": 0
+    }
+   }
+  }
+ },
+ "G_ratio": {
+  "R1": {
+   "median": 2.5446274280548096,
+   "frac_below_1": 0.032999999821186066
+  },
+  "R10": {
+   "median": 2.0591020584106445,
+   "frac_below_1": 0.07200000435113907
+  },
+  "R100": {
+   "median": 1.6645110845565796,
+   "frac_below_1": 0.1550000011920929
+  }
+ },
+ "H_whitened": {
+  "ridge0.01": {
+   "flip": 97.2124,
+   "nat": {
+    "final2-g32_mnist_test": 99.598,
+    "final2-g32_kmnist_test": 99.658,
+    "final2-g32_omniglot_eval": 99.616,
+    "final2-g32_notmnist": 99.9972
+   },
+   "nat_mean": 99.71730000000001
+  },
+  "ridge0.1": {
+   "flip": 96.7984,
+   "nat": {
+    "final2-g32_mnist_test": 99.5196,
+    "final2-g32_kmnist_test": 99.6064,
+    "final2-g32_omniglot_eval": 99.4808,
+    "final2-g32_notmnist": 99.9968
+   },
+   "nat_mean": 99.6509
+  }
+ },
+ "seconds": 6.839540719985962
+}

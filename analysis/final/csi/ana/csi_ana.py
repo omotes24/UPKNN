@@ -19,7 +19,7 @@ CSI_TAGS = ['edmc10', 'edmc100', 'l6svhn', 'dpceleba', 'fmnist']
 COMX = json.load(open(f'{SCR}/final/eu_stage/push_final2/final2_idx/final2_idx.json'))
 EXP = f'{SCR}/final/data_kx/export'
 REF = json.load(open(f'{SCR}/final/ana_kx/ours_vs_all_final2.json'))
-PUBLISHED_C10_C100 = 89.3                                              # alinlab/CSI README, unlabeled multi-class CIFAR-10 -> CIFAR-100
+PUBLISHED_C10_C100 = 89.2                                              # Tack et al. 2020, Table 2(a): unlabeled multi-class CIFAR-10 -> CIFAR-100, 89.2 +- 0.1
 
 
 def verdict(lo, hi, gap):

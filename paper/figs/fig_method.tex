@@ -10,8 +10,8 @@
 \coordinate (br) at ($(feat.east)+(2mm,0)$);
 \node[box, anchor=west] (knn) at ($(br)+(15mm,8mm)$) {kNN: $R$-th similarity\\$c_R(\mathbf{x})$ to the bank};
 \node[box, anchor=west, minimum width=25mm] (mlp) at ($(br)+(15mm,-8mm)$) {small MLP $q_\phi$};
-\node[term, draw=navyc, right=2.5mm of knn] (t1) {$-d\log r_R(\mathbf{x})$\\{\tiny estimates $\log\bar p(\mathbf{x})$}};
-\node[term, draw=redc, right=2.5mm of mlp] (t2) {$\log q_\phi(\Rot{0}\mid\mathbf{x})$\\{\tiny estimates $\log P(\mathrm{up}\mid\mathbf{x})$}};
+\node[term, draw=navyc, right=2.5mm of knn] (t1) {$-d\log r_R(\mathbf{x})$\\{\tiny in place of $\log\bar p(\mathbf{x})$}};
+\node[term, draw=redc, right=2.5mm of mlp] (t2) {$\log q_\phi(\Rot{0}\mid\mathbf{x})$\\{\tiny in place of $\log P(\mathrm{up}\mid\mathbf{x})$}};
 \coordinate (mid) at ($(t1.east)!0.5!(t2.east)+(4mm,0)$);
 \node[draw, circle, inner sep=0.8pt] (plus) at (mid) {$+$};
 \node[right=1mm of plus, align=center] (s) {$s(\mathbf{x})$\\{\tiny ID score}};
@@ -19,7 +19,7 @@
 \draw[->] (den) -- (feat);
 \draw (feat.east) -- (br);
 \draw[->] (br) |- node[pos=0.72, above, lab] {channel mean, std} (knn.west);
-\draw[->] (br) |- node[pos=0.72, below, lab] {+ 2$\times$2 quadrants} (mlp.west);
+\draw[->] (br) |- node[pos=0.72, below, lab] {+ 2$\times$2 grid} (mlp.west);
 \draw[->] (knn) -- (t1); \draw[->] (mlp) -- (t2);
 \draw[->] (t1.east) -| (plus.north); \draw[->] (t2.east) -| (plus.south); \draw[->] (plus) -- (s);
 \node[anchor=north east, align=left, inner sep=1pt] (trt) at ($(t2.south east)+(0,-5mm)$) {offline, ID images only ($\approx$10\,s): predict the angle $r$ of\\rotated bank images (\textbf{the noise is not rotated})};

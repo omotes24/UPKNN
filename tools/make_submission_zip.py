@@ -26,8 +26,9 @@ LICENCE = ('MIT License\n\nCopyright (c) 2026 Anonymous Authors\n\nPermission is
            'CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.\n')
 NOTE = ('Technical appendix of the submission "Neighbours and Orientation: Two Notions of In-Distribution Conformity in Frozen Diffusion\n'
         'Features" (anonymous; the detector is called Upright kNN).\n\n'
-        '- supplementary.pdf: the supplementary material (protocol details, comparison methods, robustness of the two-notions analysis,\n'
-        '  all pairs, FPR95, ablations, mirror test, ImageNet tables, fusions, CSI, EuroSAT).\n'
+        '- supplementary.pdf: the supplementary material (protocol details, comparison methods, the proof of Proposition 2, the weight\n'
+        '  sweep, the two-notions analysis with its controls, all pairs, FPR95, ablations, the mirror test, the ImageNet tables incl. the\n'
+        '  bank-size and resampling controls, fusions, CSI, EuroSAT / chest X-rays / histology / rotation-trained generators, compute).\n'
         '- README.md and the folders: code (GPU side, exactly as run), protocols (each written before its evaluation; FREEZE_UKNN.md5 with the\n'
         '  checksums recorded before the final evaluation, verified by tools/check_freeze.py), benchmark definitions (runs/ok, eu/runs/jobs),\n'
         '  analysis scripts and the result files of the paper (paper/gen/data).\n'

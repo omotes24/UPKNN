@@ -1,0 +1,238 @@
+{
+ "tag": "dpceleba",
+ "seed": 1,
+ "split": "final2",
+ "R": 5,
+ "id": "final2-celeba_test",
+ "vflip": "final2-celeba_test__vflip",
+ "ood": [
+  "final2-cifar10_test",
+  "final2-cifar100_test",
+  "final2-svhn_test",
+  "final2-textures",
+  "final2-tin_val",
+  "final2-lsun_fix",
+  "final2-imagenet_fix",
+  "final2-imagenet32_val",
+  "final2-places365_val"
+ ],
+ "A_full_head_space": {
+  "euc": {
+   "flip": 92.86,
+   "nat": {
+    "final2-cifar10_test": 99.3968,
+    "final2-cifar100_test": 99.4636,
+    "final2-svhn_test": 99.7268,
+    "final2-textures": 99.9376,
+    "final2-tin_val": 99.3824,
+    "final2-lsun_fix": 99.7052,
+    "final2-imagenet_fix": 99.7956,
+    "final2-imagenet32_val": 99.9424,
+    "final2-places365_val": 99.7328
+   },
+   "nat_mean": 99.67591111111112
+  },
+  "cos": {
+   "flip": 99.608,
+   "nat": {
+    "final2-cifar10_test": 99.502,
+    "final2-cifar100_test": 98.4072,
+    "final2-svhn_test": 99.6072,
+    "final2-textures": 98.104,
+    "final2-tin_val": 99.4688,
+    "final2-lsun_fix": 98.124,
+    "final2-imagenet_fix": 97.1332,
+    "final2-imagenet32_val": 95.342,
+    "final2-places365_val": 97.8992
+   },
+   "nat_mean": 98.1764
+  }
+ },
+ "B_mean3": {
+  "share_of_total": 0.20797973476244525,
+  "share_over_random3": 436.53651802258616,
+  "random3_mean": 0.00047643146947830945,
+  "pca3_share": 0.2720334933427535,
+  "knn": {
+   "euc": {
+    "flip": 99.9244,
+    "nat": {
+     "final2-cifar10_test": 99.9576,
+     "final2-cifar100_test": 99.904,
+     "final2-svhn_test": 99.9988,
+     "final2-textures": 99.8548,
+     "final2-tin_val": 99.97,
+     "final2-lsun_fix": 99.9052,
+     "final2-imagenet_fix": 99.8144,
+     "final2-imagenet32_val": 99.69,
+     "final2-places365_val": 99.8984
+    },
+    "nat_mean": 99.88813333333333
+   },
+   "cos": {
+    "flip": 99.8008,
+    "nat": {
+     "final2-cifar10_test": 99.9112,
+     "final2-cifar100_test": 99.4834,
+     "final2-svhn_test": 99.9536,
+     "final2-textures": 99.7124,
+     "final2-tin_val": 99.9132,
+     "final2-lsun_fix": 99.7772,
+     "final2-imagenet_fix": 99.654,
+     "final2-imagenet32_val": 99.3584,
+     "final2-places365_val": 99.6774
+    },
+    "nat_mean": 99.71564444444445
+   }
+  },
+  "knn_pca3": {
+   "euc": {
+    "flip": 99.68,
+    "nat": {
+     "final2-cifar10_test": 99.9732,
+     "final2-cifar100_test": 99.9616,
+     "final2-svhn_test": 99.9892,
+     "final2-textures": 99.9908,
+     "final2-tin_val": 99.9644,
+     "final2-lsun_fix": 99.9844,
+     "final2-imagenet_fix": 99.9828,
+     "final2-imagenet32_val": 99.9876,
+     "final2-places365_val": 99.976
+    },
+    "nat_mean": 99.97888888888889
+   },
+   "cos": {
+    "flip": 99.6892,
+    "nat": {
+     "final2-cifar10_test": 99.9448,
+     "final2-cifar100_test": 99.9172,
+     "final2-svhn_test": 99.8764,
+     "final2-textures": 99.912,
+     "final2-tin_val": 99.9492,
+     "final2-lsun_fix": 99.9,
+     "final2-imagenet_fix": 99.8752,
+     "final2-imagenet32_val": 99.8348,
+     "final2-places365_val": 99.8988
+    },
+    "nat_mean": 99.90093333333334
+   }
+  }
+ },
+ "C_head_g_only": {
+  "acc": 0.9983999729156494,
+  "T": 0.8170763254165649,
+  "alone": {
+   "flip": 99.9996,
+   "nat": {
+    "final2-cifar10_test": 99.9988,
+    "final2-cifar100_test": 99.9968,
+    "final2-svhn_test": 100.0,
+    "final2-textures": 99.9828,
+    "final2-tin_val": 99.9972,
+    "final2-lsun_fix": 100.0,
+    "final2-imagenet_fix": 99.9952,
+    "final2-imagenet32_val": 99.9928,
+    "final2-places365_val": 99.9984
+   },
+   "nat_mean": 99.99577777777777
+  },
+  "sum_with_knn_term": {
+   "flip": 99.998,
+   "nat": {
+    "final2-cifar10_test": 99.9984,
+    "final2-cifar100_test": 99.9976,
+    "final2-svhn_test": 100.0,
+    "final2-textures": 99.9932,
+    "final2-tin_val": 99.9868,
+    "final2-lsun_fix": 99.9808,
+    "final2-imagenet_fix": 99.9952,
+    "final2-imagenet32_val": 99.9972,
+    "final2-places365_val": 99.986
+   },
+   "nat_mean": 99.9928
+  }
+ },
+ "D_pixel_head": {
+  "pix1": {
+   "dim": 30,
+   "acc": 0.7418000102043152,
+   "T": 0.9070767164230347,
+   "alone": {
+    "flip": 97.4036,
+    "nat": {
+     "final2-cifar10_test": 81.7676,
+     "final2-cifar100_test": 82.2004,
+     "final2-svhn_test": 87.0536,
+     "final2-textures": 86.1976,
+     "final2-tin_val": 83.3796,
+     "final2-lsun_fix": 85.5856,
+     "final2-imagenet_fix": 83.2316,
+     "final2-imagenet32_val": 84.8372,
+     "final2-places365_val": 84.0892
+    },
+    "nat_mean": 84.26026666666667
+   },
+   "sum_with_knn_term": {
+    "flip": 99.81,
+    "nat": {
+     "final2-cifar10_test": 99.9588,
+     "final2-cifar100_test": 99.956,
+     "final2-svhn_test": 100.0,
+     "final2-textures": 99.9712,
+     "final2-tin_val": 99.9096,
+     "final2-lsun_fix": 99.8788,
+     "final2-imagenet_fix": 99.9804,
+     "final2-imagenet32_val": 99.9896,
+     "final2-places365_val": 99.9448
+    },
+    "nat_mean": 99.95435555555555
+   }
+  },
+  "pix2": {
+   "dim": 126,
+   "acc": 0.9641000032424927,
+   "T": 0.7891062498092651,
+   "alone": {
+    "flip": 99.758,
+    "nat": {
+     "final2-cifar10_test": 96.7872,
+     "final2-cifar100_test": 95.6736,
+     "final2-svhn_test": 96.3436,
+     "final2-textures": 97.1576,
+     "final2-tin_val": 96.848,
+     "final2-lsun_fix": 96.578,
+     "final2-imagenet_fix": 96.422,
+     "final2-imagenet32_val": 96.568,
+     "final2-places365_val": 96.536
+    },
+    "nat_mean": 96.54599999999999
+   },
+   "sum_with_knn_term": {
+    "flip": 99.9692,
+    "nat": {
+     "final2-cifar10_test": 99.9744,
+     "final2-cifar100_test": 99.9824,
+     "final2-svhn_test": 100.0,
+     "final2-textures": 99.982,
+     "final2-tin_val": 99.9668,
+     "final2-lsun_fix": 99.9364,
+     "final2-imagenet_fix": 99.9948,
+     "final2-imagenet32_val": 99.9964,
+     "final2-places365_val": 99.9648
+    },
+    "nat_mean": 99.97755555555555
+   }
+  }
+ },
+ "E_d": {
+  "n3000_k5": 32.170135498046875,
+  "n3000_k10": 26.935514450073242,
+  "n3000_k20": 24.746337890625,
+  "n3000_k50": 23.061702728271484,
+  "n10000_k5": 32.8577766418457,
+  "n10000_k10": 27.13687515258789,
+  "n10000_k20": 24.89289093017578,
+  "n10000_k50": 23.11809539794922
+ },
+ "seconds": 363.4073097705841
+}

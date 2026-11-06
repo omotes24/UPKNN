@@ -1,5 +1,5 @@
 %%%% supp.tex -- supplementary material of the IJCAI-27 submission (anonymous): two notions of ID conformity (Upright kNN)
-%   tables written by gen/mk_supp.py from the same evaluation files as the paper (gen/data/); build with build_supp.sh
+%   tables written by gen/mk_supp.py, gen/mk_ijcai.py and gen/mk_hires.py from the same evaluation files as the paper (gen/data/); build with build_supp.sh
 \documentclass[10pt]{article}
 \usepackage[margin=1in]{geometry}
 \usepackage{times}
@@ -9,32 +9,41 @@
 \usepackage{longtable}
 \usepackage{array}
 \usepackage{float}
+\usepackage{graphicx}
 \usepackage[hidelinks,bookmarks=false]{hyperref}
 \usepackage[small]{caption}
 \usepackage{named}
 \makeatletter\newcommand{\inputrows}[1]{\@@input #1 }\makeatother   % primitive \input inside tabular (a rule may follow)
 \newcommand{\veps}{\boldsymbol{\varepsilon}}
+\newcommand{\Rot}[1]{\mathbf{R}_{#1}}
+\newcommand{\Vf}{\mathbf{V}}\newcommand{\Hf}{\mathbf{H}}
+\newcommand{\mG}{\mathcal{G}}
+\newcommand{\up}{\mathrm{up}}
 \newcommand{\pending}[1]{\textcolor{gray}{[#1]}}   % results still running
 \definecolor{firstblue}{RGB}{189,215,238}
 \makeatletter\@namedef{r@eq:score}{{2}{}{}{}{}}\makeatother   % Eq. (2) of the paper (the score), referred to by tab_fusion.tex
+\input{numbers}
 \input{numbers_two}
 \input{numbers_hires}
-\newcommand{\Rot}[1]{\mathbf{R}_{#1}}
+\input{numbers_e5b}
 \renewcommand{\thetable}{S\arabic{table}}
+\renewcommand{\thefigure}{S\arabic{figure}}
 \renewcommand{\thesection}{S\arabic{section}}
+\newtheorem{proposition}{Proposition}
 \title{Supplementary Material\\[2pt]\large Neighbours and Orientation: Two Notions of In-Distribution Conformity in Frozen Diffusion Features}
 \author{Anonymous Submission}
 \date{}
 \begin{document}
 \maketitle
+\noindent Section and table numbers of the form S$n$ refer to this document; plain numbers refer to the paper. The anonymised code, the protocol documents written before each evaluation, and the per-image scores behind every table are provided with this submission (Section~\ref{s:repro}).
 
 \section{Protocol and Data}
 \label{s:protocol}
-\textbf{Splits.} For every ID dataset the images are split into three disjoint parts. (i) \emph{Selection data}: ID development images and OOD datasets that are never used for evaluation (for the five 32$\times$32 ID datasets: STL-10, GTSRB, Flowers-102, EuroSAT, MNIST in RGB, Oxford-IIIT Pets, Caltech-101, Food-101, FGVC-Aircraft, Imagenette and Rendered SST-2; for ImageNet-64 the same without Imagenette; for FashionMNIST: EMNIST letters, Kuzushiji-49, Semeion and greyscale CIFAR-10, SVHN and GTSRB). (ii) \emph{Development evaluation images}: 1{,}000 per set (2{,}000 for FashionMNIST). (iii) \emph{Final evaluation images}: 500 per set. The configuration of Upright kNN (block set and $R$ of the kNN term) was chosen on (i) among 20 candidates (half-resolution block or the mean of the three blocks; $R$ among ten values from 1 to 1000) by the mean AUROC of the term alone; the head (inputs, linear vs.\ MLP, temperature) was chosen on held-out bank images only. The method was developed on (ii), a written protocol was frozen, and (iii) was evaluated once. All tables of the paper are on (iii) except the development ablations (Table~\ref{tab:ablate}) and the mirror test (Table~\ref{tab:mirror}).
+\textbf{Splits.} For every ID dataset the images are split into three disjoint parts. (i) \emph{Selection data}: ID development images and OOD datasets that are never used for evaluation (for the five 32$\times$32 ID datasets: STL-10, GTSRB, Flowers-102, EuroSAT, MNIST in RGB, Oxford-IIIT Pets, Caltech-101, Food-101, FGVC-Aircraft, Imagenette and Rendered SST-2; for ImageNet-64 the same without Imagenette; for FashionMNIST: EMNIST letters, Kuzushiji-49, Semeion and greyscale CIFAR-10, SVHN and GTSRB). (ii) \emph{Development evaluation images}: 1{,}000 per set (2{,}000 for FashionMNIST). (iii) \emph{Final evaluation images}: 500 per set. The configuration of Upright kNN (block set and $R$ of the kNN term) was chosen on (i) among 20 candidates (half-resolution block or the mean of the three blocks; $R$ among ten values from 1 to 1000) by the mean AUROC of the term alone; the head (inputs, linear vs.\ MLP, temperature) was chosen on held-out bank images only. The form of the score was developed on (ii), which draws on the same OOD datasets as (iii); a written protocol was then frozen and (iii) was evaluated once. All tables of the paper and of this document are on (iii) except the development ablations (Table~\ref{tab:ablate}), the weight sweep (Table~\ref{tab:sweep}, which also reports (iii)) and the mirror test (Table~\ref{tab:mirror}).
 
-\textbf{OOD sets.} For the 32$\times$32 ID datasets: the other natural datasets among CIFAR-10/100, SVHN and CelebA, plus Textures (DTD), Tiny-ImageNet (validation images resized to 32$\times$32), LSUN and ImageNet (the resized versions distributed with CSI), ImageNet32 (downsampled validation images) and Places365 (validation images). For ImageNet-64: the OpenOOD v1.5 sets (SSB-hard, NINCO, iNaturalist, Textures, OpenImage-O) plus Places365 and CelebA. For FashionMNIST: MNIST, KMNIST, Omniglot and notMNIST embedded in 32$\times$32. Every ID dataset is also paired with its own images flipped upside down and, except ImageNet-64, with uniform-noise and constant images, giving 63 pairs.
+\textbf{OOD sets.} For the 32$\times$32 ID datasets: the other natural datasets among CIFAR-10/100, SVHN and CelebA, plus Textures (DTD), Tiny-ImageNet (validation images resized to 32$\times$32), the LSUN-FIX and ImageNet-FIX sets distributed by~\citeauthor{tack2020csi}~\shortcite{tack2020csi} (the corrected resizing, without the artefacts of the original resized LSUN/ImageNet sets), ImageNet32 (downsampled validation images) and Places365 (validation images). For ImageNet-64: the OpenOOD v1.5 sets (SSB-hard, NINCO, iNaturalist, Textures, OpenImage-O) plus Places365 and CelebA. For FashionMNIST: MNIST, KMNIST, Omniglot and notMNIST embedded in 32$\times$32. Every ID dataset is also paired with its own images flipped upside down and, except ImageNet-64, with uniform-noise and constant images, giving 63 pairs.
 
-\textbf{Bank and noise.} The bank is 50{,}000 ID training images (10{,}000 for ImageNet-64, 10 per class). The noise image $\veps$ of $\sigma_1\veps$ is one fixed draw per noise seed, shared by all images; the results are averaged over three seeds.
+\textbf{Bank and noise.} The bank is 50{,}000 ID training images (10{,}000 for ImageNet-64, 10 per class). The noise image $\veps$ of $\sigma_1\veps$ is one fixed draw per noise seed, shared by all images; the results are averaged over three seeds, and the head of each seed is trained on the features of that seed with a fixed initialisation seed.
 
 \section{Models and Configuration}
 \begin{table}[H]\centering\footnotesize\setlength{\tabcolsep}{3.5pt}
@@ -43,16 +52,36 @@ ID & Res. & Model & Source & $d$ & $R$ & $T$ & Head acc.\,(\%) & tuned kNN confi
 \inputrows{supp_models.tex}
 \bottomrule
 \end{tabular}
-\caption{ID datasets, diffusion models and the configuration of Upright kNN (noise seed 0). All weights except FashionMNIST are public and unchanged. $d$: Levina--Bickel intrinsic dimension of the bank features (20 neighbours, 3{,}000 bank points); $R$: neighbour rank chosen on the selection data; $T$: temperature of the head; head accuracy: rotation accuracy on the 5{,}000 held-out bank images. The last column gives the configuration of the tuned kNN baseline (chosen on the selection data among 80).}
+\caption{ID datasets, diffusion models and the configuration of Upright kNN (noise seed 0). All models are unconditional; all weights except FashionMNIST are public and unchanged. $d$: Levina--Bickel intrinsic dimension of the bank features (20 neighbours, 3{,}000 bank points); $R$: neighbour rank chosen on the selection data; $T$: temperature of the head; head accuracy: rotation accuracy on the 5{,}000 held-out bank images. The last column gives the configuration of the tuned kNN baseline (chosen on the selection data among 80; $\sigma_7$ is the seventh of the model's noise levels in increasing order).}
 \label{tab:models}
 \end{table}
+\textbf{Features.} The three hooked modules are the last decoder blocks at the full, half and quarter resolution of the network input (for DiT-XL/2, which has no resolutions, blocks 28, 21 and 14 of 28), read after the block's residual sum. For each block with $C$ channels, $\mathbf{g}$ is the channel-wise mean and standard deviation over the spatial grid ($2C$ values) and $\mathbf{q}$ the same over each cell of a $2\times2$ grid ($8C$ values); the head reads $[\mathbf{g},\mathbf{q}]$ of the three blocks (for example 7{,}680 values for EDM2-XS), standardised per feature with the mean and standard deviation over the four rotated views of the bank. \textbf{FashionMNIST U-Net.} An EDM-style U-Net (39M parameters, the architecture of our chest X-ray and histology models below) trained with the EDM preconditioning and loss on 55{,}000 training images for 8M images seen, batch 128, learning rate $2.5\cdot10^{-4}$, dropout 0.13, without augmentation; the 5{,}000 remaining training images are held out. \textbf{Head.} MLP with one hidden layer of 512 ReLU units, AdamW (learning rate $10^{-3}$, weight decay $10^{-4}$) with a one-cycle schedule over 8 epochs, batches of 512 bank images times four rotations, 5{,}000 held-out bank images for the temperature (200 values of $T$ on a logarithmic grid from 0.25 to 8, minimum held-out negative log-likelihood); a linear head is trained first for reference only. \textbf{Latent models.} For EDM2-XS at 512 pixels and DiT-XL/2 the noise is added to the latents and the bank images are rotated in pixel space before encoding; DiT-XL/2 is class-conditional and is queried with its null class (the unconditional branch of classifier-free guidance).
 
 \section{Comparison Methods}
-All likelihood- and statistic-based methods use the same diffusion models. NLL, IC and TT use the probability-flow ODE with 64 Heun steps (128 forward and 128 backward evaluations). MSMA$^{*}$ is the Mahalanobis distance of the vector of score norms at 20 noise levels, fitted on ID development images. DiffPath and GEPC follow the official code and EigenScore the paper's procedure. CFS follows the official code (hook policy: up to four encoder and four decoder candidates in structural order, the one with the largest variance on 32 ID training images selected in each region; channel mean and standard deviation; diagonal-Gaussian and standardised 10-NN heads fitted on the bank). At the paper's default noise level (logSNR 5) our port reproduces the paper's CIFAR-10 numbers on the four shared pairs within 0.5 points; the official configuration (logSNR 7) is better on the development images and is used throughout. The rotation classifier is a ResNet-18 trained from scratch for 30 epochs on the ID training images; its score is the sum of the log-probabilities of the correct angle over the four rotated inputs. CSI is described in Section~\ref{s:csi}. CPU times use a randomly initialised CIFAR-10 network (the cost does not depend on the weights) on an Intel Xeon (2.1\,GHz, 2 threads).
+All likelihood- and statistic-based methods use the same diffusion models. NLL, IC and TT use the probability-flow ODE with 64 Heun steps (128 forward and 128 backward evaluations). MSMA$^{*}$ is the Mahalanobis distance of the vector of score norms at 20 noise levels, fitted on ID development images. DiffPath and GEPC follow the official code and EigenScore the paper's procedure. DDPM-OOD~\cite{graham2023ddpmood} reconstructs each image from 25 noise levels with 50 Heun steps each (2{,}475 evaluations), and averages the MSE and LPIPS errors $z$-scored with 128 ID development images, as in the official code. LMD~\cite{liu2023lmd} inpaints each image 10 times with alternating $8\times8$ checkerboard masks by the 1{,}000-step predictor--corrector sampler of the official code and scores the median LPIPS distance. The likelihood\,+\,LID rule of~\citeauthor{kamkari2024geometric}~\shortcite{kamkari2024geometric} estimates the local intrinsic dimension from the singular values of $4D$ score evaluations at the VP time $t_0=0.01$ (the public configuration), with the singular-value threshold calibrated on 128 training images to the model-free LPCA estimate of the public configuration, and combines it with the probability-flow ODE (PF-ODE) likelihood; its AUROC is the area under the Pareto frontier of the ROC points of all threshold pairs (the public \texttt{roc\_analysis}), an oracle over threshold pairs, so it is optimistic. CFS follows the official code (hook policy: up to four encoder and four decoder candidates in structural order, the one with the largest variance on 32 ID training images selected in each region; channel mean and standard deviation; diagonal-Gaussian and standardised 10-NN heads fitted on the bank). At the paper's default noise level (logSNR 5) our port reproduces the paper's CIFAR-10 numbers on the four shared pairs within 0.5 points; the official configuration (logSNR 7) is better on the development images and is used throughout. The rotation classifier is a ResNet-18 trained from scratch for 30 epochs on the ID training images; its score is the sum of the log-probabilities of the correct angle over the four rotated inputs. CSI is described in Section~\ref{s:csi}. CPU times use a randomly initialised CIFAR-10 network (the cost does not depend on the weights) on an Intel Xeon (2.1\,GHz, 2 threads); the CPU times of DDPM-OOD, LMD, LID+NLL and CSI were not measured, their NFE column gives the scale.
+
+\section{Proof of Proposition 2}
+\label{s:proof}
+For $\mathbf{G}\in\mG$ the horizontal flip satisfies $\mathbf{G}\Hf=\Hf\mathbf{G}^{-1}$ (a flip reverses the sense of rotation). With $\Vf=\Hf\Rot{180}$ and $p(\Hf\mathbf{x})=p(\mathbf{x})$ for all $\mathbf{x}$,
+\begin{equation}
+\bar p(\Vf\mathbf{x})=\frac{1}{4}\sum_{\mathbf{G}\in\mG}p(\mathbf{G}\Hf\Rot{180}\mathbf{x})=\frac{1}{4}\sum_{\mathbf{G}\in\mG}p(\Hf\mathbf{G}^{-1}\Rot{180}\mathbf{x})=\frac{1}{4}\sum_{\mathbf{G}\in\mG}p(\mathbf{G}^{-1}\Rot{180}\mathbf{x})=\bar p(\mathbf{x}),
+\end{equation}
+since $\mathbf{G}^{-1}\Rot{180}$ runs over $\mG$ exactly once as $\mathbf{G}$ does. Subtracting Proposition~1 at $\mathbf{x}$ from Proposition~1 at $\Vf\mathbf{x}$ gives $\log p(\Vf\mathbf{x})-\log p(\mathbf{x})=\log P(\up\mid\Vf\mathbf{x})-\log P(\up\mid\mathbf{x})$. \qed
+
+\section{The Weight of the Two Terms}
+\label{s:sweep}
+\begin{table}[H]\centering\small\setlength{\tabcolsep}{4.5pt}
+\begin{tabular}{@{}lcccccccccc@{}}\toprule
+\inputrows{supp_sweep.tex}
+\bottomrule
+\end{tabular}
+\caption{Mean AUROC (\%) of $s_w=-d\log r_R+w\log q_\phi(\Rot{0}\mid\mathbf{x})$ for several relative weights $w$ (noise seeds 0--2); $w=1$ is Upright kNN, $w=0$ its kNN term. Because the kNN term is $-d\log r_R$, another estimate $d'$ of the intrinsic dimension corresponds to $w=d/d'$: a 30\% error in $d$ moves $w$ between 0.77 and 1.43, inside the plateau, and the estimates with 5 or 50 neighbours (Table~\ref{tab:dsens}) correspond to $w\approx0.75$ and $1.1$. The near-OOD pairs are CIFAR-10$\leftrightarrow$CIFAR-100, SSB-hard and NINCO. This analysis was added after the frozen evaluation; the paper's score was fixed at $w=1$ before any of these numbers was computed.}
+\label{tab:sweep}
+\end{table}
 
 \section{Two Notions: Details and Robustness}
 \label{s:two}
-\textbf{Analysis.} All quantities of Table~1 of the paper are computed from the stored features of the frozen method (no change to it). \emph{Geometry}: in the space of the kNN term (unit-length channel mean and standard deviation of the three blocks), the distance between each of 4{,}000 random bank images and its own half turn, divided by its distance to its $R$-th nearest other bank image ($R$ of the frozen protocol); median. \emph{Discriminant and principal directions}: in the head's input space (whole-image and $2\times2$ grid statistics of the three blocks, standardised on the fitting images), a linear discriminant analysis (LDA) of the four rotations of the bank images (within-class scatter regularised by a ridge $\lambda$), the top principal directions of all rotated views, and 20 draws of random orthonormal directions; we report the variance carried by three directions relative to three random directions. \emph{Projected kNN}: the 10th-nearest-neighbour distance (Euclidean; cosine as a variant) to 10{,}000 bank images in the projection onto those directions, as a score for ID test images against upside-down ID images and against every natural OOD set. Table~1 uses the fit of the first analysis we ran (4{,}000 bank images, $\lambda=10^{-3}$) on the final evaluation images, averaged over the three noise seeds; the largest standard deviation over seeds of a frame-3 natural-OOD mean is \sdLdaNatMax{} points.
+\textbf{Analysis.} All quantities of Table~1 of the paper are computed from the stored features of the frozen method (no change to it). \emph{Geometry}: in the space of the kNN term (unit-length channel mean and standard deviation of the three blocks), the distance between each of 4{,}000 random bank images and its own half turn, divided by its distance to its $R$-th nearest other bank image ($R$ of the frozen protocol); median. \emph{Rotation share}: the between-rotation variance (variance of the four rotation means of the standardised head-input features) divided by the total variance, an estimator-free quantity. \emph{Discriminant and principal directions}: in the head's input space, a linear discriminant analysis (LDA) of the four rotations of the bank images (within-class scatter regularised by a ridge $\lambda$), the top principal directions of all rotated views, and 20 draws of random orthonormal directions; we report the variance carried by three directions relative to three random directions. \emph{Projected kNN}: the 10th-nearest-neighbour distance (Euclidean; cosine as a variant) to 10{,}000 bank images in the projection onto those directions, as a score for ID test images against upside-down ID images and against every natural OOD set. Table~1 uses the fit of the first analysis we ran (4{,}000 bank images, $\lambda=10^{-3}$) on the final evaluation images, averaged over the three noise seeds; the largest standard deviation over seeds of a frame-3 natural-OOD mean is \sdLdaNatMax{} points.
 
 \begin{table}[H]\centering\footnotesize\setlength{\tabcolsep}{2.6pt}
 \begin{tabular}{@{}l|ccc|ccc|ccc|ccc|cccc@{}}\toprule
@@ -61,7 +90,7 @@ All likelihood- and statistic-based methods use the same diffusion models. NLL, 
 \inputrows{supp_two.tex}
 \bottomrule
 \end{tabular}
-\caption{Robustness of the two-notions analysis. Left: the LDA fitted on 4{,}000 or 10{,}000 bank images with ridge $10^{-3}$ or $10^{-1}$: variance of the three discriminant directions relative to three random directions, and AUROC (\%) of the frame-3 kNN on upside-down ID images and on natural OOD sets (mean). Right: the same analysis on the development evaluation images.}
+\caption{Robustness of the two-notions analysis. Left: the LDA fitted on 4{,}000 or 10{,}000 bank images with ridge $10^{-3}$ or $10^{-1}$: variance of the three discriminant directions relative to three random directions, and AUROC (\%) of the frame-3 kNN on upside-down ID images and on natural OOD sets (mean). The variance share of the discriminant directions depends on the ridge (a larger ridge admits louder directions), the flip AUROC much less. Right: the same analysis on the development evaluation images.}
 \label{tab:two}
 \end{table}
 
@@ -78,6 +107,40 @@ ID dataset & Eucl. & cos. & Eucl. & cos. & Eucl. & cos. & term & term\\\midrule
 \label{tab:twonat}
 \end{table}
 
+\textbf{Controls (\texttt{PROTOCOL\_E6.md}, written before the results).} Five further analyses on the same stored features (Table~\ref{tab:controls}; final evaluation images, three noise seeds): (A) a 10-NN rule in the \emph{full} standardised head space, which sees the $2\times2$ grid (Euclidean, 10{,}000 bank images); (B) the estimator-free \emph{mean-3} subspace spanned by the three differences between the mean features of the four rotations (no discriminant analysis, no ridge): its share of the total variance, relative to three random directions, and the 10-NN rule restricted to it; (C) the paper's head trained on the whole-image statistics $\mathbf{g}$ only, i.e.\ on the input of the kNN term, with the same recipe; (D) the same head on raw-pixel statistics (per channel the mean and standard deviation over the image, the $2\times2$ grid and the $4\times4$ grid, 126 values), trained on the rotated bank images; (E) the intrinsic dimension $d$ for other numbers of neighbours and bank points (Table~\ref{tab:dsens}). Findings: on the four natural-image datasets a Euclidean distance in the full head space is at chance on upside-down images (\fullVfNatMin--\fullVfNatMax\%) and, with per-feature standardisation, weak on most natural OOD sets (the thousands of standardised low-variance features swamp the distance); the cosine distance sees some of the frame (\fullCosVfNatMin--\fullCosVfNatMax\%), still far below the linear read-out; on the two aligned datasets (CelebA, FashionMNIST) either distance sees the flip (\fullVfAliMin--\fullVfAliMax\%), because a flipped face or garment is far from every bank image. The mean-3 subspace is loud (\mthreeShareMin--\mthreeShareMax\% of the total variance) but the rotation shift along it is small compared with the within-rotation spread, so on the natural-image datasets a distance restricted to it barely detects flips (\mthreeVfNatMin--\mthreeVfNatMax\%); the head on $\mathbf{g}$ alone recovers the frame from the same statistics on which the kNN term is near chance, and is within \gridGainVfMax{} points (flip) and \gridGainNatMax{} points (natural OOD) of the head on $[\mathbf{g},\mathbf{q}]$, so the grid statistics add little (added to the frozen kNN term, the head on $\mathbf{g}$ alone gives the same mean AUROC on natural OOD sets as Upright kNN; $\mathbf{q}$ is kept because the protocol was frozen with it); the pixel head recovers the frame only where the images are aligned (\pixAccAliMin--\pixAccAliMax\% accuracy on CelebA and FashionMNIST against \pixAccNatMin--\pixAccNatMax\% elsewhere) and detects little natural OOD content on the natural-image datasets (\pixNatNatMin--\pixNatNatMax\%); and $d$ moves by $\dKfiftyMin$\% to $\dKfiveMax$\% with the number of neighbours, within the plateau of Table~\ref{tab:sweep}.
+\begin{table}[H]\centering\footnotesize\setlength{\tabcolsep}{2.4pt}
+\begin{tabular}{@{}l|ccc|ccc|cccc|cccc@{}}\toprule
+ & \multicolumn{3}{c|}{(A) full head space} & \multicolumn{3}{c|}{(B) mean-3 subspace} & \multicolumn{4}{c|}{(C) head on $\mathbf{g}$ only} & \multicolumn{4}{c}{(D) head on pixel statistics}\\
+ID dataset & flip & flip (cos.) & natural & var./random & flip & natural & acc. & flip & natural & +kNN term & acc. & flip & natural & +kNN term\\\midrule
+\inputrows{supp_controls.tex}
+\bottomrule
+\end{tabular}
+\caption{Controls of the two-notions analysis (AUROC, \%, mean over three noise seeds; flip: ID vs upside-down ID; natural: mean over the natural OOD sets; acc.: held-out rotation accuracy; +kNN term: natural-OOD AUROC of the head's orientation term added to the frozen kNN term, to compare with Upright kNN in Table~2 of the paper). (A) and (B) use the Euclidean 10-NN rule after per-feature standardisation; flip (cos.): the same with the cosine distance (the other cosine variants are in the per-seed files).}
+\label{tab:controls}
+\end{table}
+\begin{table}[H]\centering\small\setlength{\tabcolsep}{5pt}
+\begin{tabular}{@{}l|cccc|cccc@{}}\toprule
+ & \multicolumn{4}{c|}{3{,}000 bank points} & \multicolumn{4}{c}{10{,}000 bank points}\\
+ID dataset & $k=5$ & $k=10$ & $k=20$ & $k=50$ & $k=5$ & $k=10$ & $k=20$ & $k=50$\\\midrule
+\inputrows{supp_dsens.tex}
+\bottomrule
+\end{tabular}
+\caption{Levina--Bickel intrinsic dimension $d$ of the bank features in the kNN space for several numbers of neighbours $k$ and bank points (noise seeds 0--2); the paper uses $k=20$ on 3{,}000 points (another random subsample of the bank than the frozen run's, whose values are in Table~\ref{tab:models}; they agree within 0.3 except FashionMNIST, 13.4 here against 14.4). A different $d$ rescales the kNN term ($w=d/d'$ in Table~\ref{tab:sweep}), which changes the mean AUROC by at most \swDprimeGap{} points over this range.}
+\label{tab:dsens}
+\end{table}
+\textbf{Further controls (\texttt{PROTOCOL\_E8.md}, written before the results).} Three more analyses on the same stored features and the frozen heads (Table~\ref{tab:controls2}; final evaluation images, three noise seeds). (F) \emph{What a low upright posterior looks like.} For the natural OOD images flagged by the orientation term only, by the kNN term only, by both and by neither (thresholds keeping 95\% of the final ID images, set on those same images), the shape of the head's posterior over the four angles: \emph{flat} (no angle above 0.5), peaked on a \emph{wrong} angle (maximum $\ge0.5$ at $90^\circ$, $180^\circ$ or $270^\circ$) or peaked on \emph{upright}; the same for ID images and upside-down ID images. (G) The displacement ratio $\|\Delta_{180}\|/r_R$ of Table~1 of the paper at the fixed neighbour ranks $R=1$, 10 and 100 for every dataset, since the paper's $R$ differs across datasets. (H) A whitened distance in the head's input space: the Mahalanobis 10-NN rule with the covariance of the standardised bank features (10{,}000 images) and a ridge of $10^{-2}$ or $10^{-1}$ times the mean eigenvalue. Findings: a whitened distance sees the frame hardly better than the Euclidean one (flip AUROC \whVfNatMin--\whVfNatMax\% on the four natural-image datasets, and an inverted natural-OOD AUROC on ImageNet-64; \whBVfAliMin--\whAVfAliMax\% on CelebA and FashionMNIST), consistent with the linear read-out not being a matter of scaling the axes: the three discriminant directions are swamped by the thousands of other whitened directions that a distance weighs equally. At a fixed rank the displacement ratios keep the order of Table~1 apart from the near-tie between CIFAR-10 and SVHN (ImageNet-64 \ratioRtenIN{} to FashionMNIST \ratioRtenFM{} at $R=10$), so that order is a property of the features, not of the chosen $R$. The ID images peak on upright (\psIdUpBigMin--\psIdUpBigMax\% on CIFAR-10, CIFAR-100 and ImageNet-64) and the upside-down ID images on a wrong angle (\psVfWrongBigMin--\psVfWrongBigMax\%, mostly $180^\circ$). The natural OOD images flagged by the orientation term only are read as confidently rotated (\psOrOnlyWrongBigMin--\psOrOnlyWrongBigMax\%) rather than as frameless (flat posterior, \psOrOnlyFlatBigMin--\psOrOnlyFlatBigMax\%); of the images flagged by the kNN term only, the head reads \psKnnOnlyUpBigMin--\psKnnOnlyUpBigMax\% as upright and is undecided on most of the rest (flat, \psKnnOnlyFlatBigMin--\psKnnOnlyFlatBigMax\%). On CelebA and FashionMNIST almost no natural OOD image is flagged by the orientation term alone (4--8 of 4{,}500 and 2{,}000), and on SVHN 26--40, so their posterior statistics in Table~\ref{tab:controls2} rest on few images.
+\begin{table}[H]\centering\footnotesize\setlength{\tabcolsep}{2.4pt}
+\begin{tabular}{@{}l|cc|cc|c|cc|cc|cc|ccc@{}}\toprule
+ & \multicolumn{4}{c|}{(H) whitened 10-NN} & \multicolumn{7}{c|}{(F) shape of the posterior (\% of images)} & \multicolumn{3}{c}{(G) $\|\Delta_{180}\|/r_R$}\\
+ & \multicolumn{2}{c|}{ridge $10^{-2}$} & \multicolumn{2}{c|}{ridge $10^{-1}$} & ID & \multicolumn{2}{c|}{upside-down ID} & \multicolumn{2}{c|}{OOD, orient.\ only} & \multicolumn{2}{c|}{OOD, kNN only} & & & \\
+ID dataset & flip & natural & flip & natural & flat & wrong & flat & flat & wrong & flat & wrong & $R=1$ & $R=10$ & $R=100$\\\midrule
+\inputrows{supp_controls2.tex}
+\bottomrule
+\end{tabular}
+\caption{Further controls of the two-notions analysis (mean over three noise seeds). (H): AUROC (\%) of the Mahalanobis 10-NN rule in the standardised head space (flip: ID vs upside-down ID; natural: mean over the natural OOD sets). (F): share (\%) of the images whose posterior over the four angles is flat (no angle above 0.5) or peaked on a wrong angle; the remainder is peaked on upright, which for images flagged by the orientation term occurs only where the ID threshold on $P(\up\mid\mathbf{x})$ exceeds 0.5 (CelebA, FashionMNIST). (G): median ratio of the displacement of a bank image under a half turn to its distance to its $R$-th nearest bank image, in the space of the kNN term (4{,}000 bank images). --: no image in that region.}
+\label{tab:controls2}
+\end{table}
+
 {\small\setlength{\tabcolsep}{5pt}
 \begin{longtable}{@{}llccccccc@{}}
 \caption{The two terms per pair (final evaluation images, three seeds): AUROC (\%) of the kNN term, the orientation term and their sum (Upright kNN); fraction (\%) of the OOD images flagged by the kNN term only, by the orientation term only and by both, at the thresholds that keep 95\% of the ID images; Spearman correlation $\rho$ of the two terms on the OOD images.}\label{tab:twosets}\\\toprule
@@ -87,10 +150,22 @@ ID & OOD & kNN term & orient.\ term & sum & kNN only & orient.\ only & both & $\
 \bottomrule
 \end{longtable}}
 
+\begin{figure}[H]\centering
+\includegraphics[width=0.62\textwidth]{figs/fig_qual.pdf}
+\caption{Natural OOD images of ImageNet-64 flagged by one notion only (final evaluation images, seed 0). Fixed rule: for each of the six non-face OOD sets, the image flagged by the kNN term alone that the orientation term finds most ID-like (top row), and the reverse (bottom row). Under each image: percentile of the kNN term / of the orientation term among the ID images; flagged: below 5. The kNN term alone flags images whose colour and texture statistics are unusual for ImageNet while the head still finds an upright frame; the orientation term alone flags images that the kNN term ranks as typical but in which the head finds no recognisable frame (close-ups, objects without a canonical pose, a view from below).}
+\label{fig:qual}
+\end{figure}
+\begin{figure}[H]\centering
+\includegraphics[width=\textwidth]{figs/fig_terms.pdf}
+\caption{The two terms of Eq.~(2) on the final evaluation images (noise seed 0) for the three ID datasets on which Upright kNN has the lowest AUROC; lines: thresholds keeping 95\% of the ID images for the kNN term alone (dotted), the orientation term alone (dash-dotted; ceiling $\log 1=0$) and their sum (dashed). Upside-down ID images (red) overlap the ID images (navy) in the kNN term and fall below the dashed line through the orientation term; natural OOD images (grey) leave the ID region along both axes, many along one only.}
+\label{fig:terms}
+\end{figure}
+
+
 \section{All Pairs}
 {\small\setlength{\tabcolsep}{5pt}
-\begin{longtable}{@{}llcrlccc@{}}
-\caption{AUROC (\%) of every pair (final evaluation; Upright kNN, tuned kNN and CFS averaged over three seeds). Best prior: the best of the 11 prior methods on that pair (chosen after the fact). Difference: Upright kNN minus that method; \textbf{bold} = win, \textit{italic} = loss, plain = tie (bootstrap rule of the paper).}\label{tab:pairs}\\\toprule
+\begin{longtable}{@{}llccrlccc@{}}
+\caption{AUROC (\%) of every pair (final evaluation; Upright kNN, both kNN rules, CFS, GEPC and EigenScore averaged over three noise seeds). Best prior: the best of the prior methods of Table~2 on that pair (chosen after the fact, CSI included where it was run). Difference: Upright kNN minus that method; \textbf{bold} = win, \textit{italic} = loss, plain = tie (bootstrap rule of the paper). By that rule Upright kNN loses to a prior detector run on all six ID datasets on \lostNatList; to CSI on \csiLossList; and to its own tuned kNN rule on \lostOwnList. Three of the nine OOD sets of each 32$\times$32 ID dataset (Tiny-ImageNet, ImageNet-FIX, ImageNet32) are resizings of ImageNet images, so the natural pairs are not independent.}\label{tab:pairs}\\\toprule
 ID & OOD & Ours & \multicolumn{2}{c}{best prior} & diff. & tuned kNN & diff.\\\midrule\endfirsthead
 \toprule ID & OOD & Ours & \multicolumn{2}{c}{best prior} & diff. & tuned kNN & diff.\\\midrule\endhead
 \inputrows{supp_pairs.tex}
@@ -103,7 +178,7 @@ Method & CIFAR-10 & SVHN & CelebA & CIFAR-100 & ImageNet-64 & FMNIST & Mean & Fl
 \inputrows{supp_fpr.tex}
 \bottomrule
 \end{tabular}
-\caption{FPR at 95\% TPR (\%, lower is better; final evaluation), mean over the natural OOD sets of each ID dataset, their mean, and the mean over the upside-down sets.}
+\caption{FPR at 95\% TPR (\%, lower is better; final evaluation), mean over the natural OOD sets of each ID dataset, their mean, and the mean over the upside-down sets. $^{\S}$Mean over the ID datasets on which the method was run; LID+NLL has no per-image score (its AUROC is a frontier over threshold pairs) and no FPR95.}
 \label{tab:fpr}
 \end{table}
 
@@ -114,7 +189,7 @@ Variant & CIFAR-10 & SVHN & CelebA & CIFAR-100 & ImageNet-64 & FMNIST & Mean & F
 \inputrows{supp_ablate.tex}
 \bottomrule
 \end{tabular}
-\caption{Development evaluation images, noise seed 0: mean AUROC over the natural OOD sets, the upside-down mean, and the mean on the selection data. No variant raises the selection-data mean, so within this table the frozen configuration would also be chosen on the selection data alone. $^{*}$Approximation from stored features whose noise was rotated with the image.}
+\caption{Development evaluation images, noise seed 0: mean AUROC over the natural OOD sets, the upside-down mean, and the mean on the selection data. No variant raises the selection-data mean, so within this table the frozen configuration would also be chosen on the selection data alone. The rotated-bank variant makes the kNN term closer to an estimate of $\bar p$ (the premise of Proposition~1) but is worse: on datasets where a rotation moves an image out of its neighbourhood (CIFAR-10), rotated bank images are foreign neighbours for upright test images, which blurs the kNN density more than it gains in rotation invariance. $^{*}$Approximation from stored features whose noise was rotated with the image.}
 \label{tab:ablate}
 \end{table}
 
@@ -126,7 +201,7 @@ ID & 1 & 1/2 & 1/4 & 1/8 & & 1 & 1/2 & 1/4 & 1/8 & vert. & horiz. & $\rho$ & $\r
 \inputrows{supp_mirror.tex}
 \bottomrule
 \end{tabular}
-\caption{Mirror test $M$ (\%, development images, seed 0, $\sigma_1$) of the kNN term ($R=1$) of the last decoder block at each depth (resolution ratio; --: no such level), with the horizontal flip as control; the kNN term of Upright kNN (three blocks, frozen $R$); and the Spearman correlation over all blocks (number in parentheses) between the vertical $M$ and the natural-OOD AUROC of the block ($\rho$), and the same for the horizontal $M$ ($\rho_{\mathrm H}$).}
+\caption{Mirror test $M$: AUROC (\%) of ID development images against their vertical flips under the kNN term ($R=1$) of the last decoder block at each depth (resolution ratio; --: no such level; seed 0, $\sigma_1$), with the horizontal flip as control (Proposition~2 says the horizontal flip should be invisible for left--right symmetric data); the kNN term of Upright kNN (three blocks, frozen $R$); and the Spearman correlation over all blocks (number in parentheses) between the vertical $M$ and the natural-OOD AUROC of the block ($\rho$), and the same for the horizontal $M$ ($\rho_{\mathrm H}$).}
 \label{tab:mirror}
 \end{table}
 
@@ -137,7 +212,7 @@ Method & SSB-hard & NINCO & iNat & Textures & OI-O & V2 & C & R & FPR near & FPR
 \inputrows{supp_in64.tex}
 \bottomrule
 \end{tabular}
-\caption{OpenOOD v1.5 ImageNet-1K, 64$\times$64, EDM2-XS (AUROC and mean FPR95, \%; 1{,}000 common images per set). W/T/L of Upright kNN over the five OOD sets.}
+\caption{OpenOOD v1.5 ImageNet-1K, 64$\times$64, EDM2-XS (AUROC and mean FPR95, \%; 1{,}000 common images per set; all detectors, including those left out of Table~3 of the paper). W/T/L of Upright kNN over the five OOD sets.}
 \label{tab:in64}
 \end{table}
 \begin{table}[H]\centering\small
@@ -149,10 +224,32 @@ Method & 1 & 2 & 3 & 4 & 5\\\midrule
 \caption{AUROC (\%) of ImageNet val against ImageNet-C by corruption severity (64$\times$64, full sets, three seeds). Density-based scores flag corrupted images more as the severity grows.}
 \label{tab:in64c}
 \end{table}
+\textbf{Bank size (post hoc, \texttt{PROTOCOL\_E5B.md}).} The frozen bank of ImageNet-64 holds 10 training images per class. Table~\ref{tab:bank} repeats the benchmark with banks of 25{,}000 and 50{,}000 training images drawn at random from the training set with the same preprocessing as the benchmark images, with the head retrained on the new bank, $R$ scaled with the bank ($R=N/10$, which reproduces the frozen $R=1{,}000$ at $N=10{,}000$) or $R=1{,}000$ kept fixed, and CFS fitted on the same bank (three noise seeds; the protocol was written before the result). A larger bank changes neither term: \bankTwoFiveNear/\bankTwoFiveFar\% and \bankFiftyNear/\bankFiftyFar\% near/far AUROC with 25{,}000 and 50{,}000 images against \bankTenNear/\bankTenFar\% with the frozen bank (kNN term \bankTwoFiveNearKnnT/\bankTwoFiveFarKnnT\% and \bankFiftyNearKnnT/\bankFiftyFarKnnT\% against \bankTenNearKnnT/\bankTenFarKnnT\%), and keeping $R=1{,}000$ with the larger banks costs up to two near-OOD points (\bankTwoFiveNearRk\% and \bankFiftyNearRk\%). The near-OOD AUROC of ImageNet-64 is therefore not limited by the size of the bank.
+\begin{table}[H]\centering\small\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}l|cc|cc|ccc|cc@{}}\toprule
+ & \multicolumn{2}{c|}{AUROC} & \multicolumn{2}{c|}{FPR95} & \multicolumn{3}{c|}{csID} & \multicolumn{2}{c}{Full spectrum}\\
+Method & Near & Far & Near & Far & V2 & C & R & Near & Far\\
+\inputrows{supp_e5b.tex}
+\bottomrule
+\end{tabular}
+\caption{OpenOOD v1.5 ImageNet-1K at 64$\times$64 (full sets, \inNFull{} ID images; AUROC and FPR95, \%; three noise seeds) as the bank grows (\texttt{PROTOCOL\_E5B.md}).}
+\label{tab:bank}
+\end{table}
+
 
 \section{ImageNet at Higher Resolution with Resolution Control}
 \label{s:hires}
-Every image (ID and OOD) is first resized so that its short side is 224 pixels and centre-cropped to 224$\times$224, then resized to the model's resolution, so that no set can be told apart by the resolution at which it is stored (protocols \texttt{PROTOCOL\_HIRES.md} and \texttt{PROTOCOL\_HIRES\_DIT.md}, written before the runs). The ImageNet-64 configuration of Upright kNN is used unchanged ($R=1{,}000$ of a bank of 10 training images per class, $\sigma_1$, three blocks, the head and its training); for the latent models the noise is added to the latents and the bank images are rotated in pixel space before encoding. DiT-XL/2 has no decoder resolutions; its blocks 28, 21 and 14 (depth 4/4, 3/4, 2/4) take the place of the three decoder blocks. CFS is not defined for a transformer; MSMA$^{*}$, DiffPath and GEPC are run in pixel space only (ADM). \textbf{Diagnostics (post hoc).} Simple pixel statistics of the bottlenecked 224-pixel images, the mean absolute Laplacian (high-frequency energy) and the excess absolute difference across 8-pixel column boundaries (JPEG blockiness), separate ImageNet from SSB-hard with at most \hPixSsb\% AUROC and from any OOD set with at most \hPixMax\% (either direction). In the space of the kNN term of DiT-XL/2, the largest channel of each block carries \hDitTopShareMin--\hDitTopShareMax\% of the squared norm of the pooled statistics (median over bank images; the same channel for nearly every image), and two random bank images have a median cosine similarity of \hDitCosMed{} (\hUnetCosMin--\hUnetCosMax{} for ADM and EDM2-XS); a quarter of the bank points therefore have degenerate neighbourhoods in the estimate of $d$, which skips them.
+Every image (ID and OOD) is first resized so that its short side is 224 pixels and centre-cropped to 224$\times$224, then resized to the model's resolution, so that no set can be told apart by the resolution at which it is stored (protocols \texttt{PROTOCOL\_HIRES.md} and \texttt{PROTOCOL\_HIRES\_DIT.md}, written before the runs). The ImageNet-64 configuration of Upright kNN is used unchanged ($R=1{,}000$ of a bank of 10 training images per class, $\sigma_1$, three blocks, the head and its training); for the latent models the noise is added to the latents and the bank images are rotated in pixel space before encoding. CFS is not defined for a transformer; MSMA$^{*}$, DiffPath and GEPC are run in pixel space only (ADM).
+\begin{table}[H]\centering\small\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}l|ccc|ccc|ccc@{}}\toprule
+ & \multicolumn{3}{c|}{ADM 256} & \multicolumn{3}{c|}{EDM2-XS 512} & \multicolumn{3}{c}{DiT-XL/2 256}\\
+Method & Near & Far & Flip & Near & Far & Flip & Near & Far & Flip\\\midrule
+\inputrows{tab_hires.tex}
+\bottomrule
+\end{tabular}
+\caption{ImageNet-1K at higher resolution with three further diffusion models (ADM in pixels; EDM2-XS and DiT-XL/2 in latent space), every image passed through the same 224-pixel bottleneck (AUROC, \%; frozen ImageNet-64 configuration; three noise seeds). Near / far as in Table~3 of the paper; Flip: upside-down ID images. --: method not run for that model. Best and second best per column (single-term rows excluded) are marked as in the paper.}
+\label{tab:hires}
+\end{table}
 \begin{table}[H]\centering\small\setlength{\tabcolsep}{3.4pt}
 \begin{tabular}{@{}lccccc|c|ccc|c@{}}\toprule
 Method & SSB-hard & NINCO & iNat & Tex. & OI-O & Flip & V2 & C & R & W/T/L\\
@@ -160,7 +257,18 @@ Method & SSB-hard & NINCO & iNat & Tex. & OI-O & Flip & V2 & C & R & W/T/L\\
 \bottomrule
 \end{tabular}
 \caption{Resolution-controlled ImageNet by set (AUROC, \%; common images of all rows of a model; three noise seeds for Upright kNN, the kNN rules and CFS). W/T/L of Upright kNN over the five OOD sets (bootstrap rule of the paper).}
-\label{tab:hires}
+\label{tab:hiresset}
+\end{table}
+\textbf{Diagnostics (post hoc).} Simple pixel statistics of the bottlenecked 224-pixel images, the mean absolute Laplacian (high-frequency energy) and the excess absolute difference across 8-pixel column boundaries (JPEG blockiness), separate ImageNet from SSB-hard with at most \hPixSsb\% AUROC and from any OOD set with at most \hPixMax\% (either direction). In the space of the kNN term of DiT-XL/2, the largest channel of each block carries \hDitTopShareMin--\hDitTopShareMax\% of the squared norm of the pooled statistics (median over bank images; the same channel for nearly every image), and two random bank images have a median cosine similarity of \hDitCosMed{} (\hUnetCosMin--\hUnetCosMax{} for ADM and EDM2-XS); a quarter of the bank points therefore have degenerate neighbourhoods in the estimate of $d$, which skips them. \textbf{Identical final resampling (added after the frozen evaluation, expectation written before the run; \texttt{PROTOCOL\_HIRES2.md}).} The 224-pixel bottleneck does not equalise what happened to an image before it: ImageNet validation images (median short side 375 pixels) are downsampled by our pipeline, whereas SSB-hard and ImageNet-C are stored at 224 pixels and are not resampled at all, and a denoiser at its finest noise level is sensitive to such spectral signatures. As a control written before its result, every 224-pixel image (bank, ID, OOD and csID) is reduced to 112 pixels by one $2\times$ box reduction and brought back to 256 pixels by one bicubic resize, so that every set has the same final resampling and no content above the 112-pixel Nyquist limit; the frozen ImageNet-64 configuration of Upright kNN, kNN (basic) and CFS are then run with ADM as before (three noise seeds; the export step of Upright kNN initially failed on the new tier name and was re-run unchanged). Table~\ref{tab:hires2} compares the two tiers on the same 1{,}000 images per set with a paired bootstrap. The expectation written in advance was that a resampling signature would bring the near-OOD AUROC of Upright kNN down to its 64$\times$64 values (SSB-hard \inSSB\%, NINCO \inNINCO\%) and remove the inverted kNN (basic) result on OpenImage-O. SSB-hard stays at \hTwoSsbD\% (tie), so its gain at 256 pixels survives this control and is unlikely to be a resampling signature; NINCO falls from \hTwoNincoC\% to \hTwoNincoD\%, close to its 64$\times$64 level (\inNINCO\%), and iNaturalist from \hTwoInatC\% to \hTwoInatD\%, chance, whereas OpenImage-O rises from \hTwoOioC\% to \hTwoOioD\% and the kNN (basic) inversion disappears (\hTwoOioKnnBC\% to \hTwoOioKnnBD\% on these 1{,}000 images). CFS also loses on NINCO and keeps its SSB-hard AUROC (near-OOD mean \hTwoNearCfsC\% to \hTwoNearCfsD\%), and under the control Upright kNN still leads it on near-OOD (\hTwoNearD\% against \hTwoNearCfsD\%; W/T/L \hTwoWtlCfs{} over the five sets, the losses on iNaturalist and Textures). Part of the 256-pixel results above therefore depends on how the sets were stored and resampled, in both directions, and the SSB-hard result does not. The control removes content above 112 pixels together with the resampling history, and the 112-pixel images are blurred for a model trained on sharp images; it cannot separate these two effects, so the 256-pixel numbers of the paper should be read with this caveat.
+\begin{table}[H]\centering\footnotesize\setlength{\tabcolsep}{2.6pt}
+\begin{tabular}{@{}l|cc|cc|cc|cc|cc|cc|cc|cc@{}}\toprule
+ & \multicolumn{2}{c|}{SSB-hard} & \multicolumn{2}{c|}{NINCO} & \multicolumn{2}{c|}{Near} & \multicolumn{2}{c|}{iNat} & \multicolumn{2}{c|}{Tex.} & \multicolumn{2}{c|}{OI-O} & \multicolumn{2}{c|}{Far} & \multicolumn{2}{c}{Flip}\\
+Method & 224 & 112 & 224 & 112 & 224 & 112 & 224 & 112 & 224 & 112 & 224 & 112 & 224 & 112 & 224 & 112\\\midrule
+\inputrows{supp_hires2.tex}
+\bottomrule
+\end{tabular}
+\caption{ADM 256$\times$256 with the resolution-controlled images of Section~\ref{s:hires} (224: every image through the 224-pixel bottleneck) and with the same final resampling for every set (112: every image through 112 pixels; \texttt{PROTOCOL\_HIRES2.md}), on the same 1{,}000 images per set (AUROC, \%; three noise seeds). $^{+}$/$^{-}$: the 112-pixel value is higher / lower than the 224-pixel one by the paired bootstrap rule of the paper.}
+\label{tab:hires2}
 \end{table}
 
 \section{ImageNet at 256$\times$256 without Resolution Control}
@@ -170,7 +278,7 @@ Method & SSB-hard & NINCO & iNat & Textures & OI-O & Flip\\\midrule
 \inputrows{supp_in256.tex}
 \bottomrule
 \end{tabular}
-\caption{ADM 256$\times$256 with each set's images cropped from their stored resolution (500 common images per set). SSB-hard is stored at 224 pixels (short side, all 200 sampled images) and is upsampled, whereas ImageNet validation has a median short side of 375 pixels (3\% below 256); ImageNet-C is also stored at 224 pixels. Every feature-based detector separates SSB-hard far better than at 64$\times$64, a resolution shortcut; the paper therefore reports the resolution-controlled setting of Section~\ref{s:hires}, in which every image passes through the same 224-pixel bottleneck.}
+\caption{ADM 256$\times$256 with each set's images cropped from their stored resolution (500 common images per set). SSB-hard is stored at 224 pixels (short side; checked on a sample of 200 images) and is upsampled, whereas ImageNet validation has a median short side of 375 pixels (3\% of its images are below 256); ImageNet-C is also stored at 224 pixels. Every feature-based detector separates SSB-hard far better than at 64$\times$64, a resolution shortcut; the paper therefore reports the resolution-controlled setting of Section~\ref{s:hires}, in which every image passes through the same 224-pixel bottleneck.}
 \label{tab:in256}
 \end{table}
 
@@ -188,21 +296,54 @@ Score & Mean & Flip & W/T/L of ours\\\midrule
 
 \section{CSI}
 \label{s:csi}
-CSI~\cite{tack2020csi} is run with the official code (commit 60742b6, unmodified) in the unlabeled multi-class setting of its repository: ResNet-18, simclr\_CSI with rotations as shifting transformations, 1{,}000 epochs, LARS with learning rate 0.1, 10 warm-up epochs, cosine schedule, weight decay $10^{-6}$, temperature 0.5, on one GPU with a batch of 128 images (the official total batch of 512 rotated images). The training images are the bank images of each 32$\times$32 ID dataset, i.e.\ the images of the kNN bank and of the rotation head of Upright kNN. The score is the official CSI score with the repository's evaluation flags (10 augmented samples, crop scale 0.54). A thin wrapper feeds our arrays and replaces two packages that do not build with our PyTorch version (a re-implementation of the LARS optimizer of torchlars 0.1.2 and a stub of the multi-GPU gather, which a single-GPU run does not call). The protocol was written before training. \pending{Results, training cost and the reproduction check against the published CIFAR-10 $\rightarrow$ CIFAR-100 AUROC (89.3\%) will be added when the runs finish.}
+CSI~\cite{tack2020csi} is run with the official code (commit 60742b6, unmodified) in the unlabeled multi-class setting of its repository: ResNet-18, simclr\_CSI with rotations as shifting transformations, 1{,}000 epochs, LARS with learning rate 0.1, 10 warm-up epochs, cosine schedule, weight decay $10^{-6}$, temperature 0.5, on one GPU with a batch of 128 images (the official total batch of 512 rotated images). The training images are the bank images of each 32$\times$32 ID dataset, i.e.\ the images of the kNN bank and of the rotation head of Upright kNN. The score is the official CSI score with the repository's evaluation flags (10 augmented samples, crop scale 0.54). A thin wrapper feeds our arrays and replaces two packages that do not build with our PyTorch version (a re-implementation of the LARS optimiser of torchlars 0.1.2 and a stub of the multi-GPU gather, which a single-GPU run does not call). The protocol was written before training. Training took \csiHoursMin--\csiHoursMax{} hours per ID dataset on one RTX 2080 Ti; scoring the 40 test views of each image and the training set took 5--18 minutes per ID dataset. On our 500-image final split the CIFAR-10 run gives \csiRepro\% on CIFAR-100, \csiLsunFix\% on LSUN-FIX and \csiInFix\% on ImageNet-FIX, against the published 89.2, 90.3 and 93.3 (Table~2(a) of~\citeauthor{tack2020csi}~\shortcite{tack2020csi}; five trials, standard deviations $\le0.3$), i.e.\ two to three points above on each, which we attribute to the evaluation images. The CIFAR-100 run trained normally (final contrastive loss 5.26 against 5.20 for CIFAR-10; final shifting-transformation loss 0.16 against 0.09, consistent with the lower rotation accuracy of our head on CIFAR-100) and its score detects flipped CIFAR-100 images at \csiChVf\% AUROC, yet it ranks CelebA faces (\csiChCeleb\%) and uniform noise (\csiChNoise\%) as more typical than CIFAR-100 test images; CSI's paper does not report CIFAR-100 as ID, so we have no published value to compare with. Table~\ref{tab:pairs} lists CSI wherever it is the best prior method of a pair; its per-ID means are in Table~2 of the paper.
 
-\section{EuroSAT}
+\section{EuroSAT, Chest X-Rays, Histology and Generators Trained with Rotations}
+\label{s:domains}
+\textbf{Models.} The EuroSAT~\cite{helber2019eurosat}, ChestMNIST and PathMNIST~\cite{yang2023medmnist} models and the CIFAR-10 generators of Table~\ref{tab:e4rot} are EDM-style U-Nets (39M parameters) trained by us with the recipe of the FashionMNIST model (Section~S2; 8M images seen for the three domains, 4M for the CIFAR-10 generators, with 5{,}000 images held out for calibration). All protocols (\texttt{PROTOCOL\_E3.md}, \texttt{PROTOCOL\_E4.md}) were written before any result, with $R=5$ fixed in advance and no selection on these data; Upright kNN is otherwise unchanged. The chest X-ray tier uses 1{,}000 test radiographs as ID with their $90^\circ$ and $180^\circ$ rotations, vertical flips and left--right mirrors (a mirror is not in the rotation group and is reported only), other modalities (abdominal CT, greyscale histology), paediatric chest X-rays from another source (reported separately) and four natural sets in greyscale, 500 images each. The histology tier uses 1{,}000 test tiles with the same four transforms, other modalities (blood-cell microscopy, dermatoscopy, chest X-rays in RGB) and the ten natural sets of the CIFAR-10 tier.
 \begin{table}[H]\centering\small\setlength{\tabcolsep}{3.2pt}
 \begin{tabular}{@{}lcccccccccc|c|cc@{}}\toprule
-Method & C10 & C100 & SVHN & CelebA & Tex. & TIN & LSUN & IN & IN32 & P365 & Mean & Flip & Rot.\,90\\\midrule
+Method & C10 & C100 & SVHN & CelebA & Tex. & TIN & LSUN-FIX & IN-FIX & IN32 & P365 & Mean & Flip & Rot.\,90\\\midrule
 \inputrows{supp_eurosat.tex}
 \bottomrule
 \end{tabular}
-\caption{EuroSAT as ID (U-Net trained on EuroSAT, $R=5$ fixed in advance, three seeds): AUROC (\%) against ten natural OOD sets (500 images each), and of ID images against their vertical flips and 90$^\circ$ rotations.}
+\caption{EuroSAT as ID (three seeds): AUROC (\%) against ten natural OOD sets (500 images each), and of ID images against their vertical flips and 90$^\circ$ rotations. Held-out rotation accuracy of the head \eAcc\%, temperature \eT.}
 \label{tab:eurosat}
+\end{table}
+\begin{table}[H]\centering\small\setlength{\tabcolsep}{3.5pt}
+\begin{tabular}{@{}lcccc|cc|c|c|c@{}}\toprule
+ & \multicolumn{4}{c|}{ID transformed} & \multicolumn{2}{c|}{other modality} & other source & natural & \\
+Method & rot.\ 90 & rot.\ 180 & upside down & mirror & CT & histology & paediatric CXR & mean (4) & W/T/L\\\midrule
+\inputrows{supp_e4_chest.tex}
+\bottomrule
+\end{tabular}
+\caption{Chest X-rays (ChestMNIST, 32$\times$32 greyscale) as ID: AUROC (\%) of the 1{,}000 ID test radiographs against their transformed copies, other modalities, chest X-rays of another source and natural images; three noise seeds for Upright kNN, its terms, kNN (basic) and CFS. Held-out rotation accuracy of the head \xrAcc\%. W/T/L of Upright kNN over the 11 sets (bootstrap rule of the paper).}
+\label{tab:e4chest}
+\end{table}
+\begin{table}[H]\centering\small\setlength{\tabcolsep}{3.5pt}
+\begin{tabular}{@{}lcccc|ccc|c|c@{}}\toprule
+ & \multicolumn{4}{c|}{ID transformed} & \multicolumn{3}{c|}{other modality} & natural & \\
+Method & rot.\ 90 & rot.\ 180 & upside down & mirror & blood & derma & CXR & mean (10) & W/T/L\\\midrule
+\inputrows{supp_e4_path.tex}
+\bottomrule
+\end{tabular}
+\caption{Histology tiles (PathMNIST, 32$\times$32 RGB) as ID, as Table~\ref{tab:e4chest}; W/T/L over the 17 sets. Held-out rotation accuracy of the head \phAcc\%: the tiles have no canonical up, and the orientation term, which reads acquisition cues, is inverted on other modalities and lowers the kNN term.}
+\label{tab:e4path}
+\end{table}
+\begin{table}[H]\centering\small\setlength{\tabcolsep}{3.5pt}
+\begin{tabular}{@{}lc|cc|cc|cc|cc|cc@{}}\toprule
+ & head & \multicolumn{2}{c|}{Upright kNN} & \multicolumn{2}{c|}{kNN term} & \multicolumn{2}{c|}{orient.\ term} & \multicolumn{2}{c|}{NLL of the generator} & \multicolumn{2}{c}{NLL $+\log P(\up\mid\mathbf{x})$}\\
+Augmentation & acc. & natural & flip & natural & flip & natural & flip & natural & flip & natural & flip\\\midrule
+\inputrows{supp_e4_rot.tex}
+\bottomrule
+\end{tabular}
+\caption{CIFAR-10 generators trained by us with the same recipe and different augmentations (none; horizontal flips; a random multiple of $90^\circ$ with probability $p$): held-out accuracy (\%) of the head trained on the upright bank, and AUROC (\%) on the nine natural OOD sets (mean) and on the upside-down probe of Upright kNN, its terms, the generator's own PF-ODE log-likelihood, and the likelihood completed by the orientation term as in Proposition~1 (final evaluation images of the CIFAR-10 tier; three noise seeds; the likelihood once). The frame survives in the features of a generator whose density is rotation-symmetric by construction ($p=1$), whereas the likelihood is at chance on flips and the completed likelihood too, because the per-image spread of the likelihood (thousands of nats) swamps the frame factor (a few nats).}
+\label{tab:e4rot}
 \end{table}
 
 \section{Compute and Reproducibility}
-All features were extracted on NVIDIA RTX 2080 Ti GPUs (11\,GB). Offline cost of Upright kNN: one pass of the denoiser over the four rotations of the bank (about 7 minutes for 50{,}000 CIFAR-10 images on one GPU) and about 10\,s of head training. Test cost: one denoiser pass, inner products with the bank, and the pooled grid statistics and MLP (about 2\,ms on a CPU). All analysis scripts read per-image scores and write every number and table of the paper and of this supplement; the code, the protocol documents and the per-image scores will be released with the camera-ready version.
+\label{s:repro}
+All features were extracted on NVIDIA RTX 2080 Ti GPUs (11\,GB). Offline cost of Upright kNN: one pass of the denoiser over the four rotations of the bank (about 7 minutes for 50{,}000 CIFAR-10 images on one GPU) and about 10\,s of head training. Test cost: one denoiser pass, inner products with the bank, and the pooled grid statistics and MLP (about 2\,ms on a CPU). The supplementary archive contains the anonymised code (feature extraction, the head, the score, every comparison method as run, and the analysis scripts that read the per-image scores and write every number and table of the paper and of this document), the protocol documents written before each evaluation (\texttt{PROTOCOL\_UKNN.md} and the others cited above), the per-image scores of every method on the final evaluation images, and the index files of the three splits. The hyper-parameter ranges tried are those stated in Section~\ref{s:protocol} (20 configurations of the kNN term on the selection data; the head's input set, depth and temperature on held-out bank images); all final values are in Table~\ref{tab:models}.
 
 \bibliographystyle{named}
 \bibliography{refs}

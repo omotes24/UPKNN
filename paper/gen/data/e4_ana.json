@@ -1,0 +1,6413 @@
+{
+ "chest": {
+  "rows": {
+   "Ours": {
+    "per_set": {
+     "g32_chest_test__vflip": 99.98780000000001,
+     "g32_chest_test__rot90": 99.95609999999999,
+     "g32_chest_test__rot180": 99.992,
+     "g32_chest_test__hflip": 72.55160000000001,
+     "g32_organa_test": 99.9994,
+     "g32_path_gray_test": 100.0,
+     "g32_pneumonia_all": 99.52786666666667,
+     "g32_cifar10_gray": 99.99626666666666,
+     "g32_svhn_gray": 99.9982,
+     "g32_mnist_test": 99.99040000000001,
+     "g32_fmnist_test": 99.91946666666666
+    },
+    "seeds": 3,
+    "modality": 99.99969999999999,
+    "natural": 99.97608333333334,
+    "fpr95": {
+     "g32_chest_test__vflip": 0.0,
+     "g32_chest_test__rot90": 0.10000000000000002,
+     "g32_chest_test__rot180": 0.0,
+     "g32_chest_test__hflip": 90.7,
+     "g32_organa_test": 0.0,
+     "g32_path_gray_test": 0.0,
+     "g32_pneumonia_all": 1.4000000000000001,
+     "g32_cifar10_gray": 0.0,
+     "g32_svhn_gray": 0.0,
+     "g32_mnist_test": 0.0,
+     "g32_fmnist_test": 0.0
+    }
+   },
+   "kNN term": {
+    "per_set": {
+     "g32_chest_test__vflip": 99.79073333333334,
+     "g32_chest_test__rot90": 98.62195000000001,
+     "g32_chest_test__rot180": 99.77051666666667,
+     "g32_chest_test__hflip": 71.7119,
+     "g32_organa_test": 99.95703333333334,
+     "g32_path_gray_test": 99.99186666666667,
+     "g32_pneumonia_all": 99.60806666666667,
+     "g32_cifar10_gray": 99.97886666666666,
+     "g32_svhn_gray": 99.97556666666667,
+     "g32_mnist_test": 99.97430000000001,
+     "g32_fmnist_test": 99.88116666666667
+    },
+    "seeds": 3,
+    "modality": 99.97445,
+    "natural": 99.952475,
+    "fpr95": {
+     "g32_chest_test__vflip": 0.3333333333333333,
+     "g32_chest_test__rot90": 8.733333333333333,
+     "g32_chest_test__rot180": 0.7333333333333334,
+     "g32_chest_test__hflip": 91.16666666666667,
+     "g32_organa_test": 0.0,
+     "g32_path_gray_test": 0.0,
+     "g32_pneumonia_all": 1.4000000000000001,
+     "g32_cifar10_gray": 0.0,
+     "g32_svhn_gray": 0.0,
+     "g32_mnist_test": 0.0,
+     "g32_fmnist_test": 0.0
+    }
+   },
+   "Orientation term": {
+    "per_set": {
+     "g32_chest_test__vflip": 99.9893,
+     "g32_chest_test__rot90": 99.97893333333333,
+     "g32_chest_test__rot180": 99.99483333333335,
+     "g32_chest_test__hflip": 71.36563333333334,
+     "g32_organa_test": 99.95926666666666,
+     "g32_path_gray_test": 99.96273333333333,
+     "g32_pneumonia_all": 89.90660000000001,
+     "g32_cifar10_gray": 99.92693333333334,
+     "g32_svhn_gray": 99.9018,
+     "g32_mnist_test": 99.89566666666667,
+     "g32_fmnist_test": 99.89946666666667
+    },
+    "seeds": 3,
+    "modality": 99.961,
+    "natural": 99.90596666666667,
+    "fpr95": {
+     "g32_chest_test__vflip": 0.0,
+     "g32_chest_test__rot90": 0.10000000000000002,
+     "g32_chest_test__rot180": 0.0,
+     "g32_chest_test__hflip": 83.33333333333333,
+     "g32_organa_test": 0.0,
+     "g32_path_gray_test": 0.0,
+     "g32_pneumonia_all": 43.46666666666667,
+     "g32_cifar10_gray": 0.0,
+     "g32_svhn_gray": 0.0,
+     "g32_mnist_test": 0.0,
+     "g32_fmnist_test": 0.0
+    }
+   },
+   "kNN basic": {
+    "per_set": {
+     "g32_chest_test__vflip": 99.84485,
+     "g32_chest_test__rot90": 99.73471666666667,
+     "g32_chest_test__rot180": 99.85295,
+     "g32_chest_test__hflip": 68.31421666666667,
+     "g32_organa_test": 99.92879999999998,
+     "g32_path_gray_test": 99.98479999999999,
+     "g32_pneumonia_all": 99.39756666666666,
+     "g32_cifar10_gray": 99.9064,
+     "g32_svhn_gray": 99.9271,
+     "g32_mnist_test": 99.93983333333334,
+     "g32_fmnist_test": 99.74183333333333
+    },
+    "seeds": 3,
+    "modality": 99.95679999999999,
+    "natural": 99.87879166666667,
+    "fpr95": {
+     "g32_chest_test__vflip": 0.0,
+     "g32_chest_test__rot90": 0.10000000000000002,
+     "g32_chest_test__rot180": 0.0,
+     "g32_chest_test__hflip": 93.06666666666668,
+     "g32_organa_test": 0.0,
+     "g32_path_gray_test": 0.0,
+     "g32_pneumonia_all": 1.6666666666666667,
+     "g32_cifar10_gray": 0.0,
+     "g32_svhn_gray": 0.0,
+     "g32_mnist_test": 0.0,
+     "g32_fmnist_test": 0.0
+    }
+   },
+   "CFS": {
+    "per_set": {
+     "g32_chest_test__vflip": 96.43276666666667,
+     "g32_chest_test__rot90": 98.63703333333332,
+     "g32_chest_test__rot180": 96.49466666666666,
+     "g32_chest_test__hflip": 49.56616666666667,
+     "g32_organa_test": 99.3788,
+     "g32_path_gray_test": 99.81306666666667,
+     "g32_pneumonia_all": 91.79053333333336,
+     "g32_cifar10_gray": 99.89306666666666,
+     "g32_svhn_gray": 99.8752,
+     "g32_mnist_test": 100.0,
+     "g32_fmnist_test": 99.99626666666667
+    },
+    "seeds": 3,
+    "modality": 99.59593333333333,
+    "natural": 99.94113333333333,
+    "fpr95": {
+     "g32_chest_test__vflip": 18.900000000000002,
+     "g32_chest_test__rot90": 0.2333333333333333,
+     "g32_chest_test__rot180": 17.400000000000002,
+     "g32_chest_test__hflip": 95.2,
+     "g32_organa_test": 0.0,
+     "g32_path_gray_test": 0.0,
+     "g32_pneumonia_all": 53.6,
+     "g32_cifar10_gray": 0.0,
+     "g32_svhn_gray": 0.0,
+     "g32_mnist_test": 0.0,
+     "g32_fmnist_test": 0.0
+    }
+   },
+   "CFS-kNN": {
+    "per_set": {
+     "g32_chest_test__vflip": 99.80863333333333,
+     "g32_chest_test__rot90": 99.48956666666668,
+     "g32_chest_test__rot180": 99.80053333333332,
+     "g32_chest_test__hflip": 67.01983333333334,
+     "g32_organa_test": 99.92453333333333,
+     "g32_path_gray_test": 99.976,
+     "g32_pneumonia_all": 99.35566666666666,
+     "g32_cifar10_gray": 99.9722,
+     "g32_svhn_gray": 99.98126666666667,
+     "g32_mnist_test": 100.0,
+     "g32_fmnist_test": 99.95213333333334
+    },
+    "seeds": 3,
+    "modality": 99.95026666666666,
+    "natural": 99.9764,
+    "fpr95": {
+     "g32_chest_test__vflip": 0.0,
+     "g32_chest_test__rot90": 0.8333333333333334,
+     "g32_chest_test__rot180": 0.0,
+     "g32_chest_test__hflip": 92.3,
+     "g32_organa_test": 0.0,
+     "g32_path_gray_test": 0.0,
+     "g32_pneumonia_all": 1.4666666666666668,
+     "g32_cifar10_gray": 0.0,
+     "g32_svhn_gray": 0.0,
+     "g32_mnist_test": 0.0,
+     "g32_fmnist_test": 0.0
+    }
+   },
+   "NLL": {
+    "per_set": {
+     "g32_chest_test__vflip": 88.82480000000001,
+     "g32_chest_test__rot90": 88.8538,
+     "g32_chest_test__rot180": 88.6854,
+     "g32_chest_test__hflip": 61.877300000000005,
+     "g32_organa_test": 97.8888,
+     "g32_path_gray_test": 91.6806,
+     "g32_pneumonia_all": 97.5356,
+     "g32_cifar10_gray": 99.8896,
+     "g32_svhn_gray": 87.307,
+     "g32_mnist_test": 99.5858,
+     "g32_fmnist_test": 99.95439999999999
+    },
+    "seeds": 1,
+    "modality": 94.7847,
+    "natural": 96.6842,
+    "fpr95": {
+     "g32_chest_test__vflip": 36.1,
+     "g32_chest_test__rot90": 35.8,
+     "g32_chest_test__rot180": 36.199999999999996,
+     "g32_chest_test__hflip": 88.4,
+     "g32_organa_test": 4.6,
+     "g32_path_gray_test": 15.4,
+     "g32_pneumonia_all": 13.4,
+     "g32_cifar10_gray": 0.6,
+     "g32_svhn_gray": 27.0,
+     "g32_mnist_test": 1.6,
+     "g32_fmnist_test": 0.2
+    }
+   },
+   "MSMA*": {
+    "per_set": {
+     "g32_chest_test__vflip": 94.7312,
+     "g32_chest_test__rot90": 89.0663,
+     "g32_chest_test__rot180": 94.3122,
+     "g32_chest_test__hflip": 73.0838,
+     "g32_organa_test": 99.9706,
+     "g32_path_gray_test": 99.9988,
+     "g32_pneumonia_all": 95.0514,
+     "g32_cifar10_gray": 99.97779999999999,
+     "g32_svhn_gray": 99.602,
+     "g32_mnist_test": 100.0,
+     "g32_fmnist_test": 99.99980000000001
+    },
+    "seeds": 1,
+    "modality": 99.9847,
+    "natural": 99.89489999999999,
+    "fpr95": {
+     "g32_chest_test__vflip": 30.7,
+     "g32_chest_test__rot90": 55.50000000000001,
+     "g32_chest_test__rot180": 33.4,
+     "g32_chest_test__hflip": 84.89999999999999,
+     "g32_organa_test": 0.0,
+     "g32_path_gray_test": 0.0,
+     "g32_pneumonia_all": 30.0,
+     "g32_cifar10_gray": 0.0,
+     "g32_svhn_gray": 0.0,
+     "g32_mnist_test": 0.0,
+     "g32_fmnist_test": 0.0
+    }
+   },
+   "DiffPath": {
+    "per_set": {
+     "g32_chest_test__vflip": 88.0614,
+     "g32_chest_test__rot90": 83.81739999999999,
+     "g32_chest_test__rot180": 86.8958,
+     "g32_chest_test__hflip": 73.53739999999999,
+     "g32_organa_test": 99.93039999999999,
+     "g32_path_gray_test": 99.996,
+     "g32_pneumonia_all": 97.0966,
+     "g32_cifar10_gray": 99.98599999999999,
+     "g32_svhn_gray": 99.774,
+     "g32_mnist_test": 100.0,
+     "g32_fmnist_test": 100.0
+    },
+    "seeds": 1,
+    "modality": 99.9632,
+    "natural": 99.94,
+    "fpr95": {
+     "g32_chest_test__vflip": 37.7,
+     "g32_chest_test__rot90": 51.2,
+     "g32_chest_test__rot180": 40.1,
+     "g32_chest_test__hflip": 81.0,
+     "g32_organa_test": 0.2,
+     "g32_path_gray_test": 0.0,
+     "g32_pneumonia_all": 11.200000000000001,
+     "g32_cifar10_gray": 0.2,
+     "g32_svhn_gray": 0.2,
+     "g32_mnist_test": 0.0,
+     "g32_fmnist_test": 0.0
+    }
+   }
+  },
+  "boot": {
+   "kNN term": {
+    "g32_chest_test__vflip": {
+     "diff": 0.1970666666666716,
+     "ci": [
+      0.06043000000000269,
+      0.42273375000002106
+     ],
+     "verdict": "win"
+    },
+    "g32_chest_test__rot90": {
+     "diff": 1.3341499999999797,
+     "ci": [
+      0.973048333333334,
+      1.7297700000000211
+     ],
+     "verdict": "win"
+    },
+    "g32_chest_test__rot180": {
+     "diff": 0.2214833333333388,
+     "ci": [
+      0.0791458333333317,
+      0.4561504166666719
+     ],
+     "verdict": "win"
+    },
+    "g32_chest_test__hflip": {
+     "diff": 0.8397000000000077,
+     "ci": [
+      0.7044145833333267,
+      0.9642345833333256
+     ],
+     "verdict": "win"
+    },
+    "g32_organa_test": {
+     "diff": 0.04236666666665201,
+     "ci": [
+      -0.0006666666666461651,
+      0.13457000000000505
+     ],
+     "verdict": "tie"
+    },
+    "g32_path_gray_test": {
+     "diff": 0.008133333333333326,
+     "ci": [
+      0.0,
+      0.028307500000001398
+     ],
+     "verdict": "tie"
+    },
+    "g32_pneumonia_all": {
+     "diff": -0.08020000000000493,
+     "ci": [
+      -0.2707183333333383,
+      0.021368333333331782
+     ],
+     "verdict": "tie"
+    },
+    "g32_cifar10_gray": {
+     "diff": 0.017399999999994975,
+     "ci": [
+      -0.005399999999980665,
+      0.06200249999999804
+     ],
+     "verdict": "tie"
+    },
+    "g32_svhn_gray": {
+     "diff": 0.022633333333331507,
+     "ci": [
+      -0.003801666666664971,
+      0.07670083333332157
+     ],
+     "verdict": "tie"
+    },
+    "g32_mnist_test": {
+     "diff": 0.016099999999994452,
+     "ci": [
+      -0.016269999999985886,
+      0.06980000000000075
+     ],
+     "verdict": "tie"
+    },
+    "g32_fmnist_test": {
+     "diff": 0.03829999999999245,
+     "ci": [
+      -0.06365999999998166,
+      0.15870666666667607
+     ],
+     "verdict": "tie"
+    },
+    "modality": {
+     "diff": 0.025249999999985562,
+     "ci": [
+      -0.00033333333331597714,
+      0.08038333333331664
+     ],
+     "verdict": "tie"
+    },
+    "natural": {
+     "diff": 0.023608333333328346,
+     "ci": [
+      -0.02108458333333694,
+      0.09008520833332588
+     ],
+     "verdict": "tie"
+    },
+    "wtl": [
+     4,
+     7,
+     0
+    ]
+   },
+   "Orientation term": {
+    "g32_chest_test__vflip": {
+     "diff": -0.0014999999999929514,
+     "ci": [
+      -0.016703333333347458,
+      0.015333333333330756
+     ],
+     "verdict": "tie"
+    },
+    "g32_chest_test__rot90": {
+     "diff": -0.022833333333338146,
+     "ci": [
+      -0.05620000000000438,
+      -0.00023250000000772276
+     ],
+     "verdict": "tie"
+    },
+    "g32_chest_test__rot180": {
+     "diff": -0.002833333333342125,
+     "ci": [
+      -0.011200833333349536,
+      0.004167499999996233
+     ],
+     "verdict": "tie"
+    },
+    "g32_chest_test__hflip": {
+     "diff": 1.1859666666666726,
+     "ci": [
+      -1.4792058333333422,
+      3.910841666666674
+     ],
+     "verdict": "tie"
+    },
+    "g32_organa_test": {
+     "diff": 0.0401333333333298,
+     "ci": [
+      -0.0002000000000066393,
+      0.1311416666666712
+     ],
+     "verdict": "tie"
+    },
+    "g32_path_gray_test": {
+     "diff": 0.03726666666666745,
+     "ci": [
+      0.0,
+      0.12483000000000698
+     ],
+     "verdict": "tie"
+    },
+    "g32_pneumonia_all": {
+     "diff": 9.621266666666656,
+     "ci": [
+      8.08746500000001,
+      11.217245000000005
+     ],
+     "verdict": "win"
+    },
+    "g32_cifar10_gray": {
+     "diff": 0.06933333333331859,
+     "ci": [
+      -0.002800000000021896,
+      0.21738666666664846
+     ],
+     "verdict": "tie"
+    },
+    "g32_svhn_gray": {
+     "diff": 0.0964000000000027,
+     "ci": [
+      -0.0007999999999839247,
+      0.2919333333333192
+     ],
+     "verdict": "tie"
+    },
+    "g32_mnist_test": {
+     "diff": 0.09473333333333755,
+     "ci": [
+      -0.0047333333333345,
+      0.2898099999999857
+     ],
+     "verdict": "tie"
+    },
+    "g32_fmnist_test": {
+     "diff": 0.01999999999999602,
+     "ci": [
+      -0.08774499999998504,
+      0.17352000000000317
+     ],
+     "verdict": "tie"
+    },
+    "modality": {
+     "diff": 0.03869999999999152,
+     "ci": [
+      -3.3333333334439885e-05,
+      0.12391999999999247
+     ],
+     "verdict": "tie"
+    },
+    "natural": {
+     "diff": 0.07011666666666372,
+     "ci": [
+      -0.023340833333340427,
+      0.24069583333333597
+     ],
+     "verdict": "tie"
+    },
+    "wtl": [
+     1,
+     10,
+     0
+    ]
+   },
+   "kNN basic": {
+    "g32_chest_test__vflip": {
+     "diff": 0.14295000000001323,
+     "ci": [
+      0.0031274999999901356,
+      0.37662583333334304
+     ],
+     "verdict": "win"
+    },
+    "g32_chest_test__rot90": {
+     "diff": 0.22138333333332127,
+     "ci": [
+      0.04107291666665205,
+      0.4679012499999867
+     ],
+     "verdict": "win"
+    },
+    "g32_chest_test__rot180": {
+     "diff": 0.13904999999999745,
+     "ci": [
+      0.0034779166666545794,
+      0.369465416666662
+     ],
+     "verdict": "win"
+    },
+    "g32_chest_test__hflip": {
+     "diff": 4.237383333333341,
+     "ci": [
+      3.3356666666666692,
+      5.166744999999993
+     ],
+     "verdict": "win"
+    },
+    "g32_organa_test": {
+     "diff": 0.0706000000000131,
+     "ci": [
+      -0.0009333333333216842,
+      0.22000749999998523
+     ],
+     "verdict": "tie"
+    },
+    "g32_path_gray_test": {
+     "diff": 0.015200000000007208,
+     "ci": [
+      0.0,
+      0.05200500000000614
+     ],
+     "verdict": "tie"
+    },
+    "g32_pneumonia_all": {
+     "diff": 0.1303000000000054,
+     "ci": [
+      -0.008009166666676037,
+      0.2684908333333488
+     ],
+     "verdict": "tie"
+    },
+    "g32_cifar10_gray": {
+     "diff": 0.08986666666665144,
+     "ci": [
+      -0.003900000000001924,
+      0.2778008333333194
+     ],
+     "verdict": "tie"
+    },
+    "g32_svhn_gray": {
+     "diff": 0.07110000000000127,
+     "ci": [
+      -0.0018683333333662233,
+      0.22153499999999296
+     ],
+     "verdict": "tie"
+    },
+    "g32_mnist_test": {
+     "diff": 0.050566666666668425,
+     "ci": [
+      -0.01600666666667152,
+      0.17446749999999403
+     ],
+     "verdict": "tie"
+    },
+    "g32_fmnist_test": {
+     "diff": 0.17763333333333264,
+     "ci": [
+      0.048926666666671184,
+      0.35529083333333156
+     ],
+     "verdict": "win"
+    },
+    "modality": {
+     "diff": 0.04290000000000305,
+     "ci": [
+      -0.0004666666666537367,
+      0.13393499999999817
+     ],
+     "verdict": "tie"
+    },
+    "natural": {
+     "diff": 0.09729166666666345,
+     "ci": [
+      0.010903541666666428,
+      0.25579250000001463
+     ],
+     "verdict": "win"
+    },
+    "wtl": [
+     5,
+     6,
+     0
+    ]
+   },
+   "CFS": {
+    "g32_chest_test__vflip": {
+     "diff": 3.5550333333333413,
+     "ci": [
+      2.6600916666666676,
+      4.543984999999993
+     ],
+     "verdict": "win"
+    },
+    "g32_chest_test__rot90": {
+     "diff": 1.3190666666666715,
+     "ci": [
+      0.7585274999999999,
+      1.9164891666666644
+     ],
+     "verdict": "win"
+    },
+    "g32_chest_test__rot180": {
+     "diff": 3.4973333333333443,
+     "ci": [
+      2.5911691666666683,
+      4.473510833333325
+     ],
+     "verdict": "win"
+    },
+    "g32_chest_test__hflip": {
+     "diff": 22.98543333333334,
+     "ci": [
+      20.391914166666677,
+      25.42703833333332
+     ],
+     "verdict": "win"
+    },
+    "g32_organa_test": {
+     "diff": 0.620599999999996,
+     "ci": [
+      0.29199833333332065,
+      1.0107283333333155
+     ],
+     "verdict": "win"
+    },
+    "g32_path_gray_test": {
+     "diff": 0.18693333333332873,
+     "ci": [
+      0.02945833333334491,
+      0.407841666666661
+     ],
+     "verdict": "win"
+    },
+    "g32_pneumonia_all": {
+     "diff": 7.737333333333311,
+     "ci": [
+      6.519503333333344,
+      9.083603333333338
+     ],
+     "verdict": "win"
+    },
+    "g32_cifar10_gray": {
+     "diff": 0.10320000000000107,
+     "ci": [
+      0.010133333333328665,
+      0.23810833333333484
+     ],
+     "verdict": "win"
+    },
+    "g32_svhn_gray": {
+     "diff": 0.12299999999999045,
+     "ci": [
+      0.012389999999999547,
+      0.28268500000000457
+     ],
+     "verdict": "win"
+    },
+    "g32_mnist_test": {
+     "diff": -0.009599999999991837,
+     "ci": [
+      -0.027134999999991295,
+      0.0
+     ],
+     "verdict": "tie"
+    },
+    "g32_fmnist_test": {
+     "diff": -0.07680000000000575,
+     "ci": [
+      -0.18413500000000127,
+      -0.00560000000000116
+     ],
+     "verdict": "loss"
+    },
+    "modality": {
+     "diff": 0.4037666666666553,
+     "ci": [
+      0.17026999999999787,
+      0.6991741666666562
+     ],
+     "verdict": "win"
+    },
+    "natural": {
+     "diff": 0.03495000000000914,
+     "ci": [
+      -0.013484583333340083,
+      0.10132875000000922
+     ],
+     "verdict": "tie"
+    },
+    "wtl": [
+     9,
+     1,
+     1
+    ]
+   },
+   "CFS-kNN": {
+    "g32_chest_test__vflip": {
+     "diff": 0.17916666666667425,
+     "ci": [
+      0.04032916666666928,
+      0.4053658333333434
+     ],
+     "verdict": "win"
+    },
+    "g32_chest_test__rot90": {
+     "diff": 0.4665333333333166,
+     "ci": [
+      0.248365000000004,
+      0.7417900000000093
+     ],
+     "verdict": "win"
+    },
+    "g32_chest_test__rot180": {
+     "diff": 0.19146666666668466,
+     "ci": [
+      0.04669833333332072,
+      0.4277850000000035
+     ],
+     "verdict": "win"
+    },
+    "g32_chest_test__hflip": {
+     "diff": 5.53176666666667,
+     "ci": [
+      4.65293166666666,
+      6.388365000000001
+     ],
+     "verdict": "win"
+    },
+    "g32_organa_test": {
+     "diff": 0.07486666666666508,
+     "ci": [
+      -0.0010016666666849972,
+      0.23040500000000283
+     ],
+     "verdict": "tie"
+    },
+    "g32_path_gray_test": {
+     "diff": 0.02400000000000091,
+     "ci": [
+      0.0,
+      0.07680500000000554
+     ],
+     "verdict": "tie"
+    },
+    "g32_pneumonia_all": {
+     "diff": 0.17220000000000368,
+     "ci": [
+      -0.007468333333353172,
+      0.3538799999999944
+     ],
+     "verdict": "tie"
+    },
+    "g32_cifar10_gray": {
+     "diff": 0.02406666666665558,
+     "ci": [
+      -0.005605000000000615,
+      0.08414999999998
+     ],
+     "verdict": "tie"
+    },
+    "g32_svhn_gray": {
+     "diff": 0.016933333333327028,
+     "ci": [
+      -0.003801666666664971,
+      0.05839999999997829
+     ],
+     "verdict": "tie"
+    },
+    "g32_mnist_test": {
+     "diff": -0.009599999999991837,
+     "ci": [
+      -0.027134999999991295,
+      0.0
+     ],
+     "verdict": "tie"
+    },
+    "g32_fmnist_test": {
+     "diff": -0.03266666666667106,
+     "ci": [
+      -0.12314000000002281,
+      0.03160166666667833
+     ],
+     "verdict": "tie"
+    },
+    "modality": {
+     "diff": 0.04943333333332589,
+     "ci": [
+      -0.0005008333333492487,
+      0.15190249999998356
+     ],
+     "verdict": "tie"
+    },
+    "natural": {
+     "diff": -0.00031666666666296805,
+     "ci": [
+      -0.035035833333331115,
+      0.03866833333332379
+     ],
+     "verdict": "tie"
+    },
+    "wtl": [
+     4,
+     7,
+     0
+    ]
+   },
+   "NLL": {
+    "g32_chest_test__vflip": {
+     "diff": 11.162999999999997,
+     "ci": [
+      9.689864166666679,
+      12.594800000000006
+     ],
+     "verdict": "win"
+    },
+    "g32_chest_test__rot90": {
+     "diff": 11.102299999999985,
+     "ci": [
+      9.734273333333343,
+      12.540916666666666
+     ],
+     "verdict": "win"
+    },
+    "g32_chest_test__rot180": {
+     "diff": 11.306600000000003,
+     "ci": [
+      9.862277499999989,
+      12.790508333333342
+     ],
+     "verdict": "win"
+    },
+    "g32_chest_test__hflip": {
+     "diff": 10.674300000000002,
+     "ci": [
+      7.675467499999996,
+      13.798601666666668
+     ],
+     "verdict": "win"
+    },
+    "g32_organa_test": {
+     "diff": 2.110599999999991,
+     "ci": [
+      1.163864999999997,
+      3.2131483333333266
+     ],
+     "verdict": "win"
+    },
+    "g32_path_gray_test": {
+     "diff": 8.319400000000002,
+     "ci": [
+      6.3115299999999985,
+      10.336480000000003
+     ],
+     "verdict": "win"
+    },
+    "g32_pneumonia_all": {
+     "diff": 1.9922666666666657,
+     "ci": [
+      1.2397866666666553,
+      2.78330000000001
+     ],
+     "verdict": "win"
+    },
+    "g32_cifar10_gray": {
+     "diff": 0.10666666666665492,
+     "ci": [
+      0.027126666666671895,
+      0.23562666666665832
+     ],
+     "verdict": "win"
+    },
+    "g32_svhn_gray": {
+     "diff": 12.691199999999995,
+     "ci": [
+      10.284655000000004,
+      15.142426666666667
+     ],
+     "verdict": "win"
+    },
+    "g32_mnist_test": {
+     "diff": 0.40460000000000207,
+     "ci": [
+      0.17341499999998897,
+      0.7162933333333223
+     ],
+     "verdict": "win"
+    },
+    "g32_fmnist_test": {
+     "diff": -0.03493333333332771,
+     "ci": [
+      -0.14941666666666684,
+      0.04959999999999809
+     ],
+     "verdict": "tie"
+    },
+    "modality": {
+     "diff": 5.214999999999989,
+     "ci": [
+      4.090592499999998,
+      6.393097499999996
+     ],
+     "verdict": "win"
+    },
+    "natural": {
+     "diff": 3.291883333333331,
+     "ci": [
+      2.680252916666669,
+      3.8964866666666516
+     ],
+     "verdict": "win"
+    },
+    "wtl": [
+     10,
+     1,
+     0
+    ]
+   },
+   "MSMA*": {
+    "g32_chest_test__vflip": {
+     "diff": 5.256600000000006,
+     "ci": [
+      4.34685166666667,
+      6.294987499999997
+     ],
+     "verdict": "win"
+    },
+    "g32_chest_test__rot90": {
+     "diff": 10.889799999999994,
+     "ci": [
+      9.51892749999999,
+      12.35008750000001
+     ],
+     "verdict": "win"
+    },
+    "g32_chest_test__rot180": {
+     "diff": 5.6798,
+     "ci": [
+      4.748798333333329,
+      6.769092499999993
+     ],
+     "verdict": "win"
+    },
+    "g32_chest_test__hflip": {
+     "diff": -0.5321999999999889,
+     "ci": [
+      -3.2144733333333266,
+      2.0939008333333358
+     ],
+     "verdict": "tie"
+    },
+    "g32_organa_test": {
+     "diff": 0.028799999999989723,
+     "ci": [
+      0.005859999999995935,
+      0.06520500000000379
+     ],
+     "verdict": "tie"
+    },
+    "g32_path_gray_test": {
+     "diff": 0.0011999999999972033,
+     "ci": [
+      0.0,
+      0.004800000000003024
+     ],
+     "verdict": "tie"
+    },
+    "g32_pneumonia_all": {
+     "diff": 4.476466666666667,
+     "ci": [
+      3.5768066666666463,
+      5.549408333333339
+     ],
+     "verdict": "win"
+    },
+    "g32_cifar10_gray": {
+     "diff": 0.01846666666666863,
+     "ci": [
+      -1.6666666667218996e-06,
+      0.04739999999999611
+     ],
+     "verdict": "tie"
+    },
+    "g32_svhn_gray": {
+     "diff": 0.3961999999999932,
+     "ci": [
+      0.2084600000000137,
+      0.622005
+     ],
+     "verdict": "win"
+    },
+    "g32_mnist_test": {
+     "diff": -0.009599999999991837,
+     "ci": [
+      -0.027134999999991295,
+      0.0
+     ],
+     "verdict": "tie"
+    },
+    "g32_fmnist_test": {
+     "diff": -0.0803333333333427,
+     "ci": [
+      -0.18576666666667913,
+      -0.008460000000010874
+     ],
+     "verdict": "loss"
+    },
+    "modality": {
+     "diff": 0.014999999999986358,
+     "ci": [
+      0.0029299999999981455,
+      0.03420583333333195
+     ],
+     "verdict": "tie"
+    },
+    "natural": {
+     "diff": 0.08118333333334249,
+     "ci": [
+      0.02767833333332881,
+      0.1412979166666534
+     ],
+     "verdict": "win"
+    },
+    "wtl": [
+     5,
+     5,
+     1
+    ]
+   },
+   "DiffPath": {
+    "g32_chest_test__vflip": {
+     "diff": 11.926400000000001,
+     "ci": [
+      10.416364999999999,
+      13.593425833333344
+     ],
+     "verdict": "win"
+    },
+    "g32_chest_test__rot90": {
+     "diff": 16.1387,
+     "ci": [
+      14.440005833333332,
+      17.906037500000004
+     ],
+     "verdict": "win"
+    },
+    "g32_chest_test__rot180": {
+     "diff": 13.09620000000001,
+     "ci": [
+      11.533689999999996,
+      14.703891666666667
+     ],
+     "verdict": "win"
+    },
+    "g32_chest_test__hflip": {
+     "diff": -0.9857999999999834,
+     "ci": [
+      -3.618269166666665,
+      1.5854833333333256
+     ],
+     "verdict": "tie"
+    },
+    "g32_organa_test": {
+     "diff": 0.06900000000000261,
+     "ci": [
+      0.007665000000012512,
+      0.17422000000001273
+     ],
+     "verdict": "win"
+    },
+    "g32_path_gray_test": {
+     "diff": 0.0040000000000048885,
+     "ci": [
+      0.0,
+      0.011004999999995818
+     ],
+     "verdict": "tie"
+    },
+    "g32_pneumonia_all": {
+     "diff": 2.431266666666673,
+     "ci": [
+      1.6519900000000007,
+      3.2536999999999914
+     ],
+     "verdict": "win"
+    },
+    "g32_cifar10_gray": {
+     "diff": 0.010266666666666424,
+     "ci": [
+      -0.005799999999993944,
+      0.03693666666665647
+     ],
+     "verdict": "tie"
+    },
+    "g32_svhn_gray": {
+     "diff": 0.22419999999999618,
+     "ci": [
+      0.12111666666665215,
+      0.34100666666666085
+     ],
+     "verdict": "win"
+    },
+    "g32_mnist_test": {
+     "diff": -0.009599999999991837,
+     "ci": [
+      -0.027134999999991295,
+      0.0
+     ],
+     "verdict": "tie"
+    },
+    "g32_fmnist_test": {
+     "diff": -0.08053333333333512,
+     "ci": [
+      -0.18579333333334525,
+      -0.008595000000001135
+     ],
+     "verdict": "loss"
+    },
+    "modality": {
+     "diff": 0.03649999999998954,
+     "ci": [
+      0.004999166666662802,
+      0.08936749999999698
+     ],
+     "verdict": "tie"
+    },
+    "natural": {
+     "diff": 0.036083333333337464,
+     "ci": [
+      -0.0019241666666594878,
+      0.07170125000002087
+     ],
+     "verdict": "tie"
+    },
+    "wtl": [
+     6,
+     4,
+     1
+    ]
+   }
+  },
+  "heads": {
+   "0": {
+    "acc": 99.9,
+    "T": 1.1375497579574585
+   },
+   "1": {
+    "acc": 99.9,
+    "T": 1.1375497579574585
+   },
+   "2": {
+    "acc": 99.9,
+    "T": 1.1375497579574585
+   }
+  }
+ },
+ "path": {
+  "rows": {
+   "Ours": {
+    "per_set": {
+     "path_test__vflip": 55.27273333333334,
+     "path_test__rot90": 58.86323333333333,
+     "path_test__rot180": 59.50336666666667,
+     "path_test__hflip": 50.8248,
+     "blood_all": 87.23599999999999,
+     "derma_all": 95.86726666666668,
+     "chest_rgb_test": 93.34673333333335,
+     "cifar10_test": 97.1868,
+     "cifar100_test": 97.53980000000001,
+     "svhn_test": 94.34426666666666,
+     "celeba_test": 96.03120000000001,
+     "textures": 98.1982,
+     "tin_val": 96.74560000000001,
+     "lsun_fix": 98.00359999999999,
+     "imagenet_fix": 97.49746666666665,
+     "imagenet32_val": 98.39766666666667,
+     "places365_val": 98.00746666666667
+    },
+    "seeds": 3,
+    "modality": 92.15000000000002,
+    "natural": 97.19520666666666,
+    "fpr95": {
+     "path_test__vflip": 91.3,
+     "path_test__rot90": 83.2,
+     "path_test__rot180": 87.23333333333333,
+     "path_test__hflip": 94.43333333333332,
+     "blood_all": 52.46666666666666,
+     "derma_all": 23.26666666666667,
+     "chest_rgb_test": 91.33333333333333,
+     "cifar10_test": 24.266666666666666,
+     "cifar100_test": 17.533333333333335,
+     "svhn_test": 45.6,
+     "celeba_test": 35.666666666666664,
+     "textures": 8.733333333333334,
+     "tin_val": 27.933333333333334,
+     "lsun_fix": 17.066666666666666,
+     "imagenet_fix": 21.733333333333334,
+     "imagenet32_val": 11.933333333333332,
+     "places365_val": 17.666666666666668
+    }
+   },
+   "kNN term": {
+    "per_set": {
+     "path_test__vflip": 48.81935000000001,
+     "path_test__rot90": 49.719383333333326,
+     "path_test__rot180": 49.6376,
+     "path_test__hflip": 48.80576666666666,
+     "blood_all": 95.04886666666668,
+     "derma_all": 99.3507,
+     "chest_rgb_test": 99.44383333333333,
+     "cifar10_test": 99.51053333333334,
+     "cifar100_test": 99.52143333333333,
+     "svhn_test": 99.29969999999999,
+     "celeba_test": 99.48630000000001,
+     "textures": 99.6198,
+     "tin_val": 99.51706666666666,
+     "lsun_fix": 99.51286666666665,
+     "imagenet_fix": 99.51339999999999,
+     "imagenet32_val": 99.53856666666667,
+     "places365_val": 99.48116666666668
+    },
+    "seeds": 3,
+    "modality": 97.94780000000002,
+    "natural": 99.50008333333332,
+    "fpr95": {
+     "path_test__vflip": 94.73333333333333,
+     "path_test__rot90": 93.2,
+     "path_test__rot180": 94.89999999999999,
+     "path_test__hflip": 95.23333333333333,
+     "blood_all": 38.733333333333334,
+     "derma_all": 1.4000000000000001,
+     "chest_rgb_test": 0.0,
+     "cifar10_test": 0.0,
+     "cifar100_test": 0.0,
+     "svhn_test": 1.0666666666666667,
+     "celeba_test": 0.0,
+     "textures": 0.5333333333333333,
+     "tin_val": 0.0,
+     "lsun_fix": 0.0,
+     "imagenet_fix": 0.0,
+     "imagenet32_val": 0.20000000000000004,
+     "places365_val": 0.4000000000000001
+    }
+   },
+   "Orientation term": {
+    "per_set": {
+     "path_test__vflip": 61.38773333333333,
+     "path_test__rot90": 66.52993333333332,
+     "path_test__rot180": 66.92853333333333,
+     "path_test__hflip": 53.28066666666666,
+     "blood_all": 56.0984,
+     "derma_all": 20.139133333333334,
+     "chest_rgb_test": 0.21146666666666666,
+     "cifar10_test": 52.92653333333334,
+     "cifar100_test": 60.214333333333336,
+     "svhn_test": 28.276066666666665,
+     "celeba_test": 33.269466666666666,
+     "textures": 58.50046666666666,
+     "tin_val": 45.01253333333333,
+     "lsun_fix": 66.9312,
+     "imagenet_fix": 62.2602,
+     "imagenet32_val": 72.96373333333334,
+     "places365_val": 66.40766666666667
+    },
+    "seeds": 3,
+    "modality": 25.483,
+    "natural": 54.67622,
+    "fpr95": {
+     "path_test__vflip": 90.23333333333333,
+     "path_test__rot90": 82.39999999999999,
+     "path_test__rot180": 84.66666666666667,
+     "path_test__hflip": 93.76666666666667,
+     "blood_all": 69.93333333333334,
+     "derma_all": 99.2,
+     "chest_rgb_test": 100.0,
+     "cifar10_test": 60.133333333333326,
+     "cifar100_test": 51.53333333333334,
+     "svhn_test": 93.93333333333334,
+     "celeba_test": 75.66666666666667,
+     "textures": 57.26666666666667,
+     "tin_val": 64.80000000000001,
+     "lsun_fix": 44.06666666666667,
+     "imagenet_fix": 49.26666666666667,
+     "imagenet32_val": 35.8,
+     "places365_val": 45.93333333333334
+    }
+   },
+   "kNN basic": {
+    "per_set": {
+     "path_test__vflip": 48.68280000000001,
+     "path_test__rot90": 49.352666666666664,
+     "path_test__rot180": 49.27001666666666,
+     "path_test__hflip": 48.71305,
+     "blood_all": 92.15876666666666,
+     "derma_all": 99.331,
+     "chest_rgb_test": 99.55986666666666,
+     "cifar10_test": 99.5116,
+     "cifar100_test": 99.52263333333333,
+     "svhn_test": 99.22163333333333,
+     "celeba_test": 99.5717,
+     "textures": 99.6716,
+     "tin_val": 99.57946666666668,
+     "lsun_fix": 99.56573333333334,
+     "imagenet_fix": 99.5607,
+     "imagenet32_val": 99.63873333333333,
+     "places365_val": 99.58246666666666
+    },
+    "seeds": 3,
+    "modality": 97.01654444444443,
+    "natural": 99.54262666666668,
+    "fpr95": {
+     "path_test__vflip": 95.56666666666666,
+     "path_test__rot90": 95.43333333333332,
+     "path_test__rot180": 95.2,
+     "path_test__hflip": 95.66666666666667,
+     "blood_all": 59.93333333333334,
+     "derma_all": 2.0,
+     "chest_rgb_test": 0.0,
+     "cifar10_test": 0.0,
+     "cifar100_test": 0.0,
+     "svhn_test": 1.2,
+     "celeba_test": 0.0,
+     "textures": 0.4666666666666666,
+     "tin_val": 0.0,
+     "lsun_fix": 0.0,
+     "imagenet_fix": 0.0,
+     "imagenet32_val": 0.20000000000000004,
+     "places365_val": 0.20000000000000004
+    }
+   },
+   "CFS": {
+    "per_set": {
+     "path_test__vflip": 50.390800000000006,
+     "path_test__rot90": 50.63553333333334,
+     "path_test__rot180": 50.08753333333334,
+     "path_test__hflip": 50.37546666666666,
+     "blood_all": 99.89633333333335,
+     "derma_all": 96.80433333333333,
+     "chest_rgb_test": 99.71379999999999,
+     "cifar10_test": 99.17193333333331,
+     "cifar100_test": 99.29026666666668,
+     "svhn_test": 97.82993333333333,
+     "celeba_test": 99.66973333333333,
+     "textures": 97.38260000000001,
+     "tin_val": 99.3202,
+     "lsun_fix": 99.28966666666668,
+     "imagenet_fix": 99.31333333333333,
+     "imagenet32_val": 99.17353333333334,
+     "places365_val": 99.27506666666666
+    },
+    "seeds": 3,
+    "modality": 98.80482222222223,
+    "natural": 98.97162666666667,
+    "fpr95": {
+     "path_test__vflip": 94.96666666666665,
+     "path_test__rot90": 95.06666666666666,
+     "path_test__rot180": 94.73333333333333,
+     "path_test__hflip": 94.93333333333332,
+     "blood_all": 0.0,
+     "derma_all": 22.86666666666667,
+     "chest_rgb_test": 0.3333333333333333,
+     "cifar10_test": 4.333333333333333,
+     "cifar100_test": 3.7999999999999994,
+     "svhn_test": 14.133333333333333,
+     "celeba_test": 1.6666666666666667,
+     "textures": 18.266666666666666,
+     "tin_val": 3.6,
+     "lsun_fix": 3.0,
+     "imagenet_fix": 4.0,
+     "imagenet32_val": 4.933333333333334,
+     "places365_val": 4.2
+    }
+   },
+   "CFS-kNN": {
+    "per_set": {
+     "path_test__vflip": 49.31283333333332,
+     "path_test__rot90": 50.01453333333333,
+     "path_test__rot180": 49.924733333333336,
+     "path_test__hflip": 49.53015,
+     "blood_all": 99.98039999999999,
+     "derma_all": 99.94680000000001,
+     "chest_rgb_test": 100.0,
+     "cifar10_test": 99.99773333333333,
+     "cifar100_test": 99.99933333333333,
+     "svhn_test": 99.98526666666665,
+     "celeba_test": 100.0,
+     "textures": 99.76559999999999,
+     "tin_val": 99.99953333333333,
+     "lsun_fix": 99.99966666666667,
+     "imagenet_fix": 99.99886666666667,
+     "imagenet32_val": 99.998,
+     "places365_val": 99.99926666666666
+    },
+    "seeds": 3,
+    "modality": 99.97573333333332,
+    "natural": 99.97432666666666,
+    "fpr95": {
+     "path_test__vflip": 94.96666666666665,
+     "path_test__rot90": 95.0,
+     "path_test__rot180": 94.86666666666666,
+     "path_test__hflip": 94.83333333333331,
+     "blood_all": 0.0,
+     "derma_all": 0.0,
+     "chest_rgb_test": 0.0,
+     "cifar10_test": 0.0,
+     "cifar100_test": 0.0,
+     "svhn_test": 0.0,
+     "celeba_test": 0.0,
+     "textures": 0.7333333333333334,
+     "tin_val": 0.0,
+     "lsun_fix": 0.0,
+     "imagenet_fix": 0.0,
+     "imagenet32_val": 0.0,
+     "places365_val": 0.0
+    }
+   },
+   "NLL": {
+    "per_set": {
+     "path_test__vflip": 50.842600000000004,
+     "path_test__rot90": 50.645799999999994,
+     "path_test__rot180": 50.940200000000004,
+     "path_test__hflip": 50.2266,
+     "blood_all": 89.93100000000001,
+     "derma_all": 56.935199999999995,
+     "chest_rgb_test": 31.9266,
+     "cifar10_test": 95.1234,
+     "cifar100_test": 96.71260000000001,
+     "svhn_test": 44.324799999999996,
+     "celeba_test": 99.1418,
+     "textures": 90.9702,
+     "tin_val": 95.8992,
+     "lsun_fix": 98.20360000000001,
+     "imagenet_fix": 95.055,
+     "imagenet32_val": 98.4232,
+     "places365_val": 96.6616
+    },
+    "seeds": 1,
+    "modality": 59.5976,
+    "natural": 91.05153999999999,
+    "fpr95": {
+     "path_test__vflip": 93.89999999999999,
+     "path_test__rot90": 94.6,
+     "path_test__rot180": 93.5,
+     "path_test__hflip": 94.0,
+     "blood_all": 25.0,
+     "derma_all": 92.0,
+     "chest_rgb_test": 100.0,
+     "cifar10_test": 14.799999999999999,
+     "cifar100_test": 11.600000000000001,
+     "svhn_test": 94.19999999999999,
+     "celeba_test": 1.6,
+     "textures": 23.799999999999997,
+     "tin_val": 11.799999999999999,
+     "lsun_fix": 4.2,
+     "imagenet_fix": 13.600000000000001,
+     "imagenet32_val": 4.6,
+     "places365_val": 9.4
+    }
+   },
+   "MSMA*": {
+    "per_set": {
+     "path_test__vflip": 50.3056,
+     "path_test__rot90": 50.401700000000005,
+     "path_test__rot180": 49.9917,
+     "path_test__hflip": 50.2568,
+     "blood_all": 89.3302,
+     "derma_all": 83.86280000000001,
+     "chest_rgb_test": 97.8588,
+     "cifar10_test": 89.6366,
+     "cifar100_test": 90.3674,
+     "svhn_test": 88.1438,
+     "celeba_test": 90.6048,
+     "textures": 87.852,
+     "tin_val": 89.99719999999999,
+     "lsun_fix": 91.849,
+     "imagenet_fix": 91.8484,
+     "imagenet32_val": 94.8584,
+     "places365_val": 91.7294
+    },
+    "seeds": 1,
+    "modality": 90.3506,
+    "natural": 90.6887,
+    "fpr95": {
+     "path_test__vflip": 94.6,
+     "path_test__rot90": 94.69999999999999,
+     "path_test__rot180": 94.89999999999999,
+     "path_test__hflip": 94.39999999999999,
+     "blood_all": 63.2,
+     "derma_all": 59.4,
+     "chest_rgb_test": 10.4,
+     "cifar10_test": 71.0,
+     "cifar100_test": 63.6,
+     "svhn_test": 67.4,
+     "celeba_test": 79.4,
+     "textures": 64.4,
+     "tin_val": 77.4,
+     "lsun_fix": 60.4,
+     "imagenet_fix": 57.4,
+     "imagenet32_val": 29.4,
+     "places365_val": 56.2
+    }
+   },
+   "DiffPath": {
+    "per_set": {
+     "path_test__vflip": 51.711,
+     "path_test__rot90": 52.02759999999999,
+     "path_test__rot180": 50.9834,
+     "path_test__hflip": 50.9347,
+     "blood_all": 99.7556,
+     "derma_all": 99.026,
+     "chest_rgb_test": 99.5022,
+     "cifar10_test": 99.33619999999999,
+     "cifar100_test": 99.6014,
+     "svhn_test": 99.021,
+     "celeba_test": 99.6378,
+     "textures": 99.6784,
+     "tin_val": 99.712,
+     "lsun_fix": 99.67399999999999,
+     "imagenet_fix": 99.69160000000001,
+     "imagenet32_val": 99.85199999999999,
+     "places365_val": 99.705
+    },
+    "seeds": 1,
+    "modality": 99.42793333333333,
+    "natural": 99.59094,
+    "fpr95": {
+     "path_test__vflip": 94.6,
+     "path_test__rot90": 94.89999999999999,
+     "path_test__rot180": 94.8,
+     "path_test__hflip": 94.89999999999999,
+     "blood_all": 0.0,
+     "derma_all": 2.1999999999999997,
+     "chest_rgb_test": 0.2,
+     "cifar10_test": 1.7999999999999998,
+     "cifar100_test": 0.8,
+     "svhn_test": 2.8000000000000003,
+     "celeba_test": 0.2,
+     "textures": 0.2,
+     "tin_val": 0.4,
+     "lsun_fix": 0.4,
+     "imagenet_fix": 0.4,
+     "imagenet32_val": 0.0,
+     "places365_val": 0.4
+    }
+   }
+  },
+  "boot": {
+   "kNN term": {
+    "path_test__vflip": {
+     "diff": 6.453383333333335,
+     "ci": [
+      5.041797083333331,
+      7.757936666666668
+     ],
+     "verdict": "win"
+    },
+    "path_test__rot90": {
+     "diff": 9.143850000000008,
+     "ci": [
+      7.701949583333333,
+      10.595899583333331
+     ],
+     "verdict": "win"
+    },
+    "path_test__rot180": {
+     "diff": 9.865766666666673,
+     "ci": [
+      8.483725833333324,
+      11.326647916666664
+     ],
+     "verdict": "win"
+    },
+    "path_test__hflip": {
+     "diff": 2.01903333333334,
+     "ci": [
+      0.7416633333333351,
+      3.3830366666666545
+     ],
+     "verdict": "win"
+    },
+    "blood_all": {
+     "diff": -7.812866666666693,
+     "ci": [
+      -9.061182499999996,
+      -6.581816666666655
+     ],
+     "verdict": "loss"
+    },
+    "derma_all": {
+     "diff": -3.4834333333333234,
+     "ci": [
+      -4.347881666666666,
+      -2.665455833333342
+     ],
+     "verdict": "loss"
+    },
+    "chest_rgb_test": {
+     "diff": -6.097099999999983,
+     "ci": [
+      -7.351975000000024,
+      -4.879571666666679
+     ],
+     "verdict": "loss"
+    },
+    "cifar10_test": {
+     "diff": -2.3237333333333368,
+     "ci": [
+      -2.955181666666656,
+      -1.7220383333333162
+     ],
+     "verdict": "loss"
+    },
+    "cifar100_test": {
+     "diff": -1.9816333333333205,
+     "ci": [
+      -2.5753949999999954,
+      -1.435058333333324
+     ],
+     "verdict": "loss"
+    },
+    "svhn_test": {
+     "diff": -4.955433333333332,
+     "ci": [
+      -5.917508333333332,
+      -4.0129266666666865
+     ],
+     "verdict": "loss"
+    },
+    "celeba_test": {
+     "diff": -3.4551000000000016,
+     "ci": [
+      -4.299714166666665,
+      -2.6658041666666574
+     ],
+     "verdict": "loss"
+    },
+    "textures": {
+     "diff": -1.421599999999998,
+     "ci": [
+      -1.9001391666666716,
+      -0.9723116666666581
+     ],
+     "verdict": "loss"
+    },
+    "tin_val": {
+     "diff": -2.7714666666666545,
+     "ci": [
+      -3.4575174999999794,
+      -2.118998333333348
+     ],
+     "verdict": "loss"
+    },
+    "lsun_fix": {
+     "diff": -1.5092666666666616,
+     "ci": [
+      -2.042252499999994,
+      -1.0170533333333454
+     ],
+     "verdict": "loss"
+    },
+    "imagenet_fix": {
+     "diff": -2.0159333333333365,
+     "ci": [
+      -2.610948333333349,
+      -1.4563324999999998
+     ],
+     "verdict": "loss"
+    },
+    "imagenet32_val": {
+     "diff": -1.140900000000002,
+     "ci": [
+      -1.5952024999999914,
+      -0.684338333333329
+     ],
+     "verdict": "loss"
+    },
+    "places365_val": {
+     "diff": -1.473700000000008,
+     "ci": [
+      -1.9967825000000055,
+      -0.9638600000000228
+     ],
+     "verdict": "loss"
+    },
+    "modality": {
+     "diff": -5.797799999999995,
+     "ci": [
+      -6.717370277777767,
+      -4.875178333333323
+     ],
+     "verdict": "loss"
+    },
+    "natural": {
+     "diff": -2.304876666666658,
+     "ci": [
+      -2.842479333333332,
+      -1.7670552499999883
+     ],
+     "verdict": "loss"
+    },
+    "wtl": [
+     4,
+     0,
+     13
+    ]
+   },
+   "Orientation term": {
+    "path_test__vflip": {
+     "diff": -6.114999999999988,
+     "ci": [
+      -8.280873333333325,
+      -3.89228166666667
+     ],
+     "verdict": "loss"
+    },
+    "path_test__rot90": {
+     "diff": -7.6666999999999845,
+     "ci": [
+      -9.598278333333333,
+      -5.805795000000004
+     ],
+     "verdict": "loss"
+    },
+    "path_test__rot180": {
+     "diff": -7.425166666666662,
+     "ci": [
+      -9.52317666666668,
+      -5.496505833333347
+     ],
+     "verdict": "loss"
+    },
+    "path_test__hflip": {
+     "diff": -2.455866666666658,
+     "ci": [
+      -4.834856666666664,
+      -0.14932583333333055
+     ],
+     "verdict": "loss"
+    },
+    "blood_all": {
+     "diff": 31.137599999999992,
+     "ci": [
+      28.693464999999993,
+      33.69262499999999
+     ],
+     "verdict": "win"
+    },
+    "derma_all": {
+     "diff": 75.72813333333335,
+     "ci": [
+      73.28042666666666,
+      78.21213833333334
+     ],
+     "verdict": "win"
+    },
+    "chest_rgb_test": {
+     "diff": 93.13526666666668,
+     "ci": [
+      91.74793000000001,
+      94.48015500000001
+     ],
+     "verdict": "win"
+    },
+    "cifar10_test": {
+     "diff": 44.260266666666666,
+     "ci": [
+      40.595090000000006,
+      48.05101499999999
+     ],
+     "verdict": "win"
+    },
+    "cifar100_test": {
+     "diff": 37.32546666666668,
+     "ci": [
+      33.681229999999985,
+      40.96417833333334
+     ],
+     "verdict": "win"
+    },
+    "svhn_test": {
+     "diff": 66.06819999999999,
+     "ci": [
+      63.271275,
+      69.01122666666667
+     ],
+     "verdict": "win"
+    },
+    "celeba_test": {
+     "diff": 62.761733333333346,
+     "ci": [
+      59.042818333333344,
+      66.45905333333333
+     ],
+     "verdict": "win"
+    },
+    "textures": {
+     "diff": 39.69773333333334,
+     "ci": [
+      36.084568333333344,
+      43.34839833333333
+     ],
+     "verdict": "win"
+    },
+    "tin_val": {
+     "diff": 51.73306666666668,
+     "ci": [
+      47.966889999999985,
+      55.60201833333334
+     ],
+     "verdict": "win"
+    },
+    "lsun_fix": {
+     "diff": 31.072399999999988,
+     "ci": [
+      27.844680000000025,
+      34.74334999999999
+     ],
+     "verdict": "win"
+    },
+    "imagenet_fix": {
+     "diff": 35.237266666666656,
+     "ci": [
+      31.815948333333324,
+      38.86321833333334
+     ],
+     "verdict": "win"
+    },
+    "imagenet32_val": {
+     "diff": 25.43393333333333,
+     "ci": [
+      22.329128333333333,
+      28.808959999999992
+     ],
+     "verdict": "win"
+    },
+    "places365_val": {
+     "diff": 31.599800000000002,
+     "ci": [
+      28.038525,
+      34.98876166666668
+     ],
+     "verdict": "win"
+    },
+    "modality": {
+     "diff": 66.66700000000002,
+     "ci": [
+      65.29910222222223,
+      68.12588444444445
+     ],
+     "verdict": "win"
+    },
+    "natural": {
+     "diff": 42.51898666666666,
+     "ci": [
+      41.28405449999999,
+      43.79099766666667
+     ],
+     "verdict": "win"
+    },
+    "wtl": [
+     13,
+     0,
+     4
+    ]
+   },
+   "kNN basic": {
+    "path_test__vflip": {
+     "diff": 6.5899333333333345,
+     "ci": [
+      5.112882916666677,
+      8.135016249999996
+     ],
+     "verdict": "win"
+    },
+    "path_test__rot90": {
+     "diff": 9.51056666666667,
+     "ci": [
+      7.878190833333348,
+      11.19413333333334
+     ],
+     "verdict": "win"
+    },
+    "path_test__rot180": {
+     "diff": 10.233350000000009,
+     "ci": [
+      8.707353750000006,
+      11.912326249999998
+     ],
+     "verdict": "win"
+    },
+    "path_test__hflip": {
+     "diff": 2.1117500000000007,
+     "ci": [
+      0.6754412499999937,
+      3.727350833333334
+     ],
+     "verdict": "win"
+    },
+    "blood_all": {
+     "diff": -4.922766666666675,
+     "ci": [
+      -6.2586508333333315,
+      -3.605203333333347
+     ],
+     "verdict": "loss"
+    },
+    "derma_all": {
+     "diff": -3.463733333333323,
+     "ci": [
+      -4.331372499999986,
+      -2.620784166666673
+     ],
+     "verdict": "loss"
+    },
+    "chest_rgb_test": {
+     "diff": -6.213133333333317,
+     "ci": [
+      -7.510876666666665,
+      -4.948655833333324
+     ],
+     "verdict": "loss"
+    },
+    "cifar10_test": {
+     "diff": -2.324799999999996,
+     "ci": [
+      -2.929418333333347,
+      -1.740948333333319
+     ],
+     "verdict": "loss"
+    },
+    "cifar100_test": {
+     "diff": -1.9828333333333177,
+     "ci": [
+      -2.5652225000000106,
+      -1.4573316666666742
+     ],
+     "verdict": "loss"
+    },
+    "svhn_test": {
+     "diff": -4.877366666666674,
+     "ci": [
+      -5.841410833333312,
+      -3.93652083333335
+     ],
+     "verdict": "loss"
+    },
+    "celeba_test": {
+     "diff": -3.5404999999999944,
+     "ci": [
+      -4.402769166666674,
+      -2.7498449999999828
+     ],
+     "verdict": "loss"
+    },
+    "textures": {
+     "diff": -1.473399999999998,
+     "ci": [
+      -1.9550966666666632,
+      -1.0289249999999943
+     ],
+     "verdict": "loss"
+    },
+    "tin_val": {
+     "diff": -2.8338666666666654,
+     "ci": [
+      -3.529117500000013,
+      -2.162288333333324
+     ],
+     "verdict": "loss"
+    },
+    "lsun_fix": {
+     "diff": -1.5621333333333496,
+     "ci": [
+      -2.079824166666666,
+      -1.0811174999999988
+     ],
+     "verdict": "loss"
+    },
+    "imagenet_fix": {
+     "diff": -2.0632333333333435,
+     "ci": [
+      -2.629905833333326,
+      -1.5339241666666719
+     ],
+     "verdict": "loss"
+    },
+    "imagenet32_val": {
+     "diff": -1.2410666666666685,
+     "ci": [
+      -1.680683333333333,
+      -0.8313616666666549
+     ],
+     "verdict": "loss"
+    },
+    "places365_val": {
+     "diff": -1.5749999999999886,
+     "ci": [
+      -2.075360833333332,
+      -1.0756691666666787
+     ],
+     "verdict": "loss"
+    },
+    "modality": {
+     "diff": -4.866544444444415,
+     "ci": [
+      -5.7828133333333325,
+      -3.9670291666666744
+     ],
+     "verdict": "loss"
+    },
+    "natural": {
+     "diff": -2.347420000000014,
+     "ci": [
+      -2.8732614999999804,
+      -1.827012500000006
+     ],
+     "verdict": "loss"
+    },
+    "wtl": [
+     4,
+     0,
+     13
+    ]
+   },
+   "CFS": {
+    "path_test__vflip": {
+     "diff": 4.881933333333336,
+     "ci": [
+      1.2584149999999972,
+      8.396081666666673
+     ],
+     "verdict": "win"
+    },
+    "path_test__rot90": {
+     "diff": 8.227699999999992,
+     "ci": [
+      4.647663333333332,
+      11.817076666666663
+     ],
+     "verdict": "win"
+    },
+    "path_test__rot180": {
+     "diff": 9.415833333333332,
+     "ci": [
+      5.963325833333336,
+      13.090553333333323
+     ],
+     "verdict": "win"
+    },
+    "path_test__hflip": {
+     "diff": 0.44933333333334247,
+     "ci": [
+      -3.270024166666677,
+      4.063842499999988
+     ],
+     "verdict": "tie"
+    },
+    "blood_all": {
+     "diff": -12.660333333333355,
+     "ci": [
+      -14.283360000000004,
+      -11.091560000000019
+     ],
+     "verdict": "loss"
+    },
+    "derma_all": {
+     "diff": -0.9370666666666523,
+     "ci": [
+      -2.110323333333333,
+      0.30087333333335553
+     ],
+     "verdict": "tie"
+    },
+    "chest_rgb_test": {
+     "diff": -6.367066666666645,
+     "ci": [
+      -7.71298666666667,
+      -5.032956666666671
+     ],
+     "verdict": "loss"
+    },
+    "cifar10_test": {
+     "diff": -1.9851333333333088,
+     "ci": [
+      -2.6957783333333345,
+      -1.2772899999999892
+     ],
+     "verdict": "loss"
+    },
+    "cifar100_test": {
+     "diff": -1.750466666666668,
+     "ci": [
+      -2.393055000000024,
+      -1.112555000000003
+     ],
+     "verdict": "loss"
+    },
+    "svhn_test": {
+     "diff": -3.485666666666674,
+     "ci": [
+      -4.7588999999999935,
+      -2.26388499999998
+     ],
+     "verdict": "loss"
+    },
+    "celeba_test": {
+     "diff": -3.6385333333333136,
+     "ci": [
+      -4.5643133333333346,
+      -2.7914949999999896
+     ],
+     "verdict": "loss"
+    },
+    "textures": {
+     "diff": 0.8155999999999892,
+     "ci": [
+      0.059913333333344115,
+      1.6148333333333362
+     ],
+     "verdict": "win"
+    },
+    "tin_val": {
+     "diff": -2.5745999999999896,
+     "ci": [
+      -3.3447250000000275,
+      -1.8156966666666745
+     ],
+     "verdict": "loss"
+    },
+    "lsun_fix": {
+     "diff": -1.2860666666666845,
+     "ci": [
+      -1.8696099999999873,
+      -0.7222900000000109
+     ],
+     "verdict": "loss"
+    },
+    "imagenet_fix": {
+     "diff": -1.815866666666679,
+     "ci": [
+      -2.4609366666666626,
+      -1.180388333333314
+     ],
+     "verdict": "loss"
+    },
+    "imagenet32_val": {
+     "diff": -0.7758666666666727,
+     "ci": [
+      -1.265251666666673,
+      -0.2835283333333543
+     ],
+     "verdict": "loss"
+    },
+    "places365_val": {
+     "diff": -1.2675999999999874,
+     "ci": [
+      -1.8340866666666695,
+      -0.7037099999999986
+     ],
+     "verdict": "loss"
+    },
+    "modality": {
+     "diff": -6.654822222222208,
+     "ci": [
+      -7.829576666666681,
+      -5.482694444444437
+     ],
+     "verdict": "loss"
+    },
+    "natural": {
+     "diff": -1.7764200000000017,
+     "ci": [
+      -2.4073689999999903,
+      -1.1403124999999938
+     ],
+     "verdict": "loss"
+    },
+    "wtl": [
+     4,
+     2,
+     11
+    ]
+   },
+   "CFS-kNN": {
+    "path_test__vflip": {
+     "diff": 5.959900000000019,
+     "ci": [
+      3.8512500000000034,
+      8.06063666666667
+     ],
+     "verdict": "win"
+    },
+    "path_test__rot90": {
+     "diff": 8.848700000000001,
+     "ci": [
+      6.603824166666663,
+      11.12998833333333
+     ],
+     "verdict": "win"
+    },
+    "path_test__rot180": {
+     "diff": 9.578633333333336,
+     "ci": [
+      7.315324999999996,
+      11.815938333333328
+     ],
+     "verdict": "win"
+    },
+    "path_test__hflip": {
+     "diff": 1.2946500000000043,
+     "ci": [
+      -1.0010137499999905,
+      3.6973666666666642
+     ],
+     "verdict": "tie"
+    },
+    "blood_all": {
+     "diff": -12.744399999999999,
+     "ci": [
+      -14.385601666666673,
+      -11.168036666666666
+     ],
+     "verdict": "loss"
+    },
+    "derma_all": {
+     "diff": -4.07953333333333,
+     "ci": [
+      -5.0406166666666925,
+      -3.1532233333333255
+     ],
+     "verdict": "loss"
+    },
+    "chest_rgb_test": {
+     "diff": -6.653266666666653,
+     "ci": [
+      -8.004213333333336,
+      -5.313744999999988
+     ],
+     "verdict": "loss"
+    },
+    "cifar10_test": {
+     "diff": -2.810933333333324,
+     "ci": [
+      -3.4876050000000003,
+      -2.176851666666669
+     ],
+     "verdict": "loss"
+    },
+    "cifar100_test": {
+     "diff": -2.4595333333333116,
+     "ci": [
+      -3.0741600000000022,
+      -1.878123333333324
+     ],
+     "verdict": "loss"
+    },
+    "svhn_test": {
+     "diff": -5.640999999999991,
+     "ci": [
+      -6.731179999999995,
+      -4.607580000000003
+     ],
+     "verdict": "loss"
+    },
+    "celeba_test": {
+     "diff": -3.9687999999999874,
+     "ci": [
+      -4.891514999999993,
+      -3.114628333333334
+     ],
+     "verdict": "loss"
+    },
+    "textures": {
+     "diff": -1.5673999999999921,
+     "ci": [
+      -2.1288150000000123,
+      -1.0276649999999812
+     ],
+     "verdict": "loss"
+    },
+    "tin_val": {
+     "diff": -3.253933333333322,
+     "ci": [
+      -4.019203333333332,
+      -2.528484999999995
+     ],
+     "verdict": "loss"
+    },
+    "lsun_fix": {
+     "diff": -1.9960666666666782,
+     "ci": [
+      -2.533920000000001,
+      -1.5233149999999935
+     ],
+     "verdict": "loss"
+    },
+    "imagenet_fix": {
+     "diff": -2.501400000000018,
+     "ci": [
+      -3.0925550000000017,
+      -1.9241849999999876
+     ],
+     "verdict": "loss"
+    },
+    "imagenet32_val": {
+     "diff": -1.6003333333333387,
+     "ci": [
+      -2.0394200000000278,
+      -1.194788333333334
+     ],
+     "verdict": "loss"
+    },
+    "places365_val": {
+     "diff": -1.9917999999999836,
+     "ci": [
+      -2.5069450000000026,
+      -1.5030050000000021
+     ],
+     "verdict": "loss"
+    },
+    "modality": {
+     "diff": -7.825733333333304,
+     "ci": [
+      -8.942237777777793,
+      -6.684190555555574
+     ],
+     "verdict": "loss"
+    },
+    "natural": {
+     "diff": -2.779119999999992,
+     "ci": [
+      -3.3745774999999885,
+      -2.216893999999976
+     ],
+     "verdict": "loss"
+    },
+    "wtl": [
+     3,
+     1,
+     13
+    ]
+   },
+   "NLL": {
+    "path_test__vflip": {
+     "diff": 4.4301333333333375,
+     "ci": [
+      1.575808333333335,
+      7.3775124999999955
+     ],
+     "verdict": "win"
+    },
+    "path_test__rot90": {
+     "diff": 8.21743333333334,
+     "ci": [
+      5.414144999999998,
+      11.005314166666658
+     ],
+     "verdict": "win"
+    },
+    "path_test__rot180": {
+     "diff": 8.563166666666667,
+     "ci": [
+      5.597416666666669,
+      11.59544416666666
+     ],
+     "verdict": "win"
+    },
+    "path_test__hflip": {
+     "diff": 0.5982000000000056,
+     "ci": [
+      -2.307176666666671,
+      3.520274166666662
+     ],
+     "verdict": "tie"
+    },
+    "blood_all": {
+     "diff": -2.6950000000000216,
+     "ci": [
+      -4.505535000000002,
+      -0.9095633333333305
+     ],
+     "verdict": "loss"
+    },
+    "derma_all": {
+     "diff": 38.932066666666685,
+     "ci": [
+      36.07028166666666,
+      41.78607833333332
+     ],
+     "verdict": "win"
+    },
+    "chest_rgb_test": {
+     "diff": 61.42013333333335,
+     "ci": [
+      58.684071666666675,
+      64.08629166666665
+     ],
+     "verdict": "win"
+    },
+    "cifar10_test": {
+     "diff": 2.0634000000000015,
+     "ci": [
+      0.8269450000000003,
+      3.3869133333333292
+     ],
+     "verdict": "win"
+    },
+    "cifar100_test": {
+     "diff": 0.8272000000000048,
+     "ci": [
+      -0.02804166666665857,
+      1.7814783333333237
+     ],
+     "verdict": "tie"
+    },
+    "svhn_test": {
+     "diff": 50.01946666666666,
+     "ci": [
+      47.052166666666665,
+      52.90160833333334
+     ],
+     "verdict": "win"
+    },
+    "celeba_test": {
+     "diff": -3.110599999999991,
+     "ci": [
+      -3.950958333333328,
+      -2.2632666666666714
+     ],
+     "verdict": "loss"
+    },
+    "textures": {
+     "diff": 7.227999999999994,
+     "ci": [
+      5.501228333333335,
+      9.053593333333334
+     ],
+     "verdict": "win"
+    },
+    "tin_val": {
+     "diff": 0.8464000000000169,
+     "ci": [
+      -0.23880666666668374,
+      2.004928333333317
+     ],
+     "verdict": "tie"
+    },
+    "lsun_fix": {
+     "diff": -0.20000000000001705,
+     "ci": [
+      -1.0102616666666502,
+      0.7039483333333247
+     ],
+     "verdict": "tie"
+    },
+    "imagenet_fix": {
+     "diff": 2.442466666666647,
+     "ci": [
+      1.3676866666666672,
+      3.6589333333333203
+     ],
+     "verdict": "win"
+    },
+    "imagenet32_val": {
+     "diff": -0.0255333333333283,
+     "ci": [
+      -0.6476999999999851,
+      0.6817983333333405
+     ],
+     "verdict": "tie"
+    },
+    "places365_val": {
+     "diff": 1.3458666666666659,
+     "ci": [
+      0.3668649999999904,
+      2.3811616666666433
+     ],
+     "verdict": "win"
+    },
+    "modality": {
+     "diff": 32.55240000000002,
+     "ci": [
+      30.635865555555547,
+      34.44323555555554
+     ],
+     "verdict": "win"
+    },
+    "natural": {
+     "diff": 6.143666666666675,
+     "ci": [
+      5.42039850000001,
+      6.830737166666661
+     ],
+     "verdict": "win"
+    },
+    "wtl": [
+     10,
+     5,
+     2
+    ]
+   },
+   "MSMA*": {
+    "path_test__vflip": {
+     "diff": 4.967133333333344,
+     "ci": [
+      1.0445616666666602,
+      8.578756666666672
+     ],
+     "verdict": "win"
+    },
+    "path_test__rot90": {
+     "diff": 8.461533333333328,
+     "ci": [
+      4.637493333333332,
+      12.240060000000003
+     ],
+     "verdict": "win"
+    },
+    "path_test__rot180": {
+     "diff": 9.51166666666667,
+     "ci": [
+      5.9352575000000005,
+      13.133739166666661
+     ],
+     "verdict": "win"
+    },
+    "path_test__hflip": {
+     "diff": 0.568000000000005,
+     "ci": [
+      -3.435455000000002,
+      4.390924166666664
+     ],
+     "verdict": "tie"
+    },
+    "blood_all": {
+     "diff": -2.094200000000015,
+     "ci": [
+      -4.002901666666666,
+      -0.05811833333331657
+     ],
+     "verdict": "loss"
+    },
+    "derma_all": {
+     "diff": 12.004466666666673,
+     "ci": [
+      9.826461666666681,
+      14.250751666666677
+     ],
+     "verdict": "win"
+    },
+    "chest_rgb_test": {
+     "diff": -4.512066666666655,
+     "ci": [
+      -6.014119999999996,
+      -3.043436666666661
+     ],
+     "verdict": "loss"
+    },
+    "cifar10_test": {
+     "diff": 7.550200000000004,
+     "ci": [
+      5.866886666666686,
+      9.305893333333346
+     ],
+     "verdict": "win"
+    },
+    "cifar100_test": {
+     "diff": 7.17240000000001,
+     "ci": [
+      5.663486666666671,
+      8.826018333333336
+     ],
+     "verdict": "win"
+    },
+    "svhn_test": {
+     "diff": 6.200466666666657,
+     "ci": [
+      4.112919999999988,
+      8.24358166666666
+     ],
+     "verdict": "win"
+    },
+    "celeba_test": {
+     "diff": 5.426400000000015,
+     "ci": [
+      3.683401666666661,
+      7.298415
+     ],
+     "verdict": "win"
+    },
+    "textures": {
+     "diff": 10.346199999999996,
+     "ci": [
+      8.668745000000007,
+      12.121591666666646
+     ],
+     "verdict": "win"
+    },
+    "tin_val": {
+     "diff": 6.748400000000018,
+     "ci": [
+      5.1041366666666725,
+      8.498139999999989
+     ],
+     "verdict": "win"
+    },
+    "lsun_fix": {
+     "diff": 6.154599999999988,
+     "ci": [
+      4.754651666666679,
+      7.684395000000003
+     ],
+     "verdict": "win"
+    },
+    "imagenet_fix": {
+     "diff": 5.649066666666656,
+     "ci": [
+      4.273011666666669,
+      7.1475716666666465
+     ],
+     "verdict": "win"
+    },
+    "imagenet32_val": {
+     "diff": 3.539266666666663,
+     "ci": [
+      2.541234999999992,
+      4.630993333333331
+     ],
+     "verdict": "win"
+    },
+    "places365_val": {
+     "diff": 6.278066666666675,
+     "ci": [
+      4.924730000000004,
+      7.782014999999994
+     ],
+     "verdict": "win"
+    },
+    "modality": {
+     "diff": 1.7994000000000199,
+     "ci": [
+      0.25531666666666625,
+      3.3687183333333475
+     ],
+     "verdict": "win"
+    },
+    "natural": {
+     "diff": 6.506506666666667,
+     "ci": [
+      5.11134600000001,
+      7.991664666666683
+     ],
+     "verdict": "win"
+    },
+    "wtl": [
+     14,
+     1,
+     2
+    ]
+   },
+   "DiffPath": {
+    "path_test__vflip": {
+     "diff": 3.5617333333333434,
+     "ci": [
+      0.0073583333333335655,
+      6.945829166666666
+     ],
+     "verdict": "win"
+    },
+    "path_test__rot90": {
+     "diff": 6.835633333333341,
+     "ci": [
+      3.120610833333333,
+      10.330692500000001
+     ],
+     "verdict": "win"
+    },
+    "path_test__rot180": {
+     "diff": 8.519966666666669,
+     "ci": [
+      5.083533333333336,
+      11.91656083333333
+     ],
+     "verdict": "win"
+    },
+    "path_test__hflip": {
+     "diff": -0.10989999999999611,
+     "ci": [
+      -3.7414891666666663,
+      3.343556666666664
+     ],
+     "verdict": "tie"
+    },
+    "blood_all": {
+     "diff": -12.519600000000011,
+     "ci": [
+      -14.162336666666668,
+      -10.95127333333333
+     ],
+     "verdict": "loss"
+    },
+    "derma_all": {
+     "diff": -3.1587333333333163,
+     "ci": [
+      -4.096826666666666,
+      -2.237551666666689
+     ],
+     "verdict": "loss"
+    },
+    "chest_rgb_test": {
+     "diff": -6.155466666666655,
+     "ci": [
+      -7.459691666666678,
+      -4.8991333333333404
+     ],
+     "verdict": "loss"
+    },
+    "cifar10_test": {
+     "diff": -2.1493999999999858,
+     "ci": [
+      -2.8494850000000183,
+      -1.4946033333333297
+     ],
+     "verdict": "loss"
+    },
+    "cifar100_test": {
+     "diff": -2.0615999999999843,
+     "ci": [
+      -2.6557299999999953,
+      -1.5171983333333219
+     ],
+     "verdict": "loss"
+    },
+    "svhn_test": {
+     "diff": -4.676733333333345,
+     "ci": [
+      -5.714863333333328,
+      -3.662913333333328
+     ],
+     "verdict": "loss"
+    },
+    "celeba_test": {
+     "diff": -3.606599999999986,
+     "ci": [
+      -4.464315000000021,
+      -2.8103666666666682
+     ],
+     "verdict": "loss"
+    },
+    "textures": {
+     "diff": -1.4801999999999964,
+     "ci": [
+      -1.9871633333333445,
+      -1.0120400000000165
+     ],
+     "verdict": "loss"
+    },
+    "tin_val": {
+     "diff": -2.966399999999993,
+     "ci": [
+      -3.6730083333333328,
+      -2.277519999999995
+     ],
+     "verdict": "loss"
+    },
+    "lsun_fix": {
+     "diff": -1.6704000000000008,
+     "ci": [
+      -2.1791333333333354,
+      -1.2224699999999842
+     ],
+     "verdict": "loss"
+    },
+    "imagenet_fix": {
+     "diff": -2.1941333333333546,
+     "ci": [
+      -2.7622616666666597,
+      -1.6409000000000034
+     ],
+     "verdict": "loss"
+    },
+    "imagenet32_val": {
+     "diff": -1.4543333333333237,
+     "ci": [
+      -1.8618966666666708,
+      -1.0753966666666686
+     ],
+     "verdict": "loss"
+    },
+    "places365_val": {
+     "diff": -1.6975333333333253,
+     "ci": [
+      -2.207621666666666,
+      -1.2005266666666585
+     ],
+     "verdict": "loss"
+    },
+    "modality": {
+     "diff": -7.2779333333333085,
+     "ci": [
+      -8.356193333333332,
+      -6.19657666666667
+     ],
+     "verdict": "loss"
+    },
+    "natural": {
+     "diff": -2.3957333333333395,
+     "ci": [
+      -2.94823233333335,
+      -1.845214833333326
+     ],
+     "verdict": "loss"
+    },
+    "wtl": [
+     3,
+     1,
+     13
+    ]
+   }
+  },
+  "heads": {
+   "0": {
+    "acc": 75.9,
+    "T": 1.0610017776489258
+   },
+   "1": {
+    "acc": 75.7,
+    "T": 1.0610017776489258
+   },
+   "2": {
+    "acc": 75.7,
+    "T": 1.0246816873550415
+   }
+  }
+ },
+ "c10n4": {
+  "rows": {
+   "Ours": {
+    "per_set": {
+     "cifar10_test__vflip": 91.34186666666666,
+     "cifar100_test": 75.71079999999999,
+     "svhn_test": 98.27693333333333,
+     "celeba_test": 63.760400000000004,
+     "textures": 98.85573333333333,
+     "tin_val": 79.00173333333333,
+     "lsun_fix": 85.7376,
+     "imagenet_fix": 89.10880000000002,
+     "imagenet32_val": 89.42559999999999,
+     "places365_val": 85.15666666666668
+    },
+    "seeds": 3,
+    "natural": 85.00380740740741,
+    "flip": 91.34186666666666,
+    "fpr95": {
+     "cifar10_test__vflip": 30.666666666666668,
+     "cifar100_test": 74.46666666666665,
+     "svhn_test": 6.133333333333334,
+     "celeba_test": 94.19999999999999,
+     "textures": 4.866666666666666,
+     "tin_val": 70.73333333333333,
+     "lsun_fix": 69.66666666666667,
+     "imagenet_fix": 49.0,
+     "imagenet32_val": 51.13333333333333,
+     "places365_val": 65.13333333333333
+    }
+   },
+   "kNN term": {
+    "per_set": {
+     "cifar10_test__vflip": 63.76073333333333,
+     "cifar100_test": 71.19106666666666,
+     "svhn_test": 96.4638,
+     "celeba_test": 55.751200000000004,
+     "textures": 97.51153333333333,
+     "tin_val": 69.31333333333335,
+     "lsun_fix": 82.75726666666667,
+     "imagenet_fix": 85.44959999999999,
+     "imagenet32_val": 87.17573333333333,
+     "places365_val": 82.34013333333333
+    },
+    "seeds": 3,
+    "natural": 80.88374074074073,
+    "flip": 63.76073333333333,
+    "fpr95": {
+     "cifar10_test__vflip": 94.73333333333333,
+     "cifar100_test": 80.53333333333333,
+     "svhn_test": 22.46666666666667,
+     "celeba_test": 99.40000000000002,
+     "textures": 11.200000000000001,
+     "tin_val": 86.73333333333333,
+     "lsun_fix": 83.39999999999999,
+     "imagenet_fix": 64.66666666666667,
+     "imagenet32_val": 62.20000000000001,
+     "places365_val": 78.33333333333334
+    }
+   },
+   "Orientation term": {
+    "per_set": {
+     "cifar10_test__vflip": 97.74680000000001,
+     "cifar100_test": 76.96126666666667,
+     "svhn_test": 95.74533333333333,
+     "celeba_test": 81.6324,
+     "textures": 95.258,
+     "tin_val": 84.16146666666667,
+     "lsun_fix": 80.3716,
+     "imagenet_fix": 84.49946666666666,
+     "imagenet32_val": 81.59866666666666,
+     "places365_val": 78.5096
+    },
+    "seeds": 3,
+    "natural": 84.3042,
+    "flip": 97.74680000000001,
+    "fpr95": {
+     "cifar10_test__vflip": 11.4,
+     "cifar100_test": 75.39999999999999,
+     "svhn_test": 23.733333333333334,
+     "celeba_test": 78.53333333333335,
+     "textures": 27.599999999999998,
+     "tin_val": 58.73333333333333,
+     "lsun_fix": 73.0,
+     "imagenet_fix": 60.26666666666666,
+     "imagenet32_val": 65.13333333333334,
+     "places365_val": 70.33333333333333
+    }
+   },
+   "kNN basic": {
+    "per_set": {
+     "cifar10_test__vflip": 53.015133333333324,
+     "cifar100_test": 64.7458,
+     "svhn_test": 95.52733333333333,
+     "celeba_test": 63.227000000000004,
+     "textures": 95.86099999999999,
+     "tin_val": 55.4692,
+     "lsun_fix": 78.65533333333333,
+     "imagenet_fix": 82.62646666666667,
+     "imagenet32_val": 87.52333333333333,
+     "places365_val": 77.4234
+    },
+    "seeds": 3,
+    "natural": 77.89542962962963,
+    "flip": 53.015133333333324,
+    "fpr95": {
+     "cifar10_test__vflip": 95.8,
+     "cifar100_test": 85.13333333333333,
+     "svhn_test": 28.333333333333332,
+     "celeba_test": 98.73333333333335,
+     "textures": 15.800000000000002,
+     "tin_val": 92.06666666666666,
+     "lsun_fix": 88.86666666666667,
+     "imagenet_fix": 71.06666666666666,
+     "imagenet32_val": 62.666666666666664,
+     "places365_val": 82.93333333333332
+    }
+   },
+   "NLL": {
+    "per_set": {
+     "cifar10_test__vflip": 50.9736,
+     "cifar100_test": 53.4416,
+     "svhn_test": 10.0684,
+     "celeba_test": 51.019999999999996,
+     "textures": 58.216,
+     "tin_val": 48.4156,
+     "lsun_fix": 64.4076,
+     "imagenet_fix": 53.378800000000005,
+     "imagenet32_val": 71.0812,
+     "places365_val": 63.7012
+    },
+    "seeds": 1,
+    "natural": 52.63671111111111,
+    "flip": 50.9736,
+    "fpr95": {
+     "cifar10_test__vflip": 95.0,
+     "cifar100_test": 90.4,
+     "svhn_test": 100.0,
+     "celeba_test": 100.0,
+     "textures": 79.80000000000001,
+     "tin_val": 95.6,
+     "lsun_fix": 87.8,
+     "imagenet_fix": 88.6,
+     "imagenet32_val": 67.60000000000001,
+     "places365_val": 82.0
+    }
+   },
+   "NLL + log P(up|x)": {
+    "per_set": {
+     "cifar10_test__vflip": 51.0664,
+     "cifar100_test": 53.4536,
+     "svhn_test": 10.091999999999999,
+     "celeba_test": 51.04,
+     "textures": 58.26,
+     "tin_val": 48.4416,
+     "lsun_fix": 64.4256,
+     "imagenet_fix": 53.3984,
+     "imagenet32_val": 71.0932,
+     "places365_val": 63.7112
+    },
+    "seeds": 1,
+    "natural": 52.657288888888885,
+    "flip": 51.0664,
+    "fpr95": {
+     "cifar10_test__vflip": 95.0,
+     "cifar100_test": 90.4,
+     "svhn_test": 100.0,
+     "celeba_test": 100.0,
+     "textures": 79.80000000000001,
+     "tin_val": 95.6,
+     "lsun_fix": 87.8,
+     "imagenet_fix": 88.6,
+     "imagenet32_val": 67.60000000000001,
+     "places365_val": 82.0
+    }
+   }
+  },
+  "boot": {
+   "kNN term": {
+    "cifar10_test__vflip": {
+     "diff": 27.581133333333334,
+     "ci": [
+      25.02071333333334,
+      30.111526666666666
+     ],
+     "verdict": "win"
+    },
+    "cifar100_test": {
+     "diff": 4.519733333333335,
+     "ci": [
+      3.2538633333333444,
+      5.771294999999999
+     ],
+     "verdict": "win"
+    },
+    "svhn_test": {
+     "diff": 1.813133333333326,
+     "ci": [
+      1.1094916666666788,
+      2.5557883333333216
+     ],
+     "verdict": "win"
+    },
+    "celeba_test": {
+     "diff": 8.0092,
+     "ci": [
+      6.562825000000007,
+      9.442761666666662
+     ],
+     "verdict": "win"
+    },
+    "textures": {
+     "diff": 1.3442000000000007,
+     "ci": [
+      0.827600000000006,
+      1.8961583333333383
+     ],
+     "verdict": "win"
+    },
+    "tin_val": {
+     "diff": 9.688399999999987,
+     "ci": [
+      8.158550000000007,
+      11.368504999999983
+     ],
+     "verdict": "win"
+    },
+    "lsun_fix": {
+     "diff": 2.980333333333334,
+     "ci": [
+      1.8139733333333286,
+      4.215405000000011
+     ],
+     "verdict": "win"
+    },
+    "imagenet_fix": {
+     "diff": 3.659200000000027,
+     "ci": [
+      2.5821983333333423,
+      4.7245583333333405
+     ],
+     "verdict": "win"
+    },
+    "imagenet32_val": {
+     "diff": 2.2498666666666622,
+     "ci": [
+      1.217923333333334,
+      3.245701666666669
+     ],
+     "verdict": "win"
+    },
+    "places365_val": {
+     "diff": 2.8165333333333535,
+     "ci": [
+      1.754555000000012,
+      3.9330716666666836
+     ],
+     "verdict": "win"
+    },
+    "natural": {
+     "diff": 4.120066666666673,
+     "ci": [
+      3.36971351851853,
+      4.856530370370375
+     ],
+     "verdict": "win"
+    },
+    "flip": {
+     "diff": 27.581133333333334,
+     "ci": [
+      25.02071333333334,
+      30.111526666666666
+     ],
+     "verdict": "win"
+    },
+    "wtl": [
+     10,
+     0,
+     0
+    ]
+   },
+   "Orientation term": {
+    "cifar10_test__vflip": {
+     "diff": -6.4049333333333465,
+     "ci": [
+      -7.822159999999979,
+      -4.940973333333325
+     ],
+     "verdict": "loss"
+    },
+    "cifar100_test": {
+     "diff": -1.2504666666666822,
+     "ci": [
+      -4.261359999999994,
+      1.7948866666666752
+     ],
+     "verdict": "tie"
+    },
+    "svhn_test": {
+     "diff": 2.5315999999999974,
+     "ci": [
+      1.5982366666666608,
+      3.474966666666659
+     ],
+     "verdict": "win"
+    },
+    "celeba_test": {
+     "diff": -17.872,
+     "ci": [
+      -20.897003333333345,
+      -14.772899999999991
+     ],
+     "verdict": "loss"
+    },
+    "textures": {
+     "diff": 3.5977333333333377,
+     "ci": [
+      2.5326633333333373,
+      4.73920000000002
+     ],
+     "verdict": "win"
+    },
+    "tin_val": {
+     "diff": -5.159733333333335,
+     "ci": [
+      -7.60978333333332,
+      -2.705239999999987
+     ],
+     "verdict": "loss"
+    },
+    "lsun_fix": {
+     "diff": 5.366,
+     "ci": [
+      2.9699900000000268,
+      7.7880566666666615
+     ],
+     "verdict": "win"
+    },
+    "imagenet_fix": {
+     "diff": 4.609333333333353,
+     "ci": [
+      2.6133566666666814,
+      6.718433333333336
+     ],
+     "verdict": "win"
+    },
+    "imagenet32_val": {
+     "diff": 7.826933333333329,
+     "ci": [
+      5.565356666666656,
+      10.09406666666666
+     ],
+     "verdict": "win"
+    },
+    "places365_val": {
+     "diff": 6.6470666666666745,
+     "ci": [
+      4.270056666666653,
+      9.156406666666673
+     ],
+     "verdict": "win"
+    },
+    "natural": {
+     "diff": 0.699607407407413,
+     "ci": [
+      -0.9207605555555389,
+      2.370134444444456
+     ],
+     "verdict": "tie"
+    },
+    "flip": {
+     "diff": -6.4049333333333465,
+     "ci": [
+      -7.822159999999979,
+      -4.940973333333325
+     ],
+     "verdict": "loss"
+    },
+    "wtl": [
+     6,
+     1,
+     3
+    ]
+   },
+   "kNN basic": {
+    "cifar10_test__vflip": {
+     "diff": 38.32673333333334,
+     "ci": [
+      35.27313333333333,
+      41.49661666666666
+     ],
+     "verdict": "win"
+    },
+    "cifar100_test": {
+     "diff": 10.96499999999999,
+     "ci": [
+      8.868371666666663,
+      13.082970000000001
+     ],
+     "verdict": "win"
+    },
+    "svhn_test": {
+     "diff": 2.749600000000001,
+     "ci": [
+      1.745539999999984,
+      3.7876483333333444
+     ],
+     "verdict": "win"
+    },
+    "celeba_test": {
+     "diff": 0.5334000000000003,
+     "ci": [
+      -1.7529166666666582,
+      2.773121666666658
+     ],
+     "verdict": "tie"
+    },
+    "textures": {
+     "diff": 2.9947333333333432,
+     "ci": [
+      2.032221666666662,
+      4.013819999999998
+     ],
+     "verdict": "win"
+    },
+    "tin_val": {
+     "diff": 23.532533333333333,
+     "ci": [
+      21.13148666666667,
+      25.991028333333333
+     ],
+     "verdict": "win"
+    },
+    "lsun_fix": {
+     "diff": 7.082266666666669,
+     "ci": [
+      5.263626666666668,
+      9.016766666666665
+     ],
+     "verdict": "win"
+    },
+    "imagenet_fix": {
+     "diff": 6.482333333333344,
+     "ci": [
+      4.767776666666661,
+      8.28837333333333
+     ],
+     "verdict": "win"
+    },
+    "imagenet32_val": {
+     "diff": 1.9022666666666623,
+     "ci": [
+      0.431488333333348,
+      3.3940216666666716
+     ],
+     "verdict": "win"
+    },
+    "places365_val": {
+     "diff": 7.73326666666668,
+     "ci": [
+      5.9110283333333395,
+      9.611356666666671
+     ],
+     "verdict": "win"
+    },
+    "natural": {
+     "diff": 7.1083777777777755,
+     "ci": [
+      5.923579629629629,
+      8.263840740740742
+     ],
+     "verdict": "win"
+    },
+    "flip": {
+     "diff": 38.32673333333334,
+     "ci": [
+      35.27313333333333,
+      41.49661666666666
+     ],
+     "verdict": "win"
+    },
+    "wtl": [
+     9,
+     1,
+     0
+    ]
+   },
+   "NLL": {
+    "cifar10_test__vflip": {
+     "diff": 40.36826666666666,
+     "ci": [
+      36.258113333333334,
+      44.191210000000005
+     ],
+     "verdict": "win"
+    },
+    "cifar100_test": {
+     "diff": 22.26919999999999,
+     "ci": [
+      17.731896666666657,
+      27.200043333333344
+     ],
+     "verdict": "win"
+    },
+    "svhn_test": {
+     "diff": 88.20853333333334,
+     "ci": [
+      85.90857,
+      90.44470333333332
+     ],
+     "verdict": "win"
+    },
+    "celeba_test": {
+     "diff": 12.740400000000008,
+     "ci": [
+      7.633003333333334,
+      17.830716666666667
+     ],
+     "verdict": "win"
+    },
+    "textures": {
+     "diff": 40.63973333333333,
+     "ci": [
+      36.99508999999999,
+      44.19323333333334
+     ],
+     "verdict": "win"
+    },
+    "tin_val": {
+     "diff": 30.586133333333336,
+     "ci": [
+      25.824883333333336,
+      35.231396666666654
+     ],
+     "verdict": "win"
+    },
+    "lsun_fix": {
+     "diff": 21.33,
+     "ci": [
+      17.20760666666667,
+      25.70355666666667
+     ],
+     "verdict": "win"
+    },
+    "imagenet_fix": {
+     "diff": 35.73000000000001,
+     "ci": [
+      31.807599999999994,
+      39.72043000000001
+     ],
+     "verdict": "win"
+    },
+    "imagenet32_val": {
+     "diff": 18.344399999999993,
+     "ci": [
+      14.43840333333332,
+      22.220280000000002
+     ],
+     "verdict": "win"
+    },
+    "places365_val": {
+     "diff": 21.45546666666668,
+     "ci": [
+      17.270750000000007,
+      25.500989999999998
+     ],
+     "verdict": "win"
+    },
+    "natural": {
+     "diff": 32.367096296296296,
+     "ci": [
+      29.316810370370373,
+      35.347691111111104
+     ],
+     "verdict": "win"
+    },
+    "flip": {
+     "diff": 40.36826666666666,
+     "ci": [
+      36.258113333333334,
+      44.191210000000005
+     ],
+     "verdict": "win"
+    },
+    "wtl": [
+     10,
+     0,
+     0
+    ]
+   },
+   "NLL + log P(up|x)": {
+    "cifar10_test__vflip": {
+     "diff": 40.27546666666666,
+     "ci": [
+      36.17254333333333,
+      44.09364
+     ],
+     "verdict": "win"
+    },
+    "cifar100_test": {
+     "diff": 22.25719999999999,
+     "ci": [
+      17.716106666666658,
+      27.18372666666668
+     ],
+     "verdict": "win"
+    },
+    "svhn_test": {
+     "diff": 88.18493333333333,
+     "ci": [
+      85.87654,
+      90.42658333333334
+     ],
+     "verdict": "win"
+    },
+    "celeba_test": {
+     "diff": 12.720400000000005,
+     "ci": [
+      7.6200566666666685,
+      17.806426666666667
+     ],
+     "verdict": "win"
+    },
+    "textures": {
+     "diff": 40.595733333333335,
+     "ci": [
+      36.94593666666666,
+      44.14501333333334
+     ],
+     "verdict": "win"
+    },
+    "tin_val": {
+     "diff": 30.560133333333333,
+     "ci": [
+      25.804053333333332,
+      35.205656666666655
+     ],
+     "verdict": "win"
+    },
+    "lsun_fix": {
+     "diff": 21.311999999999998,
+     "ci": [
+      17.19009666666667,
+      25.68160666666667
+     ],
+     "verdict": "win"
+    },
+    "imagenet_fix": {
+     "diff": 35.710400000000014,
+     "ci": [
+      31.790289999999985,
+      39.69843666666666
+     ],
+     "verdict": "win"
+    },
+    "imagenet32_val": {
+     "diff": 18.332399999999993,
+     "ci": [
+      14.422673333333327,
+      22.208660000000002
+     ],
+     "verdict": "win"
+    },
+    "places365_val": {
+     "diff": 21.445466666666682,
+     "ci": [
+      17.266610000000004,
+      25.49714
+     ],
+     "verdict": "win"
+    },
+    "natural": {
+     "diff": 32.34651851851852,
+     "ci": [
+      29.29482481481482,
+      35.32769444444445
+     ],
+     "verdict": "win"
+    },
+    "flip": {
+     "diff": 40.27546666666666,
+     "ci": [
+      36.17254333333333,
+      44.09364
+     ],
+     "verdict": "win"
+    },
+    "wtl": [
+     10,
+     0,
+     0
+    ]
+   }
+  },
+  "heads": {
+   "0": {
+    "acc": 89.1,
+    "T": 1.3305846452713013
+   },
+   "1": {
+    "acc": 89.1,
+    "T": 1.3305846452713013
+   },
+   "2": {
+    "acc": 88.9,
+    "T": 1.3305846452713013
+   }
+  }
+ },
+ "c10x4": {
+  "rows": {
+   "Ours": {
+    "per_set": {
+     "cifar10_test__vflip": 90.86386666666665,
+     "cifar100_test": 75.0168,
+     "svhn_test": 98.90666666666668,
+     "celeba_test": 60.9712,
+     "textures": 98.58493333333332,
+     "tin_val": 79.13933333333334,
+     "lsun_fix": 84.41706666666666,
+     "imagenet_fix": 88.3076,
+     "imagenet32_val": 88.18906666666668,
+     "places365_val": 83.6704
+    },
+    "seeds": 3,
+    "natural": 84.13367407407408,
+    "flip": 90.86386666666665,
+    "fpr95": {
+     "cifar10_test__vflip": 30.266666666666666,
+     "cifar100_test": 73.53333333333333,
+     "svhn_test": 3.3333333333333335,
+     "celeba_test": 93.60000000000001,
+     "textures": 5.933333333333334,
+     "tin_val": 70.33333333333333,
+     "lsun_fix": 72.93333333333334,
+     "imagenet_fix": 47.26666666666667,
+     "imagenet32_val": 51.666666666666664,
+     "places365_val": 65.33333333333333
+    }
+   },
+   "kNN term": {
+    "per_set": {
+     "cifar10_test__vflip": 62.98159999999999,
+     "cifar100_test": 70.44226666666667,
+     "svhn_test": 97.21293333333334,
+     "celeba_test": 51.7596,
+     "textures": 97.0456,
+     "tin_val": 69.59673333333335,
+     "lsun_fix": 79.96306666666665,
+     "imagenet_fix": 83.74806666666666,
+     "imagenet32_val": 85.47453333333334,
+     "places365_val": 79.84039999999999
+    },
+    "seeds": 3,
+    "natural": 79.45368888888889,
+    "flip": 62.98159999999999,
+    "fpr95": {
+     "cifar10_test__vflip": 93.53333333333335,
+     "cifar100_test": 78.33333333333333,
+     "svhn_test": 16.066666666666666,
+     "celeba_test": 99.26666666666667,
+     "textures": 11.666666666666666,
+     "tin_val": 83.73333333333333,
+     "lsun_fix": 83.13333333333333,
+     "imagenet_fix": 62.93333333333334,
+     "imagenet32_val": 59.4,
+     "places365_val": 75.66666666666667
+    }
+   },
+   "Orientation term": {
+    "per_set": {
+     "cifar10_test__vflip": 97.9268,
+     "cifar100_test": 77.02706666666667,
+     "svhn_test": 96.00173333333333,
+     "celeba_test": 82.9984,
+     "textures": 95.67586666666666,
+     "tin_val": 84.14586666666666,
+     "lsun_fix": 81.616,
+     "imagenet_fix": 85.25026666666666,
+     "imagenet32_val": 82.2204,
+     "places365_val": 78.7424
+    },
+    "seeds": 3,
+    "natural": 84.8531111111111,
+    "flip": 97.9268,
+    "fpr95": {
+     "cifar10_test__vflip": 12.266666666666666,
+     "cifar100_test": 76.2,
+     "svhn_test": 24.133333333333336,
+     "celeba_test": 75.46666666666665,
+     "textures": 26.0,
+     "tin_val": 57.599999999999994,
+     "lsun_fix": 71.33333333333333,
+     "imagenet_fix": 56.46666666666667,
+     "imagenet32_val": 67.60000000000001,
+     "places365_val": 70.0
+    }
+   },
+   "kNN basic": {
+    "per_set": {
+     "cifar10_test__vflip": 53.04146666666667,
+     "cifar100_test": 65.49126666666666,
+     "svhn_test": 97.3626,
+     "celeba_test": 61.61353333333333,
+     "textures": 96.14233333333334,
+     "tin_val": 58.4292,
+     "lsun_fix": 74.73626666666667,
+     "imagenet_fix": 80.76333333333334,
+     "imagenet32_val": 85.6632,
+     "places365_val": 74.6912
+    },
+    "seeds": 3,
+    "natural": 77.21032592592593,
+    "flip": 53.04146666666667,
+    "fpr95": {
+     "cifar10_test__vflip": 94.19999999999999,
+     "cifar100_test": 86.2,
+     "svhn_test": 16.599999999999998,
+     "celeba_test": 98.13333333333333,
+     "textures": 14.466666666666667,
+     "tin_val": 90.86666666666667,
+     "lsun_fix": 91.53333333333335,
+     "imagenet_fix": 72.73333333333333,
+     "imagenet32_val": 63.93333333333334,
+     "places365_val": 84.66666666666667
+    }
+   },
+   "NLL": {
+    "per_set": {
+     "cifar10_test__vflip": 50.988,
+     "cifar100_test": 53.425999999999995,
+     "svhn_test": 10.0776,
+     "celeba_test": 50.9856,
+     "textures": 58.1064,
+     "tin_val": 48.3544,
+     "lsun_fix": 64.3612,
+     "imagenet_fix": 53.23480000000001,
+     "imagenet32_val": 71.0376,
+     "places365_val": 63.6452
+    },
+    "seeds": 1,
+    "natural": 52.580977777777775,
+    "flip": 50.988,
+    "fpr95": {
+     "cifar10_test__vflip": 95.0,
+     "cifar100_test": 90.8,
+     "svhn_test": 100.0,
+     "celeba_test": 100.0,
+     "textures": 79.60000000000001,
+     "tin_val": 95.6,
+     "lsun_fix": 87.6,
+     "imagenet_fix": 88.4,
+     "imagenet32_val": 67.60000000000001,
+     "places365_val": 81.8
+    }
+   },
+   "NLL + log P(up|x)": {
+    "per_set": {
+     "cifar10_test__vflip": 51.09439999999999,
+     "cifar100_test": 53.434400000000004,
+     "svhn_test": 10.1004,
+     "celeba_test": 50.9992,
+     "textures": 58.142,
+     "tin_val": 48.3808,
+     "lsun_fix": 64.38199999999999,
+     "imagenet_fix": 53.258399999999995,
+     "imagenet32_val": 71.0476,
+     "places365_val": 63.663599999999995
+    },
+    "seeds": 1,
+    "natural": 52.60093333333333,
+    "flip": 51.09439999999999,
+    "fpr95": {
+     "cifar10_test__vflip": 95.0,
+     "cifar100_test": 90.8,
+     "svhn_test": 100.0,
+     "celeba_test": 100.0,
+     "textures": 79.60000000000001,
+     "tin_val": 95.6,
+     "lsun_fix": 87.6,
+     "imagenet_fix": 88.4,
+     "imagenet32_val": 67.60000000000001,
+     "places365_val": 81.8
+    }
+   }
+  },
+  "boot": {
+   "kNN term": {
+    "cifar10_test__vflip": {
+     "diff": 27.88226666666666,
+     "ci": [
+      25.221074999999985,
+      30.43811333333333
+     ],
+     "verdict": "win"
+    },
+    "cifar100_test": {
+     "diff": 4.574533333333335,
+     "ci": [
+      3.3451316666666604,
+      5.829699999999985
+     ],
+     "verdict": "win"
+    },
+    "svhn_test": {
+     "diff": 1.6937333333333413,
+     "ci": [
+      1.133253333333324,
+      2.305204999999983
+     ],
+     "verdict": "win"
+    },
+    "celeba_test": {
+     "diff": 9.211600000000004,
+     "ci": [
+      7.779515,
+      10.833541666666669
+     ],
+     "verdict": "win"
+    },
+    "textures": {
+     "diff": 1.5393333333333317,
+     "ci": [
+      1.0701183333333453,
+      2.063356666666661
+     ],
+     "verdict": "win"
+    },
+    "tin_val": {
+     "diff": 9.542599999999993,
+     "ci": [
+      7.995048333333326,
+      11.15779500000001
+     ],
+     "verdict": "win"
+    },
+    "lsun_fix": {
+     "diff": 4.454000000000008,
+     "ci": [
+      3.189256666666657,
+      5.76009166666667
+     ],
+     "verdict": "win"
+    },
+    "imagenet_fix": {
+     "diff": 4.559533333333334,
+     "ci": [
+      3.411651666666662,
+      5.732245000000003
+     ],
+     "verdict": "win"
+    },
+    "imagenet32_val": {
+     "diff": 2.7145333333333355,
+     "ci": [
+      1.7081400000000073,
+      3.7134683333333425
+     ],
+     "verdict": "win"
+    },
+    "places365_val": {
+     "diff": 3.8300000000000125,
+     "ci": [
+      2.6601400000000095,
+      5.052174999999992
+     ],
+     "verdict": "win"
+    },
+    "natural": {
+     "diff": 4.679985185185188,
+     "ci": [
+      3.9294027777777862,
+      5.397714444444447
+     ],
+     "verdict": "win"
+    },
+    "flip": {
+     "diff": 27.88226666666666,
+     "ci": [
+      25.221074999999985,
+      30.43811333333333
+     ],
+     "verdict": "win"
+    },
+    "wtl": [
+     10,
+     0,
+     0
+    ]
+   },
+   "Orientation term": {
+    "cifar10_test__vflip": {
+     "diff": -7.062933333333348,
+     "ci": [
+      -8.656053333333352,
+      -5.539309999999999
+     ],
+     "verdict": "loss"
+    },
+    "cifar100_test": {
+     "diff": -2.0102666666666664,
+     "ci": [
+      -5.115570000000002,
+      1.0190633333333259
+     ],
+     "verdict": "tie"
+    },
+    "svhn_test": {
+     "diff": 2.9049333333333465,
+     "ci": [
+      1.9069333333333414,
+      3.951593333333327
+     ],
+     "verdict": "win"
+    },
+    "celeba_test": {
+     "diff": -22.0272,
+     "ci": [
+      -25.317490000000003,
+      -18.884450000000026
+     ],
+     "verdict": "loss"
+    },
+    "textures": {
+     "diff": 2.9090666666666607,
+     "ci": [
+      1.8153266666666752,
+      4.040353333333347
+     ],
+     "verdict": "win"
+    },
+    "tin_val": {
+     "diff": -5.006533333333323,
+     "ci": [
+      -7.521106666666652,
+      -2.5690133333333156
+     ],
+     "verdict": "loss"
+    },
+    "lsun_fix": {
+     "diff": 2.8010666666666566,
+     "ci": [
+      0.36222666666665976,
+      5.382059999999999
+     ],
+     "verdict": "win"
+    },
+    "imagenet_fix": {
+     "diff": 3.0573333333333323,
+     "ci": [
+      0.9067099999999808,
+      5.218946666666663
+     ],
+     "verdict": "win"
+    },
+    "imagenet32_val": {
+     "diff": 5.968666666666678,
+     "ci": [
+      3.5650400000000007,
+      8.456003333333316
+     ],
+     "verdict": "win"
+    },
+    "places365_val": {
+     "diff": 4.927999999999997,
+     "ci": [
+      2.2880400000000014,
+      7.556973333333328
+     ],
+     "verdict": "win"
+    },
+    "natural": {
+     "diff": -0.7194370370370251,
+     "ci": [
+      -2.456425185185174,
+      1.0027044444444413
+     ],
+     "verdict": "tie"
+    },
+    "flip": {
+     "diff": -7.062933333333348,
+     "ci": [
+      -8.656053333333352,
+      -5.539309999999999
+     ],
+     "verdict": "loss"
+    },
+    "wtl": [
+     6,
+     1,
+     3
+    ]
+   },
+   "kNN basic": {
+    "cifar10_test__vflip": {
+     "diff": 37.82239999999998,
+     "ci": [
+      34.688256666666675,
+      40.87045333333332
+     ],
+     "verdict": "win"
+    },
+    "cifar100_test": {
+     "diff": 9.525533333333343,
+     "ci": [
+      7.460586666666668,
+      11.565400000000002
+     ],
+     "verdict": "win"
+    },
+    "svhn_test": {
+     "diff": 1.54406666666668,
+     "ci": [
+      0.8987216666666586,
+      2.2497433333333356
+     ],
+     "verdict": "win"
+    },
+    "celeba_test": {
+     "diff": -0.6423333333333261,
+     "ci": [
+      -2.8794533333333345,
+      1.6460049999999984
+     ],
+     "verdict": "tie"
+    },
+    "textures": {
+     "diff": 2.4425999999999846,
+     "ci": [
+      1.626954999999984,
+      3.2854383333333286
+     ],
+     "verdict": "win"
+    },
+    "tin_val": {
+     "diff": 20.71013333333334,
+     "ci": [
+      18.272168333333326,
+      23.289424999999998
+     ],
+     "verdict": "win"
+    },
+    "lsun_fix": {
+     "diff": 9.68079999999999,
+     "ci": [
+      7.720025000000017,
+      11.767373333333312
+     ],
+     "verdict": "win"
+    },
+    "imagenet_fix": {
+     "diff": 7.544266666666658,
+     "ci": [
+      5.777366666666666,
+      9.391098333333327
+     ],
+     "verdict": "win"
+    },
+    "imagenet32_val": {
+     "diff": 2.5258666666666727,
+     "ci": [
+      0.9126683333333375,
+      4.06327833333333
+     ],
+     "verdict": "win"
+    },
+    "places365_val": {
+     "diff": 8.979200000000006,
+     "ci": [
+      7.013291666666657,
+      10.917143333333323
+     ],
+     "verdict": "win"
+    },
+    "natural": {
+     "diff": 6.9233481481481505,
+     "ci": [
+      5.727312592592605,
+      8.117904444444447
+     ],
+     "verdict": "win"
+    },
+    "flip": {
+     "diff": 37.82239999999998,
+     "ci": [
+      34.688256666666675,
+      40.87045333333332
+     ],
+     "verdict": "win"
+    },
+    "wtl": [
+     9,
+     1,
+     0
+    ]
+   },
+   "NLL": {
+    "cifar10_test__vflip": {
+     "diff": 39.87586666666665,
+     "ci": [
+      35.743386666666666,
+      43.77100999999998
+     ],
+     "verdict": "win"
+    },
+    "cifar100_test": {
+     "diff": 21.59080000000001,
+     "ci": [
+      16.95711666666666,
+      26.491263333333332
+     ],
+     "verdict": "win"
+    },
+    "svhn_test": {
+     "diff": 88.82906666666668,
+     "ci": [
+      86.60070666666668,
+      90.99974999999999
+     ],
+     "verdict": "win"
+    },
+    "celeba_test": {
+     "diff": 9.985600000000005,
+     "ci": [
+      4.83032999999999,
+      15.291369999999995
+     ],
+     "verdict": "win"
+    },
+    "textures": {
+     "diff": 40.478533333333324,
+     "ci": [
+      36.77174333333334,
+      43.99443000000001
+     ],
+     "verdict": "win"
+    },
+    "tin_val": {
+     "diff": 30.784933333333342,
+     "ci": [
+      25.99089666666668,
+      35.56109666666665
+     ],
+     "verdict": "win"
+    },
+    "lsun_fix": {
+     "diff": 20.05586666666666,
+     "ci": [
+      15.770536666666668,
+      24.321186666666648
+     ],
+     "verdict": "win"
+    },
+    "imagenet_fix": {
+     "diff": 35.07279999999999,
+     "ci": [
+      31.10394333333334,
+      39.35473666666668
+     ],
+     "verdict": "win"
+    },
+    "imagenet32_val": {
+     "diff": 17.15146666666668,
+     "ci": [
+      13.073253333333346,
+      21.093950000000003
+     ],
+     "verdict": "win"
+    },
+    "places365_val": {
+     "diff": 20.025199999999998,
+     "ci": [
+      15.8812,
+      24.130016666666652
+     ],
+     "verdict": "win"
+    },
+    "natural": {
+     "diff": 31.552696296296304,
+     "ci": [
+      28.552894444444444,
+      34.508261111111096
+     ],
+     "verdict": "win"
+    },
+    "flip": {
+     "diff": 39.87586666666665,
+     "ci": [
+      35.743386666666666,
+      43.77100999999998
+     ],
+     "verdict": "win"
+    },
+    "wtl": [
+     10,
+     0,
+     0
+    ]
+   },
+   "NLL + log P(up|x)": {
+    "cifar10_test__vflip": {
+     "diff": 39.76946666666666,
+     "ci": [
+      35.64698,
+      43.64815
+     ],
+     "verdict": "win"
+    },
+    "cifar100_test": {
+     "diff": 21.5824,
+     "ci": [
+      16.94878666666666,
+      26.48077333333333
+     ],
+     "verdict": "win"
+    },
+    "svhn_test": {
+     "diff": 88.80626666666669,
+     "ci": [
+      86.57470333333335,
+      90.97546999999999
+     ],
+     "verdict": "win"
+    },
+    "celeba_test": {
+     "diff": 9.972000000000001,
+     "ci": [
+      4.816873333333327,
+      15.27854999999999
+     ],
+     "verdict": "win"
+    },
+    "textures": {
+     "diff": 40.44293333333332,
+     "ci": [
+      36.71962666666668,
+      43.96365
+     ],
+     "verdict": "win"
+    },
+    "tin_val": {
+     "diff": 30.75853333333334,
+     "ci": [
+      25.963383333333343,
+      35.533996666666646
+     ],
+     "verdict": "win"
+    },
+    "lsun_fix": {
+     "diff": 20.035066666666665,
+     "ci": [
+      15.743663333333341,
+      24.29579666666665
+     ],
+     "verdict": "win"
+    },
+    "imagenet_fix": {
+     "diff": 35.0492,
+     "ci": [
+      31.08752333333334,
+      39.327526666666664
+     ],
+     "verdict": "win"
+    },
+    "imagenet32_val": {
+     "diff": 17.141466666666673,
+     "ci": [
+      13.067513333333345,
+      21.075826666666675
+     ],
+     "verdict": "win"
+    },
+    "places365_val": {
+     "diff": 20.006800000000005,
+     "ci": [
+      15.865460000000008,
+      24.11006666666665
+     ],
+     "verdict": "win"
+    },
+    "natural": {
+     "diff": 31.53274074074075,
+     "ci": [
+      28.532460740740753,
+      34.48798888888887
+     ],
+     "verdict": "win"
+    },
+    "flip": {
+     "diff": 39.76946666666666,
+     "ci": [
+      35.64698,
+      43.64815
+     ],
+     "verdict": "win"
+    },
+    "wtl": [
+     10,
+     0,
+     0
+    ]
+   }
+  },
+  "heads": {
+   "0": {
+    "acc": 89.2,
+    "T": 1.3305846452713013
+   },
+   "1": {
+    "acc": 89.2,
+    "T": 1.3305846452713013
+   },
+   "2": {
+    "acc": 89.1,
+    "T": 1.3539607524871826
+   }
+  }
+ },
+ "c10r25": {
+  "rows": {
+   "Ours": {
+    "per_set": {
+     "cifar10_test__vflip": 90.46413333333334,
+     "cifar100_test": 74.25066666666667,
+     "svhn_test": 98.63799999999999,
+     "celeba_test": 68.4772,
+     "textures": 98.18173333333334,
+     "tin_val": 77.842,
+     "lsun_fix": 84.60373333333332,
+     "imagenet_fix": 86.88613333333332,
+     "imagenet32_val": 87.58106666666667,
+     "places365_val": 84.27120000000001
+    },
+    "seeds": 3,
+    "natural": 84.52574814814814,
+    "flip": 90.46413333333334,
+    "fpr95": {
+     "cifar10_test__vflip": 34.333333333333336,
+     "cifar100_test": 76.0,
+     "svhn_test": 4.6000000000000005,
+     "celeba_test": 88.66666666666667,
+     "textures": 7.933333333333333,
+     "tin_val": 69.86666666666666,
+     "lsun_fix": 75.0,
+     "imagenet_fix": 55.06666666666667,
+     "imagenet32_val": 60.4,
+     "places365_val": 69.60000000000001
+    }
+   },
+   "kNN term": {
+    "per_set": {
+     "cifar10_test__vflip": 67.30546666666667,
+     "cifar100_test": 70.27706666666667,
+     "svhn_test": 97.13353333333333,
+     "celeba_test": 59.02673333333333,
+     "textures": 96.67846666666667,
+     "tin_val": 71.1474,
+     "lsun_fix": 82.0598,
+     "imagenet_fix": 83.58706666666667,
+     "imagenet32_val": 85.72886666666666,
+     "places365_val": 82.34433333333334
+    },
+    "seeds": 3,
+    "natural": 80.88702962962964,
+    "flip": 67.30546666666667,
+    "fpr95": {
+     "cifar10_test__vflip": 88.93333333333334,
+     "cifar100_test": 81.0,
+     "svhn_test": 16.133333333333336,
+     "celeba_test": 98.26666666666667,
+     "textures": 15.6,
+     "tin_val": 82.13333333333333,
+     "lsun_fix": 84.93333333333334,
+     "imagenet_fix": 66.86666666666667,
+     "imagenet32_val": 67.26666666666667,
+     "places365_val": 77.66666666666667
+    }
+   },
+   "Orientation term": {
+    "per_set": {
+     "cifar10_test__vflip": 97.65253333333332,
+     "cifar100_test": 76.1468,
+     "svhn_test": 94.76626666666665,
+     "celeba_test": 85.42866666666667,
+     "textures": 93.79146666666666,
+     "tin_val": 83.06786666666666,
+     "lsun_fix": 80.13386666666666,
+     "imagenet_fix": 83.8308,
+     "imagenet32_val": 80.6392,
+     "places365_val": 77.5092
+    },
+    "seeds": 3,
+    "natural": 83.92379259259259,
+    "flip": 97.65253333333332,
+    "fpr95": {
+     "cifar10_test__vflip": 13.799999999999999,
+     "cifar100_test": 83.86666666666666,
+     "svhn_test": 42.666666666666664,
+     "celeba_test": 78.0,
+     "textures": 46.4,
+     "tin_val": 68.8,
+     "lsun_fix": 78.86666666666667,
+     "imagenet_fix": 69.33333333333333,
+     "imagenet32_val": 76.46666666666665,
+     "places365_val": 79.26666666666667
+    }
+   },
+   "kNN basic": {
+    "per_set": {
+     "cifar10_test__vflip": 52.49593333333333,
+     "cifar100_test": 65.00240000000001,
+     "svhn_test": 97.30613333333334,
+     "celeba_test": 65.51233333333333,
+     "textures": 95.7328,
+     "tin_val": 56.3872,
+     "lsun_fix": 75.10719999999999,
+     "imagenet_fix": 81.01986666666667,
+     "imagenet32_val": 85.32106666666665,
+     "places365_val": 75.17606666666666
+    },
+    "seeds": 3,
+    "natural": 77.39611851851852,
+    "flip": 52.49593333333333,
+    "fpr95": {
+     "cifar10_test__vflip": 95.0,
+     "cifar100_test": 83.26666666666665,
+     "svhn_test": 15.4,
+     "celeba_test": 97.86666666666667,
+     "textures": 15.200000000000001,
+     "tin_val": 90.73333333333333,
+     "lsun_fix": 91.26666666666667,
+     "imagenet_fix": 71.6,
+     "imagenet32_val": 66.0,
+     "places365_val": 85.06666666666666
+    }
+   },
+   "NLL": {
+    "per_set": {
+     "cifar10_test__vflip": 50.673199999999994,
+     "cifar100_test": 53.358799999999995,
+     "svhn_test": 9.8176,
+     "celeba_test": 50.891200000000005,
+     "textures": 58.241600000000005,
+     "tin_val": 48.2052,
+     "lsun_fix": 64.3664,
+     "imagenet_fix": 53.2532,
+     "imagenet32_val": 71.08919999999999,
+     "places365_val": 63.666
+    },
+    "seeds": 1,
+    "natural": 52.54324444444445,
+    "flip": 50.673199999999994,
+    "fpr95": {
+     "cifar10_test__vflip": 95.0,
+     "cifar100_test": 91.0,
+     "svhn_test": 100.0,
+     "celeba_test": 100.0,
+     "textures": 80.0,
+     "tin_val": 95.8,
+     "lsun_fix": 87.8,
+     "imagenet_fix": 88.8,
+     "imagenet32_val": 67.80000000000001,
+     "places365_val": 82.39999999999999
+    }
+   },
+   "NLL + log P(up|x)": {
+    "per_set": {
+     "cifar10_test__vflip": 50.802,
+     "cifar100_test": 53.3752,
+     "svhn_test": 9.8324,
+     "celeba_test": 50.914,
+     "textures": 58.27719999999999,
+     "tin_val": 48.2352,
+     "lsun_fix": 64.39,
+     "imagenet_fix": 53.270799999999994,
+     "imagenet32_val": 71.0996,
+     "places365_val": 63.6776
+    },
+    "seeds": 1,
+    "natural": 52.56355555555555,
+    "flip": 50.802,
+    "fpr95": {
+     "cifar10_test__vflip": 95.0,
+     "cifar100_test": 91.0,
+     "svhn_test": 100.0,
+     "celeba_test": 100.0,
+     "textures": 80.0,
+     "tin_val": 95.8,
+     "lsun_fix": 88.0,
+     "imagenet_fix": 88.8,
+     "imagenet32_val": 67.80000000000001,
+     "places365_val": 82.39999999999999
+    }
+   }
+  },
+  "boot": {
+   "kNN term": {
+    "cifar10_test__vflip": {
+     "diff": 23.15866666666666,
+     "ci": [
+      20.824115000000017,
+      25.374493333333337
+     ],
+     "verdict": "win"
+    },
+    "cifar100_test": {
+     "diff": 3.9736000000000047,
+     "ci": [
+      2.8199749999999932,
+      5.205194999999997
+     ],
+     "verdict": "win"
+    },
+    "svhn_test": {
+     "diff": 1.5044666666666586,
+     "ci": [
+      0.9542450000000062,
+      2.1248699999999956
+     ],
+     "verdict": "win"
+    },
+    "celeba_test": {
+     "diff": 9.450466666666664,
+     "ci": [
+      7.956356666666675,
+      11.032973333333338
+     ],
+     "verdict": "win"
+    },
+    "textures": {
+     "diff": 1.5032666666666756,
+     "ci": [
+      1.0150650000000023,
+      2.026029999999996
+     ],
+     "verdict": "win"
+    },
+    "tin_val": {
+     "diff": 6.694599999999994,
+     "ci": [
+      5.342204999999995,
+      8.075761666666672
+     ],
+     "verdict": "win"
+    },
+    "lsun_fix": {
+     "diff": 2.543933333333328,
+     "ci": [
+      1.3625366666666814,
+      3.7300583333333366
+     ],
+     "verdict": "win"
+    },
+    "imagenet_fix": {
+     "diff": 3.299066666666647,
+     "ci": [
+      2.269913333333343,
+      4.298278333333341
+     ],
+     "verdict": "win"
+    },
+    "imagenet32_val": {
+     "diff": 1.8522000000000105,
+     "ci": [
+      0.8631933333333158,
+      2.761578333333332
+     ],
+     "verdict": "win"
+    },
+    "places365_val": {
+     "diff": 1.926866666666669,
+     "ci": [
+      0.8638266666666532,
+      3.000801666666662
+     ],
+     "verdict": "win"
+    },
+    "natural": {
+     "diff": 3.638718518518502,
+     "ci": [
+      2.921500740740746,
+      4.341683148148153
+     ],
+     "verdict": "win"
+    },
+    "flip": {
+     "diff": 23.15866666666666,
+     "ci": [
+      20.824115000000017,
+      25.374493333333337
+     ],
+     "verdict": "win"
+    },
+    "wtl": [
+     10,
+     0,
+     0
+    ]
+   },
+   "Orientation term": {
+    "cifar10_test__vflip": {
+     "diff": -7.188399999999987,
+     "ci": [
+      -8.803220000000003,
+      -5.636393333333329
+     ],
+     "verdict": "loss"
+    },
+    "cifar100_test": {
+     "diff": -1.8961333333333243,
+     "ci": [
+      -4.975103333333344,
+      1.244870000000005
+     ],
+     "verdict": "tie"
+    },
+    "svhn_test": {
+     "diff": 3.8717333333333386,
+     "ci": [
+      2.681606666666651,
+      5.115233333333335
+     ],
+     "verdict": "win"
+    },
+    "celeba_test": {
+     "diff": -16.951466666666676,
+     "ci": [
+      -19.94844999999998,
+      -13.914520000000005
+     ],
+     "verdict": "loss"
+    },
+    "textures": {
+     "diff": 4.390266666666676,
+     "ci": [
+      3.0357766666666635,
+      5.870096666666664
+     ],
+     "verdict": "win"
+    },
+    "tin_val": {
+     "diff": -5.225866666666661,
+     "ci": [
+      -7.707096666666662,
+      -2.6404366666666634
+     ],
+     "verdict": "loss"
+    },
+    "lsun_fix": {
+     "diff": 4.469866666666661,
+     "ci": [
+      1.880699999999998,
+      7.181276666666665
+     ],
+     "verdict": "win"
+    },
+    "imagenet_fix": {
+     "diff": 3.055333333333323,
+     "ci": [
+      0.7599166666666662,
+      5.454546666666677
+     ],
+     "verdict": "win"
+    },
+    "imagenet32_val": {
+     "diff": 6.9418666666666695,
+     "ci": [
+      4.481443333333347,
+      9.44718666666667
+     ],
+     "verdict": "win"
+    },
+    "places365_val": {
+     "diff": 6.7620000000000005,
+     "ci": [
+      4.127856666666667,
+      9.411239999999994
+     ],
+     "verdict": "win"
+    },
+    "natural": {
+     "diff": 0.6019555555555485,
+     "ci": [
+      -1.1950929629629505,
+      2.37753777777777
+     ],
+     "verdict": "tie"
+    },
+    "flip": {
+     "diff": -7.188399999999987,
+     "ci": [
+      -8.803220000000003,
+      -5.636393333333329
+     ],
+     "verdict": "loss"
+    },
+    "wtl": [
+     6,
+     1,
+     3
+    ]
+   },
+   "kNN basic": {
+    "cifar10_test__vflip": {
+     "diff": 37.9682,
+     "ci": [
+      34.74074333333332,
+      41.019720000000014
+     ],
+     "verdict": "win"
+    },
+    "cifar100_test": {
+     "diff": 9.248266666666666,
+     "ci": [
+      7.2581450000000025,
+      11.269133333333338
+     ],
+     "verdict": "win"
+    },
+    "svhn_test": {
+     "diff": 1.3318666666666559,
+     "ci": [
+      0.6648600000000056,
+      2.010251666666664
+     ],
+     "verdict": "win"
+    },
+    "celeba_test": {
+     "diff": 2.9648666666666657,
+     "ci": [
+      0.7665749999999772,
+      5.222051666666669
+     ],
+     "verdict": "win"
+    },
+    "textures": {
+     "diff": 2.4489333333333434,
+     "ci": [
+      1.6404566666666685,
+      3.2929433333333358
+     ],
+     "verdict": "win"
+    },
+    "tin_val": {
+     "diff": 21.4548,
+     "ci": [
+      19.208178333333347,
+      23.769548333333326
+     ],
+     "verdict": "win"
+    },
+    "lsun_fix": {
+     "diff": 9.496533333333332,
+     "ci": [
+      7.503506666666669,
+      11.515199999999991
+     ],
+     "verdict": "win"
+    },
+    "imagenet_fix": {
+     "diff": 5.866266666666647,
+     "ci": [
+      4.288078333333321,
+      7.581953333333328
+     ],
+     "verdict": "win"
+    },
+    "imagenet32_val": {
+     "diff": 2.2600000000000193,
+     "ci": [
+      0.6662333333333251,
+      3.738938333333322
+     ],
+     "verdict": "win"
+    },
+    "places365_val": {
+     "diff": 9.09513333333335,
+     "ci": [
+      7.258921666666667,
+      11.044264999999994
+     ],
+     "verdict": "win"
+    },
+    "natural": {
+     "diff": 7.129629629629619,
+     "ci": [
+      6.030617407407402,
+      8.293293518518501
+     ],
+     "verdict": "win"
+    },
+    "flip": {
+     "diff": 37.9682,
+     "ci": [
+      34.74074333333332,
+      41.019720000000014
+     ],
+     "verdict": "win"
+    },
+    "wtl": [
+     10,
+     0,
+     0
+    ]
+   },
+   "NLL": {
+    "cifar10_test__vflip": {
+     "diff": 39.79093333333334,
+     "ci": [
+      35.62501333333333,
+      43.591199999999986
+     ],
+     "verdict": "win"
+    },
+    "cifar100_test": {
+     "diff": 20.89186666666668,
+     "ci": [
+      16.305860000000003,
+      25.712306666666663
+     ],
+     "verdict": "win"
+    },
+    "svhn_test": {
+     "diff": 88.82039999999999,
+     "ci": [
+      86.55420666666664,
+      90.98442999999999
+     ],
+     "verdict": "win"
+    },
+    "celeba_test": {
+     "diff": 17.58599999999999,
+     "ci": [
+      12.506379999999995,
+      22.561006666666664
+     ],
+     "verdict": "win"
+    },
+    "textures": {
+     "diff": 39.940133333333335,
+     "ci": [
+      36.27192999999999,
+      43.45930333333334
+     ],
+     "verdict": "win"
+    },
+    "tin_val": {
+     "diff": 29.6368,
+     "ci": [
+      24.97017,
+      34.46105
+     ],
+     "verdict": "win"
+    },
+    "lsun_fix": {
+     "diff": 20.237333333333325,
+     "ci": [
+      15.968113333333324,
+      24.606343333333342
+     ],
+     "verdict": "win"
+    },
+    "imagenet_fix": {
+     "diff": 33.63293333333332,
+     "ci": [
+      29.720843333333324,
+      37.72358666666667
+     ],
+     "verdict": "win"
+    },
+    "imagenet32_val": {
+     "diff": 16.49186666666668,
+     "ci": [
+      12.530036666666664,
+      20.279346666666676
+     ],
+     "verdict": "win"
+    },
+    "places365_val": {
+     "diff": 20.60520000000001,
+     "ci": [
+      16.408996666666674,
+      24.67213333333334
+     ],
+     "verdict": "win"
+    },
+    "natural": {
+     "diff": 31.982503703703692,
+     "ci": [
+      29.017474444444456,
+      34.94557370370371
+     ],
+     "verdict": "win"
+    },
+    "flip": {
+     "diff": 39.79093333333334,
+     "ci": [
+      35.62501333333333,
+      43.591199999999986
+     ],
+     "verdict": "win"
+    },
+    "wtl": [
+     10,
+     0,
+     0
+    ]
+   },
+   "NLL + log P(up|x)": {
+    "cifar10_test__vflip": {
+     "diff": 39.66213333333334,
+     "ci": [
+      35.510839999999995,
+      43.445626666666655
+     ],
+     "verdict": "win"
+    },
+    "cifar100_test": {
+     "diff": 20.875466666666675,
+     "ci": [
+      16.293220000000005,
+      25.69834666666666
+     ],
+     "verdict": "win"
+    },
+    "svhn_test": {
+     "diff": 88.8056,
+     "ci": [
+      86.53778666666666,
+      90.97126666666665
+     ],
+     "verdict": "win"
+    },
+    "celeba_test": {
+     "diff": 17.563199999999995,
+     "ci": [
+      12.483769999999996,
+      22.54253333333333
+     ],
+     "verdict": "win"
+    },
+    "textures": {
+     "diff": 39.90453333333335,
+     "ci": [
+      36.245550000000016,
+      43.41977000000001
+     ],
+     "verdict": "win"
+    },
+    "tin_val": {
+     "diff": 29.6068,
+     "ci": [
+      24.94,
+      34.43085
+     ],
+     "verdict": "win"
+    },
+    "lsun_fix": {
+     "diff": 20.213733333333323,
+     "ci": [
+      15.93551333333333,
+      24.579196666666665
+     ],
+     "verdict": "win"
+    },
+    "imagenet_fix": {
+     "diff": 33.615333333333325,
+     "ci": [
+      29.70689333333333,
+      37.70932666666667
+     ],
+     "verdict": "win"
+    },
+    "imagenet32_val": {
+     "diff": 16.481466666666677,
+     "ci": [
+      12.523566666666666,
+      20.27211666666668
+     ],
+     "verdict": "win"
+    },
+    "places365_val": {
+     "diff": 20.59360000000001,
+     "ci": [
+      16.400666666666663,
+      24.659073333333332
+     ],
+     "verdict": "win"
+    },
+    "natural": {
+     "diff": 31.962192592592586,
+     "ci": [
+      28.9954888888889,
+      34.926257037037054
+     ],
+     "verdict": "win"
+    },
+    "flip": {
+     "diff": 39.66213333333334,
+     "ci": [
+      35.510839999999995,
+      43.445626666666655
+     ],
+     "verdict": "win"
+    },
+    "wtl": [
+     10,
+     0,
+     0
+    ]
+   }
+  },
+  "heads": {
+   "0": {
+    "acc": 89.1,
+    "T": 1.3305846452713013
+   },
+   "1": {
+    "acc": 89.1,
+    "T": 1.3305846452713013
+   },
+   "2": {
+    "acc": 89.3,
+    "T": 1.3305846452713013
+   }
+  }
+ },
+ "c10r50": {
+  "rows": {
+   "Ours": {
+    "per_set": {
+     "cifar10_test__vflip": 90.00893333333333,
+     "cifar100_test": 74.46466666666667,
+     "svhn_test": 98.27426666666668,
+     "celeba_test": 72.09066666666666,
+     "textures": 98.13600000000001,
+     "tin_val": 75.02026666666666,
+     "lsun_fix": 86.9132,
+     "imagenet_fix": 89.06240000000001,
+     "imagenet32_val": 90.37266666666666,
+     "places365_val": 86.19359999999999
+    },
+    "seeds": 3,
+    "natural": 85.61419259259259,
+    "flip": 90.00893333333333,
+    "fpr95": {
+     "cifar10_test__vflip": 35.53333333333333,
+     "cifar100_test": 78.2,
+     "svhn_test": 8.533333333333333,
+     "celeba_test": 87.73333333333333,
+     "textures": 8.0,
+     "tin_val": 74.66666666666667,
+     "lsun_fix": 73.33333333333333,
+     "imagenet_fix": 54.0,
+     "imagenet32_val": 56.333333333333336,
+     "places365_val": 69.0
+    }
+   },
+   "kNN term": {
+    "per_set": {
+     "cifar10_test__vflip": 69.16793333333332,
+     "cifar100_test": 70.3944,
+     "svhn_test": 96.64133333333332,
+     "celeba_test": 59.7622,
+     "textures": 97.04893333333335,
+     "tin_val": 68.45233333333333,
+     "lsun_fix": 85.502,
+     "imagenet_fix": 86.55319999999999,
+     "imagenet32_val": 88.95819999999999,
+     "places365_val": 85.12226666666668
+    },
+    "seeds": 3,
+    "natural": 82.04831851851851,
+    "flip": 69.16793333333332,
+    "fpr95": {
+     "cifar10_test__vflip": 89.93333333333334,
+     "cifar100_test": 84.06666666666666,
+     "svhn_test": 22.733333333333334,
+     "celeba_test": 98.40000000000002,
+     "textures": 15.4,
+     "tin_val": 86.86666666666667,
+     "lsun_fix": 82.60000000000001,
+     "imagenet_fix": 63.93333333333334,
+     "imagenet32_val": 63.73333333333333,
+     "places365_val": 75.66666666666667
+    }
+   },
+   "Orientation term": {
+    "per_set": {
+     "cifar10_test__vflip": 97.44560000000001,
+     "cifar100_test": 75.17106666666668,
+     "svhn_test": 95.00226666666667,
+     "celeba_test": 88.10306666666668,
+     "textures": 94.1268,
+     "tin_val": 81.31826666666666,
+     "lsun_fix": 77.53066666666666,
+     "imagenet_fix": 82.50013333333334,
+     "imagenet32_val": 80.16546666666666,
+     "places365_val": 75.51266666666668
+    },
+    "seeds": 3,
+    "natural": 83.27004444444444,
+    "flip": 97.44560000000001,
+    "fpr95": {
+     "cifar10_test__vflip": 11.933333333333332,
+     "cifar100_test": 78.2,
+     "svhn_test": 31.666666666666668,
+     "celeba_test": 59.666666666666664,
+     "textures": 38.4,
+     "tin_val": 67.26666666666667,
+     "lsun_fix": 79.26666666666667,
+     "imagenet_fix": 65.60000000000001,
+     "imagenet32_val": 71.73333333333333,
+     "places365_val": 78.2
+    }
+   },
+   "kNN basic": {
+    "per_set": {
+     "cifar10_test__vflip": 51.51193333333333,
+     "cifar100_test": 65.7968,
+     "svhn_test": 96.21453333333334,
+     "celeba_test": 66.96306666666668,
+     "textures": 96.08226666666667,
+     "tin_val": 55.32633333333333,
+     "lsun_fix": 79.17806666666667,
+     "imagenet_fix": 83.91306666666667,
+     "imagenet32_val": 88.50099999999999,
+     "places365_val": 79.20899999999999
+    },
+    "seeds": 3,
+    "natural": 79.02045925925925,
+    "flip": 51.51193333333333,
+    "fpr95": {
+     "cifar10_test__vflip": 95.06666666666666,
+     "cifar100_test": 85.59999999999998,
+     "svhn_test": 24.0,
+     "celeba_test": 98.0,
+     "textures": 15.333333333333334,
+     "tin_val": 92.0,
+     "lsun_fix": 89.2,
+     "imagenet_fix": 69.53333333333333,
+     "imagenet32_val": 63.26666666666667,
+     "places365_val": 82.26666666666667
+    }
+   },
+   "NLL": {
+    "per_set": {
+     "cifar10_test__vflip": 50.3872,
+     "cifar100_test": 53.251599999999996,
+     "svhn_test": 9.7648,
+     "celeba_test": 50.718799999999995,
+     "textures": 57.99999999999999,
+     "tin_val": 48.016,
+     "lsun_fix": 64.2136,
+     "imagenet_fix": 53.0832,
+     "imagenet32_val": 70.9924,
+     "places365_val": 63.507999999999996
+    },
+    "seeds": 1,
+    "natural": 52.39426666666666,
+    "flip": 50.3872,
+    "fpr95": {
+     "cifar10_test__vflip": 95.0,
+     "cifar100_test": 90.60000000000001,
+     "svhn_test": 100.0,
+     "celeba_test": 100.0,
+     "textures": 79.60000000000001,
+     "tin_val": 96.0,
+     "lsun_fix": 87.8,
+     "imagenet_fix": 89.0,
+     "imagenet32_val": 67.80000000000001,
+     "places365_val": 82.0
+    }
+   },
+   "NLL + log P(up|x)": {
+    "per_set": {
+     "cifar10_test__vflip": 50.5108,
+     "cifar100_test": 53.2672,
+     "svhn_test": 9.7828,
+     "celeba_test": 50.757200000000005,
+     "textures": 58.036,
+     "tin_val": 48.0416,
+     "lsun_fix": 64.224,
+     "imagenet_fix": 53.0984,
+     "imagenet32_val": 71.0068,
+     "places365_val": 63.5204
+    },
+    "seeds": 1,
+    "natural": 52.41493333333334,
+    "flip": 50.5108,
+    "fpr95": {
+     "cifar10_test__vflip": 95.0,
+     "cifar100_test": 90.60000000000001,
+     "svhn_test": 100.0,
+     "celeba_test": 100.0,
+     "textures": 79.60000000000001,
+     "tin_val": 96.0,
+     "lsun_fix": 87.8,
+     "imagenet_fix": 89.0,
+     "imagenet32_val": 67.80000000000001,
+     "places365_val": 82.0
+    }
+   }
+  },
+  "boot": {
+   "kNN term": {
+    "cifar10_test__vflip": {
+     "diff": 20.841000000000008,
+     "ci": [
+      18.60151999999999,
+      22.794326666666677
+     ],
+     "verdict": "win"
+    },
+    "cifar100_test": {
+     "diff": 4.070266666666669,
+     "ci": [
+      2.941435000000006,
+      5.1963249999999785
+     ],
+     "verdict": "win"
+    },
+    "svhn_test": {
+     "diff": 1.632933333333355,
+     "ci": [
+      0.9946299999999937,
+      2.320001666666674
+     ],
+     "verdict": "win"
+    },
+    "celeba_test": {
+     "diff": 12.328466666666664,
+     "ci": [
+      10.706008333333331,
+      13.930143333333332
+     ],
+     "verdict": "win"
+    },
+    "textures": {
+     "diff": 1.087066666666658,
+     "ci": [
+      0.6634383333333197,
+      1.546321666666653
+     ],
+     "verdict": "win"
+    },
+    "tin_val": {
+     "diff": 6.567933333333329,
+     "ci": [
+      5.309396666666663,
+      7.862910000000009
+     ],
+     "verdict": "win"
+    },
+    "lsun_fix": {
+     "diff": 1.411200000000008,
+     "ci": [
+      0.47788666666667295,
+      2.312151666666683
+     ],
+     "verdict": "win"
+    },
+    "imagenet_fix": {
+     "diff": 2.509200000000021,
+     "ci": [
+      1.6288266666666806,
+      3.3988983333333294
+     ],
+     "verdict": "win"
+    },
+    "imagenet32_val": {
+     "diff": 1.4144666666666694,
+     "ci": [
+      0.5687583333333059,
+      2.192149999999998
+     ],
+     "verdict": "win"
+    },
+    "places365_val": {
+     "diff": 1.071333333333314,
+     "ci": [
+      0.2086366666666592,
+      1.9229666666666583
+     ],
+     "verdict": "win"
+    },
+    "natural": {
+     "diff": 3.565874074074074,
+     "ci": [
+      2.9234537037036947,
+      4.201269074074045
+     ],
+     "verdict": "win"
+    },
+    "flip": {
+     "diff": 20.841000000000008,
+     "ci": [
+      18.60151999999999,
+      22.794326666666677
+     ],
+     "verdict": "win"
+    },
+    "wtl": [
+     10,
+     0,
+     0
+    ]
+   },
+   "Orientation term": {
+    "cifar10_test__vflip": {
+     "diff": -7.436666666666682,
+     "ci": [
+      -9.098826666666664,
+      -5.862723333333326
+     ],
+     "verdict": "loss"
+    },
+    "cifar100_test": {
+     "diff": -0.7064000000000021,
+     "ci": [
+      -3.9797733333333425,
+      2.4932199999999742
+     ],
+     "verdict": "tie"
+    },
+    "svhn_test": {
+     "diff": 3.2720000000000056,
+     "ci": [
+      2.1473566666666817,
+      4.500563333333351
+     ],
+     "verdict": "win"
+    },
+    "celeba_test": {
+     "diff": -16.012400000000014,
+     "ci": [
+      -18.84393666666667,
+      -13.29913333333332
+     ],
+     "verdict": "loss"
+    },
+    "textures": {
+     "diff": 4.009200000000007,
+     "ci": [
+      2.656376666666672,
+      5.363763333333332
+     ],
+     "verdict": "win"
+    },
+    "tin_val": {
+     "diff": -6.298000000000002,
+     "ci": [
+      -9.041909999999993,
+      -3.5545999999999887
+     ],
+     "verdict": "loss"
+    },
+    "lsun_fix": {
+     "diff": 9.382533333333342,
+     "ci": [
+      6.65307666666666,
+      12.218973333333325
+     ],
+     "verdict": "win"
+    },
+    "imagenet_fix": {
+     "diff": 6.562266666666673,
+     "ci": [
+      4.128176666666675,
+      8.956086666666655
+     ],
+     "verdict": "win"
+    },
+    "imagenet32_val": {
+     "diff": 10.2072,
+     "ci": [
+      7.844493333333317,
+      12.808453333333329
+     ],
+     "verdict": "win"
+    },
+    "places365_val": {
+     "diff": 10.680933333333314,
+     "ci": [
+      7.91736333333335,
+      13.552853333333314
+     ],
+     "verdict": "win"
+    },
+    "natural": {
+     "diff": 2.3441481481481503,
+     "ci": [
+      0.5785877777777536,
+      4.188822222222231
+     ],
+     "verdict": "win"
+    },
+    "flip": {
+     "diff": -7.436666666666682,
+     "ci": [
+      -9.098826666666664,
+      -5.862723333333326
+     ],
+     "verdict": "loss"
+    },
+    "wtl": [
+     6,
+     1,
+     3
+    ]
+   },
+   "kNN basic": {
+    "cifar10_test__vflip": {
+     "diff": 38.497,
+     "ci": [
+      35.301065,
+      41.585683333333336
+     ],
+     "verdict": "win"
+    },
+    "cifar100_test": {
+     "diff": 8.667866666666669,
+     "ci": [
+      6.838311666666664,
+      10.570746666666663
+     ],
+     "verdict": "win"
+    },
+    "svhn_test": {
+     "diff": 2.059733333333341,
+     "ci": [
+      1.19152999999998,
+      3.014270000000013
+     ],
+     "verdict": "win"
+    },
+    "celeba_test": {
+     "diff": 5.127599999999987,
+     "ci": [
+      3.070439999999994,
+      7.2582716666666744
+     ],
+     "verdict": "win"
+    },
+    "textures": {
+     "diff": 2.0537333333333407,
+     "ci": [
+      1.2682216666666661,
+      2.876671666666655
+     ],
+     "verdict": "win"
+    },
+    "tin_val": {
+     "diff": 19.693933333333327,
+     "ci": [
+      17.54292333333333,
+      21.877955000000014
+     ],
+     "verdict": "win"
+    },
+    "lsun_fix": {
+     "diff": 7.735133333333337,
+     "ci": [
+      5.973841666666656,
+      9.595855000000011
+     ],
+     "verdict": "win"
+    },
+    "imagenet_fix": {
+     "diff": 5.149333333333345,
+     "ci": [
+      3.64261666666667,
+      6.73008833333334
+     ],
+     "verdict": "win"
+    },
+    "imagenet32_val": {
+     "diff": 1.8716666666666697,
+     "ci": [
+      0.5219533333333246,
+      3.229833333333314
+     ],
+     "verdict": "win"
+    },
+    "places365_val": {
+     "diff": 6.9846,
+     "ci": [
+      5.273756666666674,
+      8.745729999999991
+     ],
+     "verdict": "win"
+    },
+    "natural": {
+     "diff": 6.593733333333333,
+     "ci": [
+      5.564362777777763,
+      7.7002885185185335
+     ],
+     "verdict": "win"
+    },
+    "flip": {
+     "diff": 38.497,
+     "ci": [
+      35.301065,
+      41.585683333333336
+     ],
+     "verdict": "win"
+    },
+    "wtl": [
+     10,
+     0,
+     0
+    ]
+   },
+   "NLL": {
+    "cifar10_test__vflip": {
+     "diff": 39.62173333333333,
+     "ci": [
+      35.62787999999999,
+      43.52103333333333
+     ],
+     "verdict": "win"
+    },
+    "cifar100_test": {
+     "diff": 21.213066666666677,
+     "ci": [
+      16.774946666666658,
+      26.030243333333324
+     ],
+     "verdict": "win"
+    },
+    "svhn_test": {
+     "diff": 88.50946666666668,
+     "ci": [
+      86.26662333333333,
+      90.61734666666666
+     ],
+     "verdict": "win"
+    },
+    "celeba_test": {
+     "diff": 21.37186666666667,
+     "ci": [
+      16.587859999999992,
+      26.170213333333326
+     ],
+     "verdict": "win"
+    },
+    "textures": {
+     "diff": 40.13600000000002,
+     "ci": [
+      36.506919999999994,
+      43.69880333333334
+     ],
+     "verdict": "win"
+    },
+    "tin_val": {
+     "diff": 27.00426666666666,
+     "ci": [
+      22.21813333333334,
+      31.888476666666666
+     ],
+     "verdict": "win"
+    },
+    "lsun_fix": {
+     "diff": 22.699600000000004,
+     "ci": [
+      18.691826666666657,
+      26.975266666666656
+     ],
+     "verdict": "win"
+    },
+    "imagenet_fix": {
+     "diff": 35.97920000000001,
+     "ci": [
+      32.09661333333332,
+      39.95093
+     ],
+     "verdict": "win"
+    },
+    "imagenet32_val": {
+     "diff": 19.380266666666657,
+     "ci": [
+      15.53971333333332,
+      23.216499999999982
+     ],
+     "verdict": "win"
+    },
+    "places365_val": {
+     "diff": 22.685599999999994,
+     "ci": [
+      18.784286666666656,
+      26.655383333333337
+     ],
+     "verdict": "win"
+    },
+    "natural": {
+     "diff": 33.21992592592593,
+     "ci": [
+      30.397766666666662,
+      36.093933333333325
+     ],
+     "verdict": "win"
+    },
+    "flip": {
+     "diff": 39.62173333333333,
+     "ci": [
+      35.62787999999999,
+      43.52103333333333
+     ],
+     "verdict": "win"
+    },
+    "wtl": [
+     10,
+     0,
+     0
+    ]
+   },
+   "NLL + log P(up|x)": {
+    "cifar10_test__vflip": {
+     "diff": 39.49813333333333,
+     "ci": [
+      35.51976,
+      43.4084
+     ],
+     "verdict": "win"
+    },
+    "cifar100_test": {
+     "diff": 21.19746666666667,
+     "ci": [
+      16.757846666666655,
+      26.014533333333326
+     ],
+     "verdict": "win"
+    },
+    "svhn_test": {
+     "diff": 88.49146666666668,
+     "ci": [
+      86.24885666666668,
+      90.60606333333334
+     ],
+     "verdict": "win"
+    },
+    "celeba_test": {
+     "diff": 21.33346666666666,
+     "ci": [
+      16.55117666666666,
+      26.135083333333338
+     ],
+     "verdict": "win"
+    },
+    "textures": {
+     "diff": 40.10000000000001,
+     "ci": [
+      36.467479999999995,
+      43.66240333333334
+     ],
+     "verdict": "win"
+    },
+    "tin_val": {
+     "diff": 26.978666666666655,
+     "ci": [
+      22.18873333333334,
+      31.861356666666655
+     ],
+     "verdict": "win"
+    },
+    "lsun_fix": {
+     "diff": 22.6892,
+     "ci": [
+      18.688936666666663,
+      26.96461666666666
+     ],
+     "verdict": "win"
+    },
+    "imagenet_fix": {
+     "diff": 35.96400000000001,
+     "ci": [
+      32.086093333333324,
+      39.93417
+     ],
+     "verdict": "win"
+    },
+    "imagenet32_val": {
+     "diff": 19.365866666666662,
+     "ci": [
+      15.53004333333333,
+      23.19946999999998
+     ],
+     "verdict": "win"
+    },
+    "places365_val": {
+     "diff": 22.673199999999987,
+     "ci": [
+      18.77077666666666,
+      26.642413333333337
+     ],
+     "verdict": "win"
+    },
+    "natural": {
+     "diff": 33.19925925925925,
+     "ci": [
+      30.377451111111107,
+      36.072094444444424
+     ],
+     "verdict": "win"
+    },
+    "flip": {
+     "diff": 39.49813333333333,
+     "ci": [
+      35.51976,
+      43.4084
+     ],
+     "verdict": "win"
+    },
+    "wtl": [
+     10,
+     0,
+     0
+    ]
+   }
+  },
+  "heads": {
+   "0": {
+    "acc": 89.2,
+    "T": 1.3305846452713013
+   },
+   "1": {
+    "acc": 89.1,
+    "T": 1.3305846452713013
+   },
+   "2": {
+    "acc": 89.1,
+    "T": 1.3305846452713013
+   }
+  }
+ },
+ "c10r100": {
+  "rows": {
+   "Ours": {
+    "per_set": {
+     "cifar10_test__vflip": 89.93773333333333,
+     "cifar100_test": 73.4752,
+     "svhn_test": 97.96319999999999,
+     "celeba_test": 76.56920000000001,
+     "textures": 97.96253333333334,
+     "tin_val": 73.62946666666666,
+     "lsun_fix": 84.37746666666665,
+     "imagenet_fix": 87.1376,
+     "imagenet32_val": 89.426,
+     "places365_val": 83.17933333333333
+    },
+    "seeds": 3,
+    "natural": 84.85777777777778,
+    "flip": 89.93773333333333,
+    "fpr95": {
+     "cifar10_test__vflip": 34.53333333333334,
+     "cifar100_test": 78.06666666666668,
+     "svhn_test": 10.200000000000001,
+     "celeba_test": 83.39999999999999,
+     "textures": 8.866666666666667,
+     "tin_val": 77.53333333333333,
+     "lsun_fix": 77.8,
+     "imagenet_fix": 55.53333333333333,
+     "imagenet32_val": 55.666666666666664,
+     "places365_val": 71.73333333333333
+    }
+   },
+   "kNN term": {
+    "per_set": {
+     "cifar10_test__vflip": 62.90113333333334,
+     "cifar100_test": 70.1984,
+     "svhn_test": 96.83233333333334,
+     "celeba_test": 64.95473333333332,
+     "textures": 96.83546666666666,
+     "tin_val": 67.38153333333334,
+     "lsun_fix": 83.09726666666667,
+     "imagenet_fix": 84.75033333333333,
+     "imagenet32_val": 88.12926666666665,
+     "places365_val": 81.9178
+    },
+    "seeds": 3,
+    "natural": 81.56634814814814,
+    "flip": 62.90113333333334,
+    "fpr95": {
+     "cifar10_test__vflip": 94.93333333333332,
+     "cifar100_test": 81.73333333333333,
+     "svhn_test": 20.26666666666667,
+     "celeba_test": 97.26666666666667,
+     "textures": 14.066666666666668,
+     "tin_val": 85.53333333333335,
+     "lsun_fix": 83.66666666666666,
+     "imagenet_fix": 65.93333333333334,
+     "imagenet32_val": 63.333333333333336,
+     "places365_val": 77.0
+    }
+   },
+   "Orientation term": {
+    "per_set": {
+     "cifar10_test__vflip": 97.77373333333334,
+     "cifar100_test": 73.034,
+     "svhn_test": 93.25546666666668,
+     "celeba_test": 88.07920000000001,
+     "textures": 92.67053333333332,
+     "tin_val": 79.36919999999999,
+     "lsun_fix": 75.31373333333333,
+     "imagenet_fix": 81.0872,
+     "imagenet32_val": 79.10973333333332,
+     "places365_val": 73.44080000000001
+    },
+    "seeds": 3,
+    "natural": 81.70665185185184,
+    "flip": 97.77373333333334,
+    "fpr95": {
+     "cifar10_test__vflip": 11.333333333333334,
+     "cifar100_test": 78.86666666666667,
+     "svhn_test": 42.93333333333334,
+     "celeba_test": 56.199999999999996,
+     "textures": 44.93333333333334,
+     "tin_val": 69.46666666666667,
+     "lsun_fix": 79.93333333333334,
+     "imagenet_fix": 64.60000000000001,
+     "imagenet32_val": 72.2,
+     "places365_val": 77.8
+    }
+   },
+   "kNN basic": {
+    "per_set": {
+     "cifar10_test__vflip": 51.5294,
+     "cifar100_test": 66.015,
+     "svhn_test": 96.63326666666667,
+     "celeba_test": 68.3332,
+     "textures": 95.45433333333334,
+     "tin_val": 55.98933333333333,
+     "lsun_fix": 77.3238,
+     "imagenet_fix": 82.15526666666666,
+     "imagenet32_val": 87.01426666666667,
+     "places365_val": 77.07540000000002
+    },
+    "seeds": 3,
+    "natural": 78.44376296296296,
+    "flip": 51.5294,
+    "fpr95": {
+     "cifar10_test__vflip": 95.06666666666666,
+     "cifar100_test": 84.8,
+     "svhn_test": 21.400000000000002,
+     "celeba_test": 97.93333333333334,
+     "textures": 15.866666666666665,
+     "tin_val": 91.33333333333333,
+     "lsun_fix": 91.40000000000002,
+     "imagenet_fix": 70.73333333333333,
+     "imagenet32_val": 64.60000000000001,
+     "places365_val": 84.06666666666666
+    }
+   },
+   "NLL": {
+    "per_set": {
+     "cifar10_test__vflip": 50.0124,
+     "cifar100_test": 53.04600000000001,
+     "svhn_test": 9.7144,
+     "celeba_test": 50.5288,
+     "textures": 57.714,
+     "tin_val": 47.598400000000005,
+     "lsun_fix": 63.9296,
+     "imagenet_fix": 52.925999999999995,
+     "imagenet32_val": 70.82000000000001,
+     "places365_val": 63.3212
+    },
+    "seeds": 1,
+    "natural": 52.1776,
+    "flip": 50.0124,
+    "fpr95": {
+     "cifar10_test__vflip": 95.0,
+     "cifar100_test": 90.60000000000001,
+     "svhn_test": 100.0,
+     "celeba_test": 100.0,
+     "textures": 79.60000000000001,
+     "tin_val": 95.8,
+     "lsun_fix": 88.0,
+     "imagenet_fix": 88.6,
+     "imagenet32_val": 67.60000000000001,
+     "places365_val": 81.8
+    }
+   },
+   "NLL + log P(up|x)": {
+    "per_set": {
+     "cifar10_test__vflip": 50.147200000000005,
+     "cifar100_test": 53.0548,
+     "svhn_test": 9.7308,
+     "celeba_test": 50.56,
+     "textures": 57.7404,
+     "tin_val": 47.6228,
+     "lsun_fix": 63.9428,
+     "imagenet_fix": 52.94799999999999,
+     "imagenet32_val": 70.8292,
+     "places365_val": 63.333600000000004
+    },
+    "seeds": 1,
+    "natural": 52.195822222222226,
+    "flip": 50.147200000000005,
+    "fpr95": {
+     "cifar10_test__vflip": 95.0,
+     "cifar100_test": 90.60000000000001,
+     "svhn_test": 100.0,
+     "celeba_test": 100.0,
+     "textures": 79.60000000000001,
+     "tin_val": 95.8,
+     "lsun_fix": 88.0,
+     "imagenet_fix": 88.6,
+     "imagenet32_val": 67.60000000000001,
+     "places365_val": 81.8
+    }
+   }
+  },
+  "boot": {
+   "kNN term": {
+    "cifar10_test__vflip": {
+     "diff": 27.036599999999986,
+     "ci": [
+      24.54544333333334,
+      29.45913500000001
+     ],
+     "verdict": "win"
+    },
+    "cifar100_test": {
+     "diff": 3.2767999999999944,
+     "ci": [
+      2.2998366666666596,
+      4.280651666666672
+     ],
+     "verdict": "win"
+    },
+    "svhn_test": {
+     "diff": 1.1308666666666483,
+     "ci": [
+      0.5809333333333363,
+      1.6959116666666718
+     ],
+     "verdict": "win"
+    },
+    "celeba_test": {
+     "diff": 11.614466666666686,
+     "ci": [
+      10.140080000000005,
+      13.16895333333333
+     ],
+     "verdict": "win"
+    },
+    "textures": {
+     "diff": 1.1270666666666784,
+     "ci": [
+      0.6882283333333049,
+      1.5746683333333222
+     ],
+     "verdict": "win"
+    },
+    "tin_val": {
+     "diff": 6.247933333333322,
+     "ci": [
+      5.124085,
+      7.484641666666653
+     ],
+     "verdict": "win"
+    },
+    "lsun_fix": {
+     "diff": 1.2801999999999794,
+     "ci": [
+      0.4636366666666543,
+      2.1207383333333176
+     ],
+     "verdict": "win"
+    },
+    "imagenet_fix": {
+     "diff": 2.387266666666676,
+     "ci": [
+      1.5711966666666892,
+      3.239018333333324
+     ],
+     "verdict": "win"
+    },
+    "imagenet32_val": {
+     "diff": 1.29673333333335,
+     "ci": [
+      0.5453216666666656,
+      2.0041316666666704
+     ],
+     "verdict": "win"
+    },
+    "places365_val": {
+     "diff": 1.2615333333333325,
+     "ci": [
+      0.48400833333334853,
+      2.0883816666666712
+     ],
+     "verdict": "win"
+    },
+    "natural": {
+     "diff": 3.291429629629647,
+     "ci": [
+      2.7142292592592483,
+      3.8512751851851976
+     ],
+     "verdict": "win"
+    },
+    "flip": {
+     "diff": 27.036599999999986,
+     "ci": [
+      24.54544333333334,
+      29.45913500000001
+     ],
+     "verdict": "win"
+    },
+    "wtl": [
+     10,
+     0,
+     0
+    ]
+   },
+   "Orientation term": {
+    "cifar10_test__vflip": {
+     "diff": -7.836000000000013,
+     "ci": [
+      -9.53936666666666,
+      -6.22113000000001
+     ],
+     "verdict": "loss"
+    },
+    "cifar100_test": {
+     "diff": 0.44119999999999493,
+     "ci": [
+      -2.790110000000007,
+      3.5910899999999866
+     ],
+     "verdict": "tie"
+    },
+    "svhn_test": {
+     "diff": 4.707733333333309,
+     "ci": [
+      3.4272999999999936,
+      6.082736666666667
+     ],
+     "verdict": "win"
+    },
+    "celeba_test": {
+     "diff": -11.510000000000005,
+     "ci": [
+      -14.18190666666665,
+      -8.923846666666666
+     ],
+     "verdict": "loss"
+    },
+    "textures": {
+     "diff": 5.292000000000016,
+     "ci": [
+      3.851269999999995,
+      6.798273333333344
+     ],
+     "verdict": "win"
+    },
+    "tin_val": {
+     "diff": -5.739733333333334,
+     "ci": [
+      -8.708380000000007,
+      -2.9227833333333337
+     ],
+     "verdict": "loss"
+    },
+    "lsun_fix": {
+     "diff": 9.063733333333317,
+     "ci": [
+      6.362386666666669,
+      11.917573333333335
+     ],
+     "verdict": "win"
+    },
+    "imagenet_fix": {
+     "diff": 6.05040000000001,
+     "ci": [
+      3.516846666666665,
+      8.43362666666664
+     ],
+     "verdict": "win"
+    },
+    "imagenet32_val": {
+     "diff": 10.316266666666678,
+     "ci": [
+      7.864370000000003,
+      12.915186666666663
+     ],
+     "verdict": "win"
+    },
+    "places365_val": {
+     "diff": 9.738533333333322,
+     "ci": [
+      6.701803333333349,
+      12.56151
+     ],
+     "verdict": "win"
+    },
+    "natural": {
+     "diff": 3.151125925925939,
+     "ci": [
+      1.291207407407399,
+      4.9756792592592545
+     ],
+     "verdict": "win"
+    },
+    "flip": {
+     "diff": -7.836000000000013,
+     "ci": [
+      -9.53936666666666,
+      -6.22113000000001
+     ],
+     "verdict": "loss"
+    },
+    "wtl": [
+     6,
+     1,
+     3
+    ]
+   },
+   "kNN basic": {
+    "cifar10_test__vflip": {
+     "diff": 38.408333333333324,
+     "ci": [
+      35.27736666666667,
+      41.588551666666646
+     ],
+     "verdict": "win"
+    },
+    "cifar100_test": {
+     "diff": 7.4602,
+     "ci": [
+      5.722418333333331,
+      9.170010000000001
+     ],
+     "verdict": "win"
+    },
+    "svhn_test": {
+     "diff": 1.3299333333333152,
+     "ci": [
+      0.5831366666666622,
+      2.083811666666658
+     ],
+     "verdict": "win"
+    },
+    "celeba_test": {
+     "diff": 8.236000000000004,
+     "ci": [
+      6.315078333333338,
+      10.275141666666658
+     ],
+     "verdict": "win"
+    },
+    "textures": {
+     "diff": 2.508200000000002,
+     "ci": [
+      1.5981416666666721,
+      3.4378449999999914
+     ],
+     "verdict": "win"
+    },
+    "tin_val": {
+     "diff": 17.64013333333333,
+     "ci": [
+      15.566551666666667,
+      19.81815333333332
+     ],
+     "verdict": "win"
+    },
+    "lsun_fix": {
+     "diff": 7.053666666666643,
+     "ci": [
+      5.399618333333342,
+      8.794358333333342
+     ],
+     "verdict": "win"
+    },
+    "imagenet_fix": {
+     "diff": 4.982333333333344,
+     "ci": [
+      3.43108166666667,
+      6.535476666666673
+     ],
+     "verdict": "win"
+    },
+    "imagenet32_val": {
+     "diff": 2.4117333333333306,
+     "ci": [
+      0.9677049999999848,
+      3.7163316666666786
+     ],
+     "verdict": "win"
+    },
+    "places365_val": {
+     "diff": 6.103933333333316,
+     "ci": [
+      4.445398333333326,
+      7.790069999999989
+     ],
+     "verdict": "win"
+    },
+    "natural": {
+     "diff": 6.41401481481482,
+     "ci": [
+      5.400761111111102,
+      7.386297407407423
+     ],
+     "verdict": "win"
+    },
+    "flip": {
+     "diff": 38.408333333333324,
+     "ci": [
+      35.27736666666667,
+      41.588551666666646
+     ],
+     "verdict": "win"
+    },
+    "wtl": [
+     10,
+     0,
+     0
+    ]
+   },
+   "NLL": {
+    "cifar10_test__vflip": {
+     "diff": 39.92533333333333,
+     "ci": [
+      35.76770333333334,
+      43.961143333333325
+     ],
+     "verdict": "win"
+    },
+    "cifar100_test": {
+     "diff": 20.429199999999994,
+     "ci": [
+      15.667173333333329,
+      25.22437
+     ],
+     "verdict": "win"
+    },
+    "svhn_test": {
+     "diff": 88.24879999999999,
+     "ci": [
+      85.98494666666667,
+      90.43808666666666
+     ],
+     "verdict": "win"
+    },
+    "celeba_test": {
+     "diff": 26.040400000000012,
+     "ci": [
+      21.335513333333328,
+      30.751963333333332
+     ],
+     "verdict": "win"
+    },
+    "textures": {
+     "diff": 40.24853333333334,
+     "ci": [
+      36.615346666666674,
+      43.80505
+     ],
+     "verdict": "win"
+    },
+    "tin_val": {
+     "diff": 26.031066666666653,
+     "ci": [
+      21.23033666666667,
+      30.82163666666667
+     ],
+     "verdict": "win"
+    },
+    "lsun_fix": {
+     "diff": 20.44786666666665,
+     "ci": [
+      16.25450333333333,
+      24.989593333333318
+     ],
+     "verdict": "win"
+    },
+    "imagenet_fix": {
+     "diff": 34.21160000000001,
+     "ci": [
+      30.275783333333333,
+      38.31616333333333
+     ],
+     "verdict": "win"
+    },
+    "imagenet32_val": {
+     "diff": 18.605999999999995,
+     "ci": [
+      14.728630000000011,
+      22.37946
+     ],
+     "verdict": "win"
+    },
+    "places365_val": {
+     "diff": 19.858133333333335,
+     "ci": [
+      15.740173333333333,
+      23.90809333333332
+     ],
+     "verdict": "win"
+    },
+    "natural": {
+     "diff": 32.680177777777786,
+     "ci": [
+      29.619992962962968,
+      35.64565037037036
+     ],
+     "verdict": "win"
+    },
+    "flip": {
+     "diff": 39.92533333333333,
+     "ci": [
+      35.76770333333334,
+      43.961143333333325
+     ],
+     "verdict": "win"
+    },
+    "wtl": [
+     10,
+     0,
+     0
+    ]
+   },
+   "NLL + log P(up|x)": {
+    "cifar10_test__vflip": {
+     "diff": 39.79053333333332,
+     "ci": [
+      35.645263333333354,
+      43.80830666666667
+     ],
+     "verdict": "win"
+    },
+    "cifar100_test": {
+     "diff": 20.4204,
+     "ci": [
+      15.655643333333328,
+      25.212650000000004
+     ],
+     "verdict": "win"
+    },
+    "svhn_test": {
+     "diff": 88.23239999999998,
+     "ci": [
+      85.96865666666667,
+      90.41165666666667
+     ],
+     "verdict": "win"
+    },
+    "celeba_test": {
+     "diff": 26.009200000000007,
+     "ci": [
+      21.308370000000004,
+      30.717793333333326
+     ],
+     "verdict": "win"
+    },
+    "textures": {
+     "diff": 40.22213333333334,
+     "ci": [
+      36.581716666666665,
+      43.780609999999996
+     ],
+     "verdict": "win"
+    },
+    "tin_val": {
+     "diff": 26.00666666666666,
+     "ci": [
+      21.201126666666667,
+      30.793966666666652
+     ],
+     "verdict": "win"
+    },
+    "lsun_fix": {
+     "diff": 20.43466666666665,
+     "ci": [
+      16.240503333333333,
+      24.97971333333332
+     ],
+     "verdict": "win"
+    },
+    "imagenet_fix": {
+     "diff": 34.18960000000001,
+     "ci": [
+      30.251943333333333,
+      38.297533333333334
+     ],
+     "verdict": "win"
+    },
+    "imagenet32_val": {
+     "diff": 18.5968,
+     "ci": [
+      14.716670000000011,
+      22.368173333333342
+     ],
+     "verdict": "win"
+    },
+    "places365_val": {
+     "diff": 19.845733333333328,
+     "ci": [
+      15.731863333333331,
+      23.89662333333333
+     ],
+     "verdict": "win"
+    },
+    "natural": {
+     "diff": 32.66195555555556,
+     "ci": [
+      29.600191851851857,
+      35.62880481481481
+     ],
+     "verdict": "win"
+    },
+    "flip": {
+     "diff": 39.79053333333332,
+     "ci": [
+      35.645263333333354,
+      43.80830666666667
+     ],
+     "verdict": "win"
+    },
+    "wtl": [
+     10,
+     0,
+     0
+    ]
+   }
+  },
+  "heads": {
+   "0": {
+    "acc": 89.0,
+    "T": 1.3539607524871826
+   },
+   "1": {
+    "acc": 88.9,
+    "T": 1.3539607524871826
+   },
+   "2": {
+    "acc": 88.9,
+    "T": 1.3539607524871826
+   }
+  }
+ }
+}

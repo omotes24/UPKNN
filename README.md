@@ -29,29 +29,44 @@ rotation head. One network evaluation per image, no labels, no OOD data, no tune
 
 ## Results (final evaluation, evaluated once after the protocol was frozen)
 
-Six ID datasets with public (or our) diffusion models, 63 ID–OOD pairs, 500 images per set, three noise seeds
-([`paper/gen/data/ours_vs_all_final2.json`](paper/gen/data/ours_vs_all_final2.json)). Mean AUROC (%) over the natural OOD sets (the target; upside-down ID images are a probe of frame sensitivity):
+Six ID datasets with public (or our) diffusion models, 63 ID–OOD pairs (47 natural, 6 upside-down probes, 10 synthetic), 500 images
+per set, three noise seeds ([`paper/gen/data/ours_vs_all_final2.json`](paper/gen/data/ours_vs_all_final2.json),
+[`newrows_final2.json`](paper/gen/data/newrows_final2.json), [`csi_ana.json`](paper/gen/data/csi_ana.json)). Mean AUROC (%) over
+the natural OOD sets (the target; upside-down ID images are a probe of frame sensitivity):
 
 | | CIFAR-10 | SVHN | CelebA | CIFAR-100 | ImageNet-64 | FashionMNIST | mean | upside-down |
 |---|---|---|---|---|---|---|---|---|
 | **Upright kNN** | **95.4** | **99.7** | **100.0** | **85.5** | **79.6** | **100.0** | **93.4** | 86.6 |
-| best of 11 prior methods (CFS, kNN head) | 84.9 | 92.1 | 99.9 | 72.3 | 63.9 | 99.9 | 85.5 | 70.6 |
+| its kNN term alone | 93.7 | 99.4 | 100.0 | 85.0 | 77.0 | 99.9 | 92.5 | 72.8 |
 | kNN on our features, tuned per ID | 93.7 | 99.4 | 100.0 | 85.4 | 77.0 | 99.9 | 92.6 | 72.7 |
+| best of 13 prior detectors (CFS, kNN head) | 84.9 | 92.1 | 99.9 | 72.3 | 63.9 | 99.9 | 85.5 | 70.6 |
+| best likelihood / statistic of the model (DDPM-OOD) | 77.1 | 99.9 | 99.9 | 59.2 | 56.1 | 94.2 | 81.1 | 69.0 |
+| CSI (official code, 1,000 epochs; five 32×32 ID datasets) | 94.7 | 97.8 | 100.0 | 68.5 | – | 100.0 | 92.2 | 94.5 |
 
-Against each of the 11 prior methods (NLL, IC with PNG / JPEG 2000, typicality test, MSMA\*, DiffPath, GEPC, EigenScore, CFS
-with its diagonal and kNN heads, a rotation classifier) Upright kNN wins 35–47 of the 47 natural pairs and loses at most 2
-(bootstrap, 95% interval and at least 0.05 points); it improves on its own kNN term on 28 natural pairs and loses 1. On OpenOOD v1.5 ImageNet-1K at 64×64 it reaches 70.2 / 79.0 near- / far-OOD AUROC against 60.7 / 75.0 for
-the best prior method. With every image passed through the same 224-px bottleneck, it reaches 83.7 / 76.4 with ADM at 256×256 (best
-prior method 69.4 / 76.4) and 64.7 / 74.5 with EDM2-XS at 512×512 (CFS 61.2 / 72.7); with DiT-XL/2 at 256×256 (58.3 / 71.8) its kNN term
-suffers from a collapse of the pooled statistics (one input-independent channel dominates each block). Full tables: [`paper/main.pdf`](paper/main.pdf), [`paper/supp.pdf`](paper/supp.pdf).
+Against each of the prior detectors run on all six ID datasets (NLL, IC with PNG / JPEG 2000, typicality test, MSMA\*, DiffPath,
+GEPC, EigenScore, DDPM-OOD, CFS with its diagonal and kNN heads, a rotation classifier) Upright kNN wins 34–47 of the 47 natural
+pairs and loses at most 4 (bootstrap, 95% interval and at least 0.05 points); it improves on its own kNN term on 28 natural pairs
+and loses 1 (CIFAR-100→CIFAR-10), and against CSI it wins 22 / ties 16 / loses 2 of 40 pairs. Of the 7.9 points over the best
+prior detector, 7.1 come from the features (the tuned kNN rule) and 0.8 from the frame term. On OpenOOD v1.5 ImageNet-1K at
+64×64 it reaches 70.2 / 79.0 near- / far-OOD AUROC against 60.7 / 75.0 for the best prior method. With every image passed through
+the same 224-px bottleneck, it reaches 83.7 / 76.4 with ADM at 256×256 (best prior method 69.4 / 76.4) and 64.7 / 74.5 with
+EDM2-XS at 512×512 (CFS 61.2 / 72.7); with DiT-XL/2 at 256×256 (58.3 / 71.8) its kNN term suffers from a collapse of the pooled
+statistics (one input-independent channel dominates each block). A further control with the same final resampling for every set
+(all images through 112 px) keeps SSB-hard at 87.7% but brings NINCO down to 69.0% and iNaturalist to chance, so part of the
+256-px results depends on how the sets are stored. Full tables: [`paper/main.pdf`](paper/main.pdf),
+[`paper/supp.pdf`](paper/supp.pdf).
 
-**Status (2026-11-03).** Runs still in progress and not yet in the paper: CSI (official code, 1,000 epochs) on the five 32×32 ID
-datasets ([`protocols/PROTOCOL_CSI.md`](protocols/PROTOCOL_CSI.md)); three further comparison methods (reconstruction, LMD,
-likelihood + LID) on the six ID datasets; chest X-rays, histology and generators trained with rotations
-([`PROTOCOL_E4.md`](protocols/PROTOCOL_E4.md)); bank size on ImageNet-64 ([`PROTOCOL_E5.md`](protocols/PROTOCOL_E5.md)). The
-resolution-controlled ImageNet runs ([`PROTOCOL_HIRES.md`](protocols/PROTOCOL_HIRES.md),
-[`PROTOCOL_HIRES_DIT.md`](protocols/PROTOCOL_HIRES_DIT.md)) are finished and in the paper. Every protocol was written before its results
-were seen. The per-image scores will be published as a release asset once these runs are finished.
+**Two notions.** Rotations explain 0.7–18% of the feature variance; on the four natural-image datasets a Euclidean, cosine or
+whitened nearest-neighbour distance in the head's input space is at or near chance on upside-down images, whereas the linear
+read-out of the same statistics recovers the frame (controls [`PROTOCOL_E6.md`](protocols/PROTOCOL_E6.md),
+[`PROTOCOL_E8.md`](protocols/PROTOCOL_E8.md)). On chest X-rays the frame term detects rotated radiographs; on histology and
+aerial tiles, which have no canonical up, it misleads ([`PROTOCOL_E4.md`](protocols/PROTOCOL_E4.md),
+[`PROTOCOL_E3.md`](protocols/PROTOCOL_E3.md)).
+
+**Status (2026-11-06).** All experiments of the paper are finished and in the paper except two comparison rows that are still
+being computed on the GPU server and are marked as pending in `main.pdf`: LMD on CelebA, CIFAR-100, ImageNet-64 and
+FashionMNIST, and likelihood + LID (Kamkari et al.) on all six ID datasets. Every protocol was written before its results were
+seen. The per-image scores will be published as a release asset once these runs are finished.
 
 ## Layout
 

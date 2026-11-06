@@ -22,7 +22,7 @@ NAT = {'edmc10': ['svhn_test', 'textures', 'celeba_test', 'tin_val', 'lsun_fix',
 IDN = {'edmc10': 'cifar10_test', 'edmc100': 'cifar100_test', 'in64': 'in64_imagenet_test'}
 TITLE = {'edmc10': 'ID: CIFAR-10', 'edmc100': 'ID: CIFAR-100', 'in64': 'ID: ImageNet-64'}
 NAVY, RED, GREY = '#1f3a7a', '#c0392b', '#9a9a9a'
-fig, axs = plt.subplots(1, 3, figsize=(6.96, 2.15))
+fig, axs = plt.subplots(1, 3, figsize=(6.96, 1.8))
 for ax, t in zip(axs, NAT):
     g = lambda k, n: Z[f'{t}|{k}|{n}'].astype(np.float64)
     ci, pi = g('content', IDN[t]), g('pose', IDN[t]); cv, pv = g('content', IDN[t] + '__vflip'), g('pose', IDN[t] + '__vflip')
@@ -36,9 +36,9 @@ for ax, t in zip(axs, NAT):
     xl = np.array(ax.get_xlim()); ax.plot(xl, ts - xl, color='k', lw=0.8, ls='--', label='threshold, Upright kNN (sum)', scalex=False, scaley=False)
     ax.set_title(TITLE[t], fontsize=8.5); ax.set_xlabel('kNN term $-d\\,\\log r_R(x)$')
     for s in ('top', 'right'): ax.spines[s].set_visible(False)
-axs[0].set_ylabel('orientation term $\\log q_\\phi(R_0\\mid x)$')
+axs[0].set_ylabel('orientation term\n$\\log q_\\phi(R_0\\mid x)$')
 h, l = axs[0].get_legend_handles_labels(); order = [2, 3, 1, 4, 0, 5]   # column-major fill: row 1 = ID, upside down, natural OOD; row 2 = the three thresholds
 fig.legend([h[i] for i in order], [l[i] for i in order], loc='lower center', ncol=3, frameon=False, fontsize=7.5, markerscale=3, handletextpad=0.3, columnspacing=1.0)
-fig.tight_layout(pad=0.3, w_pad=0.8, rect=(0, 0.15, 1, 1))
+fig.tight_layout(pad=0.3, w_pad=0.8, rect=(0, 0.18, 1, 1))
 os.makedirs(f'{OUT}/figs', exist_ok=True); fig.savefig(f'{OUT}/figs/fig_terms.pdf', dpi=300); fig.savefig(f'{OUT}/figs/fig_terms.png', dpi=150)
 print('written')

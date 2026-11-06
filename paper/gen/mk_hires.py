@@ -83,6 +83,41 @@ if os.path.exists(DG):
     P = {k: v for k, v in Q['pix'].items() if k in NEAR + FAR}
     M['hPixSsb'] = f1(max(P['ssb_hard']['hf_auroc'], P['ssb_hard']['blk_auroc'])); M['hPixNinco'] = f1(max(P['ninco']['hf_auroc'], P['ninco']['blk_auroc']))
     M['hPixMax'] = f1(max(max(v['hf_auroc'], v['blk_auroc']) for v in P.values()))
+E7 = f'{D}/e7_ana.json'                                                       # PROTOCOL_HIRES2.md: identical resampling history (analysis/final/e7/ana/e7_ana.py)
+if os.path.exists(E7) and 'in256d' in json.load(open(E7)):
+    Z = json.load(open(E7)); X = Z['cross']; R2 = [r for r in ('Ours', 'kNN term', 'Orientation term', 'kNN basic', 'CFS', 'CFS kNN') if r in X['rows']]
+    L = ['% written by gen/mk_hires.py (PROTOCOL_HIRES2.md)']
+    for r in R2:
+        a, b = X['rows'][r]['in256c'], X['rows'][r]['in256d']; bt = X['boot'][r]
+        def pc(s):
+            d = bt[s]['diff']; v = bt[s]['verdict']; mark = {'win': '$^{+}$', 'loss': '$^{-}$', 'tie': ''}[v]
+            return f"{f1(a[s]['auroc'] if s not in ('near', 'far') else a[s])} & {f1(b[s]['auroc'] if s not in ('near', 'far') else b[s])}{mark}"
+        L.append(LAB[r] + ' & ' + ' & '.join(pc(s) for s in NEAR + ['near'] + FAR + ['far', VF]) + '\\\\')
+        if r == 'Orientation term': L.append('\\midrule')
+    open(f'{OUT}/supp_hires2.tex', 'w').write('\n'.join(L) + '\n')
+    o = X['rows']['Ours']; k = X['rows']['kNN term']; kb = X['rows']['kNN basic']
+    M.update({'hTwoNcom': str(min(X['n_common'].values())),
+              'hTwoSsbC': f1(o['in256c']['ssb_hard']['auroc']), 'hTwoSsbD': f1(o['in256d']['ssb_hard']['auroc']), 'hTwoSsbVerdict': X['boot']['Ours']['ssb_hard']['verdict'],
+              'hTwoNincoC': f1(o['in256c']['ninco']['auroc']), 'hTwoNincoD': f1(o['in256d']['ninco']['auroc']), 'hTwoNincoVerdict': X['boot']['Ours']['ninco']['verdict'],
+              'hTwoNearC': f1(o['in256c']['near']), 'hTwoNearD': f1(o['in256d']['near']), 'hTwoNearVerdict': X['boot']['Ours']['near']['verdict'],
+              'hTwoFarC': f1(o['in256c']['far']), 'hTwoFarD': f1(o['in256d']['far']), 'hTwoFarVerdict': X['boot']['Ours']['far']['verdict'],
+              'hTwoVfC': f1(o['in256c'][VF]['auroc']), 'hTwoVfD': f1(o['in256d'][VF]['auroc']),
+              'hTwoInatC': f1(o['in256c']['inaturalist']['auroc']), 'hTwoInatD': f1(o['in256d']['inaturalist']['auroc']), 'hTwoInatVerdict': X['boot']['Ours']['inaturalist']['verdict'],
+              'hTwoOioC': f1(o['in256c']['openimage_o']['auroc']), 'hTwoOioD': f1(o['in256d']['openimage_o']['auroc']), 'hTwoOioVerdict': X['boot']['Ours']['openimage_o']['verdict'],
+              'hTwoTexC': f1(o['in256c']['textures']['auroc']), 'hTwoTexD': f1(o['in256d']['textures']['auroc']),
+              'hTwoSsbKnnTC': f1(k['in256c']['ssb_hard']['auroc']), 'hTwoSsbKnnTD': f1(k['in256d']['ssb_hard']['auroc']),
+              'hTwoOioKnnBC': f1(kb['in256c']['openimage_o']['auroc']), 'hTwoOioKnnBD': f1(kb['in256d']['openimage_o']['auroc']),
+              'hTwoNearDiff': f"{X['boot']['Ours']['near']['diff']:+.1f}", 'hTwoSsbDiff': f"{X['boot']['Ours']['ssb_hard']['diff']:+.1f}"})
+    if 'CFS' in X['rows']:
+        c = X['rows']['CFS']; M['hTwoNearCfsD'] = f1(c['in256d']['near']); M['hTwoSsbCfsD'] = f1(c['in256d']['ssb_hard']['auroc'])
+        M['hTwoNearCfsC'] = f1(c['in256c']['near'])
+    # the in256d tier on its own (all rows, common images), as Table S-hires-by-set
+    T = Z['in256d']; M['hTwoStatus'] = 'done'
+    M['hTwoWtlCfs'] = '{}/{}/{}'.format(*T['boot']['CFS']['wtl']) if 'CFS' in T['boot'] else '--'
+    M['hTwoWtlCfsKnn'] = '{}/{}/{}'.format(*T['boot']['CFS kNN']['wtl']) if 'CFS kNN' in T['boot'] else '--'
+else:
+    M['hTwoStatus'] = 'pending'
+assert all(not any(ch.isdigit() for ch in k) for k in M), [k for k in M if any(ch.isdigit() for ch in k)]
 with open(f'{OUT}/numbers_hires.tex', 'w') as f:
     f.write('% written by gen/mk_hires.py\n')
     for k, v in M.items(): f.write(f'\\newcommand{{\\{k}}}{{{v}}}\n')

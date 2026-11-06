@@ -52,9 +52,11 @@ evaluation of the score; choice of block set and $R$), `kx_rothead.py` / `kx_rot
 | resolution-controlled ImageNet (ADM 256, EDM2-XS 512, DiT-XL/2 256) | `prep_c224.py`, `mk_sets_hires.py`, `enc_e512.py`, `enc_dit.py`, `run_hires.py`, `hires_seed.sh`, `hires_cfs.sh`, `mk_q_hires.py`, `patch_hires.py`, `mk_q_6id.py`; DiT-XL/2 after the extraction: `hires_post_dit.sh`, `insert_dit.py`; post-hoc diagnostics: `hires_diag.py` |
 | EuroSAT (no canonical orientation) | `prep_eurosat.py`, `mk_sets_eurosat.py`, `run_e3.py`, `run_e3.sh`, `run_e3s.sh` |
 | chest X-rays, histology, generators trained with rotations | `prep_newid.py`, `mk_sets_e4.py`, `run_e4.py`, `e4_resume.py`, `e4_tier.sh`, `eu/experiments/train.py` |
-| bank size on ImageNet-64 | `mk_e5.py`, `run_e5.py`, `e5_export.py`, `e5_tier.sh` |
+| bank size on ImageNet-64 | `mk_e5b.py`, `run_e5b.py`, `e5b_tier.sh`, `insert_e5b.py` (`PROTOCOL_E5B.md`; the earlier `mk_e5.py`, `run_e5.py`, `e5_export.py`, `e5_tier.sh` built the bank from a differently preprocessed source and are superseded) |
+| ImageNet 256×256 with the same final resampling for every set (`PROTOCOL_HIRES2.md`) | `prep_c112.py`, `mk_sets_hires2.py`, `run_hires2.py`, `hires2_seed.sh`, `hires2_cfs.sh`, `hires2_fix.sh` (the export step, re-run after its per-tier table lacked the new tier), `insert_e7.py` |
 | CSI, comparison method (official code, `PROTOCOL_CSI.md`) | `csi_run.py` (wrapper: our arrays, torchlars / diffdist / tensorboardX stand-ins, resume), `insert_csi.py`, `move_csi.py` (job list) |
 | two notions of ID conformity (post-hoc analysis, Section 5) | `two_subspace.py` (development images, seed 0), `two_subspace2.py` + `run_ts2.sh` (final and development images, seeds 0–2, fitting variants) |
+| controls of the two-notions analysis (`PROTOCOL_E6.md`, `PROTOCOL_E8.md`) | `two_controls.py`, `insert_e6.py`; `two_controls2.py`, `insert_e8.py` |
 
 ## Data preparation
 

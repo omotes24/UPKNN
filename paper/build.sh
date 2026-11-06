@@ -3,7 +3,7 @@
 set -e
 cd "$(dirname "$0")"
 python3 gen/mk_ijcai.py > /dev/null
-python3 gen/mk_two.py > /dev/null
+python3 gen/mk_two.py > /dev/null 2>&1
 python3 gen/mk_hires.py > /dev/null
 python3 gen/mk_fig3_en.py > /dev/null
 python3 gen/mk_fig1_en.py > /dev/null

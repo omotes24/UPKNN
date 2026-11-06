@@ -13,6 +13,10 @@ TS = {}
 for f in glob.glob(f'{D}/two_subspace2/*.json'):
     z = json.load(open(f)); TS[(z['tag'], z['seed'], z['split'])] = z
 DEF = 'n4000_r1e-3'                                                          # the fitting of two_subspace.py
+TC = {}                                                                      # PROTOCOL_E6.md controls (code/two_controls.py), per tag and seed
+for f in glob.glob(f'{D}/two_controls/*.json'):
+    z = json.load(open(f)); TC.setdefault(z['tag'], {})[z['seed']] = z
+def tcm(t, fn): return float(np.mean([fn(z) for z in TC[t].values()])) if t in TC else float('nan')
 SEEDS = (0, 1, 2)
 
 
@@ -55,8 +59,9 @@ def fx(x): return f'{x:.2f}' if x < 1 else (f'{x:.1f}' if x < 10 else f'{x:.0f}'
 rows = []
 for t in TAGS:
     g, n = G[t], T[t]
-    rows.append(' & '.join([NAME[t], f2(g['ratio']), f1(100 * g['btot']), fx(g['lda']), fx(g['pca']), f1(n['knn_vf']), f1(g['p3vf']), f1(g['f3vf']), f1(n['head_vf']),
-                            f1(n['knn_nat']), f1(n['head_nat']), f1(n['sum_nat']), f2(n['rho'])]) + r'\\')
+    gvf = tcm(t, lambda z: z['C_head_g_only']['alone']['flip'])
+    rows.append(' & '.join([NAME[t], f2(g['ratio']), f1(100 * g['btot']), fx(g['lda']), f1(n['knn_vf']), f1(g['p3vf']), f1(g['f3vf']), ('--' if np.isnan(gvf) else f1(gvf)), f1(n['head_vf']),
+                            f1(n['knn_nat']), f1(n['head_nat']), f1(n['sum_nat']), f'${f2(n["rho"])}$']) + r'\\')
 open(f'{OUT}/tab_two.tex', 'w').write('% written by gen/mk_two.py\n' + '\n'.join(rows) + '\n')
 # ---------------------------------------------------------------------------------------------------------------- macros
 M = {}
@@ -91,7 +96,7 @@ DV = {t: geo(t, sp='fresh') for t in TAGS}
 M['varLdaVarMin'] = fx(min(VG[t][v]['lda'] for t in TAGS for v in VARS)); M['varLdaVarMax'] = fx(max(VG[t][v]['lda'] for t in TAGS for v in VARS))
 M['natLdaVarMin'] = f1(min(VG[t][v]['f3nat'] for t in TAGS for v in VARS)); M['natLdaVarMax'] = f1(max(VG[t][v]['f3nat'] for t in TAGS for v in VARS))
 M['sdLdaNatMax'] = f1(max(G[t]['sd_f3nat'] for t in TAGS))
-po = [VG[t][v]['pca'] / VG[t][v]['lda'] for t in TAGS for v in VARS]
+po = [G[t]['pca'] / G[t]['lda'] for t in TAGS]                        # the fit of Table 1 (DEF, seeds 0-2); the other fits are in the supplement
 def big(x): return f'{x:,.0f}'.replace(',', '{,}') if x >= 100 else f'{x:.0f}'
 M['pcOverLdaMin'] = big(min(po)); M['pcOverLdaMax'] = big(max(po))
 H3 = ['edmc10', 'edmc100', 'in64']
@@ -105,6 +110,110 @@ M['btotIN'] = f1(100 * G['in64']['btot']); M['btotCH'] = f1(100 * G['edmc100']['
 M['ldaShareMaxPct'] = f1(100 * max(TS[(t, 0, 'final2')]['subspace'][v]['lda']['3'] for t in TAGS for v in VARS))
 M['pcShareMinPct'] = f'{100 * min(TS[(t, 0, "final2")]["subspace"][DEF]["pca"]["3"] for t in TAGS):.0f}'
 M['pcShareMaxPct'] = f'{100 * max(TS[(t, 0, "final2")]["subspace"][DEF]["pca"]["3"] for t in TAGS):.0f}'
+if TC:
+    def rng(fn, fmt=f1):
+        v = [tcm(t, fn) for t in TAGS if t in TC]; return fmt(min(v)), fmt(max(v))
+    M['gAccMin'], M['gAccMax'] = rng(lambda z: 100 * z['C_head_g_only']['acc'])
+    M['gVfMin'], M['gVfMax'] = rng(lambda z: z['C_head_g_only']['alone']['flip'])
+    M['gNatMin'], M['gNatMax'] = rng(lambda z: z['C_head_g_only']['alone']['nat_mean'])
+    M['pixAccMin'], M['pixAccMax'] = rng(lambda z: 100 * z['D_pixel_head']['pix2']['acc'])
+    M['pixVfMin'], M['pixVfMax'] = rng(lambda z: z['D_pixel_head']['pix2']['alone']['flip'])
+    M['pixNatMin'], M['pixNatMax'] = rng(lambda z: z['D_pixel_head']['pix2']['alone']['nat_mean'])
+    M['pixSumMin'], M['pixSumMax'] = rng(lambda z: z['D_pixel_head']['pix2']['sum_with_knn_term']['nat_mean'])
+    M['mthreeShareMin'], M['mthreeShareMax'] = rng(lambda z: 100 * z['B_mean3']['share_of_total'])
+    M['mthreeRandMin'], M['mthreeRandMax'] = rng(lambda z: z['B_mean3']['share_over_random3'], lambda x: f'{x:.0f}')
+    M['mthreeVfMin'], M['mthreeVfMax'] = rng(lambda z: z['B_mean3']['knn']['euc']['flip'])
+    M['fullVfMin'], M['fullVfMax'] = rng(lambda z: z['A_full_head_space']['euc']['flip'])
+    M['fullCosVfMin'], M['fullCosVfMax'] = rng(lambda z: z['A_full_head_space']['cos']['flip'])
+    M['dKfiveMin'], M['dKfiveMax'] = rng(lambda z: 100 * (z['E_d']['n3000_k5'] / z['E_d']['n3000_k20'] - 1), lambda x: f'{x:+.0f}')
+    M['dKfiftyMin'], M['dKfiftyMax'] = rng(lambda z: 100 * (z['E_d']['n3000_k50'] / z['E_d']['n3000_k20'] - 1), lambda x: f'{x:+.0f}')
+    M['nControlTiers'] = str(len(TC))
+    # the four natural-image datasets against the two aligned ones (CelebA, FashionMNIST): a distance sees the frame only on the latter
+    NATI = ['edmc10', 'l6svhn', 'edmc100', 'in64']; ALI = ['dpceleba', 'fmnist']
+    def rng2(fn, tags, fmt=f1):
+        v = [tcm(t, fn) for t in tags if t in TC]; return fmt(min(v)), fmt(max(v))
+    M['fullVfNatMin'], M['fullVfNatMax'] = rng2(lambda z: z['A_full_head_space']['euc']['flip'], NATI)
+    M['fullVfAliMin'], M['fullVfAliMax'] = rng2(lambda z: z['A_full_head_space']['euc']['flip'], ALI)
+    M['fullCosVfNatMin'], M['fullCosVfNatMax'] = rng2(lambda z: z['A_full_head_space']['cos']['flip'], NATI)
+    M['fullCosVfAliMin'], M['fullCosVfAliMax'] = rng2(lambda z: z['A_full_head_space']['cos']['flip'], ALI)
+    M['mthreeVfNatMin'], M['mthreeVfNatMax'] = rng2(lambda z: z['B_mean3']['knn']['euc']['flip'], NATI)
+    M['mthreeVfAliMin'], M['mthreeVfAliMax'] = rng2(lambda z: z['B_mean3']['knn']['euc']['flip'], ALI)
+    M['gVfNatMin'], M['gVfNatMax'] = rng2(lambda z: z['C_head_g_only']['alone']['flip'], NATI)
+    M['gAccNatMin'], M['gAccNatMax'] = rng2(lambda z: 100 * z['C_head_g_only']['acc'], NATI)
+    M['pixAccNatMin'], M['pixAccNatMax'] = rng2(lambda z: 100 * z['D_pixel_head']['pix2']['acc'], NATI)
+    M['pixVfNatMin'], M['pixVfNatMax'] = rng2(lambda z: z['D_pixel_head']['pix2']['alone']['flip'], NATI)
+    M['pixNatNatMin'], M['pixNatNatMax'] = rng2(lambda z: z['D_pixel_head']['pix2']['alone']['nat_mean'], NATI)
+    M['pixAccAliMin'], M['pixAccAliMax'] = rng2(lambda z: 100 * z['D_pixel_head']['pix2']['acc'], ALI)
+    M['pixVfAliMin'], M['pixVfAliMax'] = rng2(lambda z: z['D_pixel_head']['pix2']['alone']['flip'], ALI)
+    M['knnVfNatMin'] = f1(min(T[t]['knn_vf'] for t in NATI)); M['knnVfNatMax'] = f1(max(T[t]['knn_vf'] for t in NATI))
+    M['headVfNatMin'] = f1(min(T[t]['head_vf'] for t in NATI)); M['headVfNatMax'] = f1(max(T[t]['head_vf'] for t in NATI))
+    ACC = {'edmc10': 95.5, 'l6svhn': 86.7, 'dpceleba': 100.0, 'edmc100': 88.2, 'in64': 77.3, 'fmnist': 99.7}   # held-out accuracy of the full head (seed 0; logs/kx/headsR_<tag>.log, as mk_ijcai.py)
+    M['headAccNatMin'] = f1(min(ACC[t] for t in NATI)); M['headAccNatMax'] = f1(max(ACC[t] for t in NATI))
+    # the 2x2 grid statistics q add little: head on g alone against the full head, largest absolute difference over the six datasets
+    gd_vf = [abs(tcm(t, lambda z: z['C_head_g_only']['alone']['flip']) - T[t]['head_vf']) for t in TAGS if t in TC]
+    gd_nat = [abs(tcm(t, lambda z: z['C_head_g_only']['alone']['nat_mean']) - T[t]['head_nat']) for t in TAGS if t in TC]
+    M['gridGainVfMax'] = f1(max(gd_vf)); M['gridGainNatMax'] = f1(max(gd_nat))
+    sg_vf = [T[t]['head_vf'] - tcm(t, lambda z: z['C_head_g_only']['alone']['flip']) for t in TAGS if t in TC]       # full head minus head on g (signed)
+    sg_nat = [T[t]['head_nat'] - tcm(t, lambda z: z['C_head_g_only']['alone']['nat_mean']) for t in TAGS if t in TC]
+    M['gridDeltaVfMin'] = f'{min(sg_vf):+.1f}'; M['gridDeltaVfMax'] = f'{max(sg_vf):+.1f}'; M['gridDeltaNatMin'] = f'{min(sg_nat):+.1f}'; M['gridDeltaNatMax'] = f'{max(sg_nat):+.1f}'
+    M['gridNatBetterG'] = str(sum(tcm(t, lambda z: z['C_head_g_only']['alone']['nat_mean']) > T[t]['head_nat'] for t in TAGS if t in TC))
+# ---- PROTOCOL_E8.md controls (code/two_controls2.py): posterior shape by decision region (F), ratio at fixed R (G), whitened kNN (H)
+TC2 = {}
+for f in glob.glob(f'{D}/two_controls2/*.json'):
+    z = json.load(open(f)); TC2.setdefault(z['tag'], {})[z['seed']] = z
+def tcm2(t, fn):
+    v = [fn(z) for z in TC2[t].values()]; return float(np.nanmean(v)) if not all(np.isnan(v)) else float('nan')
+if TC2:
+    NATI = ['edmc10', 'l6svhn', 'edmc100', 'in64']; ALI = ['dpceleba', 'fmnist']
+    def rng3(fn, tags, fmt=f1):
+        v = [tcm2(t, fn) for t in tags if t in TC2]; return fmt(min(v)), fmt(max(v))
+    for rk, c in (('ridge0.01', 'A'), ('ridge0.1', 'B')):
+        M[f'wh{c}VfNatMin'], M[f'wh{c}VfNatMax'] = rng3(lambda z: z['H_whitened'][rk]['flip'], NATI)
+        M[f'wh{c}VfAliMin'], M[f'wh{c}VfAliMax'] = rng3(lambda z: z['H_whitened'][rk]['flip'], ALI)
+        M[f'wh{c}NatNatMin'], M[f'wh{c}NatNatMax'] = rng3(lambda z: z['H_whitened'][rk]['nat_mean'], NATI)
+    M['whVfNatMin'] = f1(min(tcm2(t, lambda z: z['H_whitened'][rk]['flip']) for t in NATI if t in TC2 for rk in ('ridge0.01', 'ridge0.1')))
+    M['whVfNatMax'] = f1(max(tcm2(t, lambda z: z['H_whitened'][rk]['flip']) for t in NATI if t in TC2 for rk in ('ridge0.01', 'ridge0.1')))
+    # posterior shape: ID images, upside-down ID images, and the natural OOD images flagged by the orientation term only
+    def ps(reg, key):
+        def f(z):
+            d = z['F_posterior'][reg] if reg in ('id', 'vflip', 'ood_all') else z['F_posterior']['ood_regions'][reg]
+            return 100 * d[key] if key in d else float('nan')
+        return f
+    for reg, c in (('id', 'Id'), ('vflip', 'Vf'), ('orient_only', 'OrOnly'), ('knn_only', 'KnnOnly'), ('both', 'Both'), ('neither', 'Neither'), ('ood_all', 'OodAll')):
+        for key, kc in (('flat', 'Flat'), ('wrong_peak', 'Wrong'), ('up_peak', 'Up')):
+            M[f'ps{c}{kc}Min'], M[f'ps{c}{kc}Max'] = rng3(ps(reg, key), TAGS)
+            M[f'ps{c}{kc}NatMin'], M[f'ps{c}{kc}NatMax'] = rng3(ps(reg, key), NATI)
+    for t, c in (('in64', 'IN'), ('edmc10', 'Cten'), ('edmc100', 'CH')):
+        if t in TC2:
+            for reg, rc in (('orient_only', 'OrOnly'), ('knn_only', 'KnnOnly'), ('id', 'Id'), ('vflip', 'Vf')):
+                for key, kc in (('flat', 'Flat'), ('wrong_peak', 'Wrong'), ('up_peak', 'Up')): M[f'ps{rc}{kc}{c}'] = f1(tcm2(t, ps(reg, key)))
+            M[f'psOrOnlyN{c}'] = str(int(round(tcm2(t, lambda z: z['F_posterior']['ood_regions']['orient_only']['n']))))
+    # the displacement ratio of Table 1 at fixed neighbour ranks
+    for rk, rn in (('R1', 'Rone'), ('R10', 'Rten'), ('R100', 'Rhundred')):
+        for t in TAGS:
+            if t in TC2: M[f'ratio{rn}{ {"edmc10": "Cten", "l6svhn": "SVHN", "dpceleba": "Celeb", "edmc100": "CH", "in64": "IN", "fmnist": "FM"}[t] }'] = f'{tcm2(t, lambda z, rk=rk: z["G_ratio"][rk]["median"]):.2f}'
+    M['nControlTiersTwo'] = str(len(TC2))
+    for t, c in (('in64', 'IN'), ('edmc10', 'Cten'), ('edmc100', 'CH'), ('l6svhn', 'SVHN')):
+        if t in TC2: M[f'psKnnOnlyN{c}'] = str(int(round(tcm2(t, lambda z: z['F_posterior']['ood_regions']['knn_only']['n']))))
+    # posterior-shape ranges over the three natural-image datasets with hundreds of orientation-only images (CIFAR-10, CIFAR-100, ImageNet-64)
+    BIG = ['edmc10', 'edmc100', 'in64']
+    for key, kc in (('flat', 'Flat'), ('wrong_peak', 'Wrong'), ('up_peak', 'Up')):
+        M[f'psOrOnly{kc}BigMin'], M[f'psOrOnly{kc}BigMax'] = rng3(ps('orient_only', key), BIG)
+        M[f'psKnnOnly{kc}BigMin'], M[f'psKnnOnly{kc}BigMax'] = rng3(ps('knn_only', key), BIG)
+        M[f'psVf{kc}BigMin'], M[f'psVf{kc}BigMax'] = rng3(ps('vflip', key), BIG)
+        M[f'psId{kc}BigMin'], M[f'psId{kc}BigMax'] = rng3(ps('id', key), BIG)
+    # supplementary table rows: whitened kNN (two ridges: flip, natural) | posterior shape (ID flat; flip wrong-peak; orientation-only flat, wrong; kNN-only flat, wrong) | ratio at R = 1, 10, 100
+    rows = []
+    for t in TAGS:
+        if t not in TC2: continue
+        c = [tcm2(t, lambda z: z['H_whitened']['ridge0.01']['flip']), tcm2(t, lambda z: z['H_whitened']['ridge0.01']['nat_mean']),
+             tcm2(t, lambda z: z['H_whitened']['ridge0.1']['flip']), tcm2(t, lambda z: z['H_whitened']['ridge0.1']['nat_mean']),
+             tcm2(t, ps('id', 'flat')), tcm2(t, ps('vflip', 'wrong_peak')), tcm2(t, ps('vflip', 'flat')),
+             tcm2(t, ps('orient_only', 'flat')), tcm2(t, ps('orient_only', 'wrong_peak')), tcm2(t, ps('knn_only', 'flat')), tcm2(t, ps('knn_only', 'wrong_peak')),
+             tcm2(t, lambda z: z['G_ratio']['R1']['median']), tcm2(t, lambda z: z['G_ratio']['R10']['median']), tcm2(t, lambda z: z['G_ratio']['R100']['median'])]
+        rows.append(NAME[t] + ' & ' + ' & '.join(('--' if np.isnan(v) else (f'{v:.2f}' if i >= 11 else f1(v))) for i, v in enumerate(c)) + r'\\')
+    open(f'{OUT}/supp_controls2.tex', 'w').write('% written by gen/mk_two.py\n' + '\n'.join(rows) + '\n')
+assert all(not any(ch.isdigit() for ch in k) for k in M), [k for k in M if any(ch.isdigit() for ch in k)]
 with open(f'{OUT}/numbers_two.tex', 'w') as f:
     f.write('% written by gen/mk_two.py\n')
     for k, v in M.items(): f.write(f'\\newcommand{{\\{k}}}{{{v}}}\n')
@@ -120,7 +229,7 @@ rows = [' & '.join([NAME[t], f1(G[t]['f3nat']), f1(G[t]['f3cnat']), f1(G[t]['p3n
                     f1(T[t]['knn_nat']), f1(T[t]['head_nat'])]) + r'\\' for t in TAGS]
 open(f'{OUT}/supp_two_nat.tex', 'w').write('% written by gen/mk_two.py\n' + '\n'.join(rows) + '\n')
 SETN = {'cifar10_test': 'CIFAR-10', 'cifar100_test': 'CIFAR-100', 'svhn_test': 'SVHN', 'celeba_test': 'CelebA', 'textures': 'Textures',
-        'tin_val': 'Tiny-ImageNet', 'lsun_fix': 'LSUN', 'imagenet_fix': 'ImageNet', 'imagenet32_val': 'ImageNet32', 'places365_val': 'Places365',
+        'tin_val': 'Tiny-ImageNet', 'lsun_fix': 'LSUN-FIX', 'imagenet_fix': 'ImageNet-FIX', 'imagenet32_val': 'ImageNet32', 'places365_val': 'Places365',
         'in64_ssb_hard': 'SSB-hard', 'in64_ninco': 'NINCO', 'in64_inaturalist': 'iNaturalist', 'in64_textures': 'Textures', 'in64_openimage_o': 'OpenImage-O',
         'in64_places365': 'Places365', 'in64_celeba_test': 'CelebA', 'g32_mnist_test': 'MNIST', 'g32_kmnist_test': 'KMNIST', 'g32_omniglot_eval': 'Omniglot',
         'g32_notmnist': 'notMNIST'}
@@ -128,7 +237,7 @@ rows = []
 for t in TAGS:
     for k, o in enumerate(nat(t) + [vf(t)]):
         v = TN[t][o]; lab = SETN.get(o, 'upside-down ID')
-        rows.append(' & '.join([NAME[t] if k == 0 else '', lab, f1(v['au_c']), f1(v['au_p']), f1(v['au_s']), f1(v['only_c']), f1(v['only_p']), f1(v['both']), f2(v['rho'])]) + r'\\')
+        rows.append(' & '.join([NAME[t] if k == 0 else '', lab, f1(v['au_c']), f1(v['au_p']), f1(v['au_s']), f1(v['only_c']), f1(v['only_p']), f1(v['both']), f'${f2(v["rho"])}$']) + r'\\')
     rows.append(r'\midrule')
 open(f'{OUT}/supp_two_sets.tex', 'w').write('% written by gen/mk_two.py\n' + '\n'.join(rows[:-1]) + '\n')
 print(json.dumps({t: {k: round(v, 3) for k, v in G[t].items()} for t in TAGS}, indent=0)[:3000])

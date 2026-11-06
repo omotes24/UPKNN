@@ -1,36 +1,36 @@
-CIFAR-10 & CIFAR-100 & 80.3 & 78.4 & Rot.\ pred. & $+$1.9 & 77.1 & \textbf{$+$3.2}\\
- & SVHN & 99.9 & 99.5 & DiffPath & \textbf{$+$0.3} & 99.7 & $+$0.1\\
- & CelebA & 96.0 & 86.2 & Rot.\ pred. & \textbf{$+$9.8} & 89.6 & \textbf{$+$6.4}\\
- & Textures & 99.5 & 97.5 & CFS-kNN & \textbf{$+$2.0} & 99.6 & $-$0.1\\
- & Tiny-ImageNet & 96.1 & 83.7 & Rot.\ pred. & \textbf{$+$12.4} & 92.1 & \textbf{$+$3.9}\\
- & LSUN & 96.7 & 85.0 & IC-PNG & \textbf{$+$11.7} & 96.2 & $+$0.6\\
- & ImageNet (resized) & 97.6 & 88.1 & CFS-kNN & \textbf{$+$9.5} & 97.1 & $+$0.5\\
- & ImageNet32 & 96.3 & 89.5 & CFS-kNN & \textbf{$+$6.9} & 96.2 & $+$0.1\\
- & Places365 & 96.0 & 84.7 & IC-PNG & \textbf{$+$11.3} & 95.7 & $+$0.3\\
+CIFAR-10 & CIFAR-100 & 80.3 & 91.1 & CSI & \textit{$-$10.9} & 77.1 & \textbf{$+$3.2}\\
+ & SVHN & 99.9 & 99.9 & CSI & 0.0 & 99.7 & $+$0.1\\
+ & CelebA & 96.0 & 94.9 & CSI & $+$1.1 & 89.6 & \textbf{$+$6.4}\\
+ & Textures & 99.5 & 99.3 & CSI & $+$0.2 & 99.6 & $-$0.1\\
+ & Tiny-ImageNet & 96.1 & 93.6 & CSI & \textbf{$+$2.5} & 92.1 & \textbf{$+$3.9}\\
+ & LSUN-FIX & 96.7 & 93.5 & CSI & \textbf{$+$3.2} & 96.2 & $+$0.6\\
+ & ImageNet-FIX & 97.6 & 95.4 & CSI & \textbf{$+$2.2} & 97.1 & $+$0.5\\
+ & ImageNet32 & 96.3 & 91.5 & CSI & \textbf{$+$4.8} & 96.2 & $+$0.1\\
+ & Places365 & 96.0 & 92.7 & CSI & \textbf{$+$3.4} & 95.7 & $+$0.3\\
  & upside-down ID & 96.1 & 99.3 & Rot.\ pred. & \textit{$-$3.2} & 77.2 & \textbf{$+$18.9}\\
  & uniform noise & 100.0 & 100.0 & NLL & 0.0 & 100.0 & 0.0\\
  & constant & 100.0 & 100.0 & CFS & 0.0 & 100.0 & 0.0\\
 \midrule
-SVHN & CIFAR-10 & 99.6 & 99.0 & DiffPath & \textbf{$+$0.7} & 99.2 & \textbf{$+$0.5}\\
- & CIFAR-100 & 99.7 & 99.2 & DiffPath & \textbf{$+$0.5} & 99.4 & \textbf{$+$0.3}\\
+SVHN & CIFAR-10 & 99.6 & 99.9 & DDPM-OOD & \textit{$-$0.3} & 99.2 & \textbf{$+$0.5}\\
+ & CIFAR-100 & 99.7 & 99.9 & DDPM-OOD & \textit{$-$0.2} & 99.4 & \textbf{$+$0.3}\\
  & CelebA & 99.2 & 100.0 & NLL & \textit{$-$0.8} & 98.2 & \textbf{$+$1.0}\\
  & Textures & 99.9 & 99.9 & MSMA$^{*}$ & 0.0 & 99.8 & \textbf{$+$0.1}\\
- & Tiny-ImageNet & 99.7 & 98.8 & DiffPath & \textbf{$+$0.9} & 99.4 & \textbf{$+$0.4}\\
- & LSUN & 99.9 & 99.9 & DiffPath & 0.0 & 99.7 & \textbf{$+$0.2}\\
- & ImageNet (resized) & 99.9 & 99.8 & DiffPath & $+$0.1 & 99.7 & \textbf{$+$0.2}\\
+ & Tiny-ImageNet & 99.7 & 99.8 & DDPM-OOD & $-$0.1 & 99.4 & \textbf{$+$0.4}\\
+ & LSUN-FIX & 99.9 & 99.9 & DDPM-OOD & 0.0 & 99.7 & \textbf{$+$0.2}\\
+ & ImageNet-FIX & 99.9 & 99.9 & DDPM-OOD & 0.0 & 99.7 & \textbf{$+$0.2}\\
  & ImageNet32 & 99.9 & 100.0 & DiffPath & $-$0.1 & 99.7 & \textbf{$+$0.2}\\
- & Places365 & 99.8 & 99.8 & DiffPath & 0.0 & 99.7 & \textbf{$+$0.2}\\
- & upside-down ID & 64.5 & 77.7 & Rot.\ pred. & \textit{$-$13.1} & 55.9 & \textbf{$+$8.6}\\
+ & Places365 & 99.8 & 99.9 & DDPM-OOD & $-$0.1 & 99.7 & \textbf{$+$0.2}\\
+ & upside-down ID & 64.5 & 84.6 & CSI & \textit{$-$20.0} & 55.9 & \textbf{$+$8.6}\\
  & uniform noise & 100.0 & 100.0 & NLL & 0.0 & 100.0 & 0.0\\
- & constant & 100.0 & 100.0 & CFS & 0.0 & 100.0 & 0.0\\
+ & constant & 100.0 & 100.0 & CSI & 0.0 & 100.0 & 0.0\\
 \midrule
-CelebA & CIFAR-10 & 100.0 & 100.0 & Rot.\ pred. & 0.0 & 100.0 & 0.0\\
+CelebA & CIFAR-10 & 100.0 & 100.0 & CSI & 0.0 & 100.0 & 0.0\\
  & CIFAR-100 & 100.0 & 100.0 & Rot.\ pred. & 0.0 & 99.9 & \textbf{$+$0.1}\\
  & SVHN & 100.0 & 100.0 & DiffPath & 0.0 & 100.0 & 0.0\\
  & Textures & 100.0 & 100.0 & Rot.\ pred. & 0.0 & 100.0 & 0.0\\
- & Tiny-ImageNet & 100.0 & 99.9 & DiffPath & \textbf{$+$0.1} & 99.9 & 0.0\\
- & LSUN & 100.0 & 100.0 & Rot.\ pred. & 0.0 & 99.9 & 0.0\\
- & ImageNet (resized) & 100.0 & 100.0 & Rot.\ pred. & 0.0 & 100.0 & 0.0\\
+ & Tiny-ImageNet & 100.0 & 100.0 & CSI & 0.0 & 99.9 & 0.0\\
+ & LSUN-FIX & 100.0 & 100.0 & Rot.\ pred. & 0.0 & 99.9 & 0.0\\
+ & ImageNet-FIX & 100.0 & 100.0 & Rot.\ pred. & 0.0 & 100.0 & 0.0\\
  & ImageNet32 & 100.0 & 100.0 & Rot.\ pred. & 0.0 & 99.9 & \textbf{$+$0.1}\\
  & Places365 & 100.0 & 100.0 & Rot.\ pred. & 0.0 & 100.0 & 0.0\\
  & upside-down ID & 100.0 & 100.0 & Rot.\ pred. & 0.0 & 99.8 & \textbf{$+$0.2}\\
@@ -41,9 +41,9 @@ CIFAR-100 & CIFAR-10 & 64.1 & 65.9 & CFS-kNN & $-$1.8 & 66.6 & \textit{$-$2.5}\\
  & SVHN & 99.5 & 97.8 & DiffPath & \textbf{$+$1.7} & 98.9 & \textbf{$+$0.6}\\
  & CelebA & 78.4 & 61.3 & IC-J2K & \textbf{$+$17.1} & 77.7 & $+$0.7\\
  & Textures & 99.0 & 93.3 & CFS & \textbf{$+$5.7} & 98.8 & $+$0.2\\
- & Tiny-ImageNet & 86.4 & 70.4 & DiffPath & \textbf{$+$16.0} & 82.6 & \textbf{$+$3.8}\\
- & LSUN & 81.7 & 78.5 & IC-PNG & \textbf{$+$3.1} & 82.4 & $-$0.7\\
- & ImageNet (resized) & 88.3 & 73.0 & CFS-kNN & \textbf{$+$15.3} & 88.1 & $+$0.2\\
+ & Tiny-ImageNet & 86.4 & 80.2 & CSI & \textbf{$+$6.2} & 82.6 & \textbf{$+$3.8}\\
+ & LSUN-FIX & 81.7 & 78.5 & IC-PNG & \textbf{$+$3.1} & 82.4 & $-$0.7\\
+ & ImageNet-FIX & 88.3 & 78.0 & CSI & \textbf{$+$10.3} & 88.1 & $+$0.2\\
  & ImageNet32 & 88.9 & 81.6 & CFS-kNN & \textbf{$+$7.3} & 89.4 & $-$0.5\\
  & Places365 & 83.0 & 79.0 & IC-PNG & \textbf{$+$4.0} & 83.7 & $-$0.7\\
  & upside-down ID & 79.1 & 96.5 & Rot.\ pred. & \textit{$-$17.4} & 56.8 & \textbf{$+$22.4}\\
@@ -60,10 +60,10 @@ ImageNet-64 & SSB-hard & 67.3 & 56.2 & MSMA$^{*}$ & \textbf{$+$11.2} & 67.8 & $-
  & upside-down ID & 80.4 & 94.5 & Rot.\ pred. & \textit{$-$14.1} & 50.5 & \textbf{$+$29.9}\\
 \midrule
 FashionMNIST & MNIST & 100.0 & 100.0 & CFS-kNN & 0.0 & 100.0 & 0.0\\
- & KMNIST & 100.0 & 100.0 & CFS-kNN & 0.0 & 99.9 & \textbf{$+$0.1}\\
- & Omniglot & 99.9 & 99.9 & Rot.\ pred. & 0.0 & 99.6 & \textbf{$+$0.3}\\
+ & KMNIST & 100.0 & 100.0 & CSI & 0.0 & 99.9 & \textbf{$+$0.1}\\
+ & Omniglot & 99.9 & 100.0 & CSI & \textit{$-$0.1} & 99.6 & \textbf{$+$0.3}\\
  & notMNIST & 100.0 & 100.0 & CFS-kNN & 0.0 & 99.9 & 0.0\\
- & upside-down ID & 99.7 & 99.9 & Rot.\ pred. & $-$0.2 & 96.0 & \textbf{$+$3.7}\\
+ & upside-down ID & 99.7 & 100.0 & CSI & \textit{$-$0.3} & 96.0 & \textbf{$+$3.7}\\
  & uniform noise & 100.0 & 100.0 & NLL & 0.0 & 100.0 & 0.0\\
  & constant & 100.0 & 100.0 & IC-PNG & 0.0 & 100.0 & 0.0\\
 \bottomrule

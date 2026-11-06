@@ -16,12 +16,17 @@ inputs (`final/data_kx/`, `final/data_ok/`, `final/data/`, `final/eu_stage/`, `e
 | `e3_ana.json` | `final/e3/ana/e3_ana.py` | EuroSAT |
 | `two_notions.json` | `final/ana_two/two_notions.py` | the two terms per image (final evaluation, seeds 0–2): Spearman correlation, AUROC of each term and of the sum, OOD images flagged by one term only or by both at 95% TPR (Table 1 and the supplement) |
 | `two_subspace2/<tier>_s<seed>_<split>.json` | GPU side: `code/two_subspace2.py` (`code/run_ts2.sh`) | geometry of the two notions: rotation displacement vs neighbour distance, discriminant / principal / random directions, kNN restricted to them (Table 1 and the supplement) |
-| `qual_sel.json`, `qual_ims.npz` | `final/ana_two/qual/select_qual.py` (fixed rule), the images fetched from the arrays | Figure 3 |
-| (pending) | `final/csi/ana/csi_ana.py` | CSI against Upright kNN with the bootstrap of `ours_vs_all.py` (written before the scores; `PROTOCOL_CSI.md`) |
-| `hires_ana.json`, `hires_diag.json` | `final/hires/ana/hires_ana.py`; GPU side `code/hires_diag.py` | resolution-controlled ImageNet (ADM 256, EDM2-XS 512, DiT-XL/2 256; Table 4 and the supplement); post-hoc diagnostics (pixel statistics of the bottlenecked images, collapse of DiT's pooled statistics) |
-| (pending) | `final/e4/ana/e4_ana.py`, `final/e5/ana/e5_ana.py` | chest X-rays, histology and rotation-trained generators; bank size (written before the results) |
+| `qual_sel.json`, `qual_ims.npz` | `final/ana_two/qual/select_qual.py` (fixed rule), the images fetched from the arrays | Figure S1 |
+| `csi_ana.json` | `final/csi/ana/csi_ana.py` | CSI against Upright kNN with the bootstrap of `ours_vs_all.py` (written before the scores; `PROTOCOL_CSI.md`) |
+| `newrows_final2.json` | `final/ana_kx/newrows_final2.py` | DDPM-OOD, LMD and likelihood + LID (dual-threshold AUROC, the frontier of the public `roc_analysis`) on the final split, with the bootstrap of `ours_vs_all.py` |
+| `weight_sweep.json` | `final/ana_kx/weight_sweep.py` | the relative weight $w$ of the two terms on the development and final images |
+| `hires_ana.json`, `hires_diag.json` | `final/hires/ana/hires_ana.py`; GPU side `code/hires_diag.py` | resolution-controlled ImageNet (ADM 256, EDM2-XS 512, DiT-XL/2 256; Section 6.3 and the supplement); post-hoc diagnostics (pixel statistics of the bottlenecked images, collapse of DiT's pooled statistics) |
+| `e4_ana.json` | `final/e4/ana/e4_ana.py` | chest X-rays, histology and rotation-trained generators (written before the results) |
+| `e5b_ana.json` | `final/e5b/ana/e5b_ana.py` (`final/e5/ana/e5_ana.py` for the superseded E5 runs) | bank size on ImageNet-64 |
+| `two_controls/`, `two_controls2/` | GPU side: `code/two_controls.py`, `code/two_controls2.py` | controls of the two-notions analysis (`PROTOCOL_E6.md`, `PROTOCOL_E8.md`), read directly by `paper/gen/mk_two.py` and `mk_supp.py` |
+| `e7_ana.json` | `final/e7/ana/e7_ana.py` | ADM 256×256 with the same final resampling for every set against the resolution-controlled tier (`PROTOCOL_HIRES2.md`) |
 | `bench_cpu_session*.jsonl` | `eu/experiments/bench_cpu2.py` (GPU server, CPU timing), `final/ana/bench_ana.py` | seconds per image on a CPU |
-| `ablate2_<tier>.json`, `ofk2_<tier>_s0.json`, `fig1_examples.*`, `dR_s0.json`, `terms_final2_s0.npz` | GPU side: `code/kx_ablate2.py`, `code/kx_ofk2.py`, `code/fig1_examples.py`; `d`, `R`, `T` and the two terms of the seed-0 exports of `code/kx_export.py` | ablations, development evaluation, Figure 1, Figure 2 |
+| `ablate2_<tier>.json`, `ofk2_<tier>_s0.json`, `fig1_examples.*`, `dR_s0.json`, `terms_final2_s0.npz` | GPU side: `code/kx_ablate2.py`, `code/kx_ofk2.py`, `code/fig1_examples.py`; `d`, `R`, `T` and the two terms of the seed-0 exports of `code/kx_export.py` | ablations, development evaluation, Figure 1, Figure S2 |
 
 Shared modules: `final/ana/ana_common.py` (tiers, common images, loaders), `final/ana/boot.py` (the bootstrap),
 `final/ana_ok/ok_common.py` (kNN profiles), `eu_build/Euphonium/analysis/common.py` and `baselines_eval.py` (the eight

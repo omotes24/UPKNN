@@ -1,0 +1,173 @@
+{
+ "tag": "fmnist",
+ "seed": 0,
+ "split": "final2",
+ "R": 1,
+ "id": "final2-g32_fmnist_test",
+ "vflip": "final2-g32_fmnist_test__vflip",
+ "ood": [
+  "final2-g32_mnist_test",
+  "final2-g32_kmnist_test",
+  "final2-g32_omniglot_eval",
+  "final2-g32_notmnist"
+ ],
+ "A_full_head_space": {
+  "euc": {
+   "flip": 95.968,
+   "nat": {
+    "final2-g32_mnist_test": 99.7936,
+    "final2-g32_kmnist_test": 99.7732,
+    "final2-g32_omniglot_eval": 98.802,
+    "final2-g32_notmnist": 99.9932
+   },
+   "nat_mean": 99.5905
+  },
+  "cos": {
+   "flip": 97.3492,
+   "nat": {
+    "final2-g32_mnist_test": 98.8548,
+    "final2-g32_kmnist_test": 99.6068,
+    "final2-g32_omniglot_eval": 95.992,
+    "final2-g32_notmnist": 99.2984
+   },
+   "nat_mean": 98.438
+  }
+ },
+ "B_mean3": {
+  "share_of_total": 0.16451427366825014,
+  "share_over_random3": 265.0719543774478,
+  "random3_mean": 0.0006206400599966563,
+  "pca3_share": 0.3440870152951225,
+  "knn": {
+   "euc": {
+    "flip": 95.4392,
+    "nat": {
+     "final2-g32_mnist_test": 97.5988,
+     "final2-g32_kmnist_test": 98.2092,
+     "final2-g32_omniglot_eval": 99.2848,
+     "final2-g32_notmnist": 95.318
+    },
+    "nat_mean": 97.6027
+   },
+   "cos": {
+    "flip": 96.3822,
+    "nat": {
+     "final2-g32_mnist_test": 90.684,
+     "final2-g32_kmnist_test": 97.1608,
+     "final2-g32_omniglot_eval": 98.9628,
+     "final2-g32_notmnist": 93.1492
+    },
+    "nat_mean": 94.9892
+   }
+  },
+  "knn_pca3": {
+   "euc": {
+    "flip": 83.134,
+    "nat": {
+     "final2-g32_mnist_test": 92.8432,
+     "final2-g32_kmnist_test": 94.8954,
+     "final2-g32_omniglot_eval": 98.0732,
+     "final2-g32_notmnist": 86.4722
+    },
+    "nat_mean": 93.071
+   },
+   "cos": {
+    "flip": 78.094,
+    "nat": {
+     "final2-g32_mnist_test": 91.6744,
+     "final2-g32_kmnist_test": 90.2152,
+     "final2-g32_omniglot_eval": 96.5958,
+     "final2-g32_notmnist": 82.6828
+    },
+    "nat_mean": 90.29205
+   }
+  }
+ },
+ "C_head_g_only": {
+  "acc": 0.9939999580383301,
+  "T": 0.8170763254165649,
+  "alone": {
+   "flip": 99.9764,
+   "nat": {
+    "final2-g32_mnist_test": 99.9256,
+    "final2-g32_kmnist_test": 99.9912,
+    "final2-g32_omniglot_eval": 99.962,
+    "final2-g32_notmnist": 99.836
+   },
+   "nat_mean": 99.9287
+  },
+  "sum_with_knn_term": {
+   "flip": 99.468,
+   "nat": {
+    "final2-g32_mnist_test": 99.996,
+    "final2-g32_kmnist_test": 99.9992,
+    "final2-g32_omniglot_eval": 99.9036,
+    "final2-g32_notmnist": 99.9912
+   },
+   "nat_mean": 99.9725
+  }
+ },
+ "D_pixel_head": {
+  "pix1": {
+   "dim": 10,
+   "acc": 0.6953999996185303,
+   "T": 0.8029695153236389,
+   "alone": {
+    "flip": 83.962,
+    "nat": {
+     "final2-g32_mnist_test": 68.0052,
+     "final2-g32_kmnist_test": 84.8988,
+     "final2-g32_omniglot_eval": 86.5576,
+     "final2-g32_notmnist": 81.9476
+    },
+    "nat_mean": 80.35229999999999
+   },
+   "sum_with_knn_term": {
+    "flip": 97.0888,
+    "nat": {
+     "final2-g32_mnist_test": 99.784,
+     "final2-g32_kmnist_test": 99.7912,
+     "final2-g32_omniglot_eval": 99.6316,
+     "final2-g32_notmnist": 99.8872
+    },
+    "nat_mean": 99.7735
+   }
+  },
+  "pix2": {
+   "dim": 42,
+   "acc": 0.9128499627113342,
+   "T": 0.8609012365341187,
+   "alone": {
+    "flip": 95.4072,
+    "nat": {
+     "final2-g32_mnist_test": 86.5512,
+     "final2-g32_kmnist_test": 90.3788,
+     "final2-g32_omniglot_eval": 95.59,
+     "final2-g32_notmnist": 83.7524
+    },
+    "nat_mean": 89.06809999999999
+   },
+   "sum_with_knn_term": {
+    "flip": 98.222,
+    "nat": {
+     "final2-g32_mnist_test": 99.974,
+     "final2-g32_kmnist_test": 99.948,
+     "final2-g32_omniglot_eval": 99.8192,
+     "final2-g32_notmnist": 99.9696
+    },
+    "nat_mean": 99.9277
+   }
+  }
+ },
+ "E_d": {
+  "n3000_k5": 18.543317794799805,
+  "n3000_k10": 15.025739669799805,
+  "n3000_k20": 13.404420852661133,
+  "n3000_k50": 12.03098201751709,
+  "n10000_k5": 18.53066062927246,
+  "n10000_k10": 14.991252899169922,
+  "n10000_k20": 13.395097732543945,
+  "n10000_k50": 11.994431495666504
+ },
+ "seconds": 268.0612142086029
+}

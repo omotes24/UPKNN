@@ -7,17 +7,28 @@ import numpy as np
 HERE = os.path.dirname(os.path.abspath(__file__)); OUT = os.path.dirname(HERE); D = os.path.join(HERE, 'data')
 TAGS = ['edmc10', 'l6svhn', 'dpceleba', 'edmc100', 'in64', 'fmnist']
 NAME = {'edmc10': 'CIFAR-10', 'l6svhn': 'SVHN', 'dpceleba': 'CelebA', 'edmc100': 'CIFAR-100', 'in64': 'ImageNet-64', 'fmnist': 'FashionMNIST'}
-SETN = {'svhn_test': 'SVHN', 'textures': 'Textures', 'celeba_test': 'CelebA', 'tin_val': 'Tiny-ImageNet', 'lsun_fix': 'LSUN', 'imagenet_fix': 'ImageNet (resized)',
+SETN = {'svhn_test': 'SVHN', 'textures': 'Textures', 'celeba_test': 'CelebA', 'tin_val': 'Tiny-ImageNet', 'lsun_fix': 'LSUN-FIX', 'imagenet_fix': 'ImageNet-FIX',
         'imagenet32_val': 'ImageNet32', 'places365_val': 'Places365', 'cifar100_test': 'CIFAR-100', 'cifar10_test': 'CIFAR-10', 'in64_ssb_hard': 'SSB-hard',
         'in64_ninco': 'NINCO', 'in64_inaturalist': 'iNaturalist', 'in64_textures': 'Textures', 'in64_openimage_o': 'OpenImage-O', 'in64_places365': 'Places365',
         'in64_celeba_test': 'CelebA', 'g32_mnist_test': 'MNIST', 'g32_kmnist_test': 'KMNIST', 'g32_omniglot_eval': 'Omniglot', 'g32_notmnist': 'notMNIST',
         'synth_noise': 'uniform noise', 'synth_const': 'constant', 'g32_synth_noise': 'uniform noise', 'g32_synth_const': 'constant'}
-PRIOR = ['NLL', 'IC-png', 'IC-j2k', 'TT', 'MSMA*', 'DiffPath', 'GEPC', 'EigenScore', 'CFS', 'CFS-kNN', 'RotCls4']
+NEWJ = json.load(open(f'{D}/newrows_final2.json')); NEWROWS = [r for r in ('Graham', 'LMD', 'Kamkari') if r in NEWJ['rows']]
+CSI = json.load(open(f'{D}/csi_ana.json')) if os.path.exists(f'{D}/csi_ana.json') else None
+PRIOR = ['NLL', 'IC-png', 'IC-j2k', 'TT', 'MSMA*', 'DiffPath', 'GEPC', 'EigenScore'] + NEWROWS + ['CFS', 'CFS-kNN', 'RotCls4'] + (['CSI'] if CSI else [])
 SHORT = {'NLL': 'NLL', 'IC-png': 'IC-PNG', 'IC-j2k': 'IC-J2K', 'TT': 'TT', 'MSMA*': 'MSMA$^{*}$', 'DiffPath': 'DiffPath', 'GEPC': 'GEPC', 'EigenScore': 'EigenScore',
-         'CFS': 'CFS', 'CFS-kNN': 'CFS-kNN', 'RotCls4': 'Rot.\\ pred.', 'kNN tuned': 'kNN (tuned)', 'kNN (CT)': 'kNN (basic)'}
+         'CFS': 'CFS', 'CFS-kNN': 'CFS-kNN', 'RotCls4': 'Rot.\\ pred.', 'kNN tuned': 'kNN (tuned)', 'kNN (CT)': 'kNN (basic)',
+         'Graham': 'DDPM-OOD', 'LMD': 'LMD', 'Kamkari': 'LID+NLL', 'CSI': 'CSI'}
 def f1(v): return f'{v:.1f}'
 def sgn(v): return '0.0' if abs(v) < 0.05 else ('$+$' if v > 0 else '$-$') + f'{abs(v):.1f}'
 J = json.load(open(f'{D}/ours_vs_all_final2.json'))
+for t in J['pairs']:                                                    # merge the new rows (same images and bootstrap draws) and CSI
+    for o, p in J['pairs'][t].items():
+        for r in NEWROWS:
+            if r in NEWJ['pairs'][t][o]['rows']: p['rows'][r] = NEWJ['pairs'][t][o]['rows'][r]
+        if CSI and t in CSI['pairs'] and o in CSI['pairs'][t]:
+            c = CSI['pairs'][t][o]; p['rows']['CSI'] = dict(auroc=c['csi'], diff=c['diff'], ci=c['ci'], verdict=c['verdict'], fpr95=c['csi_fpr95'])
+    for r in NEWROWS:
+        if r in NEWJ['ids'][t]['rows']: J['ids'][t]['rows'][r] = NEWJ['ids'][t]['rows'][r]
 # ---- models
 MOD = {'edmc10': ('$32{\\times}32$', 'EDM (VP, DDPM++)', '\\cite{karras2022edm}'), 'l6svhn': ('$32{\\times}32$', 'VP-SDE', '\\cite{kamkari2024geometric}'),
        'dpceleba': ('$32{\\times}32$', 'iDDPM', '\\cite{nichol2021improved}'), 'edmc100': ('$32{\\times}32$', 'DDPM++ (EDM precond.)', '\\cite{chen2024robust}'),
@@ -47,14 +58,26 @@ for t in TAGS:
 L[-1] = '\\bottomrule'; open(f'{OUT}/supp_pairs.tex', 'w').write('\n'.join(L) + '\n')
 # ---- FPR95
 FP = json.load(open(f'{D}/fpr95_all_final2.json')); RW = ['Ours', 'kNN tuned', 'kNN (CT)'] + PRIOR
+def nat_sets(t): return [o for o in J['pairs'][t] if not o.endswith('__vflip') and 'synth' not in o]
+def vf_set(t): return [o for o in J['pairs'][t] if o.endswith('__vflip')][0]
+def fpr_cells(r):
+    if r in FP['ids'][TAGS[0]]: return [f1(FP['ids'][t][r]['fpr95']) for t in TAGS] + [f1(FP['mean'][r]['fpr95']), f1(FP['vflip_fpr95'][r])]
+    ids = []
+    for t in TAGS:
+        v = [J['pairs'][t][o]['rows'].get(r, {}).get('fpr95') for o in nat_sets(t)]
+        ids.append(float(np.mean(v)) if all(x is not None for x in v) else None)
+    vf = [J['pairs'][t][vf_set(t)]['rows'].get(r, {}).get('fpr95') for t in TAGS]
+    mean = float(np.mean([x for x in ids if x is not None])) if any(x is not None for x in ids) else None
+    vfm = float(np.mean([x for x in vf if x is not None])) if any(x is not None for x in vf) else None
+    return [('--' if x is None else f1(x)) for x in ids] + [('--' if mean is None else f1(mean)) + ('' if all(x is not None for x in ids) else '$^{\\S}$'), '--' if vfm is None else f1(vfm)]
 L = []
 for r in RW:
     lab = 'Upright kNN' if r == 'Ours' else SHORT[r]
-    L.append(f"{lab} & " + ' & '.join(f1(FP['ids'][t][r]['fpr95']) for t in TAGS) + f" & {f1(FP['mean'][r]['fpr95'])} & {f1(FP['vflip_fpr95'][r])}\\\\")
+    L.append(f"{lab} & " + ' & '.join(fpr_cells(r)) + '\\\\')
 open(f'{OUT}/supp_fpr.tex', 'w').write('\n'.join(L) + '\n')
 # ---- ablations (development split, seed 0)
 AB = {t: json.load(open(f'{D}/ablate2_{t}.json')) for t in TAGS}
-ROWS = [('ours', 'Upright kNN, Eq.~(5)'), ('content only', 'kNN term only'), ('orientation only', 'orientation term only'), ('no temperature', 'no temperature ($T=1$)'),
+ROWS = [('ours', 'Upright kNN, Eq.~(2)'), ('content only', 'kNN term only'), ('orientation only', 'orientation term only'), ('no temperature', 'no temperature ($T=1$)'),
         ('Fisher instead of sum', 'Fisher (sum of log $p$-values)'), ('orbit bank', 'rotated bank for $\\bar p$ ($4R$, $d$ re-estimated)'),
         ('head with rotated noise', 'head trained with rotated noise$^{*}$'), ('four views (rotated-noise test views)', 'orientation term over 4 test views$^{*}$')]
 L = []
@@ -92,3 +115,77 @@ L = [f"{ {'Ours': 'Upright kNN', 'kNN term': '\\quad kNN term', 'Orientation ter
      ' & '.join(f1(E['rows'][r]['per_set'][s]) for s in ES) + f" & {f1(E['rows'][r]['mean'])} & {f1(E['rows'][r]['vflip'])} & {f1(E['rows'][r]['rot90'])}\\\\" for r in ('Ours', 'kNN term', 'Orientation term', 'kNN basic')]
 open(f'{OUT}/supp_eurosat.tex', 'w').write('\n'.join(L) + '\n')
 print('supplementary tables written')
+
+# ---- E4: chest X-ray and histology (PROTOCOL_E4.md), generators trained with rotations
+E4 = json.load(open(f'{D}/e4_ana.json'))
+TF = ['rot90', 'rot180', 'vflip', 'hflip']
+GROUPS = {'chest': dict(id='g32_chest_test', modality=['g32_organa_test', 'g32_path_gray_test'], source=['g32_pneumonia_all'], natural=['g32_cifar10_gray', 'g32_svhn_gray', 'g32_mnist_test', 'g32_fmnist_test']),
+          'path': dict(id='path_test', modality=['blood_all', 'derma_all', 'chest_rgb_test'], source=[], natural=['cifar10_test', 'cifar100_test', 'svhn_test', 'celeba_test', 'textures', 'tin_val', 'lsun_fix', 'imagenet_fix', 'imagenet32_val', 'places365_val'])}
+E4LAB = {'Ours': 'Upright kNN', 'kNN term': '\\quad kNN term', 'Orientation term': '\\quad orient.\\ term', 'kNN basic': 'kNN (basic)', 'CFS': 'CFS (diag.)', 'CFS-kNN': 'CFS (kNN)', 'NLL': 'NLL', 'MSMA*': 'MSMA$^{*}$', 'DiffPath': 'DiffPath'}
+for tag in ('chest', 'path'):
+    G = GROUPS[tag]; R_ = E4[tag]['rows']; L = []
+    for r in ('Ours', 'kNN term', 'Orientation term', 'kNN basic', 'CFS', 'CFS-kNN', 'NLL', 'MSMA*', 'DiffPath'):
+        if r not in R_: continue
+        v = R_[r]; cells = [f1(v['per_set'][f"{G['id']}__{t}"]) for t in TF] + [f1(v['per_set'][x]) for x in G['modality']] + [f1(v['per_set'][x]) for x in G['source']] + [f1(v['natural'])]
+        w = '--' if r == 'Ours' else '{}/{}/{}'.format(*E4[tag]['boot'][r]['wtl'])
+        L.append(f"{E4LAB[r]} & " + ' & '.join(cells) + f' & {w}\\\\')
+    open(f'{OUT}/supp_e4_{tag}.tex', 'w').write('\n'.join(L) + '\n')
+L = []
+for tag, lab in (('c10n4', 'none'), ('c10x4', 'horizontal flips'), ('c10r25', 'rotations, $p=0.25$'), ('c10r50', 'rotations, $p=0.5$'), ('c10r100', 'rotations, $p=1$')):
+    R_ = E4[tag]['rows']; acc = float(np.mean([h['acc'] for h in E4[tag]['heads'].values()]))
+    L.append(f"{lab} & {f1(acc)} & " + ' & '.join(f"{f1(R_[r]['natural'])} & {f1(R_[r]['flip'])}" for r in ('Ours', 'kNN term', 'Orientation term', 'NLL', 'NLL + log P(up|x)')) + '\\\\')
+open(f'{OUT}/supp_e4_rot.tex', 'w').write('\n'.join(L) + '\n')
+# ---- weight sweep (development images and final images)
+W = json.load(open(f'{D}/weight_sweep.json')); ws = W['fresh']['w']
+L = ['$w$ & ' + ' & '.join(str(w) for w in ws) + '\\\\\\midrule']
+for split, lab in (('fresh', 'development images'), ('final2', 'final images')):
+    L.append(f"\\multicolumn{{{len(ws) + 1}}}{{@{{}}l}}{{\\emph{{{lab}}}}}\\\\")
+    for key, lab2 in (('mean_nat', 'mean, natural OOD sets'), ('near_mean', 'mean, near-OOD pairs'), ('mean_vflip', 'mean, upside-down probe')):
+        L.append(f"{lab2} & " + ' & '.join(f'{v:.2f}' for v in W[split][key]) + '\\\\')
+    for t in TAGS: L.append(f"\\quad {NAME[t]} & " + ' & '.join(f1(v) for v in W[split]['ids'][t]['nat']) + '\\\\')
+open(f'{OUT}/supp_sweep.tex', 'w').write('\n'.join(L) + '\n')
+# ---- two-notions controls (PROTOCOL_E6.md), when the runs have finished: gen/data/two_controls/<tag>_s<seed>.json
+import glob
+TC = {}
+for f in glob.glob(f'{D}/two_controls/*_s*.json'):
+    z = json.load(open(f)); TC.setdefault(z['tag'], {})[z['seed']] = z
+if TC:
+    def tcm(tag, fn): return float(np.mean([fn(z) for z in TC[tag].values()]))
+    L = []
+    for t in TAGS:
+        if t not in TC: continue
+        c = [tcm(t, lambda z: z['A_full_head_space']['euc']['flip']), tcm(t, lambda z: z['A_full_head_space']['cos']['flip']), tcm(t, lambda z: z['A_full_head_space']['euc']['nat_mean']),
+             tcm(t, lambda z: z['B_mean3']['share_over_random3']), tcm(t, lambda z: z['B_mean3']['knn']['euc']['flip']), tcm(t, lambda z: z['B_mean3']['knn']['euc']['nat_mean']),
+             tcm(t, lambda z: 100 * z['C_head_g_only']['acc']), tcm(t, lambda z: z['C_head_g_only']['alone']['flip']), tcm(t, lambda z: z['C_head_g_only']['alone']['nat_mean']), tcm(t, lambda z: z['C_head_g_only']['sum_with_knn_term']['nat_mean']),
+             tcm(t, lambda z: 100 * z['D_pixel_head']['pix2']['acc']), tcm(t, lambda z: z['D_pixel_head']['pix2']['alone']['flip']), tcm(t, lambda z: z['D_pixel_head']['pix2']['alone']['nat_mean']), tcm(t, lambda z: z['D_pixel_head']['pix2']['sum_with_knn_term']['nat_mean'])]
+        L.append(f"{NAME[t]} & " + ' & '.join((f'{v:.0f}' if i == 3 else f1(v)) for i, v in enumerate(c)) + '\\\\')
+    open(f'{OUT}/supp_controls.tex', 'w').write('\n'.join(L) + '\n')
+    L = []
+    for t in TAGS:
+        if t not in TC: continue
+        L.append(f"{NAME[t]} & " + ' & '.join(f1(tcm(t, lambda z, k=k: z['E_d'][k])) for k in ('n3000_k5', 'n3000_k10', 'n3000_k20', 'n3000_k50', 'n10000_k5', 'n10000_k10', 'n10000_k20', 'n10000_k50')) + '\\\\')
+    open(f'{OUT}/supp_dsens.tex', 'w').write('\n'.join(L) + '\n')
+# ---- ImageNet-64 bank size (PROTOCOL_E5B.md): gen/data/e5b_ana.json (analysis/final/e5b/ana/e5b_ana.py), when the runs have finished
+E5B = json.load(open(f'{D}/e5b_ana.json')) if os.path.exists(f'{D}/e5b_ana.json') else None
+if E5B:
+    L = []
+    for tag, lab in (('in64', '10{,}000 (10 per class; the paper)'), ('in64b25', '25{,}000 (random)'), ('in64b50', '50{,}000 (random)')):
+        if tag not in E5B: continue
+        L.append(f"\\midrule\\multicolumn{{10}}{{@{{}}l}}{{\\emph{{bank of {lab} training images}}}}\\\\")
+        for r, rl in (('Ours (R=N/10)', '\\textbf{Upright kNN} ($R=N/10$)'), ('Ours (R=1000)', '\\quad $R=1000$'), ('kNN term', '\\quad kNN term ($R=N/10$)'), ('Orientation term', '\\quad orient.\\ term'),
+                      ('kNN basic', 'kNN (basic)'), ('CFS', 'CFS (diag.)'), ('CFS kNN', 'CFS (kNN)')):
+            if r not in E5B[tag]['rows']: continue
+            v = E5B[tag]['rows'][r]
+            L.append(rl + ' & ' + ' & '.join(f1(x) for x in (v['near'], v['far'], v['near_fpr95'], v['far_fpr95'], v['in64_imagenet_v2']['auroc'], v['in64_imagenet_c']['auroc'], v['in64_imagenet_r']['auroc'], v['FS-near'], v['FS-far'])) + '\\\\')
+    open(f'{OUT}/supp_e5b.tex', 'w').write('% written by gen/mk_supp.py (PROTOCOL_E5B.md)\n' + '\n'.join(L) + '\n')
+    MX = {}
+    for tag, c in (('in64', 'Ten'), ('in64b25', 'TwoFive'), ('in64b50', 'Fifty')):
+        if tag in E5B:
+            o = E5B[tag]['rows']['Ours (R=N/10)']; k = E5B[tag]['rows']['kNN term']
+            MX[f'bank{c}Near'] = f1(o['near']); MX[f'bank{c}Far'] = f1(o['far']); MX[f'bank{c}NearKnnT'] = f1(k['near']); MX[f'bank{c}FarKnnT'] = f1(k['far'])
+            MX[f'bank{c}NearRk'] = f1(E5B[tag]['rows']['Ours (R=1000)']['near'])
+    assert all(not any(ch.isdigit() for ch in k) for k in MX), [k for k in MX if any(ch.isdigit() for ch in k)]
+    with open(f'{OUT}/numbers_e5b.tex', 'w') as fo:
+        fo.write('% written by gen/mk_supp.py\n')
+        for k, v in MX.items(): fo.write(f'\\newcommand{{\\{k}}}{{{v}}}\n')
+print('E4 / sweep / controls tables written', bool(TC), 'E5B', bool(E5B))

@@ -1,0 +1,238 @@
+{
+ "tag": "edmc10",
+ "seed": 2,
+ "split": "final2",
+ "R": 2,
+ "id": "final2-cifar10_test",
+ "vflip": "final2-cifar10_test__vflip",
+ "ood": [
+  "final2-cifar100_test",
+  "final2-svhn_test",
+  "final2-celeba_test",
+  "final2-textures",
+  "final2-tin_val",
+  "final2-lsun_fix",
+  "final2-imagenet_fix",
+  "final2-imagenet32_val",
+  "final2-places365_val"
+ ],
+ "A_full_head_space": {
+  "euc": {
+   "flip": 47.3396,
+   "nat": {
+    "final2-cifar100_test": 53.1876,
+    "final2-svhn_test": 93.6208,
+    "final2-celeba_test": 59.5124,
+    "final2-textures": 93.3288,
+    "final2-tin_val": 58.7064,
+    "final2-lsun_fix": 74.61,
+    "final2-imagenet_fix": 81.85,
+    "final2-imagenet32_val": 89.6428,
+    "final2-places365_val": 75.3204
+   },
+   "nat_mean": 75.53102222222222
+  },
+  "cos": {
+   "flip": 80.8696,
+   "nat": {
+    "final2-cifar100_test": 75.8944,
+    "final2-svhn_test": 85.2822,
+    "final2-celeba_test": 92.6744,
+    "final2-textures": 74.0332,
+    "final2-tin_val": 88.8912,
+    "final2-lsun_fix": 82.5084,
+    "final2-imagenet_fix": 76.8936,
+    "final2-imagenet32_val": 63.2668,
+    "final2-places365_val": 77.1512
+   },
+   "nat_mean": 79.62171111111111
+  }
+ },
+ "B_mean3": {
+  "share_of_total": 0.08174005400101653,
+  "share_over_random3": 216.39687276134882,
+  "random3_mean": 0.0003777321407558544,
+  "pca3_share": 0.2156350469114285,
+  "knn": {
+   "euc": {
+    "flip": 76.7584,
+    "nat": {
+     "final2-cifar100_test": 69.5536,
+     "final2-svhn_test": 96.424,
+     "final2-celeba_test": 77.3192,
+     "final2-textures": 97.0352,
+     "final2-tin_val": 76.5204,
+     "final2-lsun_fix": 81.3868,
+     "final2-imagenet_fix": 85.1896,
+     "final2-imagenet32_val": 80.5856,
+     "final2-places365_val": 85.2172
+    },
+    "nat_mean": 83.24795555555556
+   },
+   "cos": {
+    "flip": 83.6656,
+    "nat": {
+     "final2-cifar100_test": 80.1214,
+     "final2-svhn_test": 94.5464,
+     "final2-celeba_test": 92.6102,
+     "final2-textures": 90.8408,
+     "final2-tin_val": 87.8598,
+     "final2-lsun_fix": 91.6308,
+     "final2-imagenet_fix": 91.7462,
+     "final2-imagenet32_val": 89.2034,
+     "final2-places365_val": 90.5856
+    },
+    "nat_mean": 89.90495555555555
+   }
+  },
+  "knn_pca3": {
+   "euc": {
+    "flip": 61.5474,
+    "nat": {
+     "final2-cifar100_test": 58.1552,
+     "final2-svhn_test": 99.4168,
+     "final2-celeba_test": 75.9892,
+     "final2-textures": 90.716,
+     "final2-tin_val": 67.9752,
+     "final2-lsun_fix": 62.2844,
+     "final2-imagenet_fix": 69.2012,
+     "final2-imagenet32_val": 71.5756,
+     "final2-places365_val": 66.8988
+    },
+    "nat_mean": 73.57915555555554
+   },
+   "cos": {
+    "flip": 71.7684,
+    "nat": {
+     "final2-cifar100_test": 66.0762,
+     "final2-svhn_test": 99.0836,
+     "final2-celeba_test": 69.527,
+     "final2-textures": 89.2928,
+     "final2-tin_val": 80.3962,
+     "final2-lsun_fix": 65.8144,
+     "final2-imagenet_fix": 70.498,
+     "final2-imagenet32_val": 67.4692,
+     "final2-places365_val": 72.3178
+    },
+    "nat_mean": 75.60835555555556
+   }
+  }
+ },
+ "C_head_g_only": {
+  "acc": 0.9293999671936035,
+  "T": 0.9725193977355957,
+  "alone": {
+   "flip": 99.0076,
+   "nat": {
+    "final2-cifar100_test": 87.242,
+    "final2-svhn_test": 99.5744,
+    "final2-celeba_test": 97.1908,
+    "final2-textures": 98.534,
+    "final2-tin_val": 95.6,
+    "final2-lsun_fix": 94.1216,
+    "final2-imagenet_fix": 95.1472,
+    "final2-imagenet32_val": 90.996,
+    "final2-places365_val": 91.9224
+   },
+   "nat_mean": 94.48093333333333
+  },
+  "sum_with_knn_term": {
+   "flip": 95.4276,
+   "nat": {
+    "final2-cifar100_test": 81.2328,
+    "final2-svhn_test": 99.9208,
+    "final2-celeba_test": 96.1836,
+    "final2-textures": 99.6288,
+    "final2-tin_val": 96.9628,
+    "final2-lsun_fix": 97.2792,
+    "final2-imagenet_fix": 97.8372,
+    "final2-imagenet32_val": 96.5648,
+    "final2-places365_val": 96.4632
+   },
+   "nat_mean": 95.78591111111112
+  }
+ },
+ "D_pixel_head": {
+  "pix1": {
+   "dim": 30,
+   "acc": 0.5537499785423279,
+   "T": 0.9896049499511719,
+   "alone": {
+    "flip": 75.828,
+    "nat": {
+     "final2-cifar100_test": 52.6428,
+     "final2-svhn_test": 78.23,
+     "final2-celeba_test": 61.1964,
+     "final2-textures": 67.4296,
+     "final2-tin_val": 57.4984,
+     "final2-lsun_fix": 44.174,
+     "final2-imagenet_fix": 57.1496,
+     "final2-imagenet32_val": 59.814,
+     "final2-places365_val": 48.9476
+    },
+    "nat_mean": 58.5647111111111
+   },
+   "sum_with_knn_term": {
+    "flip": 81.888,
+    "nat": {
+     "final2-cifar100_test": 77.082,
+     "final2-svhn_test": 99.7828,
+     "final2-celeba_test": 90.0808,
+     "final2-textures": 99.5368,
+     "final2-tin_val": 91.6692,
+     "final2-lsun_fix": 94.7188,
+     "final2-imagenet_fix": 96.5484,
+     "final2-imagenet32_val": 95.7816,
+     "final2-places365_val": 94.5208
+    },
+    "nat_mean": 93.30235555555555
+   }
+  },
+  "pix2": {
+   "dim": 126,
+   "acc": 0.6233499646186829,
+   "T": 0.9725193977355957,
+   "alone": {
+    "flip": 81.744,
+    "nat": {
+     "final2-cifar100_test": 56.1272,
+     "final2-svhn_test": 85.1072,
+     "final2-celeba_test": 71.0128,
+     "final2-textures": 72.6764,
+     "final2-tin_val": 61.5596,
+     "final2-lsun_fix": 50.7032,
+     "final2-imagenet_fix": 60.5428,
+     "final2-imagenet32_val": 61.5112,
+     "final2-places365_val": 53.7932
+    },
+    "nat_mean": 63.67039999999999
+   },
+   "sum_with_knn_term": {
+    "flip": 83.7172,
+    "nat": {
+     "final2-cifar100_test": 77.3364,
+     "final2-svhn_test": 99.8104,
+     "final2-celeba_test": 91.1436,
+     "final2-textures": 99.5192,
+     "final2-tin_val": 91.794,
+     "final2-lsun_fix": 94.8056,
+     "final2-imagenet_fix": 96.5212,
+     "final2-imagenet32_val": 95.5752,
+     "final2-places365_val": 94.498
+    },
+    "nat_mean": 93.44484444444444
+   }
+  }
+ },
+ "E_d": {
+  "n3000_k5": 26.403337478637695,
+  "n3000_k10": 21.775537490844727,
+  "n3000_k20": 19.73277473449707,
+  "n3000_k50": 18.061317443847656,
+  "n10000_k5": 26.1995906829834,
+  "n10000_k10": 21.44286346435547,
+  "n10000_k20": 19.566965103149414,
+  "n10000_k50": 17.944255828857422
+ },
+ "seconds": 120.68844604492188
+}

@@ -1,20 +1,24 @@
 % written by gen/mk_ijcai.py
-NLL & 58.2 & 98.9 & 79.9 & 53.8 & 52.3 & 33.3 & 62.7 & 56.6 & 43/2/2 & 128+128 & 58\\
-IC (PNG) & 73.4 & 92.1 & 87.3 & 66.5 & 47.1 & 86.2 & 75.4 & 57.1 & 47/0/0 & 128+128 & 58\\
-IC (JPEG2000) & 71.4 & 74.1 & 82.0 & 65.2 & 46.4 & 40.8 & 63.3 & 56.6 & 47/0/0 & 128+128 & 58\\
-TT & 56.8 & 98.6 & 85.1 & 51.4 & 58.1 & 61.6 & 68.6 & 53.9 & 44/2/1 & 128+128 & 58\\
-MSMA$^{*}$ & 63.6 & 99.1 & 99.7 & 61.3 & 63.2 & 96.4 & 80.5 & 63.3 & 42/5/0 & 20 & 4.3\\
-DiffPath & 71.0 & \underline{99.5} & \underline{99.9} & 64.9 & 54.9 & 80.2 & 78.4 & 62.3 & 35/12/0 & 10 & 2.0\\
-GEPC & 51.9 & 91.3 & 99.1 & 55.6 & 51.2 & 84.4 & 72.3 & 52.1 & 45/2/0 & 14 & 2.9\\
-EigenScore & 73.4 & 85.8 & 86.9 & 47.6 & 44.2 & 94.3 & 72.0 & 75.4 & 47/0/0 & 180 & 40\\
-CFS (diag.) & 73.8 & 90.7 & 99.7 & 65.3 & 67.2 & 97.6 & 82.4 & 59.3 & 43/4/0 & 1 & 0.21\\
-CFS (kNN head) & 84.9 & 92.1 & \underline{99.9} & 72.3 & 63.9 & \underline{99.9} & 85.5 & 70.6 & 40/7/0 & 1 & 0.24\\
-Rotation pred. & 85.3 & 95.4 & \cellcolor{firstblue}\textbf{100.0} & 61.8 & 62.1 & 99.4 & 84.0 & \cellcolor{firstblue}\textbf{94.6} & 35/12/0 & 4$^{\ddagger}$ & 0.03\\
-CSI & \multicolumn{11}{l}{\pending{1{,}000-epoch training on the five 32$\times$32 ID datasets still running}}\\
-\midrule\multicolumn{12}{@{}l}{\emph{kNN rule~\cite{sun2022knn} on our diffusion features}}\\
-kNN (basic) & 88.6 & 98.6 & \cellcolor{firstblue}\textbf{100.0} & 80.3 & 59.1 & 99.7 & 87.7 & 68.2 & 39/8/0 & 1 & 0.18\\
-kNN (tuned) & \underline{93.7} & 99.4 & \cellcolor{firstblue}\textbf{100.0} & \underline{85.4} & \underline{77.0} & \underline{99.9} & \underline{92.6} & 72.7 & 24/22/1 & 1 & 0.18\\
+\multicolumn{13}{@{}l}{\emph{Likelihood, score, reconstruction and dimension statistics of the diffusion model}}\\
+NLL & 58.2 & 98.9 & 79.9 & 53.8 & 52.3 & 33.3 & 62.7 & 50.7 & 56.6 & 43/2/2 (39/1) & 256 & 58\\
+IC (PNG) & 73.4 & 92.1 & 87.3 & 66.5 & 47.1 & 86.2 & 75.4 & 50.0 & 57.1 & 47/0/0 (46/0) & 256 & 58\\
+IC (JPEG2K) & 71.4 & 74.1 & 82.0 & 65.2 & 46.4 & 40.8 & 63.3 & 49.3 & 56.6 & 47/0/0 (46/0) & 256 & 58\\
+TT & 56.8 & 98.6 & 85.1 & 51.4 & 58.1 & 61.6 & 68.6 & 52.2 & 53.9 & 44/2/1 (43/0) & 256 & 58\\
+MSMA$^{*}$ & 63.6 & 99.1 & 99.7 & 61.3 & 63.2 & 96.4 & 80.5 & 53.2 & 63.3 & 42/5/0 (32/0) & 20 & 4.3\\
+DiffPath & 71.0 & 99.5 & \underline{99.9} & 64.9 & 54.9 & 80.2 & 78.4 & 51.5 & 62.3 & 35/12/0 (28/0) & 10 & 2.0\\
+GEPC & 51.9 & 91.3 & 99.1 & 55.6 & 51.2 & 84.4 & 72.3 & 52.4 & 52.1 & 45/2/0 (41/0) & 14 & 2.9\\
+EigenScore & 73.4 & 85.8 & 86.9 & 47.6 & 44.2 & 94.3 & 72.0 & 49.1 & 75.4 & 47/0/0 (47/0) & 180 & 40\\
+DDPM-OOD & 77.1 & \cellcolor{firstblue}\textbf{99.9} & \underline{99.9} & 59.2 & 56.1 & 94.2 & 81.1 & 51.7 & 69.0 & 34/9/4 (28/1) & 2{,}475 & --\\
+LMD$^{\S}$ & 75.2 & 83.5 & -- & -- & -- & -- & 79.3 & -- & 69.0 & 18/0/0 (17/0)$^{\S}$ & 10{,}000 & --\\
+\midrule\multicolumn{13}{@{}l}{\emph{Features of the diffusion model}}\\
+CFS (diag.) & 73.8 & 90.7 & 99.7 & 65.3 & 67.2 & 97.6 & 82.4 & 60.8 & 59.3 & 43/4/0 (34/0) & 1 & 0.21\\
+CFS (kNN) & 84.9 & 92.1 & \underline{99.9} & 72.3 & 63.9 & \underline{99.9} & 85.5 & 62.8 & 70.6 & 40/7/0 (31/0) & 1 & 0.24\\
+kNN (basic) & 88.6 & 98.6 & \cellcolor{firstblue}\textbf{100.0} & 80.3 & 59.1 & 99.7 & 87.7 & 60.5 & 68.2 & 39/8/0 (23/0) & 1 & 0.18\\
+kNN (tuned) & 93.7 & 99.4 & \cellcolor{firstblue}\textbf{100.0} & \underline{85.4} & \underline{77.0} & \underline{99.9} & \underline{92.6} & \underline{70.0} & 72.7 & 24/22/1 (10/1) & 1 & 0.18\\
+\midrule\multicolumn{13}{@{}l}{\emph{Networks trained on the ID images}}\\
+Rotation pred. & 85.3 & 95.4 & \cellcolor{firstblue}\textbf{100.0} & 61.8 & 62.1 & 99.4 & 84.0 & 60.4 & 94.6 & 35/12/0 (33/0) & 4$^{\ddagger}$ & 0.03\\
+CSI$^{\S}$ & \underline{94.7} & 97.8 & \cellcolor{firstblue}\textbf{100.0} & 68.5 & -- & \cellcolor{firstblue}\textbf{100.0} & 92.2 & -- & 94.5 & 22/16/2 (21/1)$^{\S}$ & 40$^{\ddagger}$ & --\\
 \midrule
-\textbf{Upright kNN (ours)} & \cellcolor{firstblue}\textbf{95.4} & \cellcolor{firstblue}\textbf{99.7} & \cellcolor{firstblue}\textbf{100.0} & \cellcolor{firstblue}\textbf{85.5} & \cellcolor{firstblue}\textbf{79.6} & \cellcolor{firstblue}\textbf{100.0} & \cellcolor{firstblue}\textbf{93.4} & \underline{86.6} & -- & 1 & 0.18\\
-\quad kNN term only & 93.7 & 99.4 & 100.0 & 85.0 & 77.0 & 99.9 & 92.5 & 72.8 & 28/18/1 & 1 & --\\
-\quad orientation term only & 93.8 & 95.7 & 100.0 & 72.9 & 77.4 & 99.8 & 89.9 & 94.7 & 29/14/4 & 1 & --\\
+\textbf{Upright kNN (ours)} & \cellcolor{firstblue}\textbf{95.4} & \underline{99.7} & \cellcolor{firstblue}\textbf{100.0} & \cellcolor{firstblue}\textbf{85.5} & \cellcolor{firstblue}\textbf{79.6} & \cellcolor{firstblue}\textbf{100.0} & \cellcolor{firstblue}\textbf{93.4} & \cellcolor{firstblue}\textbf{70.9} & 86.6 & -- & 1 & 0.18\\
+\quad kNN term only & 93.7 & 99.4 & 100.0 & 85.0 & 77.0 & 99.9 & 92.5 & 69.9 & 72.8 & 28/18/1 (11/1) & 1 & --\\
+\quad orientation term only & 93.8 & 95.7 & 100.0 & 72.9 & 77.4 & 99.8 & 89.9 & 61.3 & 94.7 & 29/14/4 (27/3) & 1 & --\\
