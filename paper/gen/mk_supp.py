@@ -118,6 +118,28 @@ for t in TAGS:
     q = DEEPP[t]; ks = q['kstar']; m0 = q['mirror_levels'][f"L{q['level']}"]; ms = q['mirror_sigma'].get(f'k{ks}')
     L.append(f"{NAME[t]} & 1/{2 ** q['level']} & {f1(m0)} & {q['R']} & {q['a0']} & $\\sigma_{{{ks + 1}}}={SIGGRID[ks]:.3f}$ & {f1(ms)} [{f1(q['mirror_star_ci'][0])}, {f1(q['mirror_star_ci'][1])}] & {q['wstar']:.2f} & {DNFE[t]}\\\\")
 open(f'{OUT}/supp_deep_choices.tex', 'w').write('\n'.join(L) + '\n')
+# ---- what in the kNN rule carries the gain (knn_grid.py, final images): features x head, and the 80-configuration grid
+KG = json.load(open(f'{D}/knn_grid.json')); KGH = KG['heads']['final2']; KGG = KG['grid']['final2']
+HEADN = {'std_mean10': 'standardised Euclidean, mean of 10 (CFS)', 'std_10th': 'standardised Euclidean, 10th', 'cos_10th': 'cosine, 10th (ours)', 'cos_mean10': 'cosine, mean of 10'}
+FEATN = {'cfs': 'CFS descriptors (encoder + decoder $16\\times16$ blocks, logSNR 7)', 'L1': 'our half-resolution decoder block ($\\sigma_1$)'}
+L = ['% written by gen/mk_supp.py: features x head on the final images (knn_grid.py)']
+for f in ('cfs', 'L1'):
+    L.append(f'\\multicolumn{{10}}{{@{{}}l}}{{\\emph{{{FEATN[f]}}}}}\\\\')
+    for hd in ('std_mean10', 'std_10th', 'cos_10th', 'cos_mean10'):
+        v = KGH[f'{f}_{hd}']; L.append(f"\\quad {HEADN[hd]} & " + ' & '.join(f1(v['ids'][t]) for t in TAGS) + f" & {f1(v['mean6'])} & {f1(v['near'])} & {f1(v['vflip'])}\\\\")
+    if f == 'cfs': L.append('\\midrule')
+open(f'{OUT}/supp_knnheads.tex', 'w').write('\n'.join(L) + '\n')
+RS = [1, 2, 5, 10, 20, 50, 100, 200, 500, 1000]
+STATN = {'P': '$R$-th largest cosine', 'M': 'mean of the $R$ largest'}; BLN = {'L1': 'half-res.\\ block', 'L012': 'three blocks'}; SGN = {'k0': '$\\sigma_1$', 'k6': '$\\sigma_7$'}
+best = max(KGG, key=lambda c: KGG[c]['mean6'])
+L = ['% written by gen/mk_supp.py: the 80 configurations of the tuned kNN on the final images (six-dataset mean AUROC; knn_grid.py)']
+for st in ('P', 'M'):
+    for bl in ('L1', 'L012'):
+        for k in ('k0', 'k6'):
+            cells = [f1(KGG[f'{st}_{bl}_{k}_r{r}']['mean6']) for r in RS]
+            cells = [('\\textbf{' + c + '}' if f'{st}_{bl}_{k}_r{r}' == best else c) for c, r in zip(cells, RS)]
+            L.append(f"{STATN[st]} & {BLN[bl]} & {SGN[k]} & " + ' & '.join(cells) + '\\\\')
+open(f'{OUT}/supp_knngrid.tex', 'w').write('\n'.join(L) + '\n')
 # ---- ImageNet-1K 64x64 per set
 O = json.load(open(f'{D}/ood1k_ana.json')); C = O['common']
 SETS = ['in64_ssb_hard', 'in64_ninco', 'in64_inaturalist', 'in64_textures', 'in64_openimage_o', 'in64_imagenet_v2', 'in64_imagenet_c', 'in64_imagenet_r']

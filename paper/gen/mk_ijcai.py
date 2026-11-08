@@ -248,6 +248,25 @@ M['deepDevCtenSigOne'] = dcp('edmc10', 'cifar100_test', 'VL-sigma1'); M['deepDev
 M['deepDevChunVL'] = dcp('edmc100', 'cifar10_test', 'VL'); M['deepDevChunMeanX'] = dcp('edmc100', 'cifar10_test', 'VL+mean')
 M['deepChainLosses'] = str(DEEPC['wtl']['chain']['losses']); M['deepSigOneLosses'] = str(DEEPC['wtl']['VL-sigma1']['losses']); M['deepMeanXLosses'] = str(DEEPC['wtl']['VL+mean']['losses'])
 M['deepKmax'] = str(sum(1 for t in TAGS if DEEPC['choices'][t]['K'] == 5000))
+# ---- what in the kNN rule carries its gain over CFS (kNN): analysis/final/ana_ok/knn_grid.py (final images; post hoc, nothing chosen from it)
+KG = json.load(open(f'{D}/knn_grid.json')); KGH = KG['heads']['final2']; KGG = KG['grid']['final2']
+assert KG['check']['cfs_knn_maxabs'] < 1e-3 and KG['check']['knn_ct_maxabs'] < 0.05
+_cfs, _cfscos, _l1cos, _l012, _tuned = KGH['cfs_std_mean10']['mean6'], KGH['cfs_cos_10th']['mean6'], KGH['L1_cos_10th']['mean6'], KGG['P_L012_k0_r10']['mean6'], ids_mean(J, 'kNN tuned')
+assert abs(_cfs - ids_mean(J, 'CFS-kNN')) < 1e-3
+M['featHeadGain'] = f1(_cfscos - _cfs); M['featBlockSwap'] = f"{_l1cos - _cfscos:+.1f}"; M['featThreeGain'] = f1(_l012 - _l1cos); M['featRankGain'] = f1(_tuned - _l012)
+M['featCfsCos'] = f1(_cfscos); M['featLOneTwo'] = f1(_l012); M['featBestSingle'] = f1(max(v['mean6'] for v in KGG.values())); M['featBestSingleName'] = max(KGG, key=lambda c: KGG[c]['mean6'])
+M['featInRten'] = f1(KGG['P_L012_k0_r10']['ids']['in64']); M['featInRthousand'] = f1(KGG['P_L012_k0_r1000']['ids']['in64'])
+M['featChunBlock'] = f"{KGH['L1_cos_10th']['ids']['edmc100'] - KGH['cfs_cos_10th']['ids']['edmc100']:+.1f}"; M['featInBlock'] = f"{KGH['L1_cos_10th']['ids']['in64'] - KGH['cfs_cos_10th']['ids']['in64']:+.1f}"
+M['featChunSigSeven'] = f1(KGG['P_L1_k6_r10']['ids']['edmc100']); M['featChunSigOne'] = f1(KGG['P_L1_k0_r10']['ids']['edmc100']); M['featInSigSeven'] = f1(KGG['P_L1_k6_r10']['ids']['in64']); M['featInSigOne'] = f1(KGG['P_L1_k0_r10']['ids']['in64'])
+M['featSigSevenMean'] = f"{KGG['P_L1_k6_r10']['mean6'] - KGG['P_L1_k0_r10']['mean6']:+.1f}"; M['featStatMean'] = f"{KGG['M_L1_k0_r10']['mean6'] - KGG['P_L1_k0_r10']['mean6']:+.1f}"
+M['featCtenThree'] = f"{KGG['P_L012_k0_r10']['ids']['edmc10'] - KGG['P_L1_k0_r10']['ids']['edmc10']:+.1f}"; M['featChunThree'] = f"{KGG['P_L012_k0_r10']['ids']['edmc100'] - KGG['P_L1_k0_r10']['ids']['edmc100']:+.1f}"; M['featInThree'] = f"{KGG['P_L012_k0_r10']['ids']['in64'] - KGG['P_L1_k0_r10']['ids']['in64']:+.1f}"
+M['featNearBasic'] = f1(KGG['P_L1_k0_r10']['near']); M['featNearThree'] = f1(KGG['P_L012_k0_r10']['near'])
+KGD = KG['grid']['fresh']; M['featDevThree'] = f1(KGD['P_L012_k0_r10']['mean6'] - KGD['P_L1_k0_r10']['mean6']); M['featDevHead'] = f1(KG['heads']['fresh']['cfs_cos_10th']['mean6'] - KG['heads']['fresh']['cfs_std_mean10']['mean6'])
+# CSI per ID dataset: within two points on four of the five, the gap is CIFAR-100
+if CSI:
+    gaps = {t: CSI['ids'][t]['ours_nat'] - CSI['ids'][t]['csi_nat'] for t in CSI['ids']}
+    close = [t for t in gaps if abs(gaps[t]) <= 2.0]; assert len(close) == 4 and max(gaps, key=gaps.get) == 'edmc100', gaps
+    M['csiCloseN'] = 'four'; M['csiCloseMaxGap'] = f1(max(abs(gaps[t]) for t in close))
 # ---- OpenOOD v1.5 ImageNet-1K at 64x64
 O = json.load(open(f'{D}/ood1k_ana.json')); C = O['common']
 def best_prior(key): return max(['CFS', 'CFS kNN', 'RotCls4', 'NLL', 'IC-png', 'IC-j2k', 'TT', 'MSMA*', 'DiffPath', 'GEPC', 'EigenScore'], key=lambda r: C[r][key])
