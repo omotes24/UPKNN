@@ -74,11 +74,10 @@ mirror test ranks highest, to Upright kNN as a product of experts (rules frozen 
 88.3% at up to two network evaluations per image; it counts the content density twice and lies outside the decomposition, so the
 paper reports it as an ablation (supplement, Section S9), not as the method.
 
-**Status (2026-11-08).** All experiments of the paper are finished and in the paper except one comparison row that is still
-being computed on the GPU server and is marked as pending in `main.pdf`: likelihood + LID (Kamkari et al.) on CIFAR-100 and
-FashionMNIST (done on CIFAR-10, SVHN and CelebA; the public configurations cover the five 32×32 ID datasets, so it is not run
-on ImageNet-64). LMD is finished on all six ID datasets. Every protocol was written before its results were seen. The per-image
-scores will be published as a release asset once these runs are finished.
+**Status (2026-11-09).** All experiments of the paper are finished and in the paper, including the last comparison rows,
+LMD on all six ID datasets and likelihood + LID (Kamkari et al.) on the five 32×32 ID datasets (the public configurations
+cover those five, so it is not run on ImageNet-64). Every protocol was written before its results were seen. The per-image
+scores will be published as a release asset.
 
 ## Layout
 

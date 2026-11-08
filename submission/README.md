@@ -6,12 +6,12 @@ abstract on 4 January 2027).
 
 | file | upload as | contents | built by |
 |---|---|---|---|
-| `upknn_main.pdf` | paper | anonymous paper with line numbers, 7 pages + 2 pages of references (the two comparison rows still being computed are marked in grey) | `bash paper/build.sh` (copy of `paper/main.pdf`) |
-| `upknn_technical_appendix.zip` | Technical Appendix | `supplementary.pdf` and the anonymised code, protocols, benchmark definitions, analysis scripts and result files (5.1 MB) | `python tools/make_submission_zip.py` |
+| `upknn_main.pdf` | paper | anonymous paper with line numbers, 7 pages + 2 pages of references, every comparison row final | `bash paper/build.sh` (copy of `paper/main.pdf`) |
+| `upknn_technical_appendix.zip` | Technical Appendix | `supplementary.pdf` and the anonymised code, protocols, benchmark definitions, analysis scripts and result files (5.4 MB) | `python tools/make_submission_zip.py` |
 | `upknn_supplementary.pdf` | (inside the ZIP) | the supplementary material alone, for reading | `bash paper/build_supp.sh` (copy of `paper/supp.pdf`) |
 
 `make_submission_zip.py` removes the licence holder, renames an earlier public detector of the same code base, and fails if
 an author name, a user name, a host name, a home path or a repository URL remains. The paper does not link to this repository.
 
-Before uploading: rebuild both PDFs and the ZIP after the remaining runs are integrated, check the page count (`pdfinfo`), and
-check the PDF metadata (`pdfinfo` shows no author).
+Before uploading: rebuild both PDFs and the ZIP (`bash paper/build.sh && bash paper/build_supp.sh && python tools/make_submission_zip.py`),
+check the page count (`pdfinfo`), and check the PDF metadata (`pdfinfo` shows no author).
