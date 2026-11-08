@@ -1,0 +1,11 @@
+# FROZEN_VL.txt -- Vertical Limit frozen before the single final2 evaluation (2026-11-01T13:45:11Z)
+fe5018d7ddfd606e1d870265071cc938  runs/vl/PROTOCOL_VL.json
+56629b39bff66f109a6befb152cb26b1  runs/vl/PROTOCOL_VL.md
+bd384967fd05804cf5a31c062f0f2ea1  code/vl_fextract.py
+6be10c917beacdb9a6f3a6f6ec455fa3  code/vl_fscore.py
+4083cbedbcb26bf7e80ddad4450f3ba7  code/vl_protocol.py
+0e4284ee50b6671eb585b70180b8cecd  code/run_vl_final.sh
+f4b9c6df597d557629f665de05dabb1c  code/vl_eval.py
+be40bed883c525bd2604ce6b28dd2c13  code/vl_extract.py
+6f67baec0a55984c6d90f2117451c417  code/dgcore.py
+be10b49979fac6d2602f1783f0a101f0  code/ct_extract_defs.py

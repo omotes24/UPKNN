@@ -229,6 +229,25 @@ for k, c in (('ours', 'A'), ('content only', 'B'), ('orientation only', 'C'), ('
     M[f'abNat{c}'] = f1(np.mean([AB[t][k]['nat'] for t in TAGS])); M[f'abVf{c}'] = f1(np.mean([AB[t][k]['vflip'] for t in TAGS])); M[f'abSel{c}'] = f1(np.mean([AB[t][k]['sel'] for t in TAGS]))
 M['abInVfLeak'] = f1(AB['in64']['head with rotated noise']['vflip']); M['abInVfNoT'] = f1(AB['in64']['no temperature']['vflip'])
 M['abCtenOurs'] = f1(AB['edmc10']['ours']['nat']); M['abCtenOrbit'] = f1(AB['edmc10']['orbit bank']['nat'])
+# ---- the deep-block ablation (a second kNN term on the deepest decoder block; PROTOCOL_VL.md, evaluated once after the frozen evaluation):
+#   vl_vs_uknn_final2.json (final images), vl_ctrl_fresh.json (development images: breakdown and the two controls), PROTOCOL_VL.json (choices)
+DEEP = json.load(open(f'{D}/vl_vs_uknn_final2.json')); DEEPC = json.load(open(f'{D}/vl_ctrl_fresh.json')); DEEPP = json.load(open(f'{D}/PROTOCOL_VL.json'))
+assert abs(DEEP['mean_upright'] - J['mean_ours']) < 1e-6
+M['deepMean'] = f1(DEEP['mean_vl']); M['deepGain'] = f1(DEEP['mean_vl'] - DEEP['mean_upright'])
+M['deepWins'], M['deepTies'], M['deepLosses'] = str(DEEP['wtl']['wins']), str(DEEP['wtl']['ties']), str(DEEP['wtl']['losses'])
+M['deepNearCten'] = f1(DEEP['pairs']['edmc10']['cifar100_test']['vl']); M['deepNearChun'] = f1(DEEP['pairs']['edmc100']['cifar10_test']['vl'])
+M['deepUprightNearChun'] = f1(DEEP['pairs']['edmc100']['cifar10_test']['upright'])
+dpin = DEEP['pairs']['in64']; M['deepInSSB'] = f"{dpin['in64_ssb_hard']['diff']:+.1f}"; M['deepInNINCO'] = f"{dpin['in64_ninco']['diff']:+.1f}"; M['deepInPlaces'] = f"{dpin['in64_places365']['diff']:+.1f}"
+dloss = [(t, o) for t in TAGS for o, q in DEEP['pairs'][t].items() if q['verdict'] == 'loss']
+M['deepLossList'] = ', '.join(f"{IDN0[t]}$\\to${SETN0.get(o, o)} ({f1(DEEP['pairs'][t][o]['upright'])} vs {f1(DEEP['pairs'][t][o]['vl'])}\\%)" for t, o in dloss)
+M['deepFPR'] = f1(FP['mean']['VL']['fpr95']); M['deepTwoPass'] = str(sum(1 for t in TAGS if DEEPP[t]['kstar'] is not None and DEEPP[t]['wstar'] > 0))
+dc = DEEPC['mean']; M['deepDevUpright'] = f1(dc['Upright']); M['deepDev'] = f1(dc['VL']); M['deepDevSigOne'] = f1(dc['VL-sigma1']); M['deepDevPose'] = f1(dc['pose-only'])
+M['deepDevChain'] = f1(dc['chain']); M['deepDevMeanX'] = f1(dc['VL+mean'])
+def dcp(t, o, r): return f1(DEEPC['pairs'][t][o][r]['auroc'])
+M['deepDevCtenSigOne'] = dcp('edmc10', 'cifar100_test', 'VL-sigma1'); M['deepDevCten'] = dcp('edmc10', 'cifar100_test', 'VL')
+M['deepDevChunVL'] = dcp('edmc100', 'cifar10_test', 'VL'); M['deepDevChunMeanX'] = dcp('edmc100', 'cifar10_test', 'VL+mean')
+M['deepChainLosses'] = str(DEEPC['wtl']['chain']['losses']); M['deepSigOneLosses'] = str(DEEPC['wtl']['VL-sigma1']['losses']); M['deepMeanXLosses'] = str(DEEPC['wtl']['VL+mean']['losses'])
+M['deepKmax'] = str(sum(1 for t in TAGS if DEEPC['choices'][t]['K'] == 5000))
 # ---- OpenOOD v1.5 ImageNet-1K at 64x64
 O = json.load(open(f'{D}/ood1k_ana.json')); C = O['common']
 def best_prior(key): return max(['CFS', 'CFS kNN', 'RotCls4', 'NLL', 'IC-png', 'IC-j2k', 'TT', 'MSMA*', 'DiffPath', 'GEPC', 'EigenScore'], key=lambda r: C[r][key])

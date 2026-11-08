@@ -68,6 +68,12 @@ CFS (kNN) from 85.5% to 88.6% and the basic kNN rule from 87.7% to 89.8% mean AU
 Gaussian log-density of CFS's descriptors unchanged (80.5% to 80.7%); a $z$-sum with each of 12 comparison methods helps every one
 of them, but exceeds the frame term alone (89.9%) only for the two neighbourhood detectors ([`PROTOCOL_E9.md`](protocols/PROTOCOL_E9.md)).
 
+**A second kNN term on the deepest block (post hoc ablation).** Adding a kNN log-density of the deepest decoder block, at the depth the
+mirror test ranks highest, to Upright kNN as a product of experts (rules frozen before a second use of the final images,
+[`PROTOCOL_VL.md`](protocols/PROTOCOL_VL.md)) raises the six-dataset mean from 93.4% to 94.6% and CIFAR-10→CIFAR-100 from 80.3% to
+88.3% at up to two network evaluations per image; it counts the content density twice and lies outside the decomposition, so the
+paper reports it as an ablation (supplement, Section S9), not as the method.
+
 **Status (2026-11-08).** All experiments of the paper are finished and in the paper except one comparison row that is still
 being computed on the GPU server and is marked as pending in `main.pdf`: likelihood + LID (Kamkari et al.) on CIFAR-100 and
 FashionMNIST (done on CIFAR-10, SVHN and CelebA; the public configurations cover the five 32×32 ID datasets, so it is not run

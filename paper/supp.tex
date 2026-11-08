@@ -185,6 +185,7 @@ Method & CIFAR-10 & SVHN & CelebA & CIFAR-100 & ImageNet-64 & FMNIST & Mean & Fl
 \end{table}
 
 \section{Ablations}
+\label{s:ablate}
 \begin{table}[H]\centering\footnotesize\setlength{\tabcolsep}{3pt}
 \begin{tabular}{@{}lcccccc|c|c|c@{}}\toprule
 Variant & CIFAR-10 & SVHN & CelebA & CIFAR-100 & ImageNet-64 & FMNIST & Mean & Flip & Selection\\\midrule
@@ -195,7 +196,49 @@ Variant & CIFAR-10 & SVHN & CelebA & CIFAR-100 & ImageNet-64 & FMNIST & Mean & F
 \label{tab:ablate}
 \end{table}
 
+\textbf{A second kNN term on the deepest decoder block (post hoc).} Upright kNN uses one network evaluation. Allowing at most one more, we asked whether the depth that the mirror test ranks highest (Section~\ref{s:mirror}; $1/4$ of the input resolution for the 32$\times$32 datasets and $1/8$ for ImageNet-64, an $8\times8$ block in every case) carries information that the three blocks of the kNN term do not. The variant adds to Eq.~(2) of the paper up to two further experts, each a kNN log-density on that block paired with the same orientation term,
+\begin{equation}
+s'(\mathbf{x})=s(\mathbf{x})+a_0\,e_{\sigma_1}(\mathbf{x})+w^{*}e_{\sigma^{*}}(\mathbf{x}),\qquad e_{\sigma}(\mathbf{x})=-d'\log r'_{R^{*}}(\mathbf{x};\sigma)+\log q_\phi(\Rot{0}\mid\mathbf{x}),
+\end{equation}
+where $r'_{R^{*}}(\mathbf{x};\sigma)$ is the distance to the $R^{*}$-th nearest bank image in the pooled statistics of that block for the input $\mathbf{x}+\sigma\veps$, and $d'$ the intrinsic dimension of that space. Every choice was made from ID images and the selection data by rules written before the evaluation (\texttt{PROTOCOL\_VL.md}; Table~\ref{tab:deepchoices}): the block by the mirror test; $R^{*}$ by the rule that chose $R$ for Upright kNN; $a_0=1$ if the expert at $\sigma_1$ raises the selection-data mean; $\sigma^{*}$ the noise level among $\sigma_1,\dots,\sigma_5$ ($0.01$ to $0.086$) with the highest mirror test of the block, and $w^{*}=\max(0,\,2M^{*}-1)$, set to 0 when $\sigma^{*}=\sigma_1$ or when the bootstrap interval of $M^{*}$ contains 50\%; only $w^{*}>0$ costs the second network evaluation (\deepTwoPass{} of the six datasets). Each expert contains a content density, so the variant is a product of experts~\cite{hinton2002poe} that counts the content density more than once: it lies outside the decomposition of Proposition~1, which is why we report it as an ablation and not as the method. It was evaluated once on the final images after these rules were frozen, a second use of those images after the main evaluation.
+
+\textbf{Result} (Table~\ref{tab:deep}). The six-dataset mean rises from \oursMean{} to \deepMean\% (\deepWins/\deepTies/\deepLosses{} over the 63 pairs; mean FPR95 from \FPRours{} to \deepFPR\%), on CIFAR-10, CIFAR-100 and ImageNet-64 only. On the near-OOD pairs, CIFAR-10$\to$CIFAR-100 rises from \pCtenCh{} to \deepNearCten\% and CIFAR-100$\to$CIFAR-10 from \deepUprightNearChun{} to \deepNearChun\%; on ImageNet-64, SSB-hard and NINCO gain \deepInSSB{} and \deepInNINCO{} points (Places365 \deepInPlaces). The two losses are \deepLossList. At \deepNearCten\% on CIFAR-10$\to$CIFAR-100 the variant approaches CSI (\csiCtenCh\% in our run), which trains a ResNet-18 on the ID pixels, with a frozen denoiser and a small head.
+
+\textbf{Breakdown and two controls} (development images, three noise seeds; Table~\ref{tab:deepctrl}). Raising the weight of the orientation term by the same amount instead changes nothing (\deepDevPose{} against \deepDevUpright\%): the gain is the kNN term of the deep block. The single-pass expert $a_0e_{\sigma_1}$ alone gives \deepDevSigOne\%; the second evaluation adds little on average (\deepDev\%) but lifts CIFAR-10$\to$CIFAR-100 from \deepDevCtenSigOne{} to \deepDevCten\%. Control 1 stays inside the decomposition: the densities of the deep features $\mathbf{a}$ and of the features of Upright kNN $\mathbf{b}$ are estimated as one density by the chain rule $p(\mathbf{a})\,p(\mathbf{b}\mid\mathbf{a})$ (a conditional kNN: the kNN of $\mathbf{b}$ among the $K$ bank images nearest in $\mathbf{a}$, $K$ chosen on the selection data), and the orientation term is added once. It reaches \deepDevChain\%, on par with the single-pass product of experts, with \deepChainLosses{} losses against \deepSigOneLosses; the selection data chose the largest $K$ (the weakest conditioning) for \deepKmax{} of the six datasets, where the chain rule approaches adding the deep density separately. The gain is the information of the deep block, and the product-of-experts form is not the only way to add it. Control 2 adds a third expert on the channel means of the block: the hardest pair (CIFAR-100$\to$CIFAR-10) rises from \deepDevChunVL{} to \deepDevChunMeanX\%, but the mean falls to \deepDevMeanX\% and the losses against Upright kNN rise to \deepMeanXLosses; more experts are not better.
+
+\begin{table}[H]\centering\footnotesize\setlength{\tabcolsep}{5pt}
+\begin{tabular}{@{}lccccc@{}}\toprule
+ID dataset & Upright kNN & + deep-block term & $\Delta$ [95\% interval] & W/T/L & NFE\\\midrule
+\inputrows{supp_deep.tex}
+\bottomrule
+\end{tabular}
+\caption{The deep-block ablation on the final images (AUROC, \%, mean over the natural OOD sets of each ID dataset; three noise seeds; evaluated once after its rules were frozen, a second use of the final images). $\Delta$: gain over Upright kNN with its bootstrap 95\% interval; W/T/L: wins/ties/losses of the variant against Upright kNN over the pairs of the dataset by the bootstrap rule; NFE: network evaluations per image.}
+\label{tab:deep}
+\end{table}
+
+\begin{table}[H]\centering\footnotesize\setlength{\tabcolsep}{3.5pt}
+\begin{tabular}{@{}lcccccccc@{}}\toprule
+ & & \multicolumn{4}{c}{near-OOD pairs} & \multicolumn{2}{c}{W/T/L} & \\\cmidrule(lr){3-6}\cmidrule(lr){7-8}
+ & Mean & C10$\to$C100 & C100$\to$C10 & IN64$\to$SSB & IN64$\to$NINCO & vs Upright & vs variant & NFE\\\midrule
+\inputrows{supp_deep_ctrl.tex}
+\bottomrule
+\end{tabular}
+\caption{Breakdown of the gain and two controls (development evaluation images, three noise seeds). Mean: six-dataset mean AUROC over the natural OOD sets; near-OOD pairs (C10: CIFAR-10, C100: CIFAR-100, IN64: ImageNet-64, SSB: SSB-hard); W/T/L over the 63 pairs against Upright kNN and against the variant with the frozen rule (bootstrap rule of the paper).}
+\label{tab:deepctrl}
+\end{table}
+
+\begin{table}[H]\centering\footnotesize\setlength{\tabcolsep}{5pt}
+\begin{tabular}{@{}lcccccccc@{}}\toprule
+ID dataset & depth & $M_0$ & $R^{*}$ & $a_0$ & $\sigma^{*}$ & $M^{*}$ [95\% interval] & $w^{*}$ & NFE\\\midrule
+\inputrows{supp_deep_choices.tex}
+\bottomrule
+\end{tabular}
+\caption{The frozen choices of the deep-block ablation (noise seed 0, as recorded in \texttt{PROTOCOL\_VL.json}; the mirror tests here were computed in half precision, those of Table~\ref{tab:mirror} in single precision). Depth: resolution ratio of the block; $M_0$: its mirror test ($\sigma_1$, $R=1$); $M^{*}$: the mirror test at $\sigma^{*}$ and $R^{*}$ with its 95\% interval; NFE: network evaluations per image.}
+\label{tab:deepchoices}
+\end{table}
+
 \section{Mirror Test}
+\label{s:mirror}
 \begin{table}[H]\centering\small\setlength{\tabcolsep}{4pt}
 \begin{tabular}{@{}lccccccccccccc@{}}\toprule
  & \multicolumn{4}{c}{vertical $M$ by depth} & & \multicolumn{4}{c}{horizontal $M$ (control)} & \multicolumn{2}{c}{kNN term of ours} & & \\\cmidrule(lr){2-5}\cmidrule(lr){7-10}\cmidrule(lr){11-12}

@@ -47,7 +47,8 @@ evaluation of the score; choice of block set and $R$), `kx_rothead.py` / `kx_rot
 
 | experiment | scripts |
 |---|---|
-| OpenOOD v1.5 ImageNet-1K at 64×64 | `prep_ood1k.py`, `run_ood1k_main.sh`, `mk_ood1k_bl.py`, `run_ood1k_bl.sh`, `mk_rotcls_idx.py` (`vl_*.py`: a detector of the development phase that is not reported) |
+| OpenOOD v1.5 ImageNet-1K at 64×64 | `prep_ood1k.py`, `run_ood1k_main.sh`, `mk_ood1k_bl.py`, `run_ood1k_bl.sh`, `mk_rotcls_idx.py` |
+| the deep-block ablation (a second kNN term on the deepest decoder block; `PROTOCOL_VL.md`) | `vl_extract.py`, `vl_eval.py`, `vl_hooks3.py`, `run_vl_hooks3.sh` (exploration on the development split), `vl_protocol.py` (the frozen choices), `vl_fextract.py`, `vl_fscore.py`, `run_vl_final.sh` (the single final evaluation), `vl_parts.py`, `vl_ctrl.py`, `run_vl_extra.sh` (breakdown and the two controls) |
 | ImageNet 256×256 with ADM (uncontrolled) | `prep_hr.py`, `prep_hr_cs.py`, `mk_sets_in256.py`, `run_in256.py`, `run_in256.sh`, `run_in256_g3.sh`, `run_adm.py` |
 | resolution-controlled ImageNet (ADM 256, EDM2-XS 512, DiT-XL/2 256) | `prep_c224.py`, `mk_sets_hires.py`, `enc_e512.py`, `enc_dit.py`, `run_hires.py`, `hires_seed.sh`, `hires_cfs.sh`, `mk_q_hires.py`, `patch_hires.py`, `mk_q_6id.py`; DiT-XL/2 after the extraction: `hires_post_dit.sh`, `insert_dit.py`; post-hoc diagnostics: `hires_diag.py` |
 | EuroSAT (no canonical orientation) | `prep_eurosat.py`, `mk_sets_eurosat.py`, `run_e3.py`, `run_e3.sh`, `run_e3s.sh` |

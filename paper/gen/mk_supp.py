@@ -89,6 +89,35 @@ open(f'{OUT}/supp_ablate.tex', 'w').write('\n'.join(L) + '\n')
 rows = [l for l in open(f'{D}/tab_mirror_rows.tex').read().split('\n') if l and not l.startswith('%')]
 rows = [l.replace('\\bottomrule', '') for l in rows]
 open(f'{OUT}/supp_mirror.tex', 'w').write('\n'.join(rows) + '\n')
+# ---- the deep-block ablation: final evaluation vs Upright kNN, the development-split breakdown and controls, the frozen choices
+DEEP = json.load(open(f'{D}/vl_vs_uknn_final2.json')); DEEPC = json.load(open(f'{D}/vl_ctrl_fresh.json')); DEEPP = json.load(open(f'{D}/PROTOCOL_VL.json'))
+SIGGRID = [0.01 * 3162.2777 ** (k / 15) for k in range(16)]            # the 16-point noise grid (sigma_1 = 0.01)
+def sgn(v): return '0.0' if abs(v) < 0.05 else ('$+$' if v > 0 else '$-$') + f'{abs(v):.1f}'
+DNFE = {t: 1 + (1 if (DEEPP[t]['kstar'] is not None and DEEPP[t]['wstar'] > 0) else 0) for t in TAGS}
+L = ['% written by gen/mk_supp.py: the deep-block ablation on the final images (natural-OOD mean per ID dataset, three noise seeds)']
+for t in TAGS:
+    r = DEEP['ids'][t]; vs = [q['verdict'] for q in DEEP['pairs'][t].values()]
+    L.append(f"{NAME[t]} & {f1(r['upright'])} & {f1(r['vl'])} & {sgn(r['diff'])} [{sgn(r['ci'][0])}, {sgn(r['ci'][1])}] & {vs.count('win')}/{vs.count('tie')}/{vs.count('loss')} & {DNFE[t]}\\\\")
+L.append('\\midrule')
+W = DEEP['wtl']; L.append(f"Mean & {f1(DEEP['mean_upright'])} & {f1(DEEP['mean_vl'])} & {sgn(DEEP['mean_vl'] - DEEP['mean_upright'])} & {W['wins']}/{W['ties']}/{W['losses']} & --\\\\")
+open(f'{OUT}/supp_deep.tex', 'w').write('\n'.join(L) + '\n')
+def dcm(r): return DEEPC['mean'][r]
+def dcp(t, o, r): return DEEPC['pairs'][t][o][r]['auroc']
+def dwt(d): return f"{d['wins']}/{d['ties']}/{d['losses']}" if d else '--'
+DROWS = [('Upright', 'Upright kNN', '1'), ('VL', '+ deep-block term (frozen rule)', '1--2'), ('VL-sigma1', '\\quad single pass only ($a_0e_{\\sigma_1}$)', '1'),
+         ('pose-only', '\\quad orientation weight raised instead', '1'), ('chain', 'Control 1: chain rule (conditional kNN)', '1'),
+         ('VL+mean', 'Control 2: + third expert (channel means)', '1--2')]
+L = ['% written by gen/mk_supp.py: development images, three noise seeds (analysis/final/ana_kx/vl_ctrl_ana.py)']
+for r, lab, nfe in DROWS:
+    cells = [f1(dcm(r)), f1(dcp('edmc10', 'cifar100_test', r)), f1(dcp('edmc100', 'cifar10_test', r)), f1(dcp('in64', 'in64_ssb_hard', r)), f1(dcp('in64', 'in64_ninco', r))]
+    L.append(f"{lab} & " + ' & '.join(cells) + f" & {dwt(DEEPC['wtl'].get(r))} & {dwt(DEEPC['wtl_vs_vl'].get(r))} & {nfe}\\\\")
+    if r == 'VL': L.append('\\midrule')
+open(f'{OUT}/supp_deep_ctrl.tex', 'w').write('\n'.join(L) + '\n')
+L = ['% written by gen/mk_supp.py: the frozen choices of the deep-block ablation (noise seed 0, as recorded in PROTOCOL_VL.json; mirror tests in half precision)']
+for t in TAGS:
+    q = DEEPP[t]; ks = q['kstar']; m0 = q['mirror_levels'][f"L{q['level']}"]; ms = q['mirror_sigma'].get(f'k{ks}')
+    L.append(f"{NAME[t]} & 1/{2 ** q['level']} & {f1(m0)} & {q['R']} & {q['a0']} & $\\sigma_{{{ks + 1}}}={SIGGRID[ks]:.3f}$ & {f1(ms)} [{f1(q['mirror_star_ci'][0])}, {f1(q['mirror_star_ci'][1])}] & {q['wstar']:.2f} & {DNFE[t]}\\\\")
+open(f'{OUT}/supp_deep_choices.tex', 'w').write('\n'.join(L) + '\n')
 # ---- ImageNet-1K 64x64 per set
 O = json.load(open(f'{D}/ood1k_ana.json')); C = O['common']
 SETS = ['in64_ssb_hard', 'in64_ninco', 'in64_inaturalist', 'in64_textures', 'in64_openimage_o', 'in64_imagenet_v2', 'in64_imagenet_c', 'in64_imagenet_r']
