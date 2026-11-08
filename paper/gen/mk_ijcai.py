@@ -28,11 +28,14 @@ CITE = {'NLL': 'song2021score', 'IC-png': 'serra2020input', 'IC-j2k': 'serra2020
 PASSES = {'NLL': '256', 'IC-png': '256', 'IC-j2k': '256', 'TT': '256', 'MSMA*': '20', 'DiffPath': '10', 'GEPC': '14', 'EigenScore': '180',
           'Graham': '2{,}475', 'LMD': '10{,}000', 'Kamkari': '12{,}544', 'CSI': '40$^{\\ddagger}$',
           'RotCls4': '4$^{\\ddagger}$', 'kNN (CT)': '1', 'kNN tuned': '1', 'CFS': '1', 'CFS-kNN': '1'}
-SEC1 = {json.loads(l)['method']: json.loads(l)['sec_per_img'] for l in open(f'{D}/bench_cpu_session.jsonl')}
-SEC2 = {json.loads(l)['method']: json.loads(l)['sec_per_img'] for l in open(f'{D}/bench_cpu_session2.jsonl')}
-SECROW = {'NLL': SEC1['nll'], 'IC-png': SEC1['ic'], 'IC-j2k': SEC1['ic'], 'TT': SEC1['nll'], 'MSMA*': SEC1['msma'], 'DiffPath': SEC1['diffpath'],
-          'GEPC': SEC1['gepc'], 'EigenScore': SEC1['eigen'], 'CFS': SEC2['cfs'], 'CFS-kNN': SEC2['cfs_knn'], 'RotCls4': SEC2['rotcls4'],
-          'kNN (CT)': SEC2['knn'], 'kNN tuned': SEC2['knn'], 'ours': SEC2['ours'], 'Graham': None, 'LMD': None, 'Kamkari': None, 'CSI': None}
+# CPU seconds per image: every row of Table 2 measured in one session by eu/experiments/bench_cpu3.py (multi-pass methods once, the single-pass
+#   methods interleaved, median of 15 rounds; CFS's kNN head with the bank norms precomputed).  bench_cpu_session*.jsonl are the earlier
+#   per-method runs (kept for the record; their CFS kNN-head row used torch.cdist, which recomputes the bank norms at every call).
+SEC3 = {json.loads(l)['method']: json.loads(l) for l in open(f'{D}/bench_cpu3.jsonl')}
+SEC = {m: v['sec_per_img'] for m, v in SEC3.items()}
+SECROW = {'NLL': SEC['nll'], 'IC-png': SEC['ic'], 'IC-j2k': SEC['ic'], 'TT': SEC['nll'], 'MSMA*': SEC['msma'], 'DiffPath': SEC['diffpath'],
+          'GEPC': SEC['gepc'], 'EigenScore': SEC['eigen'], 'CFS': SEC['cfs'], 'CFS-kNN': SEC['cfs_knn'], 'RotCls4': SEC['rot4'],
+          'kNN (CT)': SEC['knn'], 'kNN tuned': SEC['knn'], 'ours': SEC['ours'], 'Graham': None, 'LMD': None, 'Kamkari': None, 'CSI': None}
 def fsec(v): return '--' if v is None else (f'{v:.0f}' if v >= 10 else (f'{v:.1f}' if v >= 1 else f'{v:.2f}'))
 def f1(v): return f'{v:.1f}'
 J = json.load(open(f'{D}/ours_vs_all_final2.json')); JD = json.load(open(f'{D}/ours_vs_all_fresh.json'))
@@ -134,8 +137,11 @@ for r, c in (('Graham', 'Gr'), ('LMD', 'Lmd'), ('Kamkari', 'Kam')):
         M[f'new{c}TierList'] = ', '.join(IDN0[t] for t in TAGS if t in v['tiers'])
 # LID+NLL: its scope (the five 32x32 datasets once finished) and a pending note while runs are missing; both empty themselves out when the runs are complete
 kam_done = NEWTIERS.get('Kamkari', []); kam_missing = [t for t in KAM_ALL if t not in kam_done]
+def later(x): return f'\\later{{{x}}}' if kam_missing else x          # red while the remaining LID+NLL runs are pending (filled in later)
+if 'Kamkari' in NEWROWS:
+    for k in ('newKamMean', 'newKamOursMean', 'newKamWtl', 'newKamPairs', 'newKamTiers', 'newKamTierList'): M[k] = later(M[k])
 for k in ('newKamMean', 'newKamOursMean', 'newKamWtl', 'newKamPairs', 'newKamTiers', 'newKamTierList'): M.setdefault(k, '--')   # before any LID+NLL run is complete
-M['newKamScope'] = 'the five 32$\\times$32 datasets' if not kam_missing else ((', '.join(IDN0[t] for t in TAGS if t in kam_done) if kam_done else 'no ID dataset') + ' so far')
+M['newKamScope'] = 'the five 32$\\times$32 datasets' if not kam_missing else later((', '.join(IDN0[t] for t in TAGS if t in kam_done) if kam_done else 'no ID dataset') + ' so far')
 M['pendingKam'] = '' if not kam_missing else ' \\pending{LID+NLL: ' + ', '.join(IDN0[t] for t in kam_missing) + ' still running}'
 # E4: chest X-ray, histology, generators trained with rotations (e4_ana.py)
 E4 = json.load(open(f'{D}/e4_ana.json'))
@@ -188,7 +194,7 @@ partial = [r for r in NEWROWS if len(NEWTIERS[r]) < 6]                # rows who
 def partial_note(r):                                                 # the ID datasets a partial row covers: 'so far' while runs are missing, its scope once they are complete
     done = NEWTIERS[r]; nat_pairs = NEWJ['rows'][r]['nat_pairs']
     if r == 'Kamkari' and all(t in done for t in KAM_ALL): return f"{LABEL[r]}: the five 32$\\times$32 datasets, {nat_pairs} pairs (no public configuration for ImageNet-64)"
-    return f"{LABEL[r]}: " + ', '.join(IDN[t] for t in TAGS if t in done) + ' so far'
+    return later(f"{LABEL[r]}: " + ', '.join(IDN[t] for t in TAGS if t in done) + ' so far')
 M['partialRowsNote'] = '' if not partial else '; ' + '; '.join(partial_note(r) for r in partial)
 ROWS_ALL = ['kNN tuned', 'kNN (CT)'] + PRIOR
 lost = [(t, o) for t, P in J['pairs'].items() for o, p in P.items() if any(p['rows'][r]['verdict'] == 'loss' for r in ROWS_ALL if r in p['rows'])]
@@ -209,7 +215,9 @@ M['FPRours'] = f1(FP['mean']['Ours']['fpr95']); fb = min([r for r in FP['mean'] 
 assert fb == 'kNN tuned'; M['FPRbest'] = f1(FP['mean'][fb]['fpr95'])
 fpp = min([r for r in PRIOR if r in FP['mean']], key=lambda r: FP['mean'][r]['fpr95']); M['FPRbestPriorName'] = LABEL[fpp]; M['FPRbestPrior'] = f1(FP['mean'][fpp]['fpr95'])
 M.update({'cpuOurs': fsec(SECROW['ours']), 'cpuNll': fsec(SECROW['NLL']), 'cpuDiffPath': fsec(SECROW['DiffPath']), 'cpuCfs': fsec(SECROW['CFS']),
-          'cpuEigen': fsec(SECROW['EigenScore']), 'cpuRot': fsec(SECROW['RotCls4']),
+          'cpuCfsKnn': fsec(SECROW['CFS-kNN']), 'cpuCfsKnnCdist': fsec(SEC['cfs_knn_cdist']), 'cpuKnnBasic': fsec(SECROW['kNN (CT)']),
+          'cpuEigen': fsec(SECROW['EigenScore']), 'cpuRot': fsec(SECROW['RotCls4']), 'cpuReps': str(SEC3['ours']['reps']),
+          'cpuGHz': SEC3['ours']['cpu'].split('@')[-1].strip().replace('GHz', '\\,GHz'),
           'cpuRatioNll': f"{SECROW['NLL'] / SECROW['ours']:.0f}", 'cpuRatioDiffPath': f"{SECROW['DiffPath'] / SECROW['ours']:.0f}"})
 EXPD = json.load(open(f'{D}/dR_s0.json')); ds = [float(EXPD[t]['d']) for t in TAGS]; M['dimRange'] = f'{min(ds):.0f}--{max(ds):.0f}'
 ACC = {'edmc10': 95.5, 'l6svhn': 86.7, 'dpceleba': 100.0, 'edmc100': 88.2, 'in64': 77.3, 'fmnist': 99.7}   # logs/kx/headsR_<tag>.log (seed 0)
@@ -323,7 +331,10 @@ for gi, (title, rs) in enumerate(GROUPS):
     L.append(('\\midrule' if gi else '') + f'\\multicolumn{{{NCOL}}}{{@{{}}l}}{{{title}}}\\\\')
     for r in rs:
         lab = LABEL[r] + ('$^{\\S}$' if r == 'CSI' or (r in NEWTIERS and len(NEWTIERS[r]) < 6) else '')
-        L.append(lab + ' & ' + ' & '.join(cell(v, m) for v, m in zip(cols[r], mk[r])) + f" & {wtl_cell(r)} & {PASSES[r]} & {fsec(SECROW[r])}\\\\")
+        cells = [cell(v, m) for v, m in zip(cols[r], mk[r])]; w = wtl_cell(r)
+        if r == 'Kamkari' and kam_missing:                               # filled in by the remaining runs: red
+            cells = [later(c) if (j < 6 and TAGS[j] in kam_missing) or j in (6, 8) else c for j, c in enumerate(cells)]; w = later(w)
+        L.append(lab + ' & ' + ' & '.join(cells) + f" & {w} & {PASSES[r]} & {fsec(SECROW[r])}\\\\")
 L.append('\\midrule')
 L.append('\\textbf{Upright kNN (ours)} & ' + ' & '.join(cell(v, m) for v, m in zip(cols['ours'], mk['ours'])) + f" & -- & 1 & {fsec(SECROW['ours'])}\\\\")
 for key, lab in (('Ours content', '\\quad kNN term only'), ('Ours pose', '\\quad orientation term only')):
