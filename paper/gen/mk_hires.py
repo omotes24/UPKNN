@@ -7,7 +7,7 @@ HERE = os.path.dirname(os.path.abspath(__file__)); OUT = os.path.dirname(HERE); 
 SRC = os.environ.get('HIRES_JSON', f'{D}/hires_ana.json')
 TIERS = [('in256c', 'ADM, 256$\\times$256, pixels'), ('e512', 'EDM2-XS, 512$\\times$512, latents'), ('dit256', 'DiT-XL/2, 256$\\times$256, latents')]
 ROWS = ['Ours', 'kNN term', 'Orientation term', 'kNN basic', 'CFS', 'CFS kNN', 'MSMA*', 'DiffPath', 'GEPC']
-LAB = {'Ours': '\\textbf{Upright kNN}', 'kNN term': '\\quad kNN term', 'Orientation term': '\\quad orient.\\ term', 'kNN basic': 'kNN (basic)',
+LAB = {'Ours': 'Upright kNN', 'kNN term': '\\quad kNN term', 'Orientation term': '\\quad orient.\\ term', 'kNN basic': 'kNN (basic)',
        'CFS': 'CFS (diag.)', 'CFS kNN': 'CFS (kNN)', 'MSMA*': 'MSMA$^{*}$', 'DiffPath': 'DiffPath', 'GEPC': 'GEPC'}
 ABL = ('kNN term', 'Orientation term')
 NEAR = ['ssb_hard', 'ninco']; FAR = ['inaturalist', 'textures', 'openimage_o']; VF = 'imagenet_test__vflip'; CS = ['imagenet_v2', 'imagenet_c', 'imagenet_r']

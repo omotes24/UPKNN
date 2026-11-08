@@ -374,7 +374,7 @@ for gi, (title, rs) in enumerate(GROUPS):
             cells = [later(c) if (j < 6 and TAGS[j] in kam_missing) or j in (6, 8) else c for j, c in enumerate(cells)]; w = later(w)
         L.append(lab + ' & ' + ' & '.join(cells) + f" & {w} & {PASSES[r]} & {fsec(SECROW[r])}\\\\")
 L.append('\\midrule')
-L.append('\\textbf{Upright kNN (ours)} & ' + ' & '.join(cell(v, m) for v, m in zip(cols['ours'], mk['ours'])) + f" & -- & 1 & {fsec(SECROW['ours'])}\\\\")
+L.append('Upright kNN (ours) & ' + ' & '.join(cell(v, m) for v, m in zip(cols['ours'], mk['ours'])) + f" & -- & 1 & {fsec(SECROW['ours'])}\\\\")
 for key, lab in (('Ours content', '\\quad kNN term only'), ('Ours pose', '\\quad orientation term only')):
     vals = [J['ids'][t]['rows'][key]['mean'] for t in TAGS] + [ids_mean(J, key), near_mean(key), float(np.mean([vf_of(J, t, key) for t in TAGS]))]
     L.append(f'{lab} & ' + ' & '.join(f1(v) for v in vals) + f" & {wtl_cell(key)} & 1 & --\\\\")
@@ -391,7 +391,7 @@ def irow(lab, Mx, key_cs, mkd):
     out += [cell(fs[0], mkd[2]), cell(fs[1], mkd[3])] if fs else ['--', '--']
     return lab + ' & ' + ' & '.join(out) + '\\\\'
 R64 = ['Ours', 'kNN term', 'Orientation term', 'kNN basic', 'CFS', 'CFS kNN', 'RotCls4', 'NLL', 'TT', 'MSMA*', 'DiffPath']   # the weaker rows (IC, GEPC, EigenScore) are in the supplement
-LAB2 = {'Ours': '\\textbf{Upright kNN}', 'kNN term': '\\quad kNN term', 'Orientation term': '\\quad orient.\\ term', 'kNN basic': 'kNN (basic)',
+LAB2 = {'Ours': 'Upright kNN', 'kNN term': '\\quad kNN term', 'Orientation term': '\\quad orient.\\ term', 'kNN basic': 'kNN (basic)',
         'CFS': 'CFS (diag.)', 'CFS kNN': 'CFS (kNN)', 'RotCls4': 'Rotation pred.', 'NLL': 'NLL', 'IC-png': 'IC (PNG)', 'IC-j2k': 'IC (J2K)', 'TT': 'TT',
         'MSMA*': 'MSMA$^{*}$', 'DiffPath': 'DiffPath', 'GEPC': 'GEPC', 'EigenScore': 'EigenScore'}
 CS64 = ['in64_imagenet_v2', 'in64_imagenet_c', 'in64_imagenet_r']
@@ -424,7 +424,7 @@ open(f'{OUT}/tab_in256.tex', 'w').write('\n'.join(L) + '\n')
 
 
 # ---- Table 4 (naive fusions, final split)
-FR = [('Ours', '\\textbf{Upright kNN} (sum, Eq.~\\ref{eq:score})'), ('kNN term', 'kNN term only'), ('Orientation term', 'orientation term only'),
+FR = [('Ours', 'Upright kNN (sum, Eq.~\\ref{eq:score})'), ('kNN term', 'kNN term only'), ('Orientation term', 'orientation term only'),
       ('RotCls4', 'rotation classifier (ResNet-18)'), ('kNN+RotCls4 (z-sum)', 'kNN + rot.\\ classifier, $z$-sum'),
       ('kNN+RotCls4 (Fisher)', 'kNN + rot.\\ classifier, Fisher'), ('kNN+Orient. (z-sum)', 'kNN + orient.\\ term, $z$-sum'),
       ('kNN+Orient. (Fisher)', 'kNN + orient.\\ term, Fisher'), ('Ours, d = 1', 'Upright kNN with $d=1$')]

@@ -223,7 +223,7 @@ if E5B:
     for tag, lab in (('in64', '10{,}000 (10 per class; the paper)'), ('in64b25', '25{,}000 (random)'), ('in64b50', '50{,}000 (random)')):
         if tag not in E5B: continue
         L.append(f"\\midrule\\multicolumn{{10}}{{@{{}}l}}{{\\emph{{bank of {lab} training images}}}}\\\\")
-        for r, rl in (('Ours (R=N/10)', '\\textbf{Upright kNN} ($R=N/10$)'), ('Ours (R=1000)', '\\quad $R=1000$'), ('kNN term', '\\quad kNN term ($R=N/10$)'), ('Orientation term', '\\quad orient.\\ term'),
+        for r, rl in (('Ours (R=N/10)', 'Upright kNN ($R=N/10$)'), ('Ours (R=1000)', '\\quad $R=1000$'), ('kNN term', '\\quad kNN term ($R=N/10$)'), ('Orientation term', '\\quad orient.\\ term'),
                       ('kNN basic', 'kNN (basic)'), ('CFS', 'CFS (diag.)'), ('CFS kNN', 'CFS (kNN)')):
             if r not in E5B[tag]['rows']: continue
             v = E5B[tag]['rows'][r]
