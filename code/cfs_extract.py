@@ -1,4 +1,4 @@
-# cfs_extract.py -- CFS (Rouzoumka et al., "Backbone-Equated Diffusion OOD via Sparse Internal Snapshots", arXiv 2605.11014) as a
+# cfs_extract.py -- CFS (Rouzoumka et al., "Backbone-Equated Diffusion OOD via Sparse Internal Snapshots", NeurIPS 2026; arXiv 2605.11014) as a
 #   comparison method on our six ID backbones, following the paper's main operating point CFS(1x2) (Table 22) and the official code
 #   (cfs/methods/cfs.py of github.com/RouzAY/cfs-diffusion-ood):
 #     - one canonical level lambda = 5 (logSNR); in the EDM coordinates of our denoiser wrappers x_lambda = x0 + sigma eps with

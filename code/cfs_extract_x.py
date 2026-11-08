@@ -1,6 +1,6 @@
 # cfs_extract_x.py -- cfs_extract.py with the 32-image probe batch of the hook ranking passed in chunks (CFS_PROBE_CHUNK, for the 256x256
 #   ADM tier whose 32-image fp32 batch does not fit an 11-GB GPU); CFS_PROBE_CHUNK unset = cfs_extract.py exactly.
-# cfs_extract.py -- CFS (Rouzoumka et al., "Backbone-Equated Diffusion OOD via Sparse Internal Snapshots", arXiv 2605.11014) as a
+# cfs_extract.py -- CFS (Rouzoumka et al., "Backbone-Equated Diffusion OOD via Sparse Internal Snapshots", NeurIPS 2026; arXiv 2605.11014) as a
 #   comparison method on our six ID backbones, following the paper's main operating point CFS(1x2) (Table 22) and the official code
 #   (cfs/methods/cfs.py of github.com/RouzAY/cfs-diffusion-ood):
 #     - one canonical level lambda = 5 (logSNR); in the EDM coordinates of our denoiser wrappers x_lambda = x0 + sigma eps with

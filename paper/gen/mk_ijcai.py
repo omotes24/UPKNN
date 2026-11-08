@@ -126,9 +126,17 @@ if CSI:
     M['csiLsunFix'] = f1(CSI['pairs']['edmc10']['lsun_fix']['csi']); M['csiInFix'] = f1(CSI['pairs']['edmc10']['imagenet_fix']['csi'])
     M['csiChVf'] = f1(CSI['upside_down']['edmc100']['csi'])
 # the three further prior methods
+KAM_ALL = ['edmc10', 'l6svhn', 'dpceleba', 'edmc100', 'fmnist']     # LID+NLL: the public configurations cover the five 32x32 ID datasets (none for ImageNet-64)
 for r, c in (('Graham', 'Gr'), ('LMD', 'Lmd'), ('Kamkari', 'Kam')):
     if r in NEWROWS:
         M[f'new{c}Mean'] = f1(NEWJ['rows'][r]['mean_nat']); v = NEWJ['rows'][r]; M[f'new{c}Wtl'] = f"{v['nat_wins']}/{v['nat_ties']}/{v['nat_losses']}"; M[f'new{c}Tiers'] = str(len(v['tiers']))
+        M[f'new{c}OursMean'] = f1(np.mean([J['ids'][t]['ours'] for t in v['tiers']])); M[f'new{c}Pairs'] = str(v['nat_pairs'])   # Upright kNN on the same ID datasets
+        M[f'new{c}TierList'] = ', '.join(IDN0[t] for t in TAGS if t in v['tiers'])
+# LID+NLL: its scope (the five 32x32 datasets once finished) and a pending note while runs are missing; both empty themselves out when the runs are complete
+kam_done = NEWTIERS.get('Kamkari', []); kam_missing = [t for t in KAM_ALL if t not in kam_done]
+for k in ('newKamMean', 'newKamOursMean', 'newKamWtl', 'newKamPairs', 'newKamTiers', 'newKamTierList'): M.setdefault(k, '--')   # before any LID+NLL run is complete
+M['newKamScope'] = 'the five 32$\\times$32 datasets' if not kam_missing else ((', '.join(IDN0[t] for t in TAGS if t in kam_done) if kam_done else 'no ID dataset') + ' so far')
+M['pendingKam'] = '' if not kam_missing else ' \\pending{LID+NLL: ' + ', '.join(IDN0[t] for t in kam_missing) + ' still running}'
 # E4: chest X-ray, histology, generators trained with rotations (e4_ana.py)
 E4 = json.load(open(f'{D}/e4_ana.json'))
 def e4r(tag, row, key): return E4[tag]['rows'][row][key]
@@ -177,7 +185,11 @@ M['lostOwnList'] = ', '.join(f'{IDN[t]}$\\to${SETN[o]}' for t, o in lostOwn); M[
 M['nSumBelowBest'] = str(len(belowB)); M['sumBelowBestMaxGap'] = f1(round(max(pair(belowB[0][0], belowB[0][1], r) for r in ('Ours content', 'Ours pose')), 1) - round(pair(belowB[0][0], belowB[0][1]), 1)) if belowB else '0'
 M['sumBelowBestList'] = '; '.join(f"{IDN[t]}$\\to${SETN[o]} {f1(pair(t, o))} vs {f1(max(pair(t, o, 'Ours content'), pair(t, o, 'Ours pose')))}\\%" for t, o, _ in belowB[:3])
 partial = [r for r in NEWROWS if len(NEWTIERS[r]) < 6]                # rows whose runs on some ID datasets are still pending (footnote of Table 2)
-M['partialRowsNote'] = '' if not partial else '; ' + '; '.join(f"{LABEL[r]}: " + ', '.join(IDN[t] for t in TAGS if t in NEWTIERS[r]) + ' so far' for r in partial)
+def partial_note(r):                                                 # the ID datasets a partial row covers: 'so far' while runs are missing, its scope once they are complete
+    done = NEWTIERS[r]; nat_pairs = NEWJ['rows'][r]['nat_pairs']
+    if r == 'Kamkari' and all(t in done for t in KAM_ALL): return f"{LABEL[r]}: the five 32$\\times$32 datasets, {nat_pairs} pairs (no public configuration for ImageNet-64)"
+    return f"{LABEL[r]}: " + ', '.join(IDN[t] for t in TAGS if t in done) + ' so far'
+M['partialRowsNote'] = '' if not partial else '; ' + '; '.join(partial_note(r) for r in partial)
 ROWS_ALL = ['kNN tuned', 'kNN (CT)'] + PRIOR
 lost = [(t, o) for t, P in J['pairs'].items() for o, p in P.items() if any(p['rows'][r]['verdict'] == 'loss' for r in ROWS_ALL if r in p['rows'])]
 M['nNoLoss'] = str(int(M['nPairs']) - len(lost)); M['nLost'] = str(len(lost))
