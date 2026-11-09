@@ -1,5 +1,6 @@
 # mk_ijcai.py -- numbers and table bodies of the IJCAI-27 draft (English) from the evaluation files in gen/data/:
-#   ours_vs_all_final2.json / _fresh.json (6 ID tiers, final split evaluated once after freezing / development split; ours_vs_all.py),
+#   ours_vs_all_final2.json / _fresh.json (6 ID tiers as evaluated, final split evaluated once after freezing / development split; ours_vs_all.py;
+#   the CIFAR-100 tier is dropped and every aggregate recomputed over the five remaining ID datasets by fiveid.py),
 #   fpr95_all_final2.json, ablate2_<tag>.json (development split + selection data, seed 0), dR_s0.json, bench_cpu_session*.jsonl,
 #   ood1k_ana.json (OpenOOD v1.5 ImageNet-1K at 64x64, ood1k_ana.py), fusion_final2.json (naive fusions, fusion_final2.py),
 #   in256_ana.json (ImageNet 256x256 with ADM, in256_ana.py; optional until the runs finish).
@@ -7,13 +8,13 @@
 import os, json
 import numpy as np
 HERE = os.path.dirname(os.path.abspath(__file__)); OUT = os.path.dirname(HERE); D = os.path.join(HERE, 'data')
-TAGS = ['edmc10', 'l6svhn', 'dpceleba', 'edmc100', 'in64', 'fmnist']
+from fiveid import TAGS, NEAR, J5, NEWJ5, FP5, CSI5, DEEP5, DEEPC5, KG5, F5, WS5, drop_tag   # five ID datasets (CIFAR-100 removed: protocols/CIFAR100_CHECKPOINT.md)
 VF = {'edmc10': 'cifar10_test__vflip', 'l6svhn': 'svhn_test__vflip', 'dpceleba': 'celeba_test__vflip', 'edmc100': 'cifar100_test__vflip',
       'in64': 'in64_imagenet_test__vflip', 'fmnist': 'g32_fmnist_test__vflip'}
 EIGHT = ['NLL', 'IC-png', 'IC-j2k', 'TT', 'MSMA*', 'DiffPath', 'GEPC', 'EigenScore']
-NEWJ = json.load(open(f'{D}/newrows_final2.json'))                 # DDPM-OOD (Graham), LMD, likelihood + LID (Kamkari): newrows_final2.py
+NEWJ = NEWJ5(json.load(open(f'{D}/newrows_final2.json')))                 # DDPM-OOD (Graham), LMD, likelihood + LID (Kamkari): newrows_final2.py
 NEWROWS = [r for r in ('Graham', 'LMD', 'Kamkari') if r in NEWJ['rows']]
-CSI = json.load(open(f'{D}/csi_ana.json')) if os.path.exists(f'{D}/csi_ana.json') else None   # CSI on the five 32x32 IDs: csi_ana.py
+CSI = CSI5(json.load(open(f'{D}/csi_ana.json'))) if os.path.exists(f'{D}/csi_ana.json') else None   # CSI on the 32x32 IDs: csi_ana.py
 PRIOR = EIGHT + NEWROWS + ['CFS', 'CFS-kNN', 'RotCls4']
 IDN0 = {'edmc10': 'CIFAR-10', 'l6svhn': 'SVHN', 'dpceleba': 'CelebA', 'edmc100': 'CIFAR-100', 'in64': 'ImageNet-64', 'fmnist': 'FashionMNIST'}
 SETN0 = {'cifar10_test': 'CIFAR-10', 'cifar100_test': 'CIFAR-100', 'celeba_test': 'CelebA', 'svhn_test': 'SVHN', 'textures': 'Textures', 'tin_val': 'Tiny-ImageNet', 'lsun_fix': 'LSUN-FIX',
@@ -38,7 +39,7 @@ SECROW = {'NLL': SEC['nll'], 'IC-png': SEC['ic'], 'IC-j2k': SEC['ic'], 'TT': SEC
           'kNN (CT)': SEC['knn'], 'kNN tuned': SEC['knn'], 'ours': SEC['ours'], 'Graham': None, 'LMD': None, 'Kamkari': None, 'CSI': None}
 def fsec(v): return '--' if v is None else (f'{v:.0f}' if v >= 10 else (f'{v:.1f}' if v >= 1 else f'{v:.2f}'))
 def f1(v): return f'{v:.1f}'
-J = json.load(open(f'{D}/ours_vs_all_final2.json')); JD = json.load(open(f'{D}/ours_vs_all_fresh.json'))
+J = J5(json.load(open(f'{D}/ours_vs_all_final2.json'))); JD = J5(json.load(open(f'{D}/ours_vs_all_fresh.json')))
 for t in J['pairs']:                                                    # merge the new comparison rows (same images, same bootstrap draws)
     for o, p in J['pairs'][t].items():
         for r in NEWROWS:
@@ -46,13 +47,12 @@ for t in J['pairs']:                                                    # merge 
     for r in NEWROWS:
         if r in NEWJ['ids'][t]['rows']: J['ids'][t]['rows'][r] = NEWJ['ids'][t]['rows'][r]
 for r in NEWROWS: J['rows'][r] = dict(wins=NEWJ['rows'][r]['wins'], ties=NEWJ['rows'][r]['ties'], losses=NEWJ['rows'][r]['losses'])
-NEWTIERS = {r: NEWJ['rows'][r]['tiers'] for r in NEWROWS}            # tiers with complete runs (all six when the runs are finished)
-FP = json.load(open(f'{D}/fpr95_all_final2.json'))
+NEWTIERS = {r: NEWJ['rows'][r]['tiers'] for r in NEWROWS}            # tiers with complete runs (all five when the runs are finished)
+FP = FP5(json.load(open(f'{D}/fpr95_all_final2.json')))
 def ids_mean(Jx, r): return float(np.mean([Jx['ids'][t]['rows'][r]['mean'] for t in TAGS if r in Jx['ids'][t]['rows']]))
-NEAR4 = [('edmc10', 'cifar100_test'), ('edmc100', 'cifar10_test'), ('in64', 'in64_ssb_hard'), ('in64', 'in64_ninco')]   # the near-OOD pairs
 def near_mean(r=None):
-    v = [(J['pairs'][t][o]['ours'] if r is None else J['pairs'][t][o]['rows'][r]['auroc']) for t, o in NEAR4 if r is None or r in J['pairs'][t][o]['rows']]
-    return float(np.mean(v)) if len(v) == 4 else None
+    v = [(J['pairs'][t][o]['ours'] if r is None else J['pairs'][t][o]['rows'][r]['auroc']) for t, o in NEAR if r is None or r in J['pairs'][t][o]['rows']]
+    return float(np.mean(v)) if len(v) == len(NEAR) else None
 def vf_of(Jx, t, r=None): p = Jx['pairs'][t][VF[t]]; return p['ours'] if r is None else p['rows'][r]['auroc']
 def wtl(Jx, r): v = Jx['rows'][r]; return f"{v['wins']}/{v['ties']}/{v['losses']}"
 def pair(t, o, r=None): p = J['pairs'][t][o]; return p['ours'] if r is None else p['rows'][r]['auroc']
@@ -63,17 +63,23 @@ def wtl_nat_v(r):
     return v.count('win'), v.count('tie'), v.count('loss')
 def wtl_nat(r): return '{}/{}/{}'.format(*wtl_nat_v(r))
 M = {}
+# the six-tier means as evaluated (CIFAR-100 included), quoted for the record in the supplement's protocol section
+J6 = json.load(open(f'{D}/ours_vs_all_final2.json')); SIX = list(J6['ids'])
+M['sixOursMean'] = f1(J6['mean_ours']); M['sixContentMean'] = f1(np.mean([J6['ids'][t]['rows']['Ours content']['mean'] for t in SIX]))
+M['sixTunedMean'] = f1(np.mean([J6['ids'][t]['rows']['kNN tuned']['mean'] for t in SIX])); M['sixBestPriorMean'] = f1(np.mean([J6['ids'][t]['rows']['CFS-kNN']['mean'] for t in SIX]))
 M['nPairs'] = str(sum(len(P) for P in J['pairs'].values()))
 M['oursMean'] = f1(J['mean_ours']); M['tunedMean'] = f1(ids_mean(J, 'kNN tuned')); M['ctMean'] = f1(ids_mean(J, 'kNN (CT)'))
 M['rotMean'] = f1(ids_mean(J, 'RotCls4')); M['cfsMean'] = f1(ids_mean(J, 'CFS')); M['cfsKnnMean'] = f1(ids_mean(J, 'CFS-kNN'))
 best8 = max(EIGHT, key=lambda m: ids_mean(J, m)); M['bestEightName'] = LABEL[best8]; M['bestEightMean'] = f1(ids_mean(J, best8))
 STAT = [m for m in EIGHT + NEWROWS if all(m in J['ids'][t]['rows'] for t in TAGS)]
 bestS = max(STAT, key=lambda m: ids_mean(J, m)); M['bestStatName'] = LABEL[bestS]; M['bestStatMean'] = f1(ids_mean(J, bestS)); M['nStat'] = str(len(STAT))
-bestP = max([m for m in PRIOR if all(m in J['ids'][t]['rows'] for t in TAGS)], key=lambda m: ids_mean(J, m)); assert bestP == 'CFS-kNN'; M['bestPriorMean'] = f1(ids_mean(J, bestP))
+bestP = max([m for m in PRIOR if all(m in J['ids'][t]['rows'] for t in TAGS)], key=lambda m: ids_mean(J, m)); M['bestPriorMean'] = f1(ids_mean(J, bestP)); M['bestPriorName'] = LABEL[bestP]
+bestPM = max([m for m in PRIOR if m != 'RotCls4' and all(m in J['ids'][t]['rows'] for t in TAGS)], key=lambda m: ids_mean(J, m)); assert bestPM == 'CFS-kNN'   # the best prior detector that uses the diffusion model
+M['bestPriorModelMean'] = f1(ids_mean(J, bestPM)); M['bestPriorModelName'] = LABEL[bestPM]
 M['nPriorComplete'] = str(len([m for m in PRIOR if all(m in J['ids'][t]['rows'] for t in TAGS)]))
-M['priorGap'] = f1(J['mean_ours'] - ids_mean(J, bestP))
-M['featGap'] = f1(ids_mean(J, 'kNN tuned') - ids_mean(J, bestP)); M['frameGapTuned'] = f1(J['mean_ours'] - ids_mean(J, 'kNN tuned'))   # of the gap to the best prior detector: features (tuned kNN) and the frame term
-COMPLETE = [m for m in PRIOR if all(m in J['ids'][t]['rows'] for t in TAGS)]        # rows run on all six ID datasets (win counts are comparable)
+M['priorGap'] = f1(J['mean_ours'] - ids_mean(J, bestP)); M['priorModelGap'] = f1(J['mean_ours'] - ids_mean(J, bestPM))
+M['featGap'] = f1(ids_mean(J, 'kNN tuned') - ids_mean(J, bestPM)); M['frameGapTuned'] = f1(J['mean_ours'] - ids_mean(J, 'kNN tuned'))   # of the gap to CFS (kNN): features (tuned kNN) and the frame term
+COMPLETE = [m for m in PRIOR if all(m in J['ids'][t]['rows'] for t in TAGS)]        # rows run on all five ID datasets (win counts are comparable)
 M['priorWinMin'] = str(min(J['rows'][m]['wins'] for m in COMPLETE)); M['priorWinMax'] = str(max(J['rows'][m]['wins'] for m in COMPLETE))
 M['priorLossMax'] = str(max(J['rows'][m]['losses'] for m in PRIOR)); M['nPrior'] = str(len(PRIOR)); M['nPriorModel'] = str(len(PRIOR) - 1)   # all but the rotation classifier use the diffusion model
 NUMWORD = {8: 'eight', 9: 'nine', 10: 'ten', 11: 'eleven', 12: 'twelve', 13: 'thirteen', 14: 'fourteen', 15: 'fifteen'}
@@ -101,25 +107,25 @@ for t in TAGS:
     sdm.append(float(np.std(np.array([[J['pairs'][t][o]['ours_seeds'][k] for o in nat_sets] for k in range(3)]).mean(1))))
 M['seedSdMax'] = f'{max(sdm):.2f}'
 # weight sweep (development images): weight_sweep.py
-WS = json.load(open(f'{D}/weight_sweep.json'))['fresh']; wi = {w: i for i, w in enumerate(WS['w'])}
+WS = WS5(json.load(open(f'{D}/weight_sweep.json')))['fresh']; wi = {w: i for i, w in enumerate(WS['w'])}
 M['swZero'] = f1(WS['mean_nat'][wi[0]]); M['swOne'] = f1(WS['mean_nat'][wi[1]]); M['swBest'] = f1(max(WS['mean_nat'])); M['swBestW'] = str(WS['argmax_w'])
 plateau = [w for w, v in zip(WS['w'], WS['mean_nat']) if v >= max(WS['mean_nat']) - 0.1]; M['swLo'] = str(min(plateau)); M['swHi'] = str(max(plateau))
 M['swFour'] = f1(WS['mean_nat'][wi[4]]); M['swHalf'] = f1(WS['mean_nat'][wi[0.5]]); M['swTwo'] = f1(WS['mean_nat'][wi[2]])
 M['swDprimeGap'] = f'{max(WS["mean_nat"]) - min(WS["mean_nat"][wi[0.75]], WS["mean_nat"][wi[1.25]]):.2f}'   # the weights implied by d estimated with 5 or 50 neighbours
 # the three hardest near-OOD pairs: the sum against the better of its two terms (per-pair complementarity is not guaranteed)
-for (t, o), c in zip([('edmc10', 'cifar100_test'), ('edmc100', 'cifar10_test'), ('in64', 'in64_ssb_hard')], ('CtenCh', 'ChCten', 'InSSB')):
+for (t, o), c in zip([('edmc10', 'cifar100_test'), ('in64', 'in64_ssb_hard'), ('in64', 'in64_ninco')], ('CtenCh', 'InSSB', 'InNINCO')):
     bt = max(('Ours content', 'Ours pose'), key=lambda r: pair(t, o, r)); M[f'p{c}Sum'] = f1(pair(t, o)); M[f'p{c}BestTerm'] = f1(pair(t, o, bt))
     M[f'p{c}BestTermName'] = {'Ours content': 'kNN term', 'Ours pose': 'orientation term'}[bt]
 # mirror test (development images, seed 0): horizontal flip AUROC of the kNN term of Upright kNN -- the premise of Proposition 2 holds where it is near 50
 MIR = {l.split('&')[0].strip(): [c.strip() for c in l.split('&')] for l in open(f'{D}/tab_mirror_rows.tex') if l.strip() and not l.startswith('%')}
+MIR.pop('CIFAR-100', None)                                        # the removed tier (protocols/CIFAR100_CHECKPOINT.md)
 hk = {k: float(v[11]) for k, v in MIR.items()}; M['mirHknnSVHN'] = f1(hk['SVHN']); M['mirHknnFM'] = f1(hk['FashionMNIST'])
 M['mirHknnOtherMax'] = f1(max(v for k, v in hk.items() if k not in ('SVHN', 'FashionMNIST'))); M['mirVknnFM'] = f1(float(MIR['FashionMNIST'][10]))
-# CSI (five 32x32 ID datasets)
+# CSI (the 32x32 ID datasets)
 if CSI:
     M['csiMean'] = f1(CSI['mean_nat']['csi']); M['csiOursMean'] = f1(CSI['mean_nat']['ours']); w = CSI['wtl_nat']; M['csiWtl'] = f"{w['wins']}/{w['ties']}/{w['losses']}"; M['csiNatPairs'] = str(w['pairs'])
-    M['csiCtenCh'] = f1(CSI['pairs']['edmc10']['cifar100_test']['csi']); M['csiChCten'] = f1(CSI['pairs']['edmc100']['cifar10_test']['csi'])
+    M['csiCtenCh'] = f1(CSI['pairs']['edmc10']['cifar100_test']['csi']); M['csiNids'] = {4: 'four', 5: 'five'}[len(CSI['ids'])]
     M['csiRepro'] = f1(CSI['repro_c10_c100']); M['csiPublished'] = f1(CSI['published_c10_c100'])
-    M['csiChMean'] = f1(CSI['ids']['edmc100']['csi_nat']); M['csiChCeleb'] = f1(CSI['pairs']['edmc100']['celeba_test']['csi']); M['csiChNoise'] = f1(CSI['pairs']['edmc100']['synth_noise']['csi'])
     M['csiVfMean'] = f1(np.mean([v['csi'] for v in CSI['upside_down'].values()])); M['csiOursVfMean'] = f1(np.mean([v['ours'] for v in CSI['upside_down'].values()]))
     hrs = [c['hours'] for c in CSI['cost'].values()]; M['csiHoursMin'] = f'{min(hrs):.0f}'; M['csiHoursMax'] = f'{max(hrs):.0f}'
     lossp = [(t, o) for t in CSI['pairs'] for o, p in CSI['pairs'][t].items() if p['verdict'] == 'loss' and p['kind'] == 'natural']
@@ -127,9 +133,8 @@ if CSI:
     CSN = {'cifar100_test': 'CIFAR-100', 'cifar10_test': 'CIFAR-10', 'omniglot': 'Omniglot', 'g32_omniglot': 'Omniglot', 'g32_omniglot_eval': 'Omniglot'}
     M['csiLossList'] = ', '.join(f"{IDN0[t]}$\\to${CSN.get(o, SETN0.get(o, o))}" for t, o in lossp)
     M['csiLsunFix'] = f1(CSI['pairs']['edmc10']['lsun_fix']['csi']); M['csiInFix'] = f1(CSI['pairs']['edmc10']['imagenet_fix']['csi'])
-    M['csiChVf'] = f1(CSI['upside_down']['edmc100']['csi'])
 # the three further prior methods
-KAM_ALL = ['edmc10', 'l6svhn', 'dpceleba', 'edmc100', 'fmnist']     # LID+NLL: the public configurations cover the five 32x32 ID datasets (none for ImageNet-64)
+KAM_ALL = ['edmc10', 'l6svhn', 'dpceleba', 'fmnist']     # LID+NLL: the public configurations cover the 32x32 ID datasets (none for ImageNet-64)
 for r, c in (('Graham', 'Gr'), ('LMD', 'Lmd'), ('Kamkari', 'Kam')):
     if r in NEWROWS:
         M[f'new{c}Mean'] = f1(NEWJ['rows'][r]['mean_nat']); v = NEWJ['rows'][r]; M[f'new{c}Wtl'] = f"{v['nat_wins']}/{v['nat_ties']}/{v['nat_losses']}"; M[f'new{c}Tiers'] = str(len(v['tiers']))
@@ -141,7 +146,7 @@ def later(x): return f'\\later{{{x}}}' if kam_missing else x          # red whil
 if 'Kamkari' in NEWROWS:
     for k in ('newKamMean', 'newKamOursMean', 'newKamWtl', 'newKamPairs', 'newKamTiers', 'newKamTierList'): M[k] = later(M[k])
 for k in ('newKamMean', 'newKamOursMean', 'newKamWtl', 'newKamPairs', 'newKamTiers', 'newKamTierList'): M.setdefault(k, '--')   # before any LID+NLL run is complete
-M['newKamScope'] = 'the five 32$\\times$32 datasets' if not kam_missing else later((', '.join(IDN0[t] for t in TAGS if t in kam_done) if kam_done else 'no ID dataset') + ' so far')
+M['newKamScope'] = 'the four 32$\\times$32 datasets' if not kam_missing else later((', '.join(IDN0[t] for t in TAGS if t in kam_done) if kam_done else 'no ID dataset') + ' so far')
 M['pendingKam'] = '' if not kam_missing else ' \\pending{LID+NLL: ' + ', '.join(IDN0[t] for t in kam_missing) + ' still running}'
 # E4: chest X-ray, histology, generators trained with rotations (e4_ana.py)
 E4 = json.load(open(f'{D}/e4_ana.json'))
@@ -190,10 +195,10 @@ M['nLostNat'] = str(len(lostN)); M['nNoLossNat'] = str(len(NATP) - len(lostN))
 M['lostOwnList'] = ', '.join(f'{IDN[t]}$\\to${SETN[o]}' for t, o in lostOwn); M['nLostOwn'] = str(len(lostOwn))
 M['nSumBelowBest'] = str(len(belowB)); M['sumBelowBestMaxGap'] = f1(round(max(pair(belowB[0][0], belowB[0][1], r) for r in ('Ours content', 'Ours pose')), 1) - round(pair(belowB[0][0], belowB[0][1]), 1)) if belowB else '0'
 M['sumBelowBestList'] = '; '.join(f"{IDN[t]}$\\to${SETN[o]} {f1(pair(t, o))} vs {f1(max(pair(t, o, 'Ours content'), pair(t, o, 'Ours pose')))}\\%" for t, o, _ in belowB[:3])
-partial = [r for r in NEWROWS if len(NEWTIERS[r]) < 6]                # rows whose runs on some ID datasets are still pending (footnote of Table 2)
+partial = [r for r in NEWROWS if len(NEWTIERS[r]) < len(TAGS)]                # rows whose runs on some ID datasets are still pending (footnote of Table 2)
 def partial_note(r):                                                 # the ID datasets a partial row covers: 'so far' while runs are missing, its scope once they are complete
     done = NEWTIERS[r]; nat_pairs = NEWJ['rows'][r]['nat_pairs']
-    if r == 'Kamkari' and all(t in done for t in KAM_ALL): return f"{LABEL[r]}: the five 32$\\times$32 datasets, {nat_pairs} pairs (no public configuration for ImageNet-64)"
+    if r == 'Kamkari' and all(t in done for t in KAM_ALL): return f"{LABEL[r]}: the four 32$\\times$32 datasets, {nat_pairs} pairs (no public configuration for ImageNet-64)"
     return later(f"{LABEL[r]}: " + ', '.join(IDN[t] for t in TAGS if t in done) + ' so far')
 M['partialRowsNote'] = '' if not partial else '; ' + '; '.join(partial_note(r) for r in partial)
 ROWS_ALL = ['kNN tuned', 'kNN (CT)'] + PRIOR
@@ -205,7 +210,6 @@ M['vfOursAvg'] = f1(np.mean(vo)); M['vfTunedAvg'] = f1(np.mean(vt)); M['vfRotAvg
 M['vfPoseAvg'] = f1(np.mean([vf_of(J, t, 'Ours pose') for t in TAGS])); M['vfCfsKnnAvg'] = f1(np.mean([vf_of(J, t, 'CFS-kNN') for t in TAGS]))
 M.update({'vfIN': f1(vf_of(J, 'in64')), 'vfINT': f1(vf_of(J, 'in64', 'kNN tuned')), 'vfSVHN': f1(vf_of(J, 'l6svhn')), 'vfSVHNPose': f1(vf_of(J, 'l6svhn', 'Ours pose')),
           'contentMean': f1(ids_mean(J, 'Ours content')), 'poseMean': f1(ids_mean(J, 'Ours pose')),
-          'pChCten': f1(pair('edmc100', 'cifar10_test')), 'pChCtenT': f1(pair('edmc100', 'cifar10_test', 'kNN tuned')), 'poseChCten': f1(pair('edmc100', 'cifar10_test', 'Ours pose')),
           'pCtenCh': f1(pair('edmc10', 'cifar100_test')), 'pCtenChT': f1(pair('edmc10', 'cifar100_test', 'kNN tuned')), 'poseCtenCh': f1(pair('edmc10', 'cifar100_test', 'Ours pose')),
           'contentCtenCh': f1(pair('edmc10', 'cifar100_test', 'Ours content')),
           'pInInat': f1(pair('in64', 'in64_inaturalist')), 'pInInatNLL': f1(pair('in64', 'in64_inaturalist', 'NLL')),
@@ -220,7 +224,7 @@ M.update({'cpuOurs': fsec(SECROW['ours']), 'cpuNll': fsec(SECROW['NLL']), 'cpuDi
           'cpuGHz': SEC3['ours']['cpu'].split('@')[-1].strip().replace('GHz', '\\,GHz'),
           'cpuRatioNll': f"{SECROW['NLL'] / SECROW['ours']:.0f}", 'cpuRatioDiffPath': f"{SECROW['DiffPath'] / SECROW['ours']:.0f}"})
 EXPD = json.load(open(f'{D}/dR_s0.json')); ds = [float(EXPD[t]['d']) for t in TAGS]; M['dimRange'] = f'{min(ds):.0f}--{max(ds):.0f}'
-ACC = {'edmc10': 95.5, 'l6svhn': 86.7, 'dpceleba': 100.0, 'edmc100': 88.2, 'in64': 77.3, 'fmnist': 99.7}   # logs/kx/headsR_<tag>.log (seed 0)
+ACC = {'edmc10': 95.5, 'l6svhn': 86.7, 'dpceleba': 100.0, 'in64': 77.3, 'fmnist': 99.7}   # logs/kx/headsR_<tag>.log (seed 0)
 M['headAccRange'] = f'{min(ACC.values()):.0f}--{max(ACC.values()):.0f}'; M['leakAccIN'] = '91.6'; M['cleanAccIN'] = '77.3'
 M['devOurs'] = f1(JD['mean_ours']); M['devTuned'] = f1(ids_mean(JD, 'kNN tuned'))
 AB = {t: json.load(open(f'{D}/ablate2_{t}.json')) for t in TAGS}
@@ -231,12 +235,11 @@ M['abInVfLeak'] = f1(AB['in64']['head with rotated noise']['vflip']); M['abInVfN
 M['abCtenOurs'] = f1(AB['edmc10']['ours']['nat']); M['abCtenOrbit'] = f1(AB['edmc10']['orbit bank']['nat'])
 # ---- the deep-block ablation (a second kNN term on the deepest decoder block; PROTOCOL_VL.md, evaluated once after the frozen evaluation):
 #   vl_vs_uknn_final2.json (final images), vl_ctrl_fresh.json (development images: breakdown and the two controls), PROTOCOL_VL.json (choices)
-DEEP = json.load(open(f'{D}/vl_vs_uknn_final2.json')); DEEPC = json.load(open(f'{D}/vl_ctrl_fresh.json')); DEEPP = json.load(open(f'{D}/PROTOCOL_VL.json'))
+DEEP = DEEP5(json.load(open(f'{D}/vl_vs_uknn_final2.json'))); DEEPC = DEEPC5(json.load(open(f'{D}/vl_ctrl_fresh.json'))); DEEPP = drop_tag(json.load(open(f'{D}/PROTOCOL_VL.json')))
 assert abs(DEEP['mean_upright'] - J['mean_ours']) < 1e-6
 M['deepMean'] = f1(DEEP['mean_vl']); M['deepGain'] = f1(DEEP['mean_vl'] - DEEP['mean_upright'])
 M['deepWins'], M['deepTies'], M['deepLosses'] = str(DEEP['wtl']['wins']), str(DEEP['wtl']['ties']), str(DEEP['wtl']['losses'])
-M['deepNearCten'] = f1(DEEP['pairs']['edmc10']['cifar100_test']['vl']); M['deepNearChun'] = f1(DEEP['pairs']['edmc100']['cifar10_test']['vl'])
-M['deepUprightNearChun'] = f1(DEEP['pairs']['edmc100']['cifar10_test']['upright'])
+M['deepNearCten'] = f1(DEEP['pairs']['edmc10']['cifar100_test']['vl'])
 dpin = DEEP['pairs']['in64']; M['deepInSSB'] = f"{dpin['in64_ssb_hard']['diff']:+.1f}"; M['deepInNINCO'] = f"{dpin['in64_ninco']['diff']:+.1f}"; M['deepInPlaces'] = f"{dpin['in64_places365']['diff']:+.1f}"
 dloss = [(t, o) for t in TAGS for o, q in DEEP['pairs'][t].items() if q['verdict'] == 'loss']
 M['deepLossList'] = ', '.join(f"{IDN0[t]}$\\to${SETN0.get(o, o)} ({f1(DEEP['pairs'][t][o]['upright'])} vs {f1(DEEP['pairs'][t][o]['vl'])}\\%)" for t, o in dloss)
@@ -244,29 +247,29 @@ M['deepFPR'] = f1(FP['mean']['VL']['fpr95']); M['deepTwoPass'] = str(sum(1 for t
 dc = DEEPC['mean']; M['deepDevUpright'] = f1(dc['Upright']); M['deepDev'] = f1(dc['VL']); M['deepDevSigOne'] = f1(dc['VL-sigma1']); M['deepDevPose'] = f1(dc['pose-only'])
 M['deepDevChain'] = f1(dc['chain']); M['deepDevMeanX'] = f1(dc['VL+mean'])
 def dcp(t, o, r): return f1(DEEPC['pairs'][t][o][r]['auroc'])
-M['deepDevCtenSigOne'] = dcp('edmc10', 'cifar100_test', 'VL-sigma1'); M['deepDevCten'] = dcp('edmc10', 'cifar100_test', 'VL')
-M['deepDevChunVL'] = dcp('edmc100', 'cifar10_test', 'VL'); M['deepDevChunMeanX'] = dcp('edmc100', 'cifar10_test', 'VL+mean')
+M['deepDevCtenSigOne'] = dcp('edmc10', 'cifar100_test', 'VL-sigma1'); M['deepDevCten'] = dcp('edmc10', 'cifar100_test', 'VL'); M['deepDevCtenMeanX'] = dcp('edmc10', 'cifar100_test', 'VL+mean')
 M['deepChainLosses'] = str(DEEPC['wtl']['chain']['losses']); M['deepSigOneLosses'] = str(DEEPC['wtl']['VL-sigma1']['losses']); M['deepMeanXLosses'] = str(DEEPC['wtl']['VL+mean']['losses'])
 M['deepKmax'] = str(sum(1 for t in TAGS if DEEPC['choices'][t]['K'] == 5000))
 # ---- what in the kNN rule carries its gain over CFS (kNN): analysis/final/ana_ok/knn_grid.py (final images; post hoc, nothing chosen from it)
-KG = json.load(open(f'{D}/knn_grid.json')); KGH = KG['heads']['final2']; KGG = KG['grid']['final2']
+KG = KG5(json.load(open(f'{D}/knn_grid.json'))); KGH = KG['heads']['final2']; KGG = KG['grid']['final2']
 assert KG['check']['cfs_knn_maxabs'] < 1e-3 and KG['check']['knn_ct_maxabs'] < 0.05
 _cfs, _cfscos, _l1cos, _l012, _tuned = KGH['cfs_std_mean10']['mean6'], KGH['cfs_cos_10th']['mean6'], KGH['L1_cos_10th']['mean6'], KGG['P_L012_k0_r10']['mean6'], ids_mean(J, 'kNN tuned')
 assert abs(_cfs - ids_mean(J, 'CFS-kNN')) < 1e-3
 M['featHeadGain'] = f1(_cfscos - _cfs); M['featBlockSwap'] = f"{_l1cos - _cfscos:+.1f}"; M['featThreeGain'] = f1(_l012 - _l1cos); M['featRankGain'] = f1(_tuned - _l012)
 M['featCfsCos'] = f1(_cfscos); M['featLOneTwo'] = f1(_l012); M['featBestSingle'] = f1(max(v['mean6'] for v in KGG.values())); M['featBestSingleName'] = max(KGG, key=lambda c: KGG[c]['mean6'])
 M['featInRten'] = f1(KGG['P_L012_k0_r10']['ids']['in64']); M['featInRthousand'] = f1(KGG['P_L012_k0_r1000']['ids']['in64'])
-M['featChunBlock'] = f"{KGH['L1_cos_10th']['ids']['edmc100'] - KGH['cfs_cos_10th']['ids']['edmc100']:+.1f}"; M['featInBlock'] = f"{KGH['L1_cos_10th']['ids']['in64'] - KGH['cfs_cos_10th']['ids']['in64']:+.1f}"
-M['featChunSigSeven'] = f1(KGG['P_L1_k6_r10']['ids']['edmc100']); M['featChunSigOne'] = f1(KGG['P_L1_k0_r10']['ids']['edmc100']); M['featInSigSeven'] = f1(KGG['P_L1_k6_r10']['ids']['in64']); M['featInSigOne'] = f1(KGG['P_L1_k0_r10']['ids']['in64'])
+M['featInBlock'] = f"{KGH['L1_cos_10th']['ids']['in64'] - KGH['cfs_cos_10th']['ids']['in64']:+.1f}"
+M['featInSigSeven'] = f1(KGG['P_L1_k6_r10']['ids']['in64']); M['featInSigOne'] = f1(KGG['P_L1_k0_r10']['ids']['in64'])
 M['featSigSevenMean'] = f"{KGG['P_L1_k6_r10']['mean6'] - KGG['P_L1_k0_r10']['mean6']:+.1f}"; M['featStatMean'] = f"{KGG['M_L1_k0_r10']['mean6'] - KGG['P_L1_k0_r10']['mean6']:+.1f}"
-M['featCtenThree'] = f"{KGG['P_L012_k0_r10']['ids']['edmc10'] - KGG['P_L1_k0_r10']['ids']['edmc10']:+.1f}"; M['featChunThree'] = f"{KGG['P_L012_k0_r10']['ids']['edmc100'] - KGG['P_L1_k0_r10']['ids']['edmc100']:+.1f}"; M['featInThree'] = f"{KGG['P_L012_k0_r10']['ids']['in64'] - KGG['P_L1_k0_r10']['ids']['in64']:+.1f}"
+M['featCtenThree'] = f"{KGG['P_L012_k0_r10']['ids']['edmc10'] - KGG['P_L1_k0_r10']['ids']['edmc10']:+.1f}"; M['featInThree'] = f"{KGG['P_L012_k0_r10']['ids']['in64'] - KGG['P_L1_k0_r10']['ids']['in64']:+.1f}"
 M['featNearBasic'] = f1(KGG['P_L1_k0_r10']['near']); M['featNearThree'] = f1(KGG['P_L012_k0_r10']['near'])
 KGD = KG['grid']['fresh']; M['featDevThree'] = f1(KGD['P_L012_k0_r10']['mean6'] - KGD['P_L1_k0_r10']['mean6']); M['featDevHead'] = f1(KG['heads']['fresh']['cfs_cos_10th']['mean6'] - KG['heads']['fresh']['cfs_std_mean10']['mean6'])
-# CSI per ID dataset: within two points on four of the five, the gap is CIFAR-100
+# CSI per ID dataset: the gap to Upright kNN on each of the 32x32 datasets
 if CSI:
     gaps = {t: CSI['ids'][t]['ours_nat'] - CSI['ids'][t]['csi_nat'] for t in CSI['ids']}
-    close = [t for t in gaps if abs(gaps[t]) <= 2.0]; assert len(close) == 4 and max(gaps, key=gaps.get) == 'edmc100', gaps
-    M['csiCloseN'] = 'four'; M['csiCloseMaxGap'] = f1(max(abs(gaps[t]) for t in close))
+    close = [t for t in gaps if abs(gaps[t]) <= 2.0]
+    M['csiCloseN'] = {0: 'none', 1: 'one', 2: 'two', 3: 'three', 4: 'four', 5: 'five'}[len(close)]; M['csiCloseMaxGap'] = f1(max(abs(gaps[t]) for t in close)) if close else '--'
+    M['csiMaxGap'] = f1(max(abs(g) for g in gaps.values())); M['csiMaxGapName'] = IDN0[max(gaps, key=lambda t: abs(gaps[t]))]
 # ---- OpenOOD v1.5 ImageNet-1K at 64x64
 O = json.load(open(f'{D}/ood1k_ana.json')); C = O['common']
 def best_prior(key): return max(['CFS', 'CFS kNN', 'RotCls4', 'NLL', 'IC-png', 'IC-j2k', 'TT', 'MSMA*', 'DiffPath', 'GEPC', 'EigenScore'], key=lambda r: C[r][key])
@@ -287,7 +290,7 @@ M['inPriorWinMin'] = str(min(v[0] for v in pw.values())); M['inPriorLossMax'] = 
 M['inLossRows'] = ', '.join(sorted(LABEL.get(r, r) for r, v in pw.items() if v[2] > 0))
 M['inNFull'] = f"{O['n_full']['in64_imagenet_test']:,}".replace(',', '{,}')
 # ---- naive fusions (E2)
-F = json.load(open(f'{D}/fusion_final2.json'))
+F = F5(json.load(open(f'{D}/fusion_final2.json')))
 for k, c in (('kNN+RotCls4 (z-sum)', 'RZ'), ('kNN+RotCls4 (Fisher)', 'RF'), ('kNN+Orient. (z-sum)', 'OZ'), ('kNN+Orient. (Fisher)', 'OF'), ('Ours, d = 1', 'DO')):
     M[f'fu{c}'] = f1(F['mean'][k]); M[f'fu{c}vf'] = f1(F['vflip_mean'][k]); w = F['wtl_nat'][k]; M[f'fu{c}wtl'] = f"{w['win']}/{w['tie']}/{w['loss']}"
 assert abs(F['mean']['Ours'] - J['mean_ours']) < 1e-6
@@ -327,12 +330,13 @@ if E:
     M['eAcc'] = f'{min(accs):.0f}--{max(accs):.0f}' if round(min(accs)) != round(max(accs)) else f'{min(accs):.0f}'
     M['eT'] = f'{min(Ts):.2f}--{max(Ts):.2f}' if round(min(Ts), 2) != round(max(Ts), 2) else f'{min(Ts):.2f}'
 assert all(not any(ch.isdigit() for ch in k) for k in M)
+M = {k: ('0.0' if v in ('-0.0', '+0.0') else v) for k, v in M.items()}       # a signed difference that rounds to zero
 with open(f'{OUT}/numbers.tex', 'w') as fo:
     fo.write('% written by gen/mk_ijcai.py\n')
     for k, v in M.items(): fo.write(f'\\newcommand{{\\{k}}}{{{v}}}\n')
 
 
-# ---- Table 1 (6 ID tiers, final split): columns = 6 ID means, Mean, Near (4 near-OOD pairs), Flip (probe, unmarked), W/T/L, NFE, CPU
+# ---- Table 1 (5 ID tiers, final split): columns = 6 ID means, Mean, Near (4 near-OOD pairs), Flip (probe, unmarked), W/T/L, NFE, CPU
 def marks(vals):
     """per column: best -> light blue + bold, second -> underline (displayed values; ties share the mark; None = no entry)"""
     r = [None if v is None else round(v, 1) for v in vals]; u = sorted(set(x for x in r if x is not None), reverse=True)
@@ -353,8 +357,10 @@ rows = [r for _, rs in GROUPS for r in rs]
 cols = {r: rowvals(r) for r in rows}
 cols['ours'] = [J['ids'][t]['ours'] for t in TAGS] + [J['mean_ours'], near_mean(), float(np.mean(vo))]
 order = rows + ['ours']; mk = {r: [] for r in order}
-for j in range(9):
-    mm = marks([cols[r][j] for r in order]) if j != 8 else [''] * len(order)      # the Flip column (a probe) is not marked
+def partial_row(r): return r != 'ours' and any(v is None for v in cols[r][:len(TAGS)])      # rows not run on every ID dataset: their Mean / Near are not comparable
+for j in range(len(TAGS) + 3):
+    vals = [None if (j in (len(TAGS), len(TAGS) + 1) and partial_row(r)) else cols[r][j] for r in order]
+    mm = marks(vals) if j != len(TAGS) + 2 else [''] * len(order)      # the Flip column (a probe) is not marked
     for r, m in zip(order, mm): mk[r].append(m)
 def wtl_cell(r):
     """wins/ties/losses by the bootstrap rule, followed by the wins and losses of at least one AUROC point in parentheses"""
@@ -363,15 +369,15 @@ def wtl_cell(r):
         bw = sum(p['verdict'] == 'win' and p['diff'] >= 1 for p in nat); bl = sum(p['verdict'] == 'loss' and p['diff'] <= -1 for p in nat)
         return f"{w['wins']}/{w['ties']}/{w['losses']} ({bw}/{bl})$^{{\\S}}$"
     v = wtl_nat_v(r); bw, bl = big_wtl(r); return f'{v[0]}/{v[1]}/{v[2]} ({bw}/{bl})' + ('' if sum(v) == len(NATP) else '$^{\\S}$')
-NCOL = 13
+NCOL = len(TAGS) + 7
 L = ['% written by gen/mk_ijcai.py']
 for gi, (title, rs) in enumerate(GROUPS):
     L.append(('\\midrule' if gi else '') + f'\\multicolumn{{{NCOL}}}{{@{{}}l}}{{{title}}}\\\\')
     for r in rs:
-        lab = LABEL[r] + ('$^{\\S}$' if r == 'CSI' or (r in NEWTIERS and len(NEWTIERS[r]) < 6) else '')
+        lab = LABEL[r] + ('$^{\\S}$' if r == 'CSI' or (r in NEWTIERS and len(NEWTIERS[r]) < len(TAGS)) else '')
         cells = [cell(v, m) for v, m in zip(cols[r], mk[r])]; w = wtl_cell(r)
         if r == 'Kamkari' and kam_missing:                               # filled in by the remaining runs: red
-            cells = [later(c) if (j < 6 and TAGS[j] in kam_missing) or j in (6, 8) else c for j, c in enumerate(cells)]; w = later(w)
+            cells = [later(c) if (j < len(TAGS) and TAGS[j] in kam_missing) or j in (len(TAGS), len(TAGS) + 2) else c for j, c in enumerate(cells)]; w = later(w)
         L.append(lab + ' & ' + ' & '.join(cells) + f" & {w} & {PASSES[r]} & {fsec(SECROW[r])}\\\\")
 L.append('\\midrule')
 L.append('Upright kNN (ours) & ' + ' & '.join(cell(v, m) for v, m in zip(cols['ours'], mk['ours'])) + f" & -- & 1 & {fsec(SECROW['ours'])}\\\\")

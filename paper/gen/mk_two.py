@@ -6,7 +6,7 @@ import os, json, glob
 import numpy as np
 from scipy.stats import spearmanr
 HERE = os.path.dirname(os.path.abspath(__file__)); OUT = os.path.dirname(HERE); D = os.path.join(HERE, 'data')
-TAGS = ['edmc10', 'l6svhn', 'dpceleba', 'edmc100', 'in64', 'fmnist']
+from fiveid import TAGS   # five ID datasets (CIFAR-100 removed: protocols/CIFAR100_CHECKPOINT.md)
 NAME = {'edmc10': 'CIFAR-10', 'l6svhn': 'SVHN', 'dpceleba': 'CelebA', 'edmc100': 'CIFAR-100', 'in64': 'ImageNet-64', 'fmnist': 'FMNIST'}
 TN = json.load(open(f'{D}/two_notions.json'))
 TS = {}
@@ -65,12 +65,12 @@ for t in TAGS:
 open(f'{OUT}/tab_two.tex', 'w').write('% written by gen/mk_two.py\n' + '\n'.join(rows) + '\n')
 # ---------------------------------------------------------------------------------------------------------------- macros
 M = {}
-M['ratioIN'] = f2(G['in64']['ratio']); M['ratioCH'] = f2(G['edmc100']['ratio']); M['ratioFM'] = f2(G['fmnist']['ratio'])
-M['ratioCten'] = f2(G['edmc10']['ratio'])
-M['vfINknn'] = f1(T['in64']['knn_vf']); M['vfCHknn'] = f1(T['edmc100']['knn_vf'])
+M['ratioIN'] = f2(G['in64']['ratio']); M['ratioFM'] = f2(G['fmnist']['ratio'])
+M['ratioCten'] = f2(G['edmc10']['ratio']); M['ratioSVHN'] = f2(G['l6svhn']['ratio'])
+M['vfINknn'] = f1(T['in64']['knn_vf']); M['vfSVHNknn'] = f1(T['l6svhn']['knn_vf']); M['vfCtenknn'] = f1(T['edmc10']['knn_vf'])
 rr = spearmanr([G[t]['ratio'] for t in TAGS], [T[t]['knn_vf'] for t in TAGS])[0]; M['rhoRatioFlip'] = f2(rr)
 M['rhoBtotFlip'] = f2(spearmanr([G[t]['btot'] for t in TAGS], [T[t]['knn_vf'] for t in TAGS])[0])
-five = [t for t in TAGS if t != 'dpceleba']
+five = [t for t in TAGS if t != 'dpceleba']                              # the datasets other than CelebA
 M['varLdaMin'] = fx(min(G[t]['lda'] for t in five)); M['varLdaMax'] = fx(max(G[t]['lda'] for t in five)); M['varLdaCelebA'] = fx(G['dpceleba']['lda'])
 M['varLdaAllMin'] = fx(min(G[t]['lda'] for t in TAGS)); M['varLdaAllMax'] = fx(max(G[t]['lda'] for t in TAGS))
 M['varPcMin'] = fx(min(G[t]['pca'] for t in TAGS)); M['varPcMax'] = fx(max(G[t]['pca'] for t in TAGS))
@@ -85,10 +85,9 @@ i = T['in64']; kc, kp = i['only_c'] + i['both'], i['only_p'] + i['both']
 M['tnINknn'] = f1(kc); M['tnINhead'] = f1(kp); M['tnINboth'] = f1(i['both']); M['tnINindep'] = f1(kc * kp / 100)
 c = T['edmc10']; kc, kp = c['only_c'] + c['both'], c['only_p'] + c['both']
 M['tnCtenknn'] = f1(kc); M['tnCtenhead'] = f1(kp); M['tnCtenboth'] = f1(c['both']); M['tnCtenindep'] = f1(kc * kp / 100)
-hard = ['edmc10', 'l6svhn', 'edmc100', 'in64']
+hard = ['edmc10', 'l6svhn', 'in64']
 M['tnCatchMin'] = f1(min(T[t]['catch'] for t in hard)); M['tnCatchMax'] = f1(max(T[t]['catch'] for t in hard))
 M['poseCtenCeleb'] = f1(TN['edmc10']['celeba_test']['au_p']); M['contentCtenCeleb'] = f1(TN['edmc10']['celeba_test']['au_c'])
-M['contentChCten'] = f1(TN['edmc100']['cifar10_test']['au_c'])
 # robustness (appendix): fitting variants (seed 0, final2), development split (seeds 0-2), seed spread
 VARS = ['n4000_r1e-3', 'n4000_r1e-1', 'n10000_r1e-3', 'n10000_r1e-1']
 VG = {t: {v: geo(t, var=v, seeds=(0,)) for v in VARS} for t in TAGS}
@@ -99,14 +98,14 @@ M['sdLdaNatMax'] = f1(max(G[t]['sd_f3nat'] for t in TAGS))
 po = [G[t]['pca'] / G[t]['lda'] for t in TAGS]                        # the fit of Table 1 (DEF, seeds 0-2); the other fits are in the supplement
 def big(x): return f'{x:,.0f}'.replace(',', '{,}') if x >= 100 else f'{x:.0f}'
 M['pcOverLdaMin'] = big(min(po)); M['pcOverLdaMax'] = big(max(po))
-H3 = ['edmc10', 'edmc100', 'in64']
+H3 = ['edmc10', 'in64']                                                # the natural-image datasets whose kNN term is at chance on flips
 M['vfLdaHardMin'] = f1(min(G[t]['f3vf'] for t in H3)); M['vfLdaHardMax'] = f1(max(G[t]['f3vf'] for t in H3))
 M['vfPcHardMin'] = f1(min(G[t]['p3vf'] for t in H3)); M['vfPcHardMax'] = f1(max(G[t]['p3vf'] for t in H3))
 M['vfKnnHardMin'] = f1(min(T[t]['knn_vf'] for t in H3)); M['vfKnnHardMax'] = f1(max(T[t]['knn_vf'] for t in H3))
 M['vfHeadMin'] = f1(min(T[t]['head_vf'] for t in TAGS)); M['vfHeadMax'] = f1(max(T[t]['head_vf'] for t in TAGS))
 M['vfLdaSVHN'] = f1(G['l6svhn']['f3vf'])
 M['nSumBeatsBoth'] = str(sum(T[t]['sum_nat'] >= max(T[t]['knn_nat'], T[t]['head_nat']) - 1e-9 for t in TAGS))
-M['btotIN'] = f1(100 * G['in64']['btot']); M['btotCH'] = f1(100 * G['edmc100']['btot'])
+M['btotIN'] = f1(100 * G['in64']['btot'])
 M['ldaShareMaxPct'] = f1(100 * max(TS[(t, 0, 'final2')]['subspace'][v]['lda']['3'] for t in TAGS for v in VARS))
 M['pcShareMinPct'] = f'{100 * min(TS[(t, 0, "final2")]["subspace"][DEF]["pca"]["3"] for t in TAGS):.0f}'
 M['pcShareMaxPct'] = f'{100 * max(TS[(t, 0, "final2")]["subspace"][DEF]["pca"]["3"] for t in TAGS):.0f}'
@@ -129,7 +128,7 @@ if TC:
     M['dKfiftyMin'], M['dKfiftyMax'] = rng(lambda z: 100 * (z['E_d']['n3000_k50'] / z['E_d']['n3000_k20'] - 1), lambda x: f'{x:+.0f}')
     M['nControlTiers'] = str(len(TC))
     # the four natural-image datasets against the two aligned ones (CelebA, FashionMNIST): a distance sees the frame only on the latter
-    NATI = ['edmc10', 'l6svhn', 'edmc100', 'in64']; ALI = ['dpceleba', 'fmnist']
+    NATI = ['edmc10', 'l6svhn', 'in64']; ALI = ['dpceleba', 'fmnist']
     def rng2(fn, tags, fmt=f1):
         v = [tcm(t, fn) for t in tags if t in TC]; return fmt(min(v)), fmt(max(v))
     M['fullVfNatMin'], M['fullVfNatMax'] = rng2(lambda z: z['A_full_head_space']['euc']['flip'], NATI)
@@ -147,9 +146,9 @@ if TC:
     M['pixVfAliMin'], M['pixVfAliMax'] = rng2(lambda z: z['D_pixel_head']['pix2']['alone']['flip'], ALI)
     M['knnVfNatMin'] = f1(min(T[t]['knn_vf'] for t in NATI)); M['knnVfNatMax'] = f1(max(T[t]['knn_vf'] for t in NATI))
     M['headVfNatMin'] = f1(min(T[t]['head_vf'] for t in NATI)); M['headVfNatMax'] = f1(max(T[t]['head_vf'] for t in NATI))
-    ACC = {'edmc10': 95.5, 'l6svhn': 86.7, 'dpceleba': 100.0, 'edmc100': 88.2, 'in64': 77.3, 'fmnist': 99.7}   # held-out accuracy of the full head (seed 0; logs/kx/headsR_<tag>.log, as mk_ijcai.py)
+    ACC = {'edmc10': 95.5, 'l6svhn': 86.7, 'dpceleba': 100.0, 'in64': 77.3, 'fmnist': 99.7}   # held-out accuracy of the full head (seed 0; logs/kx/headsR_<tag>.log, as mk_ijcai.py)
     M['headAccNatMin'] = f1(min(ACC[t] for t in NATI)); M['headAccNatMax'] = f1(max(ACC[t] for t in NATI))
-    # the 2x2 grid statistics q add little: head on g alone against the full head, largest absolute difference over the six datasets
+    # the 2x2 grid statistics q add little: head on g alone against the full head, largest absolute difference over the five datasets
     gd_vf = [abs(tcm(t, lambda z: z['C_head_g_only']['alone']['flip']) - T[t]['head_vf']) for t in TAGS if t in TC]
     gd_nat = [abs(tcm(t, lambda z: z['C_head_g_only']['alone']['nat_mean']) - T[t]['head_nat']) for t in TAGS if t in TC]
     M['gridGainVfMax'] = f1(max(gd_vf)); M['gridGainNatMax'] = f1(max(gd_nat))
@@ -164,7 +163,7 @@ for f in glob.glob(f'{D}/two_controls2/*.json'):
 def tcm2(t, fn):
     v = [fn(z) for z in TC2[t].values()]; return float(np.nanmean(v)) if not all(np.isnan(v)) else float('nan')
 if TC2:
-    NATI = ['edmc10', 'l6svhn', 'edmc100', 'in64']; ALI = ['dpceleba', 'fmnist']
+    NATI = ['edmc10', 'l6svhn', 'in64']; ALI = ['dpceleba', 'fmnist']
     def rng3(fn, tags, fmt=f1):
         v = [tcm2(t, fn) for t in tags if t in TC2]; return fmt(min(v)), fmt(max(v))
     for rk, c in (('ridge0.01', 'A'), ('ridge0.1', 'B')):
@@ -183,7 +182,7 @@ if TC2:
         for key, kc in (('flat', 'Flat'), ('wrong_peak', 'Wrong'), ('up_peak', 'Up')):
             M[f'ps{c}{kc}Min'], M[f'ps{c}{kc}Max'] = rng3(ps(reg, key), TAGS)
             M[f'ps{c}{kc}NatMin'], M[f'ps{c}{kc}NatMax'] = rng3(ps(reg, key), NATI)
-    for t, c in (('in64', 'IN'), ('edmc10', 'Cten'), ('edmc100', 'CH')):
+    for t, c in (('in64', 'IN'), ('edmc10', 'Cten')):
         if t in TC2:
             for reg, rc in (('orient_only', 'OrOnly'), ('knn_only', 'KnnOnly'), ('id', 'Id'), ('vflip', 'Vf')):
                 for key, kc in (('flat', 'Flat'), ('wrong_peak', 'Wrong'), ('up_peak', 'Up')): M[f'ps{rc}{kc}{c}'] = f1(tcm2(t, ps(reg, key)))
@@ -191,12 +190,12 @@ if TC2:
     # the displacement ratio of Table 1 at fixed neighbour ranks
     for rk, rn in (('R1', 'Rone'), ('R10', 'Rten'), ('R100', 'Rhundred')):
         for t in TAGS:
-            if t in TC2: M[f'ratio{rn}{ {"edmc10": "Cten", "l6svhn": "SVHN", "dpceleba": "Celeb", "edmc100": "CH", "in64": "IN", "fmnist": "FM"}[t] }'] = f'{tcm2(t, lambda z, rk=rk: z["G_ratio"][rk]["median"]):.2f}'
+            if t in TC2: M[f'ratio{rn}{ {"edmc10": "Cten", "l6svhn": "SVHN", "dpceleba": "Celeb", "in64": "IN", "fmnist": "FM"}[t] }'] = f'{tcm2(t, lambda z, rk=rk: z["G_ratio"][rk]["median"]):.2f}'
     M['nControlTiersTwo'] = str(len(TC2))
-    for t, c in (('in64', 'IN'), ('edmc10', 'Cten'), ('edmc100', 'CH'), ('l6svhn', 'SVHN')):
+    for t, c in (('in64', 'IN'), ('edmc10', 'Cten'), ('l6svhn', 'SVHN')):
         if t in TC2: M[f'psKnnOnlyN{c}'] = str(int(round(tcm2(t, lambda z: z['F_posterior']['ood_regions']['knn_only']['n']))))
-    # posterior-shape ranges over the three natural-image datasets with hundreds of orientation-only images (CIFAR-10, CIFAR-100, ImageNet-64)
-    BIG = ['edmc10', 'edmc100', 'in64']
+    # posterior-shape ranges over the two natural-image datasets with hundreds of orientation-only images (CIFAR-10, ImageNet-64)
+    BIG = ['edmc10', 'in64']
     for key, kc in (('flat', 'Flat'), ('wrong_peak', 'Wrong'), ('up_peak', 'Up')):
         M[f'psOrOnly{kc}BigMin'], M[f'psOrOnly{kc}BigMax'] = rng3(ps('orient_only', key), BIG)
         M[f'psKnnOnly{kc}BigMin'], M[f'psKnnOnly{kc}BigMax'] = rng3(ps('knn_only', key), BIG)

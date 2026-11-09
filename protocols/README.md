@@ -13,10 +13,11 @@ Each protocol was written, and copied unchanged here, before the evaluation it g
 | [`PROTOCOL_HIRES.md`](PROTOCOL_HIRES.md), [`PROTOCOL_HIRES_DIT.md`](PROTOCOL_HIRES_DIT.md) | resolution-controlled ImageNet at 256×256 (ADM), 512×512 (EDM2-XS) and 256×256 (DiT-XL/2) |
 | [`PROTOCOL_E4.md`](PROTOCOL_E4.md) | chest X-rays, histology and generators trained with rotations |
 | [`PROTOCOL_E5.md`](PROTOCOL_E5.md) | bank size on ImageNet-64 (an analysis after the frozen evaluation) |
-| [`PROTOCOL_CSI.md`](PROTOCOL_CSI.md) | CSI (official code, 1,000 epochs) as a comparison method on the five 32×32 ID datasets |
+| [`PROTOCOL_CSI.md`](PROTOCOL_CSI.md) | CSI (official code, 1,000 epochs) as a comparison method on the five 32×32 ID datasets (the CIFAR-100 run is dropped with that tier, see below) |
 | [`PROTOCOL_E5B.md`](PROTOCOL_E5B.md) | bank size on ImageNet-64 with the benchmark preprocessing (25,000 and 50,000 random training images; supersedes the E5 runs, whose bank came from a differently preprocessed source) |
 | [`PROTOCOL_E6.md`](PROTOCOL_E6.md) | controls of the two-notions analysis: kNN in the full head space, the estimator-free mean-3 subspace, the head on $\mathbf g$ only, a head on pixel statistics, the sensitivity of $d$ |
 | [`PROTOCOL_HIRES2.md`](PROTOCOL_HIRES2.md) | ImageNet at 256×256 (ADM) with the same final resampling for every set (every image through 112 px) |
 | [`PROTOCOL_E8.md`](PROTOCOL_E8.md) | further controls: the shape of the head's posterior by decision region, the displacement ratio at fixed neighbour ranks, a whitened (Mahalanobis) kNN |
 | [`PROTOCOL_E9.md`](PROTOCOL_E9.md) | the frame term as a plug-in to other neighbourhood detectors (CFS kNN, the basic kNN rule, a Gaussian log-density of CFS's descriptors) with the parameter-free weight, and $z$-sum fusions with every comparison method (post hoc, expectations written in advance) |
 | [`PROTOCOL_VL.md`](PROTOCOL_VL.md), [`FROZEN_VL.txt`](FROZEN_VL.txt) | the deep-block ablation of the supplement: a second kNN term on the deepest decoder block (depth by the mirror test), added as a product of experts to Upright kNN; its rules and checksums were frozen before a second use of the final images |
+| [`CIFAR100_CHECKPOINT.md`](CIFAR100_CHECKPOINT.md) | **not a protocol but a record (2026-11-09)**: the public CIFAR-100 checkpoint of the sixth ID tier is a CIFAR-10 model; the evidence, and the removal of that tier from every table with every aggregate recomputed over the five remaining ID datasets (`paper/gen/fiveid.py`) |

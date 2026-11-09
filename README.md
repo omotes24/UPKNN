@@ -29,25 +29,27 @@ rotation head. One network evaluation per image, no labels, no OOD data, no tune
 
 ## Results (final evaluation, evaluated once after the protocol was frozen)
 
-Six ID datasets with public (or our) diffusion models, 63 ID–OOD pairs (47 natural, 6 upside-down probes, 10 synthetic), 500 images
+Five ID datasets with public (or our) diffusion models, 51 ID–OOD pairs (38 natural, 5 upside-down probes, 8 synthetic), 500 images
 per set, three noise seeds ([`paper/gen/data/ours_vs_all_final2.json`](paper/gen/data/ours_vs_all_final2.json),
-[`newrows_final2.json`](paper/gen/data/newrows_final2.json), [`csi_ana.json`](paper/gen/data/csi_ana.json)). Mean AUROC (%) over
-the natural OOD sets (the target; upside-down ID images are a probe of frame sensitivity):
+[`newrows_final2.json`](paper/gen/data/newrows_final2.json), [`csi_ana.json`](paper/gen/data/csi_ana.json); the files hold a
+sixth tier, CIFAR-100, which is excluded from every table — see the note below). Mean AUROC (%) over the natural OOD sets (the
+target; upside-down ID images are a probe of frame sensitivity):
 
-| | CIFAR-10 | SVHN | CelebA | CIFAR-100 | ImageNet-64 | FashionMNIST | mean | upside-down |
-|---|---|---|---|---|---|---|---|---|
-| **Upright kNN** | **95.4** | **99.7** | **100.0** | **85.5** | **79.6** | **100.0** | **93.4** | 86.6 |
-| its kNN term alone | 93.7 | 99.4 | 100.0 | 85.0 | 77.0 | 99.9 | 92.5 | 72.8 |
-| kNN on our features, tuned per ID | 93.7 | 99.4 | 100.0 | 85.4 | 77.0 | 99.9 | 92.6 | 72.7 |
-| best of 13 prior detectors (CFS, kNN head) | 84.9 | 92.1 | 99.9 | 72.3 | 63.9 | 99.9 | 85.5 | 70.6 |
-| best likelihood / statistic of the model (DDPM-OOD) | 77.1 | 99.9 | 99.9 | 59.2 | 56.1 | 94.2 | 81.1 | 69.0 |
-| CSI (official code, 1,000 epochs; five 32×32 ID datasets) | 94.7 | 97.8 | 100.0 | 68.5 | – | 100.0 | 92.2 | 94.5 |
+| | CIFAR-10 | SVHN | CelebA | ImageNet-64 | FashionMNIST | mean | upside-down |
+|---|---|---|---|---|---|---|---|
+| **Upright kNN** | **95.4** | **99.7** | **100.0** | **79.6** | **100.0** | **94.9** | 88.1 |
+| its kNN term alone | 93.7 | 99.4 | 100.0 | 77.0 | 99.9 | 94.0 | 76.1 |
+| kNN on our features, tuned per ID | 93.7 | 99.4 | 100.0 | 77.0 | 99.9 | 94.0 | 75.9 |
+| best of 14 prior detectors (rotation classifier trained on the ID images) | 85.3 | 95.4 | 100.0 | 62.1 | 99.4 | 88.4 | 94.3 |
+| best prior detector using the diffusion model (CFS, kNN head) | 84.9 | 92.1 | 99.9 | 63.9 | 99.9 | 88.1 | 73.9 |
+| best likelihood / statistic of the model (DDPM-OOD) | 77.1 | 99.9 | 99.9 | 56.1 | 94.2 | 85.4 | 71.9 |
+| CSI (official code, 1,000 epochs; the four 32×32 ID datasets) | 94.7 | 97.8 | 100.0 | – | 100.0 | 98.1 | 95.8 |
 
-Against each of the prior detectors run on all six ID datasets (NLL, IC with PNG / JPEG 2000, typicality test, MSMA\*, DiffPath,
-GEPC, EigenScore, DDPM-OOD, CFS with its diagonal and kNN heads, a rotation classifier) Upright kNN wins 34–47 of the 47 natural
-pairs and loses at most 4 (bootstrap, 95% interval and at least 0.05 points); it improves on its own kNN term on 28 natural pairs
-and loses 1 (CIFAR-100→CIFAR-10), and against CSI it wins 22 / ties 16 / loses 2 of 40 pairs. Of the 7.9 points over the best
-prior detector, 7.1 come from the features (the tuned kNN rule) and 0.8 from the frame term. On OpenOOD v1.5 ImageNet-1K at
+Against each of the prior detectors run on all five ID datasets (NLL, IC with PNG / JPEG 2000, typicality test, MSMA\*, DiffPath,
+GEPC, EigenScore, DDPM-OOD, LMD, CFS with its diagonal and kNN heads, a rotation classifier) Upright kNN wins 25–38 of the 38 natural
+pairs and loses at most 4 (bootstrap, 95% interval and at least 0.05 points); it improves on its own kNN term on 24 natural pairs
+and loses none, and against CSI it wins 14 / ties 15 / loses 2 of 31 pairs. Of the 6.8 points over CFS (kNN), the best prior
+detector that uses the diffusion model, 5.8 come from the features (the tuned kNN rule) and 0.9 from the frame term. On OpenOOD v1.5 ImageNet-1K at
 64×64 it reaches 70.2 / 79.0 near- / far-OOD AUROC against 60.7 / 75.0 for the best prior method. With every image passed through
 the same 224-px bottleneck, it reaches 83.7 / 76.4 with ADM at 256×256 (best prior method 69.4 / 76.4) and 64.7 / 74.5 with
 EDM2-XS at 512×512 (CFS 61.2 / 72.7); with DiT-XL/2 at 256×256 (58.3 / 71.8) its kNN term suffers from a collapse of the pooled
@@ -56,7 +58,7 @@ statistics (one input-independent channel dominates each block). A further contr
 256-px results depends on how the sets are stored. Full tables: [`paper/main.pdf`](paper/main.pdf),
 [`paper/supp.pdf`](paper/supp.pdf).
 
-**Two notions.** Rotations explain 0.7–18% of the feature variance; on the four natural-image datasets a Euclidean, cosine or
+**Two notions.** Rotations explain 0.7–18% of the feature variance; on the three natural-image datasets a Euclidean, cosine or
 whitened nearest-neighbour distance in the head's input space is at or near chance on upside-down images, whereas the linear
 read-out of the same statistics recovers the frame (controls [`PROTOCOL_E6.md`](protocols/PROTOCOL_E6.md),
 [`PROTOCOL_E8.md`](protocols/PROTOCOL_E8.md)). On chest X-rays the frame term detects rotated radiographs; on histology and
@@ -64,19 +66,30 @@ aerial tiles, which have no canonical up, it misleads ([`PROTOCOL_E4.md`](protoc
 [`PROTOCOL_E3.md`](protocols/PROTOCOL_E3.md)).
 
 **The frame term as a plug-in.** Added with the same parameter-free weight to other neighbourhood detectors, the frame term lifts
-CFS (kNN) from 85.5% to 88.6% and the basic kNN rule from 87.7% to 89.8% mean AUROC over the six ID datasets (natural OOD sets), and leaves a
-Gaussian log-density of CFS's descriptors unchanged (80.5% to 80.7%); a $z$-sum with each of 12 comparison methods helps every one
-of them, but exceeds the frame term alone (89.9%) only for the two neighbourhood detectors ([`PROTOCOL_E9.md`](protocols/PROTOCOL_E9.md)).
+CFS (kNN) from 88.1% to 91.4% and the basic kNN rule from 89.2% to 91.5% mean AUROC over the five ID datasets (natural OOD sets), and leaves a
+Gaussian log-density of CFS's descriptors unchanged (83.6% to 83.8%); a $z$-sum with each of 12 comparison methods helps every one
+of them, but none exceeds the frame term alone (93.3%); the two neighbourhood detectors reach it ([`PROTOCOL_E9.md`](protocols/PROTOCOL_E9.md)).
 
 **A second kNN term on the deepest block (post hoc ablation).** Adding a kNN log-density of the deepest decoder block, at the depth the
 mirror test ranks highest, to Upright kNN as a product of experts (rules frozen before a second use of the final images,
-[`PROTOCOL_VL.md`](protocols/PROTOCOL_VL.md)) raises the six-dataset mean from 93.4% to 94.6% and CIFAR-10→CIFAR-100 from 80.3% to
+[`PROTOCOL_VL.md`](protocols/PROTOCOL_VL.md)) raises the five-dataset mean from 94.9% to 96.0% and CIFAR-10→CIFAR-100 from 80.3% to
 88.3% at up to two network evaluations per image; it counts the content density twice and lies outside the decomposition, so the
 paper reports it as an ablation (supplement, Section S9), not as the method.
 
+**The CIFAR-100 tier (removed 2026-11-09).** The frozen protocol had a sixth ID dataset, CIFAR-100, with the public checkpoint
+`edm_cifar100_uncond_vp.pt` of `huanranchen/DiffusionClassifier`. After the final evaluation we found that this checkpoint is a
+CIFAR-10 model: its denoising error memorises the CIFAR-10 training images (and not CIFAR-100's) with the same train/test gap as the
+official CIFAR-10 EDM, its per-image errors correlate with the official model's at 0.995–0.999, and its samples and their nearest
+training images are CIFAR-10. A tier whose model was trained on CIFAR-10 while its bank and ID images are CIFAR-100 does not measure
+what the benchmark intends, so the tier was removed from every table and every aggregate recomputed over the five remaining datasets
+from the stored per-pair results ([`paper/gen/fiveid.py`](paper/gen/fiveid.py); nothing re-evaluated, no other number changed). The
+result files keep the tier as evaluated (six-tier means: Upright kNN 93.4, tuned kNN 92.6, CFS kNN 85.5). Details, evidence and
+consequences: [`protocols/CIFAR100_CHECKPOINT.md`](protocols/CIFAR100_CHECKPOINT.md). The "only loss to its own kNN term" and the
+"CIFAR-10 looks more canonical than CIFAR-100" observations of earlier versions were effects of this checkpoint.
+
 **Status (2026-11-09).** All experiments of the paper are finished and in the paper, including the last comparison rows,
-LMD on all six ID datasets and likelihood + LID (Kamkari et al.) on the five 32×32 ID datasets (the public configurations
-cover those five, so it is not run on ImageNet-64). Every protocol was written before its results were seen. The per-image
+LMD on all five ID datasets and likelihood + LID (Kamkari et al.) on the four 32×32 ID datasets (the public configurations
+cover the 32×32 datasets, so it is not run on ImageNet-64). Every protocol was written before its results were seen. The per-image
 scores will be published as a release asset.
 
 ## Layout

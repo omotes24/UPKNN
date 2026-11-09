@@ -1,26 +1,26 @@
 # mk_supp.py -- tables of the supplementary material (English) from the same evaluation files as mk_ijcai.py (gen/data/):
-#   supp_models.tex (models and configuration per ID), supp_pairs.tex (all 63 pairs), supp_fpr.tex (FPR95 per ID and method),
+#   supp_models.tex (models and configuration per ID), supp_pairs.tex (all 51 pairs of the five ID datasets), supp_fpr.tex (FPR95 per ID and method),
 #   supp_ablate.tex (development-split ablations + selection data), supp_mirror.tex (mirror test by depth), supp_in64.tex (ImageNet-1K 64x64
 #   per set), supp_in256.tex (uncontrolled 256x256 tier incl. SSB-hard / ImageNet-C), supp_eurosat.tex (EuroSAT per set).
 import os, json
 import numpy as np
 HERE = os.path.dirname(os.path.abspath(__file__)); OUT = os.path.dirname(HERE); D = os.path.join(HERE, 'data')
-TAGS = ['edmc10', 'l6svhn', 'dpceleba', 'edmc100', 'in64', 'fmnist']
+from fiveid import TAGS, J5, NEWJ5, FP5, CSI5, DEEP5, DEEPC5, KG5, WS5, E95, drop_tag   # five ID datasets (CIFAR-100 removed: protocols/CIFAR100_CHECKPOINT.md)
 NAME = {'edmc10': 'CIFAR-10', 'l6svhn': 'SVHN', 'dpceleba': 'CelebA', 'edmc100': 'CIFAR-100', 'in64': 'ImageNet-64', 'fmnist': 'FashionMNIST'}
 SETN = {'svhn_test': 'SVHN', 'textures': 'Textures', 'celeba_test': 'CelebA', 'tin_val': 'Tiny-ImageNet', 'lsun_fix': 'LSUN-FIX', 'imagenet_fix': 'ImageNet-FIX',
         'imagenet32_val': 'ImageNet32', 'places365_val': 'Places365', 'cifar100_test': 'CIFAR-100', 'cifar10_test': 'CIFAR-10', 'in64_ssb_hard': 'SSB-hard',
         'in64_ninco': 'NINCO', 'in64_inaturalist': 'iNaturalist', 'in64_textures': 'Textures', 'in64_openimage_o': 'OpenImage-O', 'in64_places365': 'Places365',
         'in64_celeba_test': 'CelebA', 'g32_mnist_test': 'MNIST', 'g32_kmnist_test': 'KMNIST', 'g32_omniglot_eval': 'Omniglot', 'g32_notmnist': 'notMNIST',
         'synth_noise': 'uniform noise', 'synth_const': 'constant', 'g32_synth_noise': 'uniform noise', 'g32_synth_const': 'constant'}
-NEWJ = json.load(open(f'{D}/newrows_final2.json')); NEWROWS = [r for r in ('Graham', 'LMD', 'Kamkari') if r in NEWJ['rows']]
-CSI = json.load(open(f'{D}/csi_ana.json')) if os.path.exists(f'{D}/csi_ana.json') else None
+NEWJ = NEWJ5(json.load(open(f'{D}/newrows_final2.json'))); NEWROWS = [r for r in ('Graham', 'LMD', 'Kamkari') if r in NEWJ['rows']]
+CSI = CSI5(json.load(open(f'{D}/csi_ana.json'))) if os.path.exists(f'{D}/csi_ana.json') else None
 PRIOR = ['NLL', 'IC-png', 'IC-j2k', 'TT', 'MSMA*', 'DiffPath', 'GEPC', 'EigenScore'] + NEWROWS + ['CFS', 'CFS-kNN', 'RotCls4'] + (['CSI'] if CSI else [])
 SHORT = {'NLL': 'NLL', 'IC-png': 'IC-PNG', 'IC-j2k': 'IC-J2K', 'TT': 'TT', 'MSMA*': 'MSMA$^{*}$', 'DiffPath': 'DiffPath', 'GEPC': 'GEPC', 'EigenScore': 'EigenScore',
          'CFS': 'CFS', 'CFS-kNN': 'CFS-kNN', 'RotCls4': 'Rot.\\ pred.', 'kNN tuned': 'kNN (tuned)', 'kNN (CT)': 'kNN (basic)',
          'Graham': 'DDPM-OOD', 'LMD': 'LMD', 'Kamkari': 'LID+NLL', 'CSI': 'CSI'}
 def f1(v): return f'{v:.1f}'
 def sgn(v): return '0.0' if abs(v) < 0.05 else ('$+$' if v > 0 else '$-$') + f'{abs(v):.1f}'
-J = json.load(open(f'{D}/ours_vs_all_final2.json'))
+J = J5(json.load(open(f'{D}/ours_vs_all_final2.json')))
 for t in J['pairs']:                                                    # merge the new rows (same images and bootstrap draws) and CSI
     for o, p in J['pairs'][t].items():
         for r in NEWROWS:
@@ -33,7 +33,7 @@ for t in J['pairs']:                                                    # merge 
 MOD = {'edmc10': ('$32{\\times}32$', 'EDM (VP, DDPM++)', '\\cite{karras2022edm}'), 'l6svhn': ('$32{\\times}32$', 'VP-SDE', '\\cite{kamkari2024geometric}'),
        'dpceleba': ('$32{\\times}32$', 'iDDPM', '\\cite{nichol2021improved}'), 'edmc100': ('$32{\\times}32$', 'DDPM++ (EDM precond.)', '\\cite{chen2024robust}'),
        'in64': ('$64{\\times}64$', 'EDM2-XS (uncond.)', '\\cite{karras2024edm2}'), 'fmnist': ('$32{\\times}32$', 'U-Net (EDM precond.)', 'trained by us')}
-ACC = {'edmc10': 95.5, 'l6svhn': 86.7, 'dpceleba': 100.0, 'edmc100': 88.2, 'in64': 77.3, 'fmnist': 99.7}
+ACC = {'edmc10': 95.5, 'l6svhn': 86.7, 'dpceleba': 100.0, 'in64': 77.3, 'fmnist': 99.7}
 EXPD = json.load(open(f'{D}/dR_s0.json')); PS = json.load(open(f'{D}/ok_prof_sel.json')); PERID = {t: max(PS, key=lambda k: PS[k][t]) for t in TAGS}
 def tuned_cfg(k):
     st, g, kk, r = k.split('_'); blk = 'mean of 3 blocks' if g == 'L012' else 'half-res.\\ block'
@@ -57,7 +57,7 @@ for t in TAGS:
     L.append('\\midrule')
 L[-1] = '\\bottomrule'; open(f'{OUT}/supp_pairs.tex', 'w').write('\n'.join(L) + '\n')
 # ---- FPR95
-FP = json.load(open(f'{D}/fpr95_all_final2.json')); RW = ['Ours', 'kNN tuned', 'kNN (CT)'] + PRIOR
+FP = FP5(json.load(open(f'{D}/fpr95_all_final2.json'))); RW = ['Ours', 'kNN tuned', 'kNN (CT)'] + PRIOR
 def nat_sets(t): return [o for o in J['pairs'][t] if not o.endswith('__vflip') and 'synth' not in o]
 def vf_set(t): return [o for o in J['pairs'][t] if o.endswith('__vflip')][0]
 def fpr_cells(r):
@@ -86,11 +86,11 @@ for k, lab in ROWS:
     L.append(f"{lab} & " + ' & '.join(f1(v) for v in nat) + f" & {f1(np.mean(nat))} & {f1(np.mean([AB[t][k]['vflip'] for t in TAGS]))} & {f1(np.mean([AB[t][k]['sel'] for t in TAGS]))}\\\\")
 open(f'{OUT}/supp_ablate.tex', 'w').write('\n'.join(L) + '\n')
 # ---- mirror test (rows of the resume's table, numbers only)
-rows = [l for l in open(f'{D}/tab_mirror_rows.tex').read().split('\n') if l and not l.startswith('%')]
+rows = [l for l in open(f'{D}/tab_mirror_rows.tex').read().split('\n') if l and not l.startswith('%') and not l.startswith('CIFAR-100 &')]   # the removed tier
 rows = [l.replace('\\bottomrule', '') for l in rows]
 open(f'{OUT}/supp_mirror.tex', 'w').write('\n'.join(rows) + '\n')
 # ---- the deep-block ablation: final evaluation vs Upright kNN, the development-split breakdown and controls, the frozen choices
-DEEP = json.load(open(f'{D}/vl_vs_uknn_final2.json')); DEEPC = json.load(open(f'{D}/vl_ctrl_fresh.json')); DEEPP = json.load(open(f'{D}/PROTOCOL_VL.json'))
+DEEP = DEEP5(json.load(open(f'{D}/vl_vs_uknn_final2.json'))); DEEPC = DEEPC5(json.load(open(f'{D}/vl_ctrl_fresh.json'))); DEEPP = drop_tag(json.load(open(f'{D}/PROTOCOL_VL.json')))
 SIGGRID = [0.01 * 3162.2777 ** (k / 15) for k in range(16)]            # the 16-point noise grid (sigma_1 = 0.01)
 def sgn(v): return '0.0' if abs(v) < 0.05 else ('$+$' if v > 0 else '$-$') + f'{abs(v):.1f}'
 DNFE = {t: 1 + (1 if (DEEPP[t]['kstar'] is not None and DEEPP[t]['wstar'] > 0) else 0) for t in TAGS}
@@ -109,7 +109,7 @@ DROWS = [('Upright', 'Upright kNN', '1'), ('VL', '+ deep-block term (frozen rule
          ('VL+mean', 'Control 2: + third expert (channel means)', '1--2')]
 L = ['% written by gen/mk_supp.py: development images, three noise seeds (analysis/final/ana_kx/vl_ctrl_ana.py)']
 for r, lab, nfe in DROWS:
-    cells = [f1(dcm(r)), f1(dcp('edmc10', 'cifar100_test', r)), f1(dcp('edmc100', 'cifar10_test', r)), f1(dcp('in64', 'in64_ssb_hard', r)), f1(dcp('in64', 'in64_ninco', r))]
+    cells = [f1(dcm(r)), f1(dcp('edmc10', 'cifar100_test', r)), f1(dcp('in64', 'in64_ssb_hard', r)), f1(dcp('in64', 'in64_ninco', r))]
     L.append(f"{lab} & " + ' & '.join(cells) + f" & {dwt(DEEPC['wtl'].get(r))} & {dwt(DEEPC['wtl_vs_vl'].get(r))} & {nfe}\\\\")
     if r == 'VL': L.append('\\midrule')
 open(f'{OUT}/supp_deep_ctrl.tex', 'w').write('\n'.join(L) + '\n')
@@ -119,12 +119,12 @@ for t in TAGS:
     L.append(f"{NAME[t]} & 1/{2 ** q['level']} & {f1(m0)} & {q['R']} & {q['a0']} & $\\sigma_{{{ks + 1}}}={SIGGRID[ks]:.3f}$ & {f1(ms)} [{f1(q['mirror_star_ci'][0])}, {f1(q['mirror_star_ci'][1])}] & {q['wstar']:.2f} & {DNFE[t]}\\\\")
 open(f'{OUT}/supp_deep_choices.tex', 'w').write('\n'.join(L) + '\n')
 # ---- what in the kNN rule carries the gain (knn_grid.py, final images): features x head, and the 80-configuration grid
-KG = json.load(open(f'{D}/knn_grid.json')); KGH = KG['heads']['final2']; KGG = KG['grid']['final2']
+KG = KG5(json.load(open(f'{D}/knn_grid.json'))); KGH = KG['heads']['final2']; KGG = KG['grid']['final2']
 HEADN = {'std_mean10': 'standardised Euclidean, mean of 10 (CFS)', 'std_10th': 'standardised Euclidean, 10th', 'cos_10th': 'cosine, 10th (ours)', 'cos_mean10': 'cosine, mean of 10'}
 FEATN = {'cfs': 'CFS descriptors (encoder + decoder $16\\times16$ blocks, logSNR 7)', 'L1': 'our half-resolution decoder block ($\\sigma_1$)'}
 L = ['% written by gen/mk_supp.py: features x head on the final images (knn_grid.py)']
 for f in ('cfs', 'L1'):
-    L.append(f'\\multicolumn{{10}}{{@{{}}l}}{{\\emph{{{FEATN[f]}}}}}\\\\')
+    L.append(f'\\multicolumn{{{len(TAGS) + 4}}}{{@{{}}l}}{{\\emph{{{FEATN[f]}}}}}\\\\')
     for hd in ('std_mean10', 'std_10th', 'cos_10th', 'cos_mean10'):
         v = KGH[f'{f}_{hd}']; L.append(f"\\quad {HEADN[hd]} & " + ' & '.join(f1(v['ids'][t]) for t in TAGS) + f" & {f1(v['mean6'])} & {f1(v['near'])} & {f1(v['vflip'])}\\\\")
     if f == 'cfs': L.append('\\midrule')
@@ -132,7 +132,7 @@ open(f'{OUT}/supp_knnheads.tex', 'w').write('\n'.join(L) + '\n')
 RS = [1, 2, 5, 10, 20, 50, 100, 200, 500, 1000]
 STATN = {'P': '$R$-th largest cosine', 'M': 'mean of the $R$ largest'}; BLN = {'L1': 'half-res.\\ block', 'L012': 'three blocks'}; SGN = {'k0': '$\\sigma_1$', 'k6': '$\\sigma_7$'}
 best = max(KGG, key=lambda c: KGG[c]['mean6'])
-L = ['% written by gen/mk_supp.py: the 80 configurations of the tuned kNN on the final images (six-dataset mean AUROC; knn_grid.py)']
+L = ['% written by gen/mk_supp.py: the 80 configurations of the tuned kNN on the final images (five-dataset mean AUROC; knn_grid.py)']
 for st in ('P', 'M'):
     for bl in ('L1', 'L012'):
         for k in ('k0', 'k6'):
@@ -187,7 +187,7 @@ for tag, lab in (('c10n4', 'none'), ('c10x4', 'horizontal flips'), ('c10r25', 'r
     L.append(f"{lab} & {f1(acc)} & " + ' & '.join(f"{f1(R_[r]['natural'])} & {f1(R_[r]['flip'])}" for r in ('Ours', 'kNN term', 'Orientation term', 'NLL', 'NLL + log P(up|x)')) + '\\\\')
 open(f'{OUT}/supp_e4_rot.tex', 'w').write('\n'.join(L) + '\n')
 # ---- weight sweep (development images and final images)
-W = json.load(open(f'{D}/weight_sweep.json')); ws = W['fresh']['w']
+W = WS5(json.load(open(f'{D}/weight_sweep.json'))); ws = W['fresh']['w']
 L = ['$w$ & ' + ' & '.join(str(w) for w in ws) + '\\\\\\midrule']
 for split, lab in (('fresh', 'development images'), ('final2', 'final images')):
     L.append(f"\\multicolumn{{{len(ws) + 1}}}{{@{{}}l}}{{\\emph{{{lab}}}}}\\\\")
@@ -240,7 +240,7 @@ if E5B:
         fo.write('% written by gen/mk_supp.py\n')
         for k, v in MX.items(): fo.write(f'\\newcommand{{\\{k}}}{{{v}}}\n')
 # ---- the frame term as a plug-in (PROTOCOL_E9.md): gen/data/e9_ana.json (analysis/final/e9/ana/e9_ana.py), when the runs have finished
-E9 = json.load(open(f'{D}/e9_ana.json')) if os.path.exists(f'{D}/e9_ana.json') else None
+E9 = E95(json.load(open(f'{D}/e9_ana.json'))) if os.path.exists(f'{D}/e9_ana.json') else None
 if E9:
     LAB9 = {'CFS (kNN)': 'CFS (kNN)', 'Upright CFS (kNN)': '\\quad + frame term (Bayes weight)', 'CFS (kNN) + frame (z)': '\\quad + frame term ($z$-sum)',
             'kNN (basic)': 'kNN (basic)', 'Upright kNN (basic)': '\\quad + frame term (Bayes weight)', 'kNN (basic) + frame (z)': '\\quad + frame term ($z$-sum)',
