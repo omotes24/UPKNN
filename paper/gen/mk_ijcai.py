@@ -79,6 +79,7 @@ M['bestPriorModelMean'] = f1(ids_mean(J, bestPM)); M['bestPriorModelName'] = LAB
 M['nPriorComplete'] = str(len([m for m in PRIOR if all(m in J['ids'][t]['rows'] for t in TAGS)]))
 M['priorGap'] = f1(J['mean_ours'] - ids_mean(J, bestP)); M['priorModelGap'] = f1(J['mean_ours'] - ids_mean(J, bestPM))
 M['featGap'] = f1(ids_mean(J, 'kNN tuned') - ids_mean(J, bestPM)); M['frameGapTuned'] = f1(J['mean_ours'] - ids_mean(J, 'kNN tuned'))   # of the gap to CFS (kNN): features (tuned kNN) and the frame term
+M['featGapTwo'] = f'{ids_mean(J, "kNN tuned") - ids_mean(J, bestPM):.2f}'; M['frameGapTunedTwo'] = f'{J["mean_ours"] - ids_mean(J, "kNN tuned"):.2f}'   # two decimals: the rounded shares need not sum to the rounded gap
 COMPLETE = [m for m in PRIOR if all(m in J['ids'][t]['rows'] for t in TAGS)]        # rows run on all five ID datasets (win counts are comparable)
 M['priorWinMin'] = str(min(J['rows'][m]['wins'] for m in COMPLETE)); M['priorWinMax'] = str(max(J['rows'][m]['wins'] for m in COMPLETE))
 M['priorLossMax'] = str(max(J['rows'][m]['losses'] for m in PRIOR)); M['nPrior'] = str(len(PRIOR)); M['nPriorModel'] = str(len(PRIOR) - 1)   # all but the rotation classifier use the diffusion model
