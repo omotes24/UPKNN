@@ -24,7 +24,7 @@ LICENCE = ('MIT License\n\nCopyright (c) 2026 Anonymous Authors\n\nPermission is
            'LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT '
            'HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN '
            'CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.\n')
-NOTE = ('Technical appendix of the submission "Neighbours and Orientation: Out-of-Distribution Detection with Frozen Diffusion\n'
+NOTE = ('Technical appendix of the submission "Neighbours and Orientation: Two Notions of In-Distribution Conformity in Frozen Diffusion\n'
         'Features" (anonymous; the detector is called Upright kNN).\n\n'
         '- supplementary.pdf: the supplementary material (protocol details, comparison methods, the proof of Proposition 2, the weight\n'
         '  sweep, the two-notions analysis with its controls, all pairs, FPR95, ablations, the mirror test, the ImageNet tables incl. the\n'
