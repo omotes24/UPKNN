@@ -71,7 +71,7 @@ M['nPairs'] = str(sum(len(P) for P in J['pairs'].values()))
 M['oursMean'] = f1(J['mean_ours']); M['tunedMean'] = f1(ids_mean(J, 'kNN tuned')); M['ctMean'] = f1(ids_mean(J, 'kNN (CT)'))
 M['rotMean'] = f1(ids_mean(J, 'RotCls4')); M['cfsMean'] = f1(ids_mean(J, 'CFS')); M['cfsKnnMean'] = f1(ids_mean(J, 'CFS-kNN'))
 best8 = max(EIGHT, key=lambda m: ids_mean(J, m)); M['bestEightName'] = LABEL[best8]; M['bestEightMean'] = f1(ids_mean(J, best8))
-STAT = [m for m in EIGHT + NEWROWS if all(m in J['ids'][t]['rows'] for t in TAGS)]
+STAT = [m for m in EIGHT if all(m in J['ids'][t]['rows'] for t in TAGS)]            # likelihood and score statistics (the reconstruction / dimension methods with thousands of NFE are a block of their own)
 bestS = max(STAT, key=lambda m: ids_mean(J, m)); M['bestStatName'] = LABEL[bestS]; M['bestStatMean'] = f1(ids_mean(J, bestS)); M['nStat'] = str(len(STAT))
 bestP = max([m for m in PRIOR if all(m in J['ids'][t]['rows'] for t in TAGS)], key=lambda m: ids_mean(J, m)); M['bestPriorMean'] = f1(ids_mean(J, bestP)); M['bestPriorName'] = LABEL[bestP]
 bestPM = max([m for m in PRIOR if m != 'RotCls4' and all(m in J['ids'][t]['rows'] for t in TAGS)], key=lambda m: ids_mean(J, m)); assert bestPM == 'CFS-kNN'   # the best prior detector that uses the diffusion model
@@ -191,6 +191,13 @@ SETN = {'cifar10_test': 'CIFAR-10', 'cifar100_test': 'CIFAR-100', 'celeba_test':
         'in64_ninco': 'NINCO', 'in64_textures': 'Textures', 'in64_openimage_o': 'OpenImage-O', 'in64_places365': 'Places365', 'in64_celeba_test': 'CelebA'}
 IDN = {'edmc10': 'CIFAR-10', 'l6svhn': 'SVHN', 'dpceleba': 'CelebA', 'edmc100': 'CIFAR-100', 'in64': 'ImageNet-64', 'fmnist': 'FashionMNIST'}
 M['lostNatList'] = ', '.join(f'{IDN[t]}$\\to${SETN[o]}' for t, o in lostN)
+_lostto = {(t, o): [r for r in PRIOR if r in J['pairs'][t][o]['rows'] and J['pairs'][t][o]['rows'][r]['verdict'] == 'loss'] for t, o in lostN}
+_costly = [(t, o) for (t, o), rs in _lostto.items() if rs and all(r in NEWROWS for r in rs)]
+def _pairs_text(ps):                                                 # 'SVHN$\\to$CIFAR-10/-100' when the pairs share the ID dataset and the OOD sets are the two CIFARs
+    if len(ps) == 2 and len({t for t, o in ps}) == 1 and {o for t, o in ps} == {'cifar10_test', 'cifar100_test'}: return f'{IDN[ps[0][0]]}$\\to$CIFAR-10/-100'
+    return ', '.join(f'{IDN[t]}$\\to${SETN[o]}' for t, o in ps)
+M['lostNatCostlyNote'] = ('; ' + _pairs_text(_costly) + ' only to ' + ' and '.join(sorted({LABEL[r] for t, o in _costly for r in _lostto[(t, o)]}))) if _costly else ''
+M['grMean'] = f1(ids_mean(J, 'Graham')) if 'Graham' in COMPLETE else '--'; M['lmdMean'] = f1(ids_mean(J, 'LMD')) if 'LMD' in COMPLETE else '--'
 M['nLostNat'] = str(len(lostN)); M['nNoLossNat'] = str(len(NATP) - len(lostN))
 M['lostOwnList'] = ', '.join(f'{IDN[t]}$\\to${SETN[o]}' for t, o in lostOwn); M['nLostOwn'] = str(len(lostOwn))
 M['nSumBelowBest'] = str(len(belowB)); M['sumBelowBestMaxGap'] = f1(round(max(pair(belowB[0][0], belowB[0][1], r) for r in ('Ours content', 'Ours pose')), 1) - round(pair(belowB[0][0], belowB[0][1]), 1)) if belowB else '0'
@@ -344,9 +351,10 @@ def marks(vals):
 def cell(v, m):
     if v is None: return '--'
     return {'b': f'\\cellcolor{{firstblue}}\\textbf{{{f1(v)}}}', 's': f'\\underline{{{f1(v)}}}', '': f1(v)}[m]
-GROUPS = [('\\emph{Likelihood, score, reconstruction and dimension statistics of the diffusion model}', EIGHT + NEWROWS),
+GROUPS = [('\\emph{Likelihood and score statistics of the diffusion model}', EIGHT),
           ('\\emph{Features of the diffusion model}', ['CFS', 'CFS-kNN', 'kNN (CT)', 'kNN tuned']),
-          ('\\emph{Networks trained on the ID images}', ['RotCls4'] + (['CSI'] if CSI else []))]
+          ('\\emph{Networks trained on the ID images}', ['RotCls4'] + (['CSI'] if CSI else [])),
+          ('\\emph{Reconstruction and dimension methods of the diffusion model, thousands of network evaluations per image (not ranked)}', NEWROWS)]
 def rowvals(r):
     if r == 'CSI':
         ids = [CSI['ids'][t]['csi_nat'] if t in CSI['ids'] else None for t in TAGS]
@@ -358,8 +366,10 @@ cols = {r: rowvals(r) for r in rows}
 cols['ours'] = [J['ids'][t]['ours'] for t in TAGS] + [J['mean_ours'], near_mean(), float(np.mean(vo))]
 order = rows + ['ours']; mk = {r: [] for r in order}
 def partial_row(r): return r != 'ours' and any(v is None for v in cols[r][:len(TAGS)])      # rows not run on every ID dataset: their Mean / Near are not comparable
+OURS_BASELINES = ('kNN (CT)', 'kNN tuned')                 # the kNN rule on our own features, built here (not prior work): shown, compared (W/T/L), but not ranked
+UNRANKED = OURS_BASELINES + tuple(NEWROWS)                   # ... and the methods with thousands of network evaluations per image (a different cost regime)
 for j in range(len(TAGS) + 3):
-    vals = [None if (j in (len(TAGS), len(TAGS) + 1) and partial_row(r)) else cols[r][j] for r in order]
+    vals = [None if (r in UNRANKED or (j in (len(TAGS), len(TAGS) + 1) and partial_row(r))) else cols[r][j] for r in order]
     mm = marks(vals) if j != len(TAGS) + 2 else [''] * len(order)      # the Flip column (a probe) is not marked
     for r, m in zip(order, mm): mk[r].append(m)
 def wtl_cell(r):
@@ -374,7 +384,7 @@ L = ['% written by gen/mk_ijcai.py']
 for gi, (title, rs) in enumerate(GROUPS):
     L.append(('\\midrule' if gi else '') + f'\\multicolumn{{{NCOL}}}{{@{{}}l}}{{{title}}}\\\\')
     for r in rs:
-        lab = LABEL[r] + ('$^{\\S}$' if r == 'CSI' or (r in NEWTIERS and len(NEWTIERS[r]) < len(TAGS)) else '')
+        lab = (LABEL[r].replace(')', '; ours)') if r in OURS_BASELINES else LABEL[r]) + ('$^{\\S}$' if r == 'CSI' or (r in NEWTIERS and len(NEWTIERS[r]) < len(TAGS)) else '')
         cells = [cell(v, m) for v, m in zip(cols[r], mk[r])]; w = wtl_cell(r)
         if r == 'Kamkari' and kam_missing:                               # filled in by the remaining runs: red
             cells = [later(c) if (j < len(TAGS) and TAGS[j] in kam_missing) or j in (len(TAGS), len(TAGS) + 2) else c for j, c in enumerate(cells)]; w = later(w)
@@ -401,7 +411,7 @@ LAB2 = {'Ours': 'Upright kNN', 'kNN term': '\\quad kNN term', 'Orientation term'
         'CFS': 'CFS (diag.)', 'CFS kNN': 'CFS (kNN)', 'RotCls4': 'Rotation pred.', 'NLL': 'NLL', 'IC-png': 'IC (PNG)', 'IC-j2k': 'IC (J2K)', 'TT': 'TT',
         'MSMA*': 'MSMA$^{*}$', 'DiffPath': 'DiffPath', 'GEPC': 'GEPC', 'EigenScore': 'EigenScore'}
 CS64 = ['in64_imagenet_v2', 'in64_imagenet_c', 'in64_imagenet_r']
-ABL = ('kNN term', 'Orientation term')                          # the two terms of Ours: shown without marks
+ABL = ('kNN term', 'Orientation term', 'kNN basic')             # the two terms of Ours and the kNN rule on our features: shown without marks (not ranked)
 def block(Rs, get, cs_of):
     keys = ['near', 'far', 'FS-near', 'FS-far']; mkd = {r: [] for r in Rs}
     for k in keys:
